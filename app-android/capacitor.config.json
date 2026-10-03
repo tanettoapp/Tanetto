@@ -1,0 +1,7 @@
+{
+  "appId": "com.tanettoapp.tanetto",
+  "appName": "Tanetto",
+  "webDir": "www",
+  "backgroundColor": "#F4EFE6",
+  "android": { "allowMixedContent": false }
+}
