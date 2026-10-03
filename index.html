@@ -22996,7 +22996,10 @@ viewTrips = function () {
   const btns = world.map((d) => { const found = S.cards.includes(d.cards[0]); return `<button class="dest wdest ${plus ? "" : "plusl"}" ${S.away ? "disabled" : ""} aria-pressed="${pickedDest === d.key}" data-dest="${d.key}" ${plus ? "" : `data-wplus="1"`}><span class="pc">${d.art()}</span><span class="meta"><b>${esc(d.name)}</b><span class="small muted">${plus ? `${t.hours(d.h)}${found ? ` · ${icon("check")}` : ""}` : `${icon("p_crown")} Tanetto Plus`}</span></span></button>`; }).join("");
   const have = world.filter((d) => S.cards.includes(d.cards[0])).length;
   const sec = `<div class="worldsec"><div class="sec"><h2>${icon("p_crown")}${t.worldT}</h2><span class="small muted">${have}/${world.length}</span></div><p class="small muted">${t.worldP}</p><div class="stack-s">${btns}</div></div>`;
-  const key = `<div class="sec"><h2>${t.albumT}</h2>`; return h.includes(key) ? h.replace(key, sec + key) : h + sec;
+  const key = `<div class="sec"><h2>${t.albumT}</h2>`; let out = h.includes(key) ? h.replace(key, sec + key) : h + sec;
+  const wp = pickedDest && pickedDest.startsWith("w:") ? world.find((d) => d.key === pickedDest) : null;
+  if (wp && plus && !S.away && S.energy >= 100 && !out.includes('id="depart"')) out += `<div class="departbar"><div class="in"><button class="btn block" id="depart">${esc(t.depart(wp.name))} · ${t.hours(wp.h)}</button></div></div>`;
+  return out;
 };
 
 /* --- Scena gratuita della stagione: Festa delle Lanterne --- */
