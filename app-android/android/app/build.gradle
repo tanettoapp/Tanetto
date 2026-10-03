@@ -16,7 +16,20 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        prova {
+            // Chiave solo per l'APK di prova: cosi' gli aggiornamenti si installano sopra.
+            // L'app per lo store avra' una chiave diversa e privata.
+            storeFile file("prova.keystore")
+            storePassword "android"
+            keyAlias "prova"
+            keyPassword "android"
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.prova
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
