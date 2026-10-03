@@ -893,6 +893,67 @@ html.calm .seameta em { animation: none; }
 .svgift svg { width: 20px; height: 20px; }
 .overlay .svbox .fdpet { align-self: center; }
 .overlay .svbox h2#svT2 { text-align: center; }
+
+/* =================== v12: compagni Plus, promemoria, bentornato, invito =================== */
+.choose.four { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.choose.four .choice { padding: 8px 4px 10px; border-radius: 18px; }
+.choose.four .choice .nm { font-size: 15px; }
+.choose.four .choice .ds { font-size: 11px; }
+.choice { position: relative; }
+.ppcrown { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(#FFD98A, #EDA634); color: #3B2A10; box-shadow: 0 2px 0 #B87A1E; }
+.ppcrown svg { width: 14px; height: 14px; }
+.ppsec { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 22px; background: linear-gradient(160deg, #FFF6E2, transparent 70%); box-shadow: inset 0 0 0 2px #F5DDA3; }
+.ppsec p { margin: 0; }
+.pphd { display: flex; align-items: center; gap: 6px; color: #B87A1E; font-family: var(--font-display); font-size: 17px; }
+.pphd svg { width: 20px; height: 20px; }
+.ppbox, .pkbox { gap: 10px; }
+.ppbox p { margin: 0; }
+.ppbig { width: 210px; height: 210px; border-radius: 50%; display: grid; place-items: center; }
+.ppbig svg { width: 200px; height: 200px; }
+.pptag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 12px; border-radius: 99px; background: linear-gradient(#FFD98A, #EDA634); color: #3B2A10; font-weight: 800; font-size: 13px; }
+.pptag svg { width: 15px; height: 15px; }
+.pkbox { max-height: 92vh; overflow-y: auto; }
+.pkbox .pphd { align-self: flex-start; margin-top: 6px; }
+.petcard { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: center; }
+.pcart { width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; }
+.pcart svg { width: 88px; height: 88px; }
+.pctx h3, .pctx p { margin: 0 0 6px; }
+.remcard, .invcard { display: flex; flex-direction: column; gap: 10px; }
+.remcard.ask { box-shadow: var(--shadow), inset 0 0 0 2px var(--accent-soft); }
+.chic.rem { background: #FFF1D2; color: #C98424; }
+.chic.inv { background: #FDE1E8; color: #D8496F; }
+.remrow { display: flex; align-items: center; gap: 10px; }
+.remrow label { flex: 1; font-weight: 600; }
+.remrow input { width: auto; min-width: 120px; font-size: 18px; text-align: center; }
+.rembtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rembtns .btn { text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+.remcard .link { align-self: center; }
+.invcard .btn svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 6px; }
+.wgbox { gap: 12px; }
+.wgbox p { margin: 0; }
+html.firstgoal .goal .tick { animation: firstpulse 1.6s ease-in-out infinite; }
+@keyframes firstpulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--accent) 0%, transparent); } }
+html.calm.firstgoal .goal .tick { animation: none; box-shadow: 0 0 0 3px var(--accent); }
+@media (prefers-reduced-motion: reduce) { html.firstgoal .goal .tick { animation: none; box-shadow: 0 0 0 3px var(--accent); } }
+:root[data-pet="miko"] { --accent: #6B5BB0; --accent-soft: #ECE7F7; }
+:root[data-pet="rufi"] { --accent: #C25E2A; --accent-soft: #FBE3D2; }
+:root[data-pet="pingo"] { --accent: #3F5A8C; --accent-soft: #DDE6F3; }
+:root[data-pet="dori"] { --accent: #2E8A6E; --accent-soft: #D7F2E8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-pet="miko"] { --accent: #B7A9F0; --accent-soft: #2E2A44; }
+  :root:not([data-theme="light"])[data-pet="rufi"] { --accent: #F2A57A; --accent-soft: #3F2A20; }
+  :root:not([data-theme="light"])[data-pet="pingo"] { --accent: #9FB8E6; --accent-soft: #232C40; }
+  :root:not([data-theme="light"])[data-pet="dori"] { --accent: #8ED8C0; --accent-soft: #1F3A32; }
+  :root:not([data-theme="light"]) .ppsec { background: linear-gradient(160deg, #3A3020, transparent 70%); box-shadow: inset 0 0 0 2px #5A4720; }
+}
+:root[data-theme="dark"][data-pet="miko"] { --accent: #B7A9F0; --accent-soft: #2E2A44; }
+:root[data-theme="dark"][data-pet="rufi"] { --accent: #F2A57A; --accent-soft: #3F2A20; }
+:root[data-theme="dark"][data-pet="pingo"] { --accent: #9FB8E6; --accent-soft: #232C40; }
+:root[data-theme="dark"][data-pet="dori"] { --accent: #8ED8C0; --accent-soft: #1F3A32; }
+:root[data-theme="dark"] .ppsec { background: linear-gradient(160deg, #3A3020, transparent 70%); box-shadow: inset 0 0 0 2px #5A4720; }
+html.lite .overlay, html.lite .fullbtn, html.lite .scn, html.lite .tabs, html.lite .tabbar, html.lite .trybar, html.lite .departbar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+html.lite .overlay { background: color-mix(in srgb, var(--bg) 96%, transparent); }
+html.lite .seameta em, html.lite.firstgoal .goal .tick { animation: none; }
 </style>
 
 <div class="app" id="app"></div>
@@ -18265,6 +18326,202 @@ T.tr.survey = {
   ]
 };
 
+/* v12: compagni Plus, promemoria, bentornato, invita un amico (it, en; le altre lingue in 3zv_v12_more.js) */
+Object.assign(T.it.pets, { miko: ["Miko", "Un gattino soffice come una nuvola."], rufi: ["Rufi", "Una volpina curiosa e coraggiosa."], pingo: ["Pingo", "Un pinguino che non si arrende mai."], dori: ["Dori", "Un draghetto gentile e un po' goffo."] });
+Object.assign(T.en.pets, { miko: ["Miko", "A kitten as soft as a cloud."], rufi: ["Rufi", "A curious, brave little fox."], pingo: ["Pingo", "A penguin who never gives up."], dori: ["Dori", "A gentle, slightly clumsy dragon."] });
+T.it.v12 = {
+  ppT: "Compagni Plus", ppP: "Altri amici speciali, con Tanetto Plus.", want: (n) => `Voglio ${n}`, choose: (n) => `Scegli ${n}`, back: "Indietro",
+  meT: "Il tuo compagno", meP: "Puoi cambiarlo quando vuoi: livello, oggetti e progressi restano tutti.", change: "Cambia compagno", cur: "Con te ora", hi: (n) => `Ciao, sono ${n}! Che bello stare con te.`, keep: "Se un giorno Plus finisce, il compagno che hai scelto resta con te.",
+  perk: "4 compagni esclusivi, e uno nuovo ogni stagione",
+  firstT: "Il tuo primo passo!", firstP: (n) => `Tocca il cerchio accanto a un obiettivo quando l'hai fatto: ${n} si riempirà di energia.`, giftT: "Un regalo di benvenuto", giftP: (n) => `${n} ha preparato qualcosa per te: 50 Tanì per iniziare ad arredare la sua stanzetta.`, giftB: "Grazie!",
+  remT: "Un promemoria ogni giorno", remP: (n) => `Scegli l'ora: ${n} ti ricorderà con dolcezza di passare a trovarlo. Si aggiunge al calendario del telefono.`, remTime: "Ora del promemoria", remG: "Google Calendar", remI: "Altro calendario", remDone: "Promemoria pronto: aprilo e salvalo nel calendario.",
+  remTitle: (n) => `${n} ti aspetta 🌱`, remBody: "Un piccolo passo per prenderti cura di te. Apri Tanetto:", remAsk: "Vuoi un promemoria gentile ogni giorno?", remLater: "No, grazie",
+  backT: "Bentornato!", backP: [(n) => `${n} è felicissimo di rivederti! Nessun problema per i giorni passati: si riparte da qui, insieme.`, (n) => `Che bello, sei tornato! ${n} ti ha tenuto il posto al calduccio.`, (n) => `${n} ti stava aspettando. Oggi basta anche un passo piccolissimo.`], backGift: "+20 Tanì di bentornato", backB: "Ricominciamo",
+  invT: "Invita un amico", invP: (n) => `Prendersi cura di sé è più bello in compagnia. Manda a un amico una foto di ${n}.`, invB: "Invita", invTitle: (n) => `Ti presento ${n}!`, invSub: "Prenditi cura di te con un piccolo amico · gratis", invText: (n) => `Ti presento ${n}, il mio piccolo compagno su Tanetto: ci aiuta a prenderci cura di noi, un passo alla volta. Provalo, è gratis!`,
+  lite: "Modalità leggera", liteP: "Meno effetti, più fluida sui telefoni lenti. Si attiva da sola se serve."
+};
+T.en.v12 = {
+  ppT: "Plus companions", ppP: "More special friends, with Tanetto Plus.", want: (n) => `I want ${n}`, choose: (n) => `Choose ${n}`, back: "Back",
+  meT: "Your companion", meP: "You can change it anytime: level, items and progress all stay.", change: "Change companion", cur: "With you now", hi: (n) => `Hi, I'm ${n}! So happy to be with you.`, keep: "If Plus ever ends, the companion you chose stays with you.",
+  perk: "4 exclusive companions, plus a new one every season",
+  firstT: "Your first step!", firstP: (n) => `Tap the circle next to a goal when you've done it: ${n} will fill up with energy.`, giftT: "A welcome gift", giftP: (n) => `${n} has something for you: 50 Tanì to start decorating their little room.`, giftB: "Thank you!",
+  remT: "A daily reminder", remP: (n) => `Pick a time: ${n} will gently remind you to drop by. It goes into your phone's calendar.`, remTime: "Reminder time", remG: "Google Calendar", remI: "Other calendar", remDone: "Reminder ready: open it and save it to your calendar.",
+  remTitle: (n) => `${n} is waiting for you 🌱`, remBody: "A small step to take care of yourself. Open Tanetto:", remAsk: "Would you like a gentle daily reminder?", remLater: "No, thanks",
+  backT: "Welcome back!", backP: [(n) => `${n} is so happy to see you again! Don't worry about the days you missed: we start again from here, together.`, (n) => `Yay, you're back! ${n} kept your spot nice and cosy.`, (n) => `${n} was waiting for you. Today even a tiny step is enough.`], backGift: "+20 Tanì welcome-back gift", backB: "Let's start again",
+  invT: "Invite a friend", invP: (n) => `Self-care is nicer together. Send a friend a picture of ${n}.`, invB: "Invite", invTitle: (n) => `Meet ${n}!`, invSub: "Take care of yourself with a tiny friend · free", invText: (n) => `Meet ${n}, my little companion on Tanetto: we take care of ourselves, one small step at a time. Try it, it's free!`,
+  lite: "Light mode", liteP: "Fewer effects, smoother on slower phones. Turns on by itself when needed."
+};
+
+/* v12: compagni Plus, promemoria, bentornato, invita un amico (de, es, fr, pt, ja, ko, zh, zht, ru, pl, nl, tr) */
+
+/* ---------- Deutsch ---------- */
+Object.assign(T.de.pets, { miko: ["Miko", "Ein Kätzchen, weich wie eine Wolke."], rufi: ["Rufi", "Ein neugieriges, mutiges Füchschen."], pingo: ["Pingo", "Ein Pinguin, der niemals aufgibt."], dori: ["Dori", "Ein sanfter, etwas tollpatschiger Drache."] });
+T.de.v12 = {
+  ppT: "Plus-Begleiter", ppP: "Noch mehr besondere Freunde, mit Tanetto Plus.", want: (n) => `Ich will ${n}`, choose: (n) => `${n} wählen`, back: "Zurück",
+  meT: "Dein Begleiter", meP: "Du kannst jederzeit wechseln: Level, Objekte und Fortschritte bleiben alle erhalten.", change: "Begleiter wechseln", cur: "Gerade bei dir", hi: (n) => `Hallo, ich bin ${n}! Schön, bei dir zu sein.`, keep: "Falls Plus einmal endet, bleibt dein gewählter Begleiter bei dir.",
+  perk: "4 exklusive Begleiter und jede Saison ein neuer",
+  firstT: "Dein erster Schritt!", firstP: (n) => `Tippe auf den Kreis neben einem Ziel, wenn du es geschafft hast: ${n} tankt dann Energie.`, giftT: "Ein Willkommensgeschenk", giftP: (n) => `${n} hat etwas für dich: 50 Tanì, um das kleine Zimmer einzurichten.`, giftB: "Danke!",
+  remT: "Eine tägliche Erinnerung", remP: (n) => `Wähle eine Uhrzeit: ${n} erinnert dich sanft daran, vorbeizuschauen. Die Erinnerung kommt in den Kalender deines Handys.`, remTime: "Uhrzeit der Erinnerung", remG: "Google Calendar", remI: "Anderer Kalender", remDone: "Erinnerung bereit: Öffne sie und speichere sie im Kalender.",
+  remTitle: (n) => `${n} wartet auf dich 🌱`, remBody: "Ein kleiner Schritt, um gut für dich zu sorgen. Öffne Tanetto:", remAsk: "Möchtest du jeden Tag eine sanfte Erinnerung?", remLater: "Nein, danke",
+  backT: "Willkommen zurück!", backP: [(n) => `${n} freut sich riesig, dich wiederzusehen! Die vergangenen Tage sind kein Problem: Wir machen einfach hier weiter, zusammen.`, (n) => `Juhu, du bist wieder da! ${n} hat dir dein Plätzchen schön warm gehalten.`, (n) => `${n} hat schon auf dich gewartet. Heute reicht auch ein ganz kleiner Schritt.`], backGift: "+20 Tanì zur Begrüßung", backB: "Los geht's",
+  invT: "Lade jemanden ein", invP: (n) => `Zusammen macht Selbstfürsorge mehr Spaß. Schick jemandem ein Bild von ${n}.`, invB: "Einladen", invTitle: (n) => `Das ist ${n}!`, invSub: "Sorg gut für dich, mit einem kleinen Freund · kostenlos", invText: (n) => `Das ist ${n}, mein kleiner Begleiter in Tanetto: Gemeinsam sorgen wir gut für uns, Schritt für Schritt. Probier's aus, es ist kostenlos!`,
+  lite: "Sparmodus", liteP: "Weniger Effekte, flüssiger auf langsamen Handys. Schaltet sich bei Bedarf von selbst ein."
+};
+
+/* ---------- Español ---------- */
+Object.assign(T.es.pets, { miko: ["Miko", "Un gatito suave como una nube."], rufi: ["Rufi", "Una zorrita curiosa y valiente."], pingo: ["Pingo", "Un pingüino que nunca se rinde."], dori: ["Dori", "Un dragoncito tierno y algo torpe."] });
+T.es.v12 = {
+  ppT: "Compañeros Plus", ppP: "Más amigos especiales, con Tanetto Plus.", want: (n) => `Quiero a ${n}`, choose: (n) => `Elegir a ${n}`, back: "Atrás",
+  meT: "Tu compañero", meP: "Puedes cambiarlo cuando quieras: el nivel, los objetos y el progreso se quedan.", change: "Cambiar compañero", cur: "Contigo ahora", hi: (n) => `¡Hola, soy ${n}! Qué alegría estar contigo.`, keep: "Si algún día termina Plus, el compañero que elegiste se queda contigo.",
+  perk: "4 compañeros exclusivos y uno nuevo cada temporada",
+  firstT: "¡Tu primer paso!", firstP: (n) => `Toca el círculo junto a un objetivo cuando lo hayas hecho: ${n} se llenará de energía.`, giftT: "Un regalo de bienvenida", giftP: (n) => `${n} tiene algo para ti: 50 Tanì para empezar a decorar su cuartito.`, giftB: "¡Gracias!",
+  remT: "Un recordatorio cada día", remP: (n) => `Elige la hora: ${n} te recordará con cariño que pases a saludar. Se añade al calendario del móvil.`, remTime: "Hora del recordatorio", remG: "Google Calendar", remI: "Otro calendario", remDone: "Recordatorio listo: ábrelo y guárdalo en tu calendario.",
+  remTitle: (n) => `${n} te espera 🌱`, remBody: "Un pequeño paso para cuidarte. Abre Tanetto:", remAsk: "¿Quieres un recordatorio amable cada día?", remLater: "No, gracias",
+  backT: "¡Qué bueno verte!", backP: [(n) => `¡${n} está feliz de volver a verte! No pasa nada por los días pasados: seguimos desde aquí, juntos.`, (n) => `¡Qué alegría, ya estás aquí! ${n} te ha guardado el sitio calentito.`, (n) => `${n} te estaba esperando. Hoy basta con un pasito chiquito.`], backGift: "+20 Tanì de bienvenida", backB: "Volvamos a empezar",
+  invT: "Invita a alguien", invP: (n) => `Cuidarse es más bonito en compañía. Envía a alguien una foto de ${n}.`, invB: "Invitar", invTitle: (n) => `¡Te presento a ${n}!`, invSub: "Cuídate con un pequeño amigo · gratis", invText: (n) => `Te presento a ${n}, mi pequeño compañero en Tanetto: nos ayuda a cuidarnos, paso a paso. ¡Pruébalo, es gratis!`,
+  lite: "Modo ligero", liteP: "Menos efectos, más fluido en móviles lentos. Se activa solo si hace falta."
+};
+
+/* ---------- Français ---------- */
+Object.assign(T.fr.pets, { miko: ["Miko", "Un chaton doux comme un nuage."], rufi: ["Rufi", "Un petit renard curieux et courageux."], pingo: ["Pingo", "Un manchot qui n'abandonne jamais."], dori: ["Dori", "Un petit dragon gentil et un peu maladroit."] });
+T.fr.v12 = {
+  ppT: "Compagnons Plus", ppP: "D'autres amis spéciaux, avec Tanetto Plus.", want: (n) => `Je veux ${n}`, choose: (n) => `Choisir ${n}`, back: "Retour",
+  meT: "Ton compagnon", meP: "Tu peux en changer quand tu veux : niveau, objets et progrès, tout est conservé.", change: "Changer de compagnon", cur: "Avec toi en ce moment", hi: (n) => `Coucou, c'est ${n} ! Quelle joie d'être avec toi.`, keep: "Si Plus s'arrête un jour, le compagnon que tu as choisi reste avec toi.",
+  perk: "4 compagnons exclusifs, et un nouveau chaque saison",
+  firstT: "Ton premier pas !", firstP: (n) => `Touche le cercle à côté d'un objectif quand tu l'as fait : ${n} se remplira d'énergie.`, giftT: "Un cadeau de bienvenue", giftP: (n) => `${n} a quelque chose pour toi : 50 Tanì pour commencer à décorer sa petite chambre.`, giftB: "Merci !",
+  remT: "Un rappel chaque jour", remP: (n) => `Choisis l'heure : ${n} te rappellera tout doucement de passer faire un coucou. Le rappel s'ajoute au calendrier du téléphone.`, remTime: "Heure du rappel", remG: "Google Calendar", remI: "Autre calendrier", remDone: "Rappel prêt : ouvre-le et enregistre-le dans ton calendrier.",
+  remTitle: (n) => `${n} t'attend 🌱`, remBody: "Un petit pas pour prendre soin de toi. Ouvre Tanetto :", remAsk: "Tu veux un petit rappel tout doux chaque jour ?", remLater: "Non, merci",
+  backT: "Te revoilà !", backP: [(n) => `Quelle joie pour ${n} de te revoir ! Pas de souci pour les jours passés : on repart d'ici, ensemble.`, (n) => `Youpi, te revoilà ! ${n} t'a gardé ta place bien au chaud.`, (n) => `${n} t'attendait. Aujourd'hui, même un tout petit pas suffit.`], backGift: "+20 Tanì pour ton retour", backB: "On recommence",
+  invT: "Inviter quelqu'un", invP: (n) => `Prendre soin de soi, c'est plus sympa à plusieurs. Envoie une photo de ${n} à quelqu'un.`, invB: "Inviter", invTitle: (n) => `Je te présente ${n} !`, invSub: "Prends soin de toi avec un petit ami · gratuit", invText: (n) => `Je te présente ${n}, mon petit compagnon sur Tanetto : on prend soin de nous, un petit pas à la fois. Essaie, c'est gratuit !`,
+  lite: "Mode léger", liteP: "Moins d'effets, plus fluide sur les téléphones lents. S'active tout seul si besoin."
+};
+
+/* ---------- Português (Brasil) ---------- */
+Object.assign(T.pt.pets, { miko: ["Miko", "Um gatinho macio como uma nuvem."], rufi: ["Rufi", "Uma raposinha curiosa e corajosa."], pingo: ["Pingo", "Um pinguim que nunca desiste."], dori: ["Dori", "Um dragãozinho gentil e meio desajeitado."] });
+T.pt.v12 = {
+  ppT: "Companheiros Plus", ppP: "Mais amigos especiais, com o Tanetto Plus.", want: (n) => `Quero ${n}`, choose: (n) => `Escolher ${n}`, back: "Voltar",
+  meT: "Seu companheiro", meP: "Você pode trocar quando quiser: nível, itens e progresso continuam todos aqui.", change: "Trocar companheiro", cur: "Com você agora", hi: (n) => `Oi, eu sou ${n}! Que bom estar com você.`, keep: "Se um dia o Plus acabar, o companheiro que você escolheu continua com você.",
+  perk: "4 companheiros exclusivos e um novo a cada temporada",
+  firstT: "Seu primeiro passo!", firstP: (n) => `Toque no círculo ao lado de uma meta quando concluir: ${n} vai se encher de energia.`, giftT: "Um presente de boas-vindas", giftP: (n) => `${n} tem uma coisa para você: 50 Tanì para começar a decorar o quartinho.`, giftB: "Oba, valeu!",
+  remT: "Um lembrete todo dia", remP: (n) => `Escolha o horário: ${n} vai te lembrar com carinho de passar para uma visitinha. O lembrete vai para a agenda do celular.`, remTime: "Horário do lembrete", remG: "Google Calendar", remI: "Outra agenda", remDone: "Lembrete pronto: abra e salve na sua agenda.",
+  remTitle: (n) => `${n} está te esperando 🌱`, remBody: "Um passinho para se cuidar. Abra o Tanetto:", remAsk: "Quer um lembrete carinhoso todo dia?", remLater: "Agora não",
+  backT: "Que bom te ver de novo!", backP: [(n) => `${n} está muito feliz em te ver de novo! Sem problema pelos dias que passaram: a gente recomeça daqui, juntos.`, (n) => `Oba, você voltou! ${n} guardou seu lugarzinho bem quentinho.`, (n) => `${n} estava te esperando. Hoje, até um passinho bem pequeno já basta.`], backGift: "+20 Tanì de boas-vindas", backB: "Vamos recomeçar",
+  invT: "Convide alguém", invP: (n) => `Se cuidar é mais gostoso em companhia. Mande uma foto de ${n} para alguém.`, invB: "Convidar", invTitle: (n) => `Conheça ${n}!`, invSub: "Cuide de você com um amiguinho · grátis", invText: (n) => `Conheça ${n}, meu companheirinho no Tanetto: a gente se cuida junto, um passinho de cada vez. Experimenta, é grátis!`,
+  lite: "Modo leve", liteP: "Menos efeitos, mais fluido em celulares lentos. Liga sozinho quando precisa."
+};
+
+/* ---------- 日本語 ---------- */
+Object.assign(T.ja.pets, { miko: ["Miko", "雲みたいにふわふわの子ネコ。"], rufi: ["Rufi", "好奇心いっぱいの、勇気ある子ギツネ。"], pingo: ["Pingo", "ぜったいにあきらめないペンギン。"], dori: ["Dori", "やさしくて、ちょっぴりドジなドラゴン。"] });
+T.ja.v12 = {
+  ppT: "Plusのパートナー", ppP: "Tanetto Plusで、特別な仲間がもっと。", want: (n) => `${n}をむかえたい`, choose: (n) => `${n}にする`, back: "もどる",
+  meT: "あなたのパートナー", meP: "いつでも変えられます。レベルもアイテムも進み具合も、ぜんぶそのまま。", change: "パートナーを変える", cur: "いまいっしょ", hi: (n) => `こんにちは、${n}だよ! いっしょにいられてうれしいな。`, keep: "もしPlusが終わっても、選んだパートナーはずっといっしょです。",
+  perk: "限定パートナー4匹、シーズンごとに新しい子も",
+  firstT: "はじめの一歩!", firstP: (n) => `目標ができたら、となりの丸をタップしてね。${n}が元気いっぱいになります。`, giftT: "ようこそのプレゼント", giftP: (n) => `${n}からのプレゼント。お部屋の飾りつけを始めるための50 Tanìです。`, giftB: "ありがとう!",
+  remT: "毎日のリマインダー", remP: (n) => `時間を選んでね。${n}が、会いにきてねとやさしく知らせてくれます。スマホのカレンダーに追加されます。`, remTime: "リマインダーの時間", remG: "Google Calendar", remI: "ほかのカレンダー", remDone: "リマインダーの準備ができました。開いてカレンダーに保存してね。",
+  remTitle: (n) => `${n}が待ってるよ 🌱`, remBody: "自分を大切にする、小さな一歩。Tanettoを開こう:", remAsk: "毎日、やさしいリマインダーを受け取る?", remLater: "いまはいい",
+  backT: "おかえりなさい!", backP: [(n) => `${n}はまた会えてとってもうれしそう! 休んだ日のことは気にしないで。ここからまた、いっしょに始めよう。`, (n) => `やったー、おかえり! ${n}があなたの場所をぽかぽかにしておいたよ。`, (n) => `${n}はずっと待っていたよ。今日はほんの小さな一歩で十分。`], backGift: "おかえりの+20 Tanì", backB: "また始めよう",
+  invT: "友だちを招待", invP: (n) => `自分を大切にするのは、だれかといっしょだともっと楽しい。友だちに${n}の写真を送ろう。`, invB: "招待する", invTitle: (n) => `${n}を紹介するね!`, invSub: "小さな仲間と、自分を大切に・無料", invText: (n) => `${n}を紹介するね。Tanettoでいっしょにいる小さなパートナーだよ。一歩ずつ、自分を大切にできるアプリ。無料だから試してみて!`,
+  lite: "軽量モード", liteP: "演出をひかえめにして、動きの遅いスマホでもなめらかに。必要なときは自動でオンになります。"
+};
+
+/* ---------- 한국어 ---------- */
+Object.assign(T.ko.pets, { miko: ["Miko", "구름처럼 보들보들한 아기 고양이예요."], rufi: ["Rufi", "호기심 많고 용감한 아기 여우예요."], pingo: ["Pingo", "절대 포기하지 않는 펭귄이에요."], dori: ["Dori", "다정하고 조금 서툰 아기 용이에요."] });
+T.ko.v12 = {
+  ppT: "Plus 친구", ppP: "Tanetto Plus와 함께라면 특별한 친구가 더 많아요.", want: (n) => `${n} 만나고 싶어요`, choose: (n) => `${n} 선택하기`, back: "뒤로",
+  meT: "나의 친구", meP: "언제든 바꿀 수 있어요. 레벨, 아이템, 진행 상황은 모두 그대로예요.", change: "친구 바꾸기", cur: "지금 함께하는 중", hi: (n) => `안녕! 내 이름은 ${n}. 함께라서 정말 행복해!`, keep: "Plus가 끝나더라도 내가 고른 친구는 계속 곁에 있어요.",
+  perk: "전용 친구 4명, 그리고 시즌마다 새로운 친구",
+  firstT: "첫걸음이에요!", firstP: (n) => `목표를 해냈다면 옆의 동그라미를 탭하세요. ${n}의 에너지가 가득 차올라요.`, giftT: "환영 선물", giftP: (n) => `${n}의 선물이에요. 작은 방을 꾸미기 시작할 수 있는 50 Tanì예요.`, giftB: "고마워요!",
+  remT: "매일 알림 받기", remP: (n) => `시간을 골라 주세요. ${n}의 다정한 알림이 매일 들러 달라고 알려 줄 거예요. 휴대폰 캘린더에 추가돼요.`, remTime: "알림 시간", remG: "Google Calendar", remI: "다른 캘린더", remDone: "알림 준비 완료! 열어서 캘린더에 저장하세요.",
+  remTitle: (n) => `${n}한테 들러 주세요 🌱`, remBody: "나를 돌보는 작은 한 걸음. Tanetto 열기:", remAsk: "매일 다정한 알림을 받아 볼까요?", remLater: "괜찮아요",
+  backT: "다시 와 줘서 반가워요!", backP: [(n) => `다시 만나서 ${n}도 정말 기뻐해요! 지난날은 걱정하지 마세요. 여기서부터 다시 함께 시작해요.`, (n) => `와, 돌아왔네요! ${n}의 곁에 따뜻한 자리를 그대로 남겨 두었어요.`, (n) => `${n}도 내내 기다리고 있었어요. 오늘은 아주 작은 한 걸음이면 충분해요.`], backGift: "돌아온 기념 +20 Tanì", backB: "다시 시작하기",
+  invT: "친구 초대하기", invP: (n) => `나를 돌보는 일은 함께하면 더 즐거워요. 친구에게 ${n}의 사진을 보내 보세요.`, invB: "초대하기", invTitle: (n) => `${n}에게 인사해 줘!`, invSub: "작은 친구와 함께 나를 돌봐요 · 무료", invText: (n) => `${n}에게 인사해 줘! Tanetto에서 함께하는 내 작은 친구야. 한 걸음씩 나를 돌볼 수 있게 도와줘. 무료니까 한번 해 봐!`,
+  lite: "가벼운 모드", liteP: "효과를 줄여 느린 휴대폰에서도 더 부드럽게. 필요하면 자동으로 켜져요."
+};
+
+/* ---------- 简体中文 ---------- */
+Object.assign(T.zh.pets, { miko: ["Miko", "一只像云朵一样软绵绵的小猫。"], rufi: ["Rufi", "一只好奇又勇敢的小狐狸。"], pingo: ["Pingo", "一只永不放弃的企鹅。"], dori: ["Dori", "一只温柔又有点笨拙的小龙。"] });
+T.zh.v12 = {
+  ppT: "Plus 小伙伴", ppP: "开通 Tanetto Plus，结识更多特别的朋友。", want: (n) => `我想要 ${n}`, choose: (n) => `选择 ${n}`, back: "返回",
+  meT: "你的小伙伴", meP: "随时都可以更换：等级、物品和进度都会保留。", change: "更换小伙伴", cur: "正在陪着你", hi: (n) => `你好，我是 ${n}！能陪着你真开心。`, keep: "就算以后 Plus 到期，你选的小伙伴也会一直陪着你。",
+  perk: "4 个专属小伙伴，每一季还有新伙伴",
+  firstT: "迈出第一步！", firstP: (n) => `完成一个目标后，点一下旁边的圆圈：${n} 就会充满能量。`, giftT: "见面礼", giftP: (n) => `${n} 给你准备了一份礼物：50 Tanì，可以开始布置小房间啦。`, giftB: "谢谢！",
+  remT: "每日提醒", remP: (n) => `选个时间：${n} 会温柔地提醒你来看看。提醒会加到手机日历里。`, remTime: "提醒时间", remG: "Google Calendar", remI: "其他日历", remDone: "提醒已准备好：打开它并保存到日历里。",
+  remTitle: (n) => `${n} 在等你 🌱`, remBody: "照顾好自己的一小步。打开 Tanetto：", remAsk: "要不要每天收到一条温柔的提醒？", remLater: "不用了，谢谢",
+  backT: "欢迎回来！", backP: [(n) => `再次见到你，${n} 开心极了！之前的日子不用在意，我们从这里一起重新出发。`, (n) => `太好了，你回来啦！${n} 一直帮你把位置捂得暖暖的。`, (n) => `${n} 一直在等你。今天哪怕只迈出一小步也足够了。`], backGift: "回归礼 +20 Tanì", backB: "重新开始",
+  invT: "邀请朋友", invP: (n) => `照顾自己，有人陪着会更开心。给朋友发一张 ${n} 的照片吧。`, invB: "邀请", invTitle: (n) => `来认识一下 ${n}！`, invSub: "和小伙伴一起照顾好自己 · 免费", invText: (n) => `来认识一下 ${n}，我在 Tanetto 上的小伙伴：我们一起一步一步照顾好自己。试试吧，免费的！`,
+  lite: "轻量模式", liteP: "减少特效，在较慢的手机上更流畅。需要时会自动开启。"
+};
+
+/* ---------- 繁體中文（台灣） ---------- */
+Object.assign(T.zht.pets, { miko: ["Miko", "一隻像雲朵一樣軟綿綿的小貓。"], rufi: ["Rufi", "一隻好奇又勇敢的小狐狸。"], pingo: ["Pingo", "一隻永不放棄的企鵝。"], dori: ["Dori", "一隻溫柔又有點笨手笨腳的小龍。"] });
+T.zht.v12 = {
+  ppT: "Plus 小夥伴", ppP: "有了 Tanetto Plus，還有更多特別的朋友。", want: (n) => `我想要 ${n}`, choose: (n) => `選擇 ${n}`, back: "返回",
+  meT: "你的小夥伴", meP: "隨時都能更換：等級、物品和進度都會保留。", change: "更換小夥伴", cur: "正在陪你", hi: (n) => `嗨，我是 ${n}！能陪著你好開心。`, keep: "就算哪天 Plus 結束了，你選的小夥伴還是會一直陪著你。",
+  perk: "4 個專屬小夥伴，每一季還有新夥伴",
+  firstT: "踏出第一步！", firstP: (n) => `完成目標後，點一下旁邊的圓圈：${n} 就會充滿能量。`, giftT: "見面禮", giftP: (n) => `${n} 為你準備了一份禮物：50 Tanì，可以開始布置小房間囉。`, giftB: "謝謝！",
+  remT: "每日提醒", remP: (n) => `選個時間：${n} 會溫柔地提醒你來看看。提醒會加進手機的行事曆。`, remTime: "提醒時間", remG: "Google Calendar", remI: "其他行事曆", remDone: "提醒準備好了：打開它，存到行事曆裡。",
+  remTitle: (n) => `${n} 在等你 🌱`, remBody: "照顧自己的一小步。打開 Tanetto：", remAsk: "要不要每天收到一則溫柔的提醒？", remLater: "不用了，謝謝",
+  backT: "歡迎回來！", backP: [(n) => `又見到你了，${n} 超開心！之前的日子別放在心上，我們從這裡一起重新開始。`, (n) => `太好了，你回來了！${n} 一直幫你把位子留得暖呼呼的。`, (n) => `${n} 一直在等你。今天就算只踏出一小步也很夠了。`], backGift: "回歸禮 +20 Tanì", backB: "重新開始",
+  invT: "邀請朋友", invP: (n) => `照顧自己，有人陪會更開心。傳一張 ${n} 的照片給朋友吧。`, invB: "邀請", invTitle: (n) => `來認識 ${n}！`, invSub: "和小夥伴一起好好照顧自己 · 免費", invText: (n) => `來認識 ${n}，我在 Tanetto 的小夥伴：我們一起一步一步照顧自己。試試看吧，免費的！`,
+  lite: "輕量模式", liteP: "減少特效，在比較慢的手機上更順暢。需要時會自動開啟。"
+};
+
+/* ---------- Русский ---------- */
+Object.assign(T.ru.pets, { miko: ["Miko", "Котёнок, мягкий, как облачко."], rufi: ["Rufi", "Любопытный и смелый лисёнок."], pingo: ["Pingo", "Пингвин, который никогда не сдаётся."], dori: ["Dori", "Добрый и немножко неуклюжий дракончик."] });
+T.ru.v12 = {
+  ppT: "Питомцы Plus", ppP: "Ещё больше особенных друзей с Tanetto Plus.", want: (n) => `Хочу: ${n}`, choose: (n) => `Выбрать: ${n}`, back: "Назад",
+  meT: "Твой питомец", meP: "Сменить питомца можно в любой момент: уровень, предметы и прогресс сохранятся.", change: "Сменить питомца", cur: "Сейчас с тобой", hi: (n) => `Привет, я ${n}! Как здорово быть рядом с тобой.`, keep: "Если Plus когда-нибудь закончится, выбранный питомец останется с тобой.",
+  perk: "4 эксклюзивных питомца и новый каждый сезон",
+  firstT: "Твой первый шаг!", firstP: (n) => `Когда выполнишь цель, нажми на кружок рядом с ней: ${n} наполнится энергией.`, giftT: "Подарок в честь знакомства", giftP: (n) => `${n} дарит тебе 50 Tanì, чтобы начать обустраивать свою комнатку.`, giftB: "Спасибо!",
+  remT: "Напоминание каждый день", remP: (n) => `Выбери время: ${n} будет мягко напоминать тебе заглянуть в гости. Напоминание добавится в календарь телефона.`, remTime: "Время напоминания", remG: "Google Calendar", remI: "Другой календарь", remDone: "Напоминание готово: открой его и сохрани в календаре.",
+  remTitle: (n) => `${n} ждёт тебя 🌱`, remBody: "Маленький шаг, чтобы позаботиться о себе. Открой Tanetto:", remAsk: "Хочешь получать мягкое напоминание каждый день?", remLater: "Нет, спасибо",
+  backT: "С возвращением!", backP: [(n) => `${n} так радуется новой встрече! Пропущенные дни — не беда: начнём отсюда, вместе.`, (n) => `Ура, ты снова здесь! ${n} бережёт для тебя тёплое местечко.`, (n) => `${n} уже ждёт тебя. Сегодня хватит даже совсем маленького шага.`], backGift: "+20 Tanì в честь возвращения", backB: "Начнём снова",
+  invT: "Позови друга", invP: (n) => `Заботиться о себе вместе приятнее. Отправь другу фото, где есть ${n}.`, invB: "Пригласить", invTitle: (n) => `Знакомься: ${n}!`, invSub: "Заботься о себе вместе с маленьким другом · бесплатно", invText: (n) => `Знакомься: ${n}, мой маленький питомец в Tanetto. С ним проще заботиться о себе, шаг за шагом. Попробуй, это бесплатно!`,
+  lite: "Облегчённый режим", liteP: "Меньше эффектов, плавнее на медленных телефонах. Включается сам, когда нужно."
+};
+
+/* ---------- Polski ---------- */
+Object.assign(T.pl.pets, { miko: ["Miko", "Kociak miękki jak chmurka."], rufi: ["Rufi", "Ciekawski i odważny lisek."], pingo: ["Pingo", "Pingwin, który nigdy się nie poddaje."], dori: ["Dori", "Łagodny, trochę niezdarny smoczek."] });
+T.pl.v12 = {
+  ppT: "Towarzysze Plus", ppP: "Więcej wyjątkowych przyjaciół z Tanetto Plus.", want: (n) => `Chcę: ${n}`, choose: (n) => `Wybierz: ${n}`, back: "Wstecz",
+  meT: "Twój towarzysz", meP: "Możesz go zmienić, kiedy chcesz: poziom, przedmioty i postępy zostają.", change: "Zmień towarzysza", cur: "Teraz z tobą", hi: (n) => `Cześć, tu ${n}! Super, że jesteśmy razem.`, keep: "Jeśli Plus kiedyś się skończy, wybrany towarzysz zostanie z tobą.",
+  perk: "4 wyjątkowych towarzyszy i nowy w każdym sezonie",
+  firstT: "Twój pierwszy krok!", firstP: (n) => `Gdy wykonasz cel, dotknij kółka obok niego: ${n} napełni się energią.`, giftT: "Prezent na powitanie", giftP: (n) => `${n} ma coś dla ciebie: 50 Tanì na początek urządzania swojego pokoiku.`, giftB: "Dziękuję!",
+  remT: "Codzienne przypomnienie", remP: (n) => `Wybierz godzinę: ${n} co dzień delikatnie przypomni ci, by wpaść w odwiedziny. Przypomnienie trafi do kalendarza w telefonie.`, remTime: "Godzina przypomnienia", remG: "Google Calendar", remI: "Inny kalendarz", remDone: "Przypomnienie gotowe: otwórz je i zapisz w kalendarzu.",
+  remTitle: (n) => `${n} czeka na ciebie 🌱`, remBody: "Mały krok, by zadbać o siebie. Otwórz Tanetto:", remAsk: "Chcesz dostawać codziennie łagodne przypomnienie?", remLater: "Nie, dzięki",
+  backT: "Witaj z powrotem!", backP: [(n) => `${n} bardzo się cieszy, że znów cię widzi! Nie przejmuj się minionymi dniami: zaczynamy od nowa, razem.`, (n) => `Hurra, jesteś z powrotem! ${n} trzyma dla ciebie cieplutkie miejsce.`, (n) => `${n} czeka na ciebie. Dziś wystarczy nawet malutki krok.`], backGift: "+20 Tanì na powitanie", backB: "Zaczynamy od nowa",
+  invT: "Zaproś znajomych", invP: (n) => `Dbanie o siebie jest milsze we dwoje. Wyślij komuś bliskiemu zdjęcie, na którym jest ${n}.`, invB: "Zaproś", invTitle: (n) => `To jest ${n}!`, invSub: "Dbaj o siebie z małym przyjacielem · za darmo", invText: (n) => `To jest ${n}, mój mały towarzysz w Tanetto: razem dbamy o siebie, krok po kroku. Wypróbuj, to nic nie kosztuje!`,
+  lite: "Tryb lekki", liteP: "Mniej efektów, płynniej na wolniejszych telefonach. Włącza się sam, gdy trzeba."
+};
+
+/* ---------- Nederlands ---------- */
+Object.assign(T.nl.pets, { miko: ["Miko", "Een katje zo zacht als een wolkje."], rufi: ["Rufi", "Een nieuwsgierig, dapper vosje."], pingo: ["Pingo", "Een pinguïn die nooit opgeeft."], dori: ["Dori", "Een lief, wat onhandig draakje."] });
+T.nl.v12 = {
+  ppT: "Plus-maatjes", ppP: "Nog meer bijzondere vriendjes, met Tanetto Plus.", want: (n) => `Ik wil ${n}`, choose: (n) => `Kies ${n}`, back: "Terug",
+  meT: "Je maatje", meP: "Je kunt altijd wisselen: level, spulletjes en voortgang blijven allemaal bewaard.", change: "Ander maatje kiezen", cur: "Nu bij je", hi: (n) => `Hoi, ik ben ${n}! Fijn om bij je te zijn.`, keep: "Als Plus ooit stopt, blijft het maatje dat je koos gewoon bij je.",
+  perk: "4 exclusieve maatjes, en elk seizoen een nieuw",
+  firstT: "Je eerste stap!", firstP: (n) => `Tik op het rondje naast een doel als je het gedaan hebt: ${n} krijgt dan nieuwe energie.`, giftT: "Een welkomstcadeautje", giftP: (n) => `${n} heeft iets voor je: 50 Tanì om het kamertje te gaan inrichten.`, giftB: "Dankjewel!",
+  remT: "Elke dag een herinnering", remP: (n) => `Kies een tijd: ${n} herinnert je er lief aan om even langs te komen. Het komt in de agenda van je telefoon.`, remTime: "Tijd van de herinnering", remG: "Google Calendar", remI: "Andere agenda", remDone: "Herinnering klaar: open hem en bewaar hem in je agenda.",
+  remTitle: (n) => `${n} wacht op je 🌱`, remBody: "Een kleine stap om voor jezelf te zorgen. Open Tanetto:", remAsk: "Wil je elke dag een lieve herinnering?", remLater: "Nee, bedankt",
+  backT: "Welkom terug!", backP: [(n) => `${n} is superblij je weer te zien! Geen zorgen om de dagen die voorbij zijn: we gaan vanaf hier verder, samen.`, (n) => `Joepie, je bent er weer! ${n} heeft je plekje lekker warm gehouden.`, (n) => `${n} zat al op je te wachten. Vandaag is zelfs een heel klein stapje genoeg.`], backGift: "+20 Tanì als welkom terug", backB: "We beginnen opnieuw",
+  invT: "Nodig iemand uit", invP: (n) => `Voor jezelf zorgen is leuker samen. Stuur iemand een foto van ${n}.`, invB: "Uitnodigen", invTitle: (n) => `Dit is ${n}!`, invSub: "Zorg goed voor jezelf met een klein vriendje · gratis", invText: (n) => `Dit is ${n}, mijn kleine maatje in Tanetto: zo zorgen we goed voor onszelf, stapje voor stapje. Probeer het, het is gratis!`,
+  lite: "Lichtgewichtmodus", liteP: "Minder effecten, soepeler op tragere telefoons. Gaat vanzelf aan als het nodig is."
+};
+
+/* ---------- Türkçe ---------- */
+Object.assign(T.tr.pets, { miko: ["Miko", "Bulut kadar yumuşak bir yavru kedi."], rufi: ["Rufi", "Meraklı ve cesur minik bir tilki."], pingo: ["Pingo", "Asla pes etmeyen bir penguen."], dori: ["Dori", "Nazik ve biraz sakar minik bir ejderha."] });
+T.tr.v12 = {
+  ppT: "Plus arkadaşları", ppP: "Tanetto Plus ile daha fazla özel arkadaş.", want: (n) => `${n} ile tanış`, choose: (n) => `Seç: ${n}`, back: "Geri",
+  meT: "Arkadaşın", meP: "İstediğin zaman değiştirebilirsin: seviye, eşyalar ve ilerleme olduğu gibi kalır.", change: "Arkadaşını değiştir", cur: "Şu an seninle", hi: (n) => `Merhaba, ben ${n}! Seninle olmak çok güzel.`, keep: "Plus bir gün biterse, seçtiğin arkadaş yine seninle kalır.",
+  perk: "4 özel arkadaş, üstelik her sezon yeni biri",
+  firstT: "İlk adımın!", firstP: (n) => `Bir hedefi tamamlayınca yanındaki daireye dokun: ${n} enerjiyle dolacak.`, giftT: "Hoş geldin hediyesi", giftP: (n) => `${n} senin için bir şey hazırladı: küçük odayı süslemeye başlaman için 50 Tanì.`, giftB: "Teşekkürler!",
+  remT: "Her gün bir hatırlatma", remP: (n) => `Bir saat seç: ${n} sana her gün nazikçe uğramayı hatırlatacak. Telefonunun takvimine eklenir.`, remTime: "Hatırlatma saati", remG: "Google Calendar", remI: "Başka takvim", remDone: "Hatırlatma hazır: aç ve takvimine kaydet.",
+  remTitle: (n) => `${n} seni bekliyor 🌱`, remBody: "Kendine iyi bakmak için küçük bir adım. Tanetto'yu aç:", remAsk: "Her gün nazik bir hatırlatma ister misin?", remLater: "Hayır, teşekkürler",
+  backT: "Tekrar hoş geldin!", backP: [(n) => `${n} seni yeniden gördüğü için çok mutlu! Geçen günleri dert etme: buradan birlikte yeniden başlıyoruz.`, (n) => `Yaşasın, geri döndün! ${n} yerini sıcacık tuttu.`, (n) => `${n} seni bekliyordu. Bugün minicik bir adım bile yeter.`], backGift: "Tekrar hoş geldin hediyesi: +20 Tanì", backB: "Yeniden başlayalım",
+  invT: "Birini davet et", invP: (n) => `Kendine bakmak birlikteyken daha güzel. Birine ${n} ile ilgili bir fotoğraf gönder.`, invB: "Davet et", invTitle: (n) => `${n} ile tanış!`, invSub: "Minik bir dostla kendine iyi bak · ücretsiz", invText: (n) => `${n} ile tanış: Tanetto'daki küçük arkadaşım. Kendimize adım adım iyi bakmamıza yardım ediyor. Dene, ücretsiz!`,
+  lite: "Hafif mod", liteP: "Daha az efekt, yavaş telefonlarda daha akıcı. Gerekirse kendiliğinden açılır."
+};
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -23174,6 +23431,276 @@ document.addEventListener("click", (ev) => {
 }, true);
 function renderSurveyKeep() { renderSurvey(true); }
 function svGo() { const n = L().survey.q.length; if (svStep < n - 1) { svStep++; renderSurvey(); SND.play("pop"); } else finishSurvey(); }
+
+/* =================== v12: compagni Plus, primi minuti, promemoria, bentornato, invita un amico, telefoni lenti =================== */
+
+/* --- I quattro compagni Plus --- */
+const PLUS_PETS = ["miko", "rufi", "pingo", "dori"];
+const ALL_PETS = ["germo", "ondi", "lumi"].concat(PLUS_PETS);
+Object.assign(HALO, { miko: "#ECE7F7", rufi: "#FBE3D2", pingo: "#DDE6F3", dori: "#D7F2E8" });
+Object.assign(WEEK_PAL, { miko: ["#EEEAF8", "#C9BDEB", "#6B5BB0"], rufi: ["#FCE6D6", "#F5B38A", "#C25E2A"], pingo: ["#E2E9F4", "#9FB3D6", "#3D4A6B"], dori: ["#DDF4EC", "#9ADBC6", "#2E8A6E"] });
+Object.assign(FAV, { miko: "cookie", rufi: "berries", pingo: "fish", dori: "carrot" });
+
+function miko(e, hat, st) {
+  const c = "#EEE9F8", d = "#D3C9EE", pk = "#F6BCD0";
+  const bodyD = "M100 58 C140 58 160 90 160 124 C160 160 134 180 100 180 C66 180 40 160 40 124 C40 90 60 58 100 58 Z";
+  let o = `<path class="tail" style="transform-box:fill-box;transform-origin:0% 100%" d="M148 166 C184 166 194 130 178 108 C172 100 162 104 166 114 C176 132 168 150 146 152 Z" fill="${c}" stroke="${d}" stroke-width="2"/><path d="M176 112 C172 104 166 104 166 112" stroke="${d}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>`;
+  o += `<g class="body" style="transform-box:fill-box;transform-origin:50% 100%">`;
+  o += `<path d="M54 96 L50 38 L92 64 Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/><path d="M60 86 L58 52 L82 66 Z" fill="${pk}"/><path d="M146 96 L150 38 L108 64 Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/><path d="M140 86 L142 52 L118 66 Z" fill="${pk}"/>`;
+  o += `<ellipse cx="46" cy="134" rx="9" ry="14" fill="${c}" transform="rotate(25 46 134)"/><ellipse cx="154" cy="134" rx="9" ry="14" fill="${c}" transform="rotate(-25 154 134)"/><ellipse cx="78" cy="178" rx="15" ry="8" fill="${d}"/><ellipse cx="122" cy="178" rx="15" ry="8" fill="${d}"/>`;
+  o += `<path d="${bodyD}" fill="${c}"/><ellipse cx="100" cy="150" rx="36" ry="26" fill="#fff" opacity=".8"/>` + shade(bodyD);
+  o += `<path d="M100 60 V72 M87 63 L91 73 M113 63 L109 73" stroke="${d}" stroke-width="4" stroke-linecap="round"/>`;
+  if (st >= 1) o += `<path d="M66 146 Q100 162 134 146" stroke="${st >= 2 ? "#F2B33D" : "#7FB6F0"}" stroke-width="7" fill="none" stroke-linecap="round"/>` + (st >= 2 ? `<path d="M100 162 C94 155 90 160 94 164 L100 170 L106 164 C110 160 106 155 100 162 Z" fill="#E2454A"/>` : `<circle cx="100" cy="161" r="6" fill="#F2C35E" stroke="#C9861F" stroke-width="1.5"/><path d="M96 162 h8" stroke="#C9861F" stroke-width="1.4"/>`);
+  if (st >= 2 && !hat) o += `<g class="puff" transform="translate(154 50)"><path d="M-14 6 C-20 6 -20 -3 -13 -3 C-12 -11 -2 -12 0 -6 C3 -12 13 -10 12 -2 C19 -2 19 6 13 6 Z" fill="#fff" stroke="#C9BDEB" stroke-width="1.6"/><path d="M-4 -1 l1.2 2.6 2.8.3 -2.1 1.9 .6 2.8 -2.5 -1.4 -2.5 1.4 .6 -2.8 -2.1 -1.9 2.8 -.3 Z" fill="#FFD25E"/></g>`;
+  o += headwear(84, hat);
+  o += eyes(e, 80, 120, 108) + cheeks(64, 136, 124) + `<path d="M95 118 H105 L100 124 Z" fill="#F08AA8"/>` + mouth(e, 100, 128);
+  o += `<path d="M70 122 L50 118 M70 128 L50 130 M130 122 L150 118 M130 128 L150 130" stroke="#B9AEDB" stroke-width="1.6" stroke-linecap="round"/>`;
+  return shadow() + o + `</g>` + sleepZ(e, 160, 64);
+}
+function rufi(e, hat, st) {
+  const o1 = "#F08C4E", dk = "#5A3424", cr = "#FFF1DE";
+  const bodyD = "M100 56 C138 56 156 88 156 122 C156 160 134 182 100 182 C66 182 44 160 44 122 C44 88 62 56 100 56 Z";
+  let o = `<g class="tail" style="transform-box:fill-box;transform-origin:0% 100%"><path d="M146 168 C192 172 200 120 178 96 C172 124 162 146 140 152 Z" fill="${o1}"/><path d="M178 96 C190 104 196 120 192 134 C186 126 180 112 178 96 Z" fill="${cr}"/></g>`;
+  o += `<g class="body" style="transform-box:fill-box;transform-origin:50% 100%">`;
+  o += `<path d="M52 100 L44 28 L94 60 Z" fill="${o1}"/><path d="M58 88 L54 44 L84 62 Z" fill="${cr}"/><path d="M44 28 L48 48 L60 40 Z" fill="${dk}"/><path d="M148 100 L156 28 L106 60 Z" fill="${o1}"/><path d="M142 88 L146 44 L116 62 Z" fill="${cr}"/><path d="M156 28 L152 48 L140 40 Z" fill="${dk}"/>`;
+  o += `<path d="${bodyD}" fill="${o1}"/>` + `<path d="M56 112 C70 104 86 112 100 124 C114 112 130 104 144 112 C140 140 122 154 100 154 C78 154 60 140 56 112 Z" fill="${cr}"/><ellipse cx="100" cy="162" rx="26" ry="17" fill="${cr}"/>` + shade(bodyD);
+  o += `<ellipse cx="48" cy="140" rx="8" ry="13" fill="${o1}" transform="rotate(25 48 140)"/><ellipse cx="152" cy="140" rx="8" ry="13" fill="${o1}" transform="rotate(-25 152 140)"/><ellipse cx="80" cy="180" rx="13" ry="6" fill="${dk}"/><ellipse cx="120" cy="180" rx="13" ry="6" fill="${dk}"/>`;
+  if (st >= 1) o += `<path d="M64 150 Q100 166 136 150 L134 160 Q100 176 66 160 Z" fill="#6DBE8C"/><path d="M118 160 L128 180 L116 178 Z" fill="#5AA877"/>` + (st >= 2 ? `<path d="M70 156 Q100 168 130 156" stroke="#FFF1DE" stroke-width="2" stroke-dasharray="4 5" fill="none" stroke-linecap="round"/>` : "");
+  if (st >= 2 && !hat) o += `<g transform="translate(62 54)"><circle r="5" cx="0" cy="-7" fill="#FFF4C2"/><circle r="5" cx="7" cy="0" fill="#FFF4C2"/><circle r="5" cx="0" cy="7" fill="#FFF4C2"/><circle r="5" cx="-7" cy="0" fill="#FFF4C2"/><circle r="4" fill="#F2B33D"/></g>`;
+  o += headwear(82, hat);
+  o += eyes(e, 80, 120, 106) + cheeks(66, 134, 122, "#F59A7A") + `<ellipse cx="100" cy="121" rx="6" ry="4" fill="${dk}"/><ellipse cx="98" cy="119.5" rx="2" ry="1.2" fill="#fff" opacity=".6"/>` + mouth(e, 100, 128);
+  return shadow() + o + `</g>` + sleepZ(e, 160, 60);
+}
+function pingoBeak(e) {
+  if (e === "felice" || e === "wow" || e === "amore") return `<path d="M90 116 Q100 108 110 116 L100 120 Z" fill="#F6A23B"/><path d="M92 120 L108 120 Q100 ${e === "wow" ? 134 : 130} 92 120 Z" fill="#E07F1F"/><ellipse cx="100" cy="${e === "wow" ? 126 : 124}" rx="3.4" ry="2.2" fill="#F08A8A"/>`;
+  return `<path d="M90 116 Q100 108 110 116 Q100 126 90 116 Z" fill="#F6A23B"/><path d="M92 118 Q100 122 108 118" stroke="#D8771A" stroke-width="1.2" fill="none"/>`;
+}
+function pingo(e, hat, st) {
+  const nv = "#3D4A6B", wh = "#FDFBF5";
+  const bodyD = "M100 52 C136 52 152 86 152 124 C152 162 132 182 100 182 C68 182 48 162 48 124 C48 86 64 52 100 52 Z";
+  let o = `<g class="body" style="transform-box:fill-box;transform-origin:50% 100%">`;
+  o += `<g class="flipl" style="transform-box:fill-box;transform-origin:80% 10%"><path d="M54 106 C36 120 30 146 36 158 C46 152 54 138 58 124 Z" fill="${nv}"/></g><g class="flipr" style="transform-box:fill-box;transform-origin:20% 10%"><path d="M146 106 C164 120 170 146 164 158 C154 152 146 138 142 124 Z" fill="${nv}"/></g>`;
+  o += `<ellipse cx="82" cy="182" rx="13" ry="5" fill="#F6A23B"/><ellipse cx="118" cy="182" rx="13" ry="5" fill="#F6A23B"/>`;
+  o += `<path d="${bodyD}" fill="${nv}"/><path d="M100 76 C108 66 128 66 134 84 C140 102 136 120 134 134 C126 162 114 176 100 176 C86 176 74 162 66 134 C64 120 60 102 66 84 C72 66 92 66 100 76 Z" fill="${wh}"/>` + shade(bodyD);
+  if (st >= 1) o += `<path d="M62 146 Q100 162 138 146 L136 157 Q100 172 64 157 Z" fill="#E2454A"/>` + (st >= 2 ? `<path d="M76 150 v10 M90 154 v10 M104 155 v10 M118 153 v10" stroke="#fff" stroke-width="3" opacity=".85"/><g transform="translate(124 158)"><path d="M0 -7 V7 M-6 -3.5 L6 3.5 M-6 3.5 L6 -3.5" stroke="#BFE3FF" stroke-width="2.4" stroke-linecap="round"/></g>` : `<path d="M120 154 L128 176 L116 174 Z" fill="#C83A3F"/>`);
+  o += headwear(78, hat);
+  o += eyes(e, 82, 118, 102) + cheeks(68, 132, 118, "#F7B0B8") + pingoBeak(e);
+  return shadow() + o + `</g>` + sleepZ(e, 160, 58);
+}
+function dori(e, hat, st) {
+  const m = "#8ED8C0", dk = "#4FA88B", bl = "#FFF3C9", hn = st >= 1 ? "#F2B33D" : "#FFE08A";
+  const bodyD = "M100 60 C140 60 158 92 158 126 C158 162 134 182 100 182 C66 182 42 162 42 126 C42 92 60 60 100 60 Z";
+  let o = `<g class="dwing" style="transform-box:fill-box;transform-origin:100% 60%"><path d="M60 106 C32 80 12 90 16 112 C24 106 30 112 28 122 C38 116 44 122 44 130 C50 122 54 116 62 114 Z" fill="#BDEBDC" stroke="${dk}" stroke-width="2" stroke-linejoin="round"/></g><g class="dwing" style="transform-box:fill-box;transform-origin:0% 60%"><path d="M140 106 C168 80 188 90 184 112 C176 106 170 112 172 122 C162 116 156 122 156 130 C150 122 146 116 138 114 Z" fill="#BDEBDC" stroke="${dk}" stroke-width="2" stroke-linejoin="round"/></g>`;
+  o += `<g class="tail" style="transform-box:fill-box;transform-origin:0% 100%"><path d="M148 166 C176 172 190 158 186 140 C180 150 168 156 146 152 Z" fill="${m}"/><path d="M186 130 L196 141 L186 152 L179 141 Z" fill="${dk}"/></g>`;
+  o += `<g class="body" style="transform-box:fill-box;transform-origin:50% 100%">`;
+  o += `<path d="M74 72 C68 56 70 44 78 38 C80 50 84 58 88 66 Z" fill="${hn}"/><path d="M126 72 C132 56 130 44 122 38 C120 50 116 58 112 66 Z" fill="${hn}"/>`;
+  o += [92, 100, 108].map((x, i) => `<path d="M${x - 6} ${64 + (i === 1 ? -2 : 0)} L${x} ${50 + (i === 1 ? -4 : 0)} L${x + 6} ${64 + (i === 1 ? -2 : 0)} Z" fill="${st >= 2 ? "#F2B33D" : dk}"/>`).join("");
+  o += `<path d="${bodyD}" fill="${m}"/><path d="M100 124 C122 124 132 140 130 156 C128 172 116 180 100 180 C84 180 72 172 70 156 C68 140 78 124 100 124 Z" fill="${bl}"/><path d="M74 146 Q100 154 126 146 M72 162 Q100 170 128 162" stroke="#EBD9A0" stroke-width="2" fill="none"/>` + shade(bodyD);
+  o += `<ellipse cx="46" cy="138" rx="8" ry="13" fill="${m}" transform="rotate(25 46 138)"/><ellipse cx="154" cy="138" rx="8" ry="13" fill="${m}" transform="rotate(-25 154 138)"/><ellipse cx="80" cy="180" rx="14" ry="6.5" fill="${dk}"/><ellipse cx="120" cy="180" rx="14" ry="6.5" fill="${dk}"/>`;
+  if (st >= 2 && !hat) o += `<g class="puff" transform="translate(146 62)"><circle cx="0" cy="0" r="7" fill="#fff" opacity=".9"/><circle cx="8" cy="-6" r="5" fill="#fff" opacity=".8"/><path d="M14 -16 C11 -20 7 -17 10 -14 L14 -10 L18 -14 C21 -17 17 -20 14 -16 Z" fill="#F28AA8"/></g>`;
+  o += headwear(84, hat);
+  o += eyes(e, 80, 120, 106) + cheeks(64, 136, 120, "#F7A6A0") + `<circle cx="95" cy="119" r="1.8" fill="${dk}"/><circle cx="105" cy="119" r="1.8" fill="${dk}"/>` + mouth(e, 100, 126);
+  return shadow() + o + `</g>` + sleepZ(e, 162, 62);
+}
+const _petInnerV12 = petInner;
+petInner = function (pet, e, hat, st, glow) { if (pet === "miko") return miko(e, hat, st); if (pet === "rufi") return rufi(e, hat, st); if (pet === "pingo") return pingo(e, hat, st); if (pet === "dori") return dori(e, hat, st); return _petInnerV12(pet, e, hat, st, glow); };
+const _petAmbientV12 = petAmbient;
+petAmbient = function (c) {
+  _petAmbientV12(c); if (!anim || !c) return;
+  c.querySelectorAll(".flipl").forEach((s) => ambient.push(G.to(s, { rotation: 10, duration: 0.9, repeat: -1, yoyo: true, ease: "sine.inOut" })));
+  c.querySelectorAll(".flipr").forEach((s) => ambient.push(G.to(s, { rotation: -10, duration: 0.9, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.45 })));
+  c.querySelectorAll(".dwing").forEach((s, i) => ambient.push(G.to(s, { scaleX: 0.86, rotation: i ? -6 : 6, duration: 0.6, repeat: -1, yoyo: true, ease: "sine.inOut" })));
+  c.querySelectorAll(".puff").forEach((s) => ambient.push(G.to(s, { y: -4, opacity: 0.7, duration: 1.6, repeat: -1, yoyo: true, ease: "sine.inOut" })));
+};
+
+/* --- Scelta del compagno: presentazione, anteprima, cambio --- */
+const isPlusPet = (p) => PLUS_PETS.includes(p);
+const SITE_URL = "https://tanettoapp.github.io/Tanetto/";
+function petChoice(p, sel, attr) {
+  const t = L(); const plus = isPlusPet(p);
+  return `<button class="choice ${plus ? "pchoice" : ""}" role="radio" aria-checked="${sel === p}" ${attr}="${p}"><span class="halo" style="background:radial-gradient(circle at 50% 60%, ${HALO[p]} 0 62%, transparent 63%)">${petSVG(p, sel === p ? "felice" : "normale", null, 0, t.pets[p][0])}</span>${plus ? `<span class="ppcrown" aria-hidden="true">${icon("p_crown")}</span>` : ""}<span class="nm">${t.pets[p][0]}</span><span class="ds">${t.pets[p][1]}</span></button>`;
+}
+const _viewOnboardV12 = viewOnboard;
+viewOnboard = function () {
+  const h = _viewOnboardV12(); if (S.onboard !== 0) return h; const t = L(); const key = `<button class="btn block" id="toName">`;
+  const sec = `<div class="ppsec"><div class="pphd">${icon("p_crown")}<b>${t.v12.ppT}</b></div><p class="small muted">${t.v12.ppP}</p><div class="choose four" role="radiogroup" aria-label="${esc(t.v12.ppT)}">${PLUS_PETS.map((p) => petChoice(p, draftPet, "data-ppet")).join("")}</div></div>`;
+  return h.includes(key) ? h.replace(key, sec + key) : h;
+};
+let ppFrom = null;
+function openPetPreview(p, from) {
+  const t = L(); ppFrom = from; const can = !isPlusPet(p) || plusActive(); const cur = from === "app" && S.pet === p;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="ppT"><div class="box card ppbox"><div class="ppbig" style="background:radial-gradient(circle at 50% 58%, ${HALO[p]} 0 60%, transparent 61%)"><svg viewBox="0 0 200 200" role="img" aria-label="${esc(t.pets[p][0])}"><g id="ppPet">${petInner(p, "felice", from === "app" ? S.hat : null, from === "app" ? stage() : 0, 0.95)}</g></svg></div>
+  ${isPlusPet(p) ? `<span class="pptag">${icon("p_crown")}Tanetto Plus</span>` : ""}<h2 id="ppT">${esc(t.pets[p][0])}</h2><p>${esc(t.pets[p][1])}</p>${isPlusPet(p) ? `<p class="small muted">${t.v12.keep}</p>` : ""}
+  ${cur ? `<p class="okline">${icon("check")} ${t.v12.cur}</p>` : can ? `<button class="btn block" data-pickpet="${p}">${esc(t.v12.choose(t.pets[p][0]))}</button>` : `<button class="btn gold block" data-wantpet="${p}">${icon("p_crown")}${esc(t.v12.want(t.pets[p][0]))}</button>`}
+  <button class="link" id="closeLayer">${t.v12.back}</button></div></div>`;
+  const g = document.getElementById("ppPet"); if (g) petAmbient(g.parentNode);
+  SND.play("pop"); trackOnce("anteprima-" + p);
+  if (anim) G.from(".ppbig", { scale: 0.7, opacity: 0, duration: 0.5, ease: "back.out(1.8)" });
+}
+function openPetPicker() {
+  const t = L();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="pkT"><div class="box card pkbox"><h2 id="pkT">${t.v12.change}</h2><p class="small muted">${t.v12.meP}</p><div class="choose">${["germo", "ondi", "lumi"].map((p) => petChoice(p, S.pet, "data-prevpet")).join("")}</div><div class="pphd">${icon("p_crown")}<b>${t.v12.ppT}</b></div><div class="choose four">${PLUS_PETS.map((p) => petChoice(p, S.pet, "data-prevpet")).join("")}</div><button class="link" id="closeLayer">${t.close}</button></div></div>`;
+  if (anim) G.from(".pkbox .choice", { y: 14, opacity: 0, duration: 0.35, stagger: 0.04 });
+}
+function switchPet(p) {
+  const t = L(); const old = S.pet; if (old === p) return;
+  if (S.petName === t.pets[old][0]) S.petName = t.pets[p][0];
+  S.pet = p; save(); closeLayer(); applyRoot(); render(); window.scrollTo(0, 0);
+  setTimeout(() => { setExpr("amore", 2200); say(t.v12.hi(S.petName), 3200); burst("heart", 12); }, 350);
+  SND.play("fanfare"); SND.haptic([15, 40, 20]); trackOnce("compagno-" + p);
+}
+function petCard() {
+  const t = L(); if (!S.pet) return "";
+  return `<div class="card petcard"><div class="pcart" style="background:radial-gradient(circle at 50% 58%, ${HALO[S.pet]} 0 60%, transparent 61%)">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div><div class="pctx"><h3>${t.v12.meT}</h3><p class="small muted">${t.v12.meP}</p><button class="btn small ghost" id="pickPet">${t.v12.change}</button></div></div>`;
+}
+const _friendTodayV12 = friendToday;
+friendToday = function () { const f = _friendTodayV12(); if (!f) return f; const n = Math.floor(new Date(S.day + "T12:00:00").getTime() / 86400000); const others = ALL_PETS.filter((p) => p !== S.pet); return others[n % others.length]; };
+
+/* --- Primi minuti: regalo di benvenuto, primo passo --- */
+let pendingWelcome = false;
+const _tutCloseV12 = tutClose;
+tutClose = function (done) {
+  _tutCloseV12(done);
+  if (done && pendingWelcome && S.pet && !S.welcomeGift) { pendingWelcome = false; setTimeout(openWelcomeGift, 400); }
+};
+function openWelcomeGift() {
+  const t = L(); if (S.welcomeGift) return; S.welcomeGift = dkey(); S.seeds += 50; save();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="wgT"><div class="box card wgbox"><div class="fdpet">${petSVG(S.pet, "amore", S.hat, stage(), S.petName)}</div><h2 id="wgT">${t.v12.giftT}</h2><p>${esc(t.v12.giftP(S.petName))}</p><p class="svgift">${SEED}<b>+50</b></p><button class="btn" id="wgOk">${t.v12.giftB}</button></div></div>`;
+  SND.play("fanfare"); burst("confetti", 24); trackOnce("regalo-benvenuto");
+  if (anim) G.from(".wgbox .fdpet", { scale: 0.4, rotation: -10, duration: 0.6, ease: "back.out(2)" });
+}
+const _completeGoalV12 = completeGoal;
+completeGoal = function (g, rect) {
+  const before = (S.log || []).length; _completeGoalV12(g, rect);
+  if (before === 0 && (S.log || []).length === 1) { const t = L(); setTimeout(() => { toast(t.v12.firstT); burst("heart", 14); setExpr("amore", 2400); }, 900); trackOnce("primo-obiettivo"); }
+};
+
+/* --- Promemoria nel calendario --- */
+function remTimes() { const v = (S.remTime || "20:00").split(":").map(Number); return { h: v[0] || 20, m: v[1] || 0 }; }
+function remStart() { const { h, m } = remTimes(); const d = new Date(); d.setHours(h, m, 0, 0); if (d < new Date()) d.setDate(d.getDate() + 1); return d; }
+const pad2 = (n) => String(n).padStart(2, "0");
+const icsDate = (d) => `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}T${pad2(d.getHours())}${pad2(d.getMinutes())}00`;
+function remGoogle() {
+  const t = L(); const s = remStart(); const e = new Date(s.getTime() + 10 * 60000); let tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (x) { /* niente */ }
+  const q = new URLSearchParams({ action: "TEMPLATE", text: t.v12.remTitle(S.petName), details: `${t.v12.remBody} ${SITE_URL}`, dates: `${icsDate(s)}/${icsDate(e)}`, recur: "RRULE:FREQ=DAILY" }); if (tz) q.set("ctz", tz);
+  return "https://calendar.google.com/calendar/render?" + q.toString();
+}
+function remIcs() {
+  const t = L(); const s = remStart(); const e = new Date(s.getTime() + 10 * 60000); const esc2 = (x) => String(x).replace(/\\/g, "\\\\").replace(/[,;]/g, (c) => "\\" + c).replace(/\n/g, "\\n");
+  const now = new Date(); const stamp = `${now.getUTCFullYear()}${pad2(now.getUTCMonth() + 1)}${pad2(now.getUTCDate())}T${pad2(now.getUTCHours())}${pad2(now.getUTCMinutes())}00Z`;
+  return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Tanetto//Promemoria//IT", "CALSCALE:GREGORIAN", "BEGIN:VEVENT", `UID:tanetto-${Date.now()}@tanettoapp.github.io`, `DTSTAMP:${stamp}`, `DTSTART:${icsDate(s)}`, `DTEND:${icsDate(e)}`, "RRULE:FREQ=DAILY", `SUMMARY:${esc2(t.v12.remTitle(S.petName))}`, `DESCRIPTION:${esc2(t.v12.remBody + " " + SITE_URL)}`, `URL:${SITE_URL}`, "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${esc2(t.v12.remTitle(S.petName))}`, "TRIGGER:PT0M", "END:VALARM", "END:VEVENT", "END:VCALENDAR"].map(icsFold).join("\r\n");
+}
+function icsFold(line) { const enc = new TextEncoder(); if (enc.encode(line).length <= 75) return line; const out = []; let cur = ""; for (const ch of line) { if (enc.encode(cur + ch).length > (out.length ? 74 : 75)) { out.push(cur); cur = ""; } cur += ch; } out.push(cur); return out.join("\r\n "); }
+async function saveIcs() {
+  const t = L(); const blob = new Blob([remIcs()], { type: "text/calendar" }); const name = "tanetto-promemoria.ics";
+  const dl = await getDl();
+  if (dl) { try { await dl.save({ filename: name, data: blob }); remOk(); return; } catch (e) { if (e && (e.code === "declined" || e.code === "rate_limited")) return; } }
+  try { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); remOk(); } catch (e) { toast(t.saveNo); }
+}
+function remOk() { S.rem = "ok"; save(); toast(L().v12.remDone); trackOnce("promemoria-aggiunto"); const y = window.scrollY; render(); window.scrollTo(0, y); }
+function remCard(ask) {
+  const t = L();
+  return `<div class="card remcard ${ask ? "ask" : ""}"><div class="chhd"><span class="chic rem">${icon("p_bell")}</span><div><h3>${ask ? t.v12.remAsk : t.v12.remT}</h3><p class="small muted">${esc(t.v12.remP(S.petName))}</p></div></div><div class="field remrow"><label for="remTime${ask ? "A" : ""}">${t.v12.remTime}</label><input type="time" id="remTime${ask ? "A" : ""}" class="remtime" value="${S.remTime || "20:00"}"></div><div class="rembtns"><a class="btn small" id="remG" href="${esc(remGoogle())}" target="_blank" rel="noopener">${t.v12.remG}</a><button class="btn small ghost" id="remI">${t.v12.remI}</button></div>${ask ? `<button class="link" id="remNo">${t.v12.remLater}</button>` : ""}</div>`;
+}
+document.addEventListener("change", (ev) => { if (ev.target && ev.target.classList && ev.target.classList.contains("remtime")) { S.remTime = ev.target.value || "20:00"; save(); document.querySelectorAll("#remG").forEach((a) => { a.href = remGoogle(); }); } });
+
+/* --- Bentornato --- */
+const BACK_GAP = (() => { try { if (!S.pet || !S.visit || !S.visit.last) return 0; return Math.round((new Date(dkey()) - new Date(S.visit.last)) / 86400000); } catch (e) { return 0; } })();
+function openWelcomeBack() {
+  const t = L(); if (S.backDay === dkey()) return; S.backDay = dkey(); S.seeds += 20; save();
+  const txt = pick(t.v12.backP)(S.petName);
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="wbT"><div class="box card wgbox"><div class="fdpet">${petSVG(S.pet, "amore", S.hat, stage(), S.petName)}</div><h2 id="wbT">${t.v12.backT}</h2><p>${esc(txt)}</p><p class="svgift">${SEED}<b>${t.v12.backGift}</b></p><button class="btn" id="closeLayer">${t.v12.backB}</button></div></div>`;
+  SND.play("chime"); burst("heart", 14); trackOnce("bentornato");
+  if (anim) G.from(".wgbox .fdpet", { y: 30, scale: 0.6, duration: 0.6, ease: "back.out(2)" });
+}
+setTimeout(() => { if (BACK_GAP >= 2 && S.pet && S.tut >= 99 && !layer.innerHTML && !tutOn) openWelcomeBack(); }, anim ? 1400 : 300);
+
+/* --- Invita un amico --- */
+let inviteMode = false;
+const _shareImageV12 = shareImage;
+shareImage = async function (url, name) {
+  if (!inviteMode) return _shareImageV12(url, name);
+  const t = L();
+  try {
+    const blob = await (await fetch(url)).blob(); const file = new File([blob], name, { type: blob.type || "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "Tanetto", text: `${t.v12.invText(S.petName)} ${SITE_URL}` }); trackOnce("invito-inviato"); return true; }
+    if (navigator.share) { await navigator.share({ title: "Tanetto", text: t.v12.invText(S.petName), url: SITE_URL }); trackOnce("invito-inviato"); return true; }
+  } catch (e) { if (e && e.name === "AbortError") return true; }
+  return false;
+};
+function inviteFlow() {
+  const t = L(); const pal = WEEK_PAL[S.pet] || WEEK_PAL.germo; inviteMode = true; trackOnce("invito-aperto");
+  return shareFlow(() => makeCard({ art: `<svg viewBox="0 0 200 200"><circle cx="100" cy="112" r="94" fill="${pal[0]}"/>${petInner(S.pet, "amore", S.hat, stage(), 0.95)}</svg>`, w: 640, h: 640, title: t.v12.invTitle(S.petName), sub: "tanettoapp.github.io/Tanetto" }), "tanetto-invito.png");
+}
+function inviteCard() { const t = L(); return `<div class="card invcard"><div class="chhd"><span class="chic inv">${icon("p_gift")}</span><div><h3>${t.v12.invT}</h3><p class="small muted">${esc(t.v12.invP(S.petName))}</p></div></div><button class="btn block" id="invite">${icon("share")}${t.v12.invB}</button></div>`; }
+
+/* --- Collegamenti alle schermate --- */
+const _viewMoreV12 = viewMore;
+viewMore = function () {
+  const h = _viewMoreV12(); if (!S.pet) return h; const key = `<div class="card stack" id="goalsCard">`;
+  const add = petCard() + inviteCard() + remCard(false);
+  return h.includes(key) ? h.replace(key, add + key) : h + add;
+};
+const _viewTodayV12 = viewToday;
+viewToday = function () {
+  const h = _viewTodayV12(); if (!S.pet || S.away) return h;
+  const showRem = !S.rem && (S.log || []).length >= 1; if (!showRem) return h;
+  const key = `<p class="note">${L().demo}</p>`; return h.includes(key) ? h.replace(key, remCard(true) + key) : h;
+};
+const _applyRootV12 = applyRoot;
+applyRoot = function () { _applyRootV12(); document.documentElement.classList.toggle("firstgoal", !!S.pet && !(S.log || []).length && !S.away); };
+
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button, a"); if (!b) return;
+  if (b.id === "startApp") { pendingWelcome = true; return; }
+  if (b.dataset.ppet) { ev.stopImmediatePropagation(); const p = b.dataset.ppet; if (plusActive()) { draftPet = p; draftName = ""; SND.play("pop"); render(); } else openPetPreview(p, "onb"); return; }
+  if (b.dataset.prevpet) { ev.stopImmediatePropagation(); openPetPreview(b.dataset.prevpet, "app"); return; }
+  if (b.dataset.pickpet) { ev.stopImmediatePropagation(); const p = b.dataset.pickpet; if (isPlusPet(p) && !plusActive()) return; if (ppFrom === "onb") { draftPet = p; draftName = ""; closeLayer(); render(); SND.play("pop"); } else switchPet(p); return; }
+  if (b.dataset.wantpet) { ev.stopImmediatePropagation(); const p = b.dataset.wantpet; const from = ppFrom; openPlus("compagno-" + p, () => { if (plusActive()) openPetPreview(p, from); }); return; }
+  if (b.id === "pickPet") { openPetPicker(); return; }
+  if (b.id === "wgOk") { closeLayer(); setTimeout(() => { const g = document.querySelector(".goal"); if (g) { g.scrollIntoView({ block: "center", behavior: anim ? "smooth" : "auto" }); say(L().v12.firstP(S.petName), 5200); } }, 300); return; }
+  if (b.id === "remG") { S.rem = "ok"; save(); trackOnce("promemoria-google"); setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 800); return; }
+  if (b.id === "remI") { saveIcs(); return; }
+  if (b.id === "remNo") { S.rem = "no"; save(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if (b.id === "invite") { inviteFlow(); return; }
+  if (b.id === "closeLayer") { inviteMode = false; }
+}, true);
+Object.assign(ICON, { p_bell: '<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/>' });
+/* Vantaggi di Plus: aggiungo i compagni esclusivi */
+const _openPlusV12 = openPlus;
+openPlus = function (src, after) {
+  _openPlusV12(src, after); const t = L(); const ul = document.querySelector(".plusbox .perks"); if (!ul || ul.querySelector(".pkpets")) return;
+  const li = document.createElement("li"); li.className = "pkpets"; li.innerHTML = `<span class="pk">${icon("p_heart")}</span><span>${esc(t.v12.perk)}</span>`;
+  ul.insertBefore(li, ul.children[1] || null);
+};
+
+/* --- Telefoni lenti: modalita' leggera (automatica, o a mano in Altro) --- */
+const isLite = () => S.lite === true || (S.lite !== false && S.liteAuto === true);
+const PET_CLS = ["body", "eyes", "sprout", "tail", "wings", "glow", "flipl", "flipr", "dwing", "puff", "zz"];
+function applyLite() { const on = isLite(); document.documentElement.classList.toggle("lite", on); if (G && G.ticker) G.ticker.fps(on ? 30 : 60); }
+const _ambientExtraV12 = ambientExtra;
+ambientExtra = function (root, q) {
+  if (!isLite()) { _ambientExtraV12(root, q); return; }
+  ambient = ambient.filter((tw) => { const tg = tw.targets ? tw.targets() : []; const keep = !tg.length || tg.some((el) => el && el.classList && PET_CLS.some((c) => el.classList.contains(c)) || (el && el.id === "gift")); if (!keep && tw.kill) tw.kill(); return keep; });
+};
+const _roomSVGv12 = roomSVG;
+roomSVG = function (opts) { const o = _roomSVGv12(opts); return isLite() ? o.replace(/<rect [^>]*filter="url\(#gr\d+\)"\/>/, "") : o; };
+const _applyRootV12b = applyRoot;
+applyRoot = function () { _applyRootV12b(); applyLite(); };
+function measureLite() {
+  if (!anim || S.liteAuto != null || S.lite != null) return;
+  let n = 0, t0 = 0, slow = 0;
+  const f = (t) => { if (!t0) t0 = t; else if (t - last > 26) slow++; last = t; n++; if (n < 90) requestAnimationFrame(f); else { S.liteAuto = slow > 20 || (t - t0) / (n - 1) > 21; save(); if (S.liteAuto) { trackOnce("modalita-leggera-auto"); render(); } } };
+  let last = 0; setTimeout(() => requestAnimationFrame(f), 2500);
+}
+measureLite();
+const _viewMoreV12b = viewMore;
+viewMore = function () {
+  const h = _viewMoreV12b(); const t = L(); const key = `id="calmSw"></button></div>`;
+  const row = `<div class="switchrow"><span id="liteL">${t.v12.lite}<br><small class="muted">${t.v12.liteP}</small></span><button class="switch" role="switch" aria-checked="${isLite()}" aria-labelledby="liteL" id="liteSw"></button></div>`;
+  return h.includes(key) ? h.replace(key, key + row) : h;
+};
+document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest("button"); if (b && b.id === "liteSw") { ev.stopImmediatePropagation(); S.lite = !isLite(); save(); applyLite(); const y = window.scrollY; render(); window.scrollTo(0, y); } }, true);
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
