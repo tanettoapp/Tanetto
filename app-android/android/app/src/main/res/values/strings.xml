@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tanetto</string>
+    <string name="title_activity_main">Tanetto</string>
+    <string name="package_name">com.tanettoapp.tanetto</string>
+    <string name="custom_url_scheme">com.tanettoapp.tanetto</string>
+</resources>

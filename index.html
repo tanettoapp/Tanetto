@@ -860,6 +860,39 @@ html.cjk { --font-display: "Fredoka", "Hiragino Maru Gothic ProN", "Hiragino San
 html.sea-lanterns body { background-image: radial-gradient(circle at 12% 0%, rgba(242, 179, 61, .10), transparent 40%), radial-gradient(circle at 90% 8%, rgba(226, 101, 79, .08), transparent 35%); background-attachment: fixed; }
 @media (prefers-reduced-motion: reduce) { .seameta em { animation: none; } .seabar i { transition: none; } }
 html.calm .seameta em { animation: none; }
+
+/* =================== v11: questionario =================== */
+.svcard { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; }
+.svcard .btn { grid-column: 1 / -1; }
+.svcard h3, .svcard p { margin: 0; }
+.svcard.ok { grid-template-columns: 44px 1fr; }
+.svic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.svic svg { width: 24px; height: 24px; }
+.svinvite { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; background: linear-gradient(120deg, var(--accent-soft), var(--paper) 70%); }
+.svinvite .svpet { width: 76px; height: 76px; }
+.svinvite .svpet svg { width: 100%; height: 100%; }
+.svinvite h3, .svinvite p { margin: 0 0 6px; }
+.svinvite .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.overlay .svbox { text-align: left; align-items: stretch; gap: 12px; max-height: 92vh; overflow-y: auto; }
+.svhead { display: flex; justify-content: space-between; align-items: center; }
+.svbox h2 { margin: 0; font-size: 21px; line-height: 1.25; }
+.svbox > p { margin: 0; }
+.svdots { display: flex; gap: 6px; }
+.svdots i { flex: 1; height: 6px; border-radius: 99px; background: var(--paper-2); }
+.svdots i.on { background: var(--accent); }
+.svdots i.cur { background: color-mix(in srgb, var(--accent) 50%, var(--paper-2)); }
+.svopts { display: flex; flex-direction: column; gap: 8px; }
+.svo { border: 0; min-height: 48px; padding: 10px 14px; border-radius: 16px; background: var(--paper-2); color: var(--ink); text-align: left; font: inherit; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: transform .12s ease, background .15s ease; }
+.svo:active { transform: scale(.98); }
+.svo[aria-pressed="true"], .svo[aria-checked="true"] { background: var(--accent); color: var(--on-accent); }
+.svstar { color: #E9A23B; letter-spacing: 1px; min-width: 5.5em; font-size: 15px; }
+.svo[aria-checked="true"] .svstar { color: #FFE08A; }
+.svnav { display: flex; align-items: center; gap: 8px; }
+.svnav .spacer { flex: 1; }
+.svgift { display: inline-flex; align-items: center; gap: 6px; align-self: center; background: #FFF1D2; color: #6B4510; padding: 6px 14px; border-radius: 99px; }
+.svgift svg { width: 20px; height: 20px; }
+.overlay .svbox .fdpet { align-self: center; }
+.overlay .svbox h2#svT2 { text-align: center; }
 </style>
 
 <div class="app" id="app"></div>
@@ -18032,6 +18065,206 @@ T.zht.world[21].s = "{n} 看著費茲羅伊峰的花崗岩山尖在日出時變�
 T.zht.world[22].s = "{n} 向摩艾石像——復活節島的石頭巨人們道早安。這裡有將近 1000 座石像，大多數都背對著大海。";
 T.zht.world[23].s = "{n} 和一群皇帝企鵝一起，在巨大的冰山之間搖搖擺擺地走著。企鵝爸爸會把蛋放在腳上保暖大約兩個月，撐過整個冬天！";
 
+/* Questionario anonimo per i tester (it, en; le altre lingue in 3zt_survey_more.js) */
+T.it.survey = {
+  cardT: "Dicci la tua", cardP: "6 domande veloci e anonime per rendere Tanetto ancora più bello. In regalo 50 Tanì.", cardB: "Rispondi", done: "Grazie! Le tue risposte ci aiutano tantissimo.",
+  inviteT: "Ti va di aiutarci?", inviteP: (n) => `${n} vorrebbe sapere cosa ne pensi. Ci vuole un minuto.`, later: "Più tardi",
+  step: (i, n) => `Domanda ${i} di ${n}`, next: "Avanti", send: "Invia", multi: "Puoi sceglierne più di una", skip: "Salta",
+  thanksT: "Grazie di cuore!", thanksP: "Le risposte sono anonime: niente nomi, niente e-mail. Se vuoi raccontarci di più, scrivici:", gift: "+50 Tanì per te",
+  q: [
+    { t: "Quanto ti piace Tanetto?", o: ["Pochissimo", "Poco", "Abbastanza", "Molto", "Tantissimo"] },
+    { t: "Cosa ti piace di più?", m: true, o: ["Il compagno", "Gli obiettivi", "La casetta e gli oggetti", "Le gite e le cartoline", "Il diario", "I giochi", "La stagione e il sentiero", "Le musiche"] },
+    { t: "Cosa miglioreresti?", m: true, o: ["Più obiettivi", "Più giochi", "Più oggetti", "Meno testo", "Più veloce", "I promemoria", "La grafica", "Va bene così"] },
+    { t: "Tra un mese lo useresti ancora?", o: ["Sì, sicuro", "Forse", "No"] },
+    { t: "Prenderesti Tanetto Plus (4,99 € al mese o 44,99 € all'anno)?", o: ["Sì, al mese", "Sì, all'anno", "Forse, con più cose", "No"] },
+    { t: "Come ci hai conosciuto?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Un amico", "Altro"] }
+  ]
+};
+T.en.survey = {
+  cardT: "Give feedback", cardP: "6 quick, anonymous questions to make Tanetto even better. You get 50 Tanì as a thank you.", cardB: "Answer", done: "Thank you! Your answers help us a lot.",
+  inviteT: "Could you help us?", inviteP: (n) => `${n} would love to know what you think. It takes a minute.`, later: "Later",
+  step: (i, n) => `Question ${i} of ${n}`, next: "Next", send: "Send", multi: "You can pick more than one", skip: "Skip",
+  thanksT: "Thank you so much!", thanksP: "Answers are anonymous: no names, no emails. If you want to tell us more, write to us:", gift: "+50 Tanì for you",
+  q: [
+    { t: "How much do you like Tanetto?", o: ["Not at all", "A little", "It's okay", "A lot", "I love it"] },
+    { t: "What do you like most?", m: true, o: ["The companion", "The goals", "The room and items", "Trips and postcards", "The journal", "The games", "The season path", "The music"] },
+    { t: "What would you improve?", m: true, o: ["More goals", "More games", "More items", "Less text", "Faster", "Reminders", "The graphics", "It's fine as it is"] },
+    { t: "Would you still use it a month from now?", o: ["Yes, for sure", "Maybe", "No"] },
+    { t: "Would you get Tanetto Plus (€4.99 a month or €44.99 a year)?", o: ["Yes, monthly", "Yes, yearly", "Maybe, with more features", "No"] },
+    { t: "How did you find us?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "A friend", "Other"] }
+  ]
+};
+
+/* Questionario anonimo per i tester: le altre 12 lingue (it ed en sono in 3zs_survey.js) */
+T.de.survey = {
+  cardT: "Deine Meinung", cardP: "6 kurze, anonyme Fragen, damit Tanetto noch schöner wird. Als Dankeschön gibt es 50 Tanì.", cardB: "Antworten", done: "Danke! Deine Antworten helfen uns sehr.",
+  inviteT: "Hilfst du uns?", inviteP: (n) => `${n} möchte gern wissen, was du denkst. Es dauert nur eine Minute.`, later: "Später",
+  step: (i, n) => `Frage ${i} von ${n}`, next: "Weiter", send: "Senden", multi: "Du kannst mehrere wählen", skip: "Überspringen",
+  thanksT: "Tausend Dank!", thanksP: "Die Antworten sind anonym: keine Namen, keine E-Mails. Wenn du uns mehr erzählen möchtest, schreib uns:", gift: "+50 Tanì für dich",
+  q: [
+    { t: "Wie gefällt dir Tanetto?", o: ["Gar nicht", "Ein bisschen", "Ganz gut", "Sehr", "Ich liebe es"] },
+    { t: "Was gefällt dir am meisten?", m: true, o: ["Der Begleiter", "Die Ziele", "Zimmer und Objekte", "Ausflüge und Postkarten", "Das Tagebuch", "Die Spiele", "Der Saisonpfad", "Die Musik"] },
+    { t: "Was würdest du verbessern?", m: true, o: ["Mehr Ziele", "Mehr Spiele", "Mehr Objekte", "Weniger Text", "Schneller", "Erinnerungen", "Die Grafik", "Passt so"] },
+    { t: "Würdest du es in einem Monat noch nutzen?", o: ["Ja, sicher", "Vielleicht", "Nein"] },
+    { t: "Würdest du Tanetto Plus nehmen (4,99 € im Monat oder 44,99 € im Jahr)?", o: ["Ja, monatlich", "Ja, jährlich", "Vielleicht, mit mehr Inhalt", "Nein"] },
+    { t: "Wie hast du uns gefunden?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Über Freunde", "Anders"] }
+  ]
+};
+T.es.survey = {
+  cardT: "Danos tu opinión", cardP: "6 preguntas rápidas y anónimas para que Tanetto sea aún más bonito. De regalo, 50 Tanì.", cardB: "Responder", done: "¡Gracias! Tus respuestas nos ayudan muchísimo.",
+  inviteT: "¿Nos echas una mano?", inviteP: (n) => `${n} quiere saber qué te parece. Solo lleva un minuto.`, later: "Más tarde",
+  step: (i, n) => `Pregunta ${i} de ${n}`, next: "Siguiente", send: "Enviar", multi: "Puedes elegir más de una", skip: "Saltar",
+  thanksT: "¡Muchísimas gracias!", thanksP: "Las respuestas son anónimas: sin nombres ni correos. Si quieres contarnos más, escríbenos:", gift: "+50 Tanì para ti",
+  q: [
+    { t: "¿Cuánto te gusta Tanetto?", o: ["Nada", "Un poco", "Bastante", "Mucho", "Me encanta"] },
+    { t: "¿Qué es lo que más te gusta?", m: true, o: ["El compañero", "Los objetivos", "Habitación y objetos", "Excursiones y postales", "El diario", "Los juegos", "El sendero de temporada", "La música"] },
+    { t: "¿Qué mejorarías?", m: true, o: ["Más objetivos", "Más juegos", "Más objetos", "Menos texto", "Más rapidez", "Los recordatorios", "Los gráficos", "Está bien así"] },
+    { t: "¿Lo seguirías usando dentro de un mes?", o: ["Sí, seguro", "Quizás", "No"] },
+    { t: "¿Te harías Tanetto Plus (4,99 € al mes o 44,99 € al año)?", o: ["Sí, mensual", "Sí, anual", "Quizás, con más cosas", "No"] },
+    { t: "¿Cómo nos conociste?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Por amigos", "Otro"] }
+  ]
+};
+T.fr.survey = {
+  cardT: "Ton avis", cardP: "6 questions rapides et anonymes pour rendre Tanetto encore plus beau. En cadeau : 50 Tanì.", cardB: "Répondre", done: "Merci ! Tes réponses nous aident énormément.",
+  inviteT: "Tu veux bien nous aider ?", inviteP: (n) => `${n} aimerait savoir ce que tu en penses. Ça prend une minute.`, later: "Plus tard",
+  step: (i, n) => `Question ${i} sur ${n}`, next: "Suivant", send: "Envoyer", multi: "Tu peux en choisir plusieurs", skip: "Passer",
+  thanksT: "Merci de tout cœur !", thanksP: "Les réponses sont anonymes : pas de nom, pas d'e-mail. Si tu veux nous en dire plus, écris-nous :", gift: "+50 Tanì pour toi",
+  q: [
+    { t: "Tu aimes Tanetto à quel point ?", o: ["Pas du tout", "Un peu", "Assez", "Beaucoup", "J'adore"] },
+    { t: "Qu'est-ce que tu préfères ?", m: true, o: ["Le compagnon", "Les objectifs", "La chambre et les objets", "Sorties et cartes postales", "Le journal", "Les jeux", "Le sentier de la saison", "La musique"] },
+    { t: "Qu'est-ce que tu améliorerais ?", m: true, o: ["Plus d'objectifs", "Plus de jeux", "Plus d'objets", "Moins de texte", "Plus rapide", "Les rappels", "Les graphismes", "C'est bien comme ça"] },
+    { t: "Tu l'utiliserais encore dans un mois ?", o: ["Oui, sûr", "Peut-être", "Non"] },
+    { t: "Tu prendrais Tanetto Plus (4,99 € par mois ou 44,99 € par an) ?", o: ["Oui, au mois", "Oui, à l'année", "Peut-être, avec plus de contenu", "Non"] },
+    { t: "Comment as-tu découvert Tanetto ?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Par des amis", "Autre"] }
+  ]
+};
+T.pt.survey = {
+  cardT: "Dê sua opinião", cardP: "6 perguntas rápidas e anônimas para deixar o Tanetto ainda mais bonito. De presente, 50 Tanì.", cardB: "Responder", done: "Obrigado! Suas respostas ajudam muito.",
+  inviteT: "Quer ajudar a gente?", inviteP: (n) => `${n} quer saber o que você acha. Leva só um minuto.`, later: "Mais tarde",
+  step: (i, n) => `Pergunta ${i} de ${n}`, next: "Próximo", send: "Enviar", multi: "Você pode escolher mais de uma", skip: "Pular",
+  thanksT: "Muito obrigado!", thanksP: "As respostas são anônimas: sem nomes, sem e-mails. Se quiser contar mais, escreva pra gente:", gift: "+50 Tanì pra você",
+  q: [
+    { t: "Quanto você gosta do Tanetto?", o: ["Nada", "Pouco", "Mais ou menos", "Muito", "Amo demais"] },
+    { t: "Do que você mais gosta?", m: true, o: ["O companheiro", "As metas", "O quarto e os itens", "Passeios e cartões", "O diário", "Os jogos", "A trilha da temporada", "As músicas"] },
+    { t: "O que você melhoraria?", m: true, o: ["Mais metas", "Mais jogos", "Mais itens", "Menos texto", "Mais rápido", "Os lembretes", "Os gráficos", "Está ótimo assim"] },
+    { t: "Você ainda usaria daqui a um mês?", o: ["Sim, com certeza", "Talvez", "Não"] },
+    { t: "Você assinaria o Tanetto Plus (€ 4,99 por mês ou € 44,99 por ano)?", o: ["Sim, mensal", "Sim, anual", "Talvez, com mais coisas", "Não"] },
+    { t: "Como você conheceu a gente?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Por amigos", "Outro"] }
+  ]
+};
+T.ja.survey = {
+  cardT: "ご意見をきかせて", cardP: "Tanettoをもっとすてきにするための、匿名のかんたんな質問が6つ。お礼に50 Tanìをプレゼント。", cardB: "答える", done: "ありがとう！あなたの回答がとても役に立ちます。",
+  inviteT: "協力してくれる？", inviteP: (n) => `${n}があなたの感想を知りたがっています。1分で終わります。`, later: "あとで",
+  step: (i, n) => `質問 ${i}/${n}`, next: "次へ", send: "送信", multi: "複数選べます", skip: "スキップ",
+  thanksT: "本当にありがとう！", thanksP: "回答は匿名です。名前もメールアドレスも集めません。もっと伝えたいことがあれば、こちらへどうぞ：", gift: "+50 Tanìをどうぞ",
+  q: [
+    { t: "Tanettoはどのくらい好き？", o: ["ぜんぜん", "少し", "まあまあ", "とても", "大好き"] },
+    { t: "いちばん好きなところは？", m: true, o: ["パートナー", "目標", "お部屋とアイテム", "おでかけとポストカード", "日記", "ゲーム", "シーズンの小道", "音楽"] },
+    { t: "よくしてほしいところは？", m: true, o: ["目標をもっと", "ゲームをもっと", "アイテムをもっと", "文章を少なく", "もっと速く", "リマインダー", "グラフィック", "今のままでいい"] },
+    { t: "1か月後も使っていそう？", o: ["きっと使う", "たぶん", "使わない"] },
+    { t: "Tanetto Plus（月額€4.99または年額€44.99）を使ってみたい？", o: ["はい、月額で", "はい、年額で", "内容しだい", "いいえ"] },
+    { t: "Tanettoをどこで知った？", o: ["Reddit", "TikTok", "Instagram", "YouTube", "友だち", "その他"] }
+  ]
+};
+T.ko.survey = {
+  cardT: "의견을 들려주세요", cardP: "Tanetto를 더 멋지게 만들기 위한 짧은 익명 질문 6개예요. 감사의 뜻으로 50 Tanì를 드려요.", cardB: "답하기", done: "고마워요! 답변이 정말 큰 도움이 돼요.",
+  inviteT: "도와줄 수 있어요?", inviteP: (n) => `${n}의 작은 부탁! 어떻게 생각하는지 궁금하대요. 1분이면 돼요.`, later: "나중에",
+  step: (i, n) => `질문 ${i}/${n}`, next: "다음", send: "보내기", multi: "여러 개 고를 수 있어요", skip: "건너뛰기",
+  thanksT: "정말 고마워요!", thanksP: "답변은 익명이에요. 이름도 이메일도 받지 않아요. 더 하고 싶은 이야기가 있다면 여기로 보내 주세요:", gift: "+50 Tanì 선물",
+  q: [
+    { t: "Tanetto가 얼마나 마음에 들어요?", o: ["전혀", "조금", "그럭저럭", "많이", "정말 좋아요"] },
+    { t: "가장 좋은 점은 뭐예요?", m: true, o: ["친구", "목표", "방과 아이템", "여행과 엽서", "일기", "게임", "시즌 오솔길", "음악"] },
+    { t: "무엇이 더 좋아지면 좋을까요?", m: true, o: ["목표 더 많이", "게임 더 많이", "아이템 더 많이", "글은 더 적게", "더 빠르게", "알림", "그래픽", "지금이 좋아요"] },
+    { t: "한 달 뒤에도 쓸 것 같아요?", o: ["네, 꼭이요", "아마도", "아니요"] },
+    { t: "Tanetto Plus(월 €4.99 또는 연 €44.99)를 이용할 생각이 있나요?", o: ["네, 월간", "네, 연간", "기능이 더 많으면", "아니요"] },
+    { t: "Tanetto를 어떻게 알게 됐어요?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "친구", "기타"] }
+  ]
+};
+T.zh.survey = {
+  cardT: "说说你的想法", cardP: "6 个简短的匿名问题，让 Tanetto 变得更好。答完送你 50 Tanì。", cardB: "去回答", done: "谢谢！你的回答对我们帮助很大。",
+  inviteT: "可以帮帮我们吗？", inviteP: (n) => `${n}想知道你的想法，只要一分钟。`, later: "稍后",
+  step: (i, n) => `第 ${i} 题，共 ${n} 题`, next: "下一步", send: "发送", multi: "可以多选", skip: "跳过",
+  thanksT: "非常感谢！", thanksP: "回答是匿名的：不收集姓名，也不收集邮箱。如果想跟我们多聊聊，欢迎来信：", gift: "送你 +50 Tanì",
+  q: [
+    { t: "你有多喜欢 Tanetto？", o: ["完全不", "有一点", "还可以", "很喜欢", "超喜欢"] },
+    { t: "你最喜欢什么？", m: true, o: ["小伙伴", "目标", "房间和物品", "旅行和明信片", "日记", "游戏", "本季小路", "音乐"] },
+    { t: "你希望改进哪些地方？", m: true, o: ["更多目标", "更多游戏", "更多物品", "文字少一点", "速度更快", "提醒", "画面", "现在就很好"] },
+    { t: "一个月后你还会用吗？", o: ["一定会", "也许", "不会"] },
+    { t: "你会开通 Tanetto Plus（每月 €4.99 或每年 €44.99）吗？", o: ["会，按月", "会，按年", "内容更多就会", "不会"] },
+    { t: "你是怎么知道我们的？", o: ["Reddit", "TikTok", "Instagram", "YouTube", "朋友推荐", "其他"] }
+  ]
+};
+T.zht.survey = {
+  cardT: "說說你的想法", cardP: "6 個簡短的匿名問題，讓 Tanetto 變得更好。回答完送你 50 Tanì。", cardB: "去回答", done: "謝謝！你的回答對我們幫助很大。",
+  inviteT: "可以幫幫我們嗎？", inviteP: (n) => `${n}想知道你的想法，只要一分鐘。`, later: "稍後",
+  step: (i, n) => `第 ${i} 題，共 ${n} 題`, next: "下一步", send: "傳送", multi: "可以複選", skip: "跳過",
+  thanksT: "非常感謝！", thanksP: "回答都是匿名的：不收集姓名，也不收集電子郵件。如果想跟我們多聊聊，歡迎來信：", gift: "送你 +50 Tanì",
+  q: [
+    { t: "你有多喜歡 Tanetto？", o: ["完全不", "有一點", "還可以", "很喜歡", "超喜歡"] },
+    { t: "你最喜歡什麼？", m: true, o: ["小夥伴", "目標", "房間和物品", "旅行和明信片", "日記", "遊戲", "本季小路", "音樂"] },
+    { t: "你希望改進哪些地方？", m: true, o: ["更多目標", "更多遊戲", "更多物品", "文字少一點", "速度更快", "提醒", "畫面", "現在就很好"] },
+    { t: "一個月後你還會用嗎？", o: ["一定會", "也許", "不會"] },
+    { t: "你會訂閱 Tanetto Plus（每月 €4.99 或每年 €44.99）嗎？", o: ["會，月繳", "會，年繳", "內容更多就會", "不會"] },
+    { t: "你是怎麼知道我們的？", o: ["Reddit", "TikTok", "Instagram", "YouTube", "朋友介紹", "其他"] }
+  ]
+};
+T.ru.survey = {
+  cardT: "Твоё мнение", cardP: "6 быстрых анонимных вопросов, чтобы Tanetto стал ещё лучше. В подарок — 50 Tanì.", cardB: "Ответить", done: "Спасибо! Твои ответы очень нам помогают.",
+  inviteT: "Поможешь нам?", inviteP: (n) => `${n} хочет знать, что ты думаешь. Это займёт минуту.`, later: "Позже",
+  step: (i, n) => `Вопрос ${i} из ${n}`, next: "Далее", send: "Отправить", multi: "Можно выбрать несколько", skip: "Пропустить",
+  thanksT: "Огромное спасибо!", thanksP: "Ответы анонимные: никаких имён и e-mail. Если хочешь рассказать больше, напиши нам:", gift: "+50 Tanì тебе",
+  q: [
+    { t: "Насколько тебе нравится Tanetto?", o: ["Совсем нет", "Немного", "Нормально", "Очень", "Обожаю"] },
+    { t: "Что нравится больше всего?", m: true, o: ["Питомец", "Цели", "Комната и предметы", "Поездки и открытки", "Дневник", "Игры", "Тропинка сезона", "Музыка"] },
+    { t: "Что стоит улучшить?", m: true, o: ["Больше целей", "Больше игр", "Больше предметов", "Меньше текста", "Скорость", "Напоминания", "Графика", "Всё и так хорошо"] },
+    { t: "Будешь пользоваться им через месяц?", o: ["Да, точно", "Возможно", "Нет"] },
+    { t: "Оформишь Tanetto Plus (4,99 € в месяц или 44,99 € в год)?", o: ["Да, помесячно", "Да, на год", "Если будет больше", "Нет"] },
+    { t: "Откуда ты о нас знаешь?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "От друзей", "Другое"] }
+  ]
+};
+T.pl.survey = {
+  cardT: "Twoja opinia", cardP: "6 szybkich, anonimowych pytań, dzięki którym Tanetto będzie jeszcze lepsze. W prezencie 50 Tanì.", cardB: "Odpowiedz", done: "Dziękujemy! Twoje odpowiedzi bardzo nam pomagają.",
+  inviteT: "Pomożesz nam?", inviteP: (n) => `${n} chce wiedzieć, co myślisz. To zajmie minutę.`, later: "Później",
+  step: (i, n) => `Pytanie ${i} z ${n}`, next: "Dalej", send: "Wyślij", multi: "Możesz wybrać kilka", skip: "Pomiń",
+  thanksT: "Dziękujemy z całego serca!", thanksP: "Odpowiedzi są anonimowe: bez imion i bez e-maili. Jeśli chcesz powiedzieć nam więcej, napisz do nas:", gift: "+50 Tanì dla ciebie",
+  q: [
+    { t: "Jak bardzo podoba ci się Tanetto?", o: ["Wcale", "Trochę", "W miarę", "Bardzo", "Uwielbiam"] },
+    { t: "Co podoba ci się najbardziej?", m: true, o: ["Towarzysz", "Cele", "Pokój i przedmioty", "Wycieczki i pocztówki", "Dziennik", "Gry", "Ścieżka sezonu", "Muzyka"] },
+    { t: "Co warto poprawić?", m: true, o: ["Więcej celów", "Więcej gier", "Więcej przedmiotów", "Mniej tekstu", "Szybkość", "Przypomnienia", "Grafika", "Jest dobrze"] },
+    { t: "Czy za miesiąc nadal będziesz z niego korzystać?", o: ["Tak, na pewno", "Może", "Nie"] },
+    { t: "Czy wykupisz Tanetto Plus (4,99 € miesięcznie lub 44,99 € rocznie)?", o: ["Tak, co miesiąc", "Tak, na rok", "Może, gdyby było więcej", "Nie"] },
+    { t: "Skąd wiesz o Tanetto?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Od znajomych", "Inne"] }
+  ]
+};
+T.nl.survey = {
+  cardT: "Geef je mening", cardP: "6 korte, anonieme vragen om Tanetto nog fijner te maken. Als bedankje krijg je 50 Tanì.", cardB: "Beantwoorden", done: "Dankjewel! Je antwoorden helpen ons enorm.",
+  inviteT: "Help je ons even?", inviteP: (n) => `${n} wil graag weten wat je ervan vindt. Het duurt maar een minuutje.`, later: "Later",
+  step: (i, n) => `Vraag ${i} van ${n}`, next: "Verder", send: "Verstuur", multi: "Je kunt er meer kiezen", skip: "Overslaan",
+  thanksT: "Heel erg bedankt!", thanksP: "De antwoorden zijn anoniem: geen namen, geen e-mails. Wil je ons meer vertellen? Schrijf ons:", gift: "+50 Tanì voor jou",
+  q: [
+    { t: "Hoe leuk vind je Tanetto?", o: ["Helemaal niet", "Een beetje", "Best leuk", "Heel leuk", "Super"] },
+    { t: "Wat vind je het leukst?", m: true, o: ["Het maatje", "De doelen", "Kamer en spulletjes", "Uitstapjes en kaarten", "Het dagboek", "De spelletjes", "Het seizoenspad", "De muziek"] },
+    { t: "Wat zou je verbeteren?", m: true, o: ["Meer doelen", "Meer spelletjes", "Meer spulletjes", "Minder tekst", "Sneller", "Herinneringen", "Het uiterlijk", "Het is goed zo"] },
+    { t: "Gebruik je het over een maand nog?", o: ["Ja, zeker", "Misschien", "Nee"] },
+    { t: "Zou je Tanetto Plus nemen (€ 4,99 per maand of € 44,99 per jaar)?", o: ["Ja, per maand", "Ja, per jaar", "Misschien, met meer erbij", "Nee"] },
+    { t: "Hoe heb je ons gevonden?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Via vrienden", "Anders"] }
+  ]
+};
+T.tr.survey = {
+  cardT: "Fikrini söyle", cardP: "Tanetto'yu daha da güzel yapmak için 6 kısa ve anonim soru. Teşekkür olarak 50 Tanì hediye.", cardB: "Yanıtla", done: "Teşekkürler! Yanıtların bize çok yardımcı oluyor.",
+  inviteT: "Bize yardım eder misin?", inviteP: (n) => `${n} ne düşündüğünü merak ediyor. Sadece bir dakika sürer.`, later: "Sonra",
+  step: (i, n) => `Soru ${i}/${n}`, next: "İleri", send: "Gönder", multi: "Birden fazla seçebilirsin", skip: "Atla",
+  thanksT: "Çok teşekkürler!", thanksP: "Yanıtlar anonimdir: isim yok, e-posta yok. Bize daha fazlasını anlatmak istersen yaz:", gift: "Sana +50 Tanì",
+  q: [
+    { t: "Tanetto'yu ne kadar seviyorsun?", o: ["Hiç", "Biraz", "İdare eder", "Çok", "Bayılıyorum"] },
+    { t: "En çok neyi seviyorsun?", m: true, o: ["Arkadaşın", "Hedefler", "Oda ve eşyalar", "Geziler ve kartpostallar", "Günlük", "Oyunlar", "Sezon yolu", "Müzik"] },
+    { t: "Neyi geliştirirdin?", m: true, o: ["Daha çok hedef", "Daha çok oyun", "Daha çok eşya", "Daha az yazı", "Daha hızlı", "Hatırlatıcılar", "Grafikler", "Böyle iyi"] },
+    { t: "Bir ay sonra hâlâ kullanır mısın?", o: ["Evet, kesin", "Belki", "Hayır"] },
+    { t: "Tanetto Plus'ı alır mıydın (aylık 4,99 € veya yıllık 44,99 €)?", o: ["Evet, aylık", "Evet, yıllık", "Belki, daha çok içerikle", "Hayır"] },
+    { t: "Bizi nereden duydun?", o: ["Reddit", "TikTok", "Instagram", "YouTube", "Bir arkadaştan", "Diğer"] }
+  ]
+};
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -22885,6 +23118,59 @@ Object.assign(ICON, {
   p_noads: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 4l16 16"/>',
   p_cloud: '<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/>'
 });
+
+/* =================== v11: questionario anonimo per i tester =================== */
+const SURVEY_V = 1;
+let svStep = 0, svAns = [];
+const svDone = () => S.survey && S.survey.v === SURVEY_V && S.survey.done;
+function surveyCard() {
+  const t = L().survey; if (!t) return "";
+  if (svDone()) return `<div class="card svcard ok"><span class="svic">${icon("check")}</span><p>${t.done}</p></div>`;
+  return `<div class="card svcard"><span class="svic">${icon("p_chat")}</span><div class="svtx"><h3>${t.cardT}</h3><p class="small muted">${t.cardP}</p></div><button class="btn small" id="svOpen">${t.cardB}</button></div>`;
+}
+function surveyInvite() {
+  const t = L().survey; if (!t || !S.pet || svDone() || !S.firstDay) return "";
+  const d = Math.round((new Date(dkey()) - new Date(S.firstDay)) / 86400000);
+  if (d < 2 || (S.survey && S.survey.later && S.survey.later >= dkey())) return "";
+  return `<div class="card svinvite"><div class="svpet">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div><div class="svtx"><h3>${t.inviteT}</h3><p class="small">${esc(t.inviteP(S.petName))}</p><div class="row"><button class="btn small" id="svOpen">${t.cardB}</button><button class="btn ghost small" id="svLater">${t.later}</button></div></div></div>`;
+}
+function openSurvey() { svStep = 0; svAns = L().survey.q.map(() => []); renderSurvey(); trackOnce("sondaggio-aperto"); }
+function renderSurvey(still) {
+  const t = L().survey; const q = t.q[svStep]; const n = t.q.length; const last = svStep === n - 1; const sel = svAns[svStep];
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="svT"><div class="box card svbox">
+  <div class="svhead"><span class="small muted">${t.step(svStep + 1, n)}</span><button class="iconbtn" id="closeLayer" aria-label="${esc(L().close)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="svdots" aria-hidden="true">${t.q.map((_, i) => `<i class="${i < svStep ? "on" : i === svStep ? "cur" : ""}"></i>`).join("")}</div>
+  <h2 id="svT">${esc(q.t)}</h2>${q.m ? `<p class="small muted">${t.multi}</p>` : ""}
+  <div class="svopts ${svStep === 0 ? "stars" : ""}" role="${q.m ? "group" : "radiogroup"}" aria-labelledby="svT">${q.o.map((o, i) => `<button class="svo" data-svo="${i}" ${q.m ? `aria-pressed="${sel.includes(i)}"` : `role="radio" aria-checked="${sel.includes(i)}"`}>${svStep === 0 ? `<span class="svstar">${"★".repeat(i + 1)}</span>` : ""}<span>${esc(o)}</span></button>`).join("")}</div>
+  <div class="row svnav"><button class="btn ghost small" id="svSkip">${t.skip}</button><span class="spacer"></span><button class="btn" id="svNext" ${sel.length ? "" : "disabled"}>${last ? t.send : t.next}</button></div></div></div>`;
+  if (anim && !still) G.from(".svbox h2, .svopts .svo", { y: 10, opacity: 0, duration: 0.3, stagger: 0.03 });
+}
+function finishSurvey() {
+  svAns.forEach((a, qi) => a.forEach((oi) => track(`sondaggio-d${qi + 1}-r${oi + 1}`)));
+  track(`sondaggio-lingua-${S.lang}`); track("sondaggio-inviato");
+  const first = !(S.survey && S.survey.gift); S.survey = { v: SURVEY_V, done: true, gift: true }; if (first) S.seeds += 50; save();
+  const t = L().survey;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="svT2"><div class="box card svbox"><div class="fdpet">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div><h2 id="svT2">${t.thanksT}</h2>${first ? `<p class="svgift">${SEED}<b>${t.gift}</b></p>` : ""}<p class="small">${t.thanksP}</p><p><b>tanettoapp@gmail.com</b></p><button class="btn" id="closeLayer">${L().ok}</button></div></div>`;
+  SND.play("fanfare"); SND.haptic([15, 40, 20]); burst("heart", 12, document.querySelector(".svbox"));
+}
+const _viewMoreV11 = viewMore;
+viewMore = function () { const h = _viewMoreV11(); const key = `<h1>${L().moreT}</h1>`; return h.includes(key) ? h.replace(key, key + surveyCard()) : h; };
+const _viewTodayV11 = viewToday;
+viewToday = function () { const h = _viewTodayV11(); const inv = surveyInvite(); if (!inv) return h; const key = `<p class="note">${L().demo}</p>`; return h.includes(key) ? h.replace(key, inv + key) : h; };
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.id === "svOpen") { openSurvey(); return; }
+  if (b.id === "svLater") { S.survey = Object.assign({}, S.survey, { later: dkey() }); save(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if (b.dataset.svo != null && document.querySelector(".svbox")) {
+    const i = +b.dataset.svo; const q = L().survey.q[svStep]; const a = svAns[svStep];
+    if (q.m) { const k = a.indexOf(i); if (k >= 0) a.splice(k, 1); else a.push(i); } else svAns[svStep] = [i];
+    SND.play("tap"); SND.haptic(8); renderSurveyKeep(); return;
+  }
+  if (b.id === "svSkip") { svAns[svStep] = []; svGo(); return; }
+  if (b.id === "svNext") { svGo(); return; }
+}, true);
+function renderSurveyKeep() { renderSurvey(true); }
+function svGo() { const n = L().survey.q.length; if (svStep < n - 1) { svStep++; renderSurvey(); SND.play("pop"); } else finishSurvey(); }
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
