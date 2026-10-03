@@ -26,6 +26,7 @@ jobs:
           java-version: 21
       - name: Costruisci l'APK
         run: bash ci_build.sh
+        shell: bash
       - name: Pubblica l'APK
         uses: softprops/action-gh-release@v2
         with:
@@ -35,3 +36,16 @@ jobs:
           prerelease: true
           make_latest: false
           files: app-android/tanetto-prova.apk
+      - name: Diagnostica
+        if: failure()
+        run: |
+          { echo "Ultima costruzione non riuscita."; echo; echo '```'; tail -80 ci.log 2>/dev/null || echo "nessun log"; echo '```'; } > diag.md
+      - name: Pubblica la diagnostica
+        if: failure()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-diagnostica
+          name: Diagnostica costruzione Android
+          body_path: app-android/diag.md
+          prerelease: true
+          make_latest: false
