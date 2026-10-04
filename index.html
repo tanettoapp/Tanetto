@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <meta name="description" content="Tanetto: un piccolo compagno che ti aiuta a prenderti cura di te, un passo alla volta.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tanetto">
+<meta property="og:title" content="Tanetto — a tiny friend for your self-care">
+<meta property="og:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no sign-up, in 14 languages.">
+<meta property="og:url" content="https://tanettoapp.github.io/Tanetto/">
+<meta property="og:image" content="https://tanettoapp.github.io/Tanetto/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tanetto: seven cute illustrated companions in a cozy room">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tanetto — a tiny friend for your self-care">
+<meta name="twitter:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no sign-up, in 14 languages.">
+<meta name="twitter:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -954,8 +967,37 @@ html.calm.firstgoal .goal .tick { animation: none; box-shadow: 0 0 0 3px var(--a
 html.lite .overlay, html.lite .fullbtn, html.lite .scn, html.lite .tabs, html.lite .tabbar, html.lite .trybar, html.lite .departbar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 html.lite .overlay { background: color-mix(in srgb, var(--bg) 96%, transparent); }
 html.lite .seameta em, html.lite.firstgoal .goal .tick { animation: none; }
+
+/* =================== v13: rifiniture =================== */
+#boot { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--bg); color: var(--accent); font-family: var(--font-display), system-ui, sans-serif; }
+#boot b { font-size: 30px; font-weight: 600; letter-spacing: .01em; }
+#boot svg { animation: bootbob 1.4s ease-in-out infinite; }
+.bdots { display: flex; gap: 6px; }
+.bdots i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .3; animation: bootdot 1.2s ease-in-out infinite; }
+.bdots i:nth-child(2) { animation-delay: .2s; } .bdots i:nth-child(3) { animation-delay: .4s; }
+@keyframes bootbob { 50% { transform: translateY(-6px); } }
+@keyframes bootdot { 50% { opacity: 1; } }
+.petpeek { position: fixed; top: calc(10px + env(safe-area-inset-top, 0px)); left: 50%; translate: -50% 0; z-index: 40; display: flex; align-items: center; gap: 10px; max-width: min(92vw, 420px); padding: 8px 16px 8px 8px; border-radius: 22px; background: var(--paper); box-shadow: var(--shadow-lg), inset 0 0 0 2px var(--accent-soft); pointer-events: none; }
+.petpeek .ppk { width: 58px; height: 58px; flex: none; border-radius: 50%; background: var(--accent-soft); display: grid; place-items: center; }
+.petpeek .ppk svg { width: 56px; height: 56px; }
+.petpeek .ppt { display: flex; flex-direction: column; font-size: 14px; line-height: 1.3; }
+.petpeek .ppt b { color: var(--accent); font-family: var(--font-display); font-size: 13px; }
+.overlay .remover { gap: 8px; }
+.remover .remcard { width: 100%; text-align: left; }
+.fdpet.small svg { width: 96px; height: 96px; }
+.seacard.isnew { position: relative; }
+.seacard.isnew::after { content: attr(data-new); position: absolute; top: 10px; left: 10px; background: #E2454A; color: #fff; font-weight: 800; font-size: 12px; padding: 3px 10px; border-radius: 99px; box-shadow: 0 2px 6px rgba(0, 0, 0, .25); }
+#comeBack { display: none; } html.dev #comeBack { display: inline-flex; }
+#toName { position: sticky; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 5; box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .35), 0 3px 0 rgba(0, 0, 0, .15); }
+.tabs { background: color-mix(in srgb, var(--paper) 97%, transparent) !important; }
+.scns { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+.facts { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent); mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent); }
+:lang(ja) { word-break: auto-phrase; line-break: strict; }
+:lang(de), :lang(nl), :lang(pl), :lang(ru), :lang(tr), :lang(fr), :lang(es), :lang(pt), :lang(it) { hyphens: auto; -webkit-hyphens: auto; }
+h1, h2, .btn, .tab span, .pill { hyphens: manual; -webkit-hyphens: manual; }
 </style>
 
+<div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
 <div class="app" id="app"></div>
 <nav class="tabs" id="tabs" hidden aria-label="Menu"><div class="in" id="tabsIn"></div></nav>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -18522,6 +18564,142 @@ T.tr.v12 = {
   lite: "Hafif mod", liteP: "Daha az efekt, yavaş telefonlarda daha akıcı. Gerekirse kendiliğinden açılır."
 };
 
+/* v13: nomi piu' chiari e nuovi testi (it, en; altre lingue in 3zy_v13_more.js) */
+Object.assign(T.it.season, { zero: "Stagione dei Fondatori", passi: (n) => `${n} Scintille`, next: (n) => n === 1 ? "Ancora 1 Scintilla alla prossima tappa" : `Ancora ${n} Scintille alla prossima tappa`, how: "Guadagni Scintille solo prendendoti cura di te: 10 per ogni obiettivo, 20 per ogni giornata completa, 100 per ogni sfida della settimana. Nella settimana di festa valgono il doppio." });
+T.it.wk.reward = (t, p) => `Premio: ${t} Tanì e ${p} Scintille`;
+T.it.festa.P = "Settimana di festa: le Scintille valgono il doppio!";
+T.it.plus.soonP = "Arriverà con l'app sugli store. Abbiamo registrato il tuo interesse: grazie!";
+T.it.v13 = { allT: "Tutto fatto per oggi! 🎉", allP: (n) => `${n} ha l'energia piena ed è pronto per un'avventura!`, allB: "Scegli l'avventura", later: "Più tardi", newTag: "Novità!" };
+Object.assign(T.en.season, { zero: "Founders' Season", passi: (n) => n === 1 ? "1 Spark" : `${n} Sparks`, next: (n) => n === 1 ? "1 more Spark to the next stage" : `${n} more Sparks to the next stage`, how: "You earn Sparks only by taking care of yourself: 10 for each goal, 20 for each complete day, 100 for each weekly challenge. During the festival week they're worth double." });
+T.en.wk.reward = (t, p) => `Reward: ${t} Tanì and ${p} Sparks`;
+T.en.festa.P = "Festival week: Sparks are worth double!";
+T.en.plus.soonP = "It will arrive with the app in the stores. We've noted your interest: thank you!";
+T.en.v13 = { allT: "All done for today! 🎉", allP: (n) => `${n} has full energy and is ready for an adventure!`, allB: "Choose an adventure", later: "Later", newTag: "New!" };
+/* Le frasi del compagno sono al maschile: descrizioni coerenti */
+T.it.pets.ondi[1] = "Un cucciolo di lontra con un sassolino portafortuna.";
+T.it.pets.lumi[1] = "Un cucciolo di lucciola che brilla a ogni tuo passo.";
+T.it.pets.rufi[1] = "Un cucciolo di volpe, curioso e coraggioso.";
+
+/* v13 (altre lingue): Stagione dei Fondatori, Scintille, testi Plus corretti, schermata "tutto fatto", descrizioni coerenti */
+(() => {
+  /* plurali: ru 1 / 2-4 / 5+ (11-14 -> molti), pl 1 / 2-4 (non 12-14) / resto */
+  const ruP = (n, one, few, many) => { const a = Math.abs(n) % 100, b = a % 10; return a > 10 && a < 20 ? many : b === 1 ? one : b > 1 && b < 5 ? few : many; };
+  const plP = (n, one, few, many) => n === 1 ? one : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? few : many;
+  const ruS = (n) => `${n} ${ruP(n, "искорка", "искорки", "искорок")}`;
+  const plS = (n) => `${n} ${plP(n, "Iskierka", "Iskierki", "Iskierek")}`;
+
+  /* de */
+  Object.assign(T.de.season, { zero: "Gründer-Saison", passi: (n) => `${n} Fünkchen`, next: (n) => `Noch ${n} Fünkchen bis zur nächsten Etappe`, how: "Fünkchen sammelst du nur, indem du gut für dich sorgst: 10 für jedes Ziel, 20 für jeden vollen Tag, 100 für jede Wochenaufgabe. In der Festwoche zählen sie doppelt." });
+  T.de.wk.reward = (t, p) => `Belohnung: ${t} Tanì und ${p} Fünkchen`;
+  T.de.festa.P = "Festwoche: Fünkchen zählen doppelt!";
+  T.de.plus.soonP = "Es kommt zusammen mit der App in die Stores. Wir haben dein Interesse notiert: Danke!";
+  T.de.v13 = { allT: "Alles geschafft für heute! 🎉", allP: (n) => `${n} hat volle Energie und ist bereit für ein Abenteuer!`, allB: "Abenteuer wählen", later: "Später", newTag: "Neu!" };
+
+  /* es */
+  Object.assign(T.es.season, { zero: "Temporada de los Fundadores", passi: (n) => n === 1 ? "1 Chispa" : `${n} Chispas`, next: (n) => n === 1 ? "1 Chispa más para la próxima etapa" : `${n} Chispas más para la próxima etapa`, how: "Ganas Chispas solo cuidándote: 10 por cada objetivo, 20 por cada día completo y 100 por cada reto semanal. En la semana de fiesta valen el doble." });
+  T.es.wk.reward = (t, p) => `Premio: ${t} Tanì y ${p} Chispas`;
+  T.es.festa.P = "Semana de fiesta: ¡las Chispas valen el doble!";
+  T.es.plus.soonP = "Llegará con la app a las tiendas. Hemos registrado tu interés: ¡gracias!";
+  T.es.v13 = { allT: "¡Todo hecho por hoy! 🎉", allP: (n) => `¡${n} tiene la energía llena y ganas de aventura!`, allB: "Elige una aventura", later: "Más tarde", newTag: "¡Nuevo!" };
+  /* le frasi del compagno sono al maschile (orgulloso, mandarlo) */
+  T.es.pets.ondi[1] = "Un cachorrito de nutria con una piedrita de la suerte.";
+  T.es.pets.lumi[1] = "Un bichito de luz que brilla con cada paso tuyo.";
+  T.es.pets.rufi[1] = "Un zorrito curioso y valiente.";
+
+  /* fr */
+  Object.assign(T.fr.season, { zero: "Saison des Fondateurs", passi: (n) => n === 1 ? "1 Étincelle" : `${n} Étincelles`, next: (n) => n === 1 ? "Encore 1 Étincelle avant la prochaine étape" : `Encore ${n} Étincelles avant la prochaine étape`, how: "Tu gagnes des Étincelles uniquement en prenant soin de toi : 10 par objectif, 20 par journée complète, 100 par défi de la semaine. Pendant la semaine de fête, elles comptent double." });
+  T.fr.wk.reward = (t, p) => `Récompense : ${t} Tanì et ${p} Étincelles`;
+  T.fr.festa.P = "Semaine de fête : les Étincelles comptent double !";
+  T.fr.plus.soonP = "Il arrivera avec l'app sur les stores. Nous avons bien noté ton intérêt : merci !";
+  T.fr.v13 = { allT: "Tout est fait pour aujourd'hui ! 🎉", allP: (n) => `${n} a toute son énergie et a hâte de partir à l'aventure !`, allB: "Choisir une aventure", later: "Plus tard", newTag: "Nouveau !" };
+  /* les phrases du compagnon sont au masculin (il, fier) */
+  T.fr.pets.ondi[1] = "Un bébé loutre avec un caillou porte-bonheur.";
+  T.fr.pets.lumi[1] = "Un petit ver luisant qui brille à chacun de tes pas.";
+
+  /* pt (Brasil) */
+  Object.assign(T.pt.season, { zero: "Temporada dos Fundadores", passi: (n) => n === 1 ? "1 Faísca" : `${n} Faíscas`, next: (n) => n === 1 ? "Falta 1 Faísca para a próxima etapa" : `Faltam ${n} Faíscas para a próxima etapa`, how: "Você ganha Faíscas só cuidando de si: 10 por meta, 20 por dia completo, 100 por desafio da semana. Na semana de festa, elas valem o dobro." });
+  T.pt.wk.reward = (t, p) => `Prêmio: ${t} Tanì e ${p} Faíscas`;
+  T.pt.festa.P = "Semana de festa: as Faíscas valem o dobro!";
+  T.pt.plus.soonP = "Vai chegar com o app nas lojas. Anotamos o seu interesse: obrigado!";
+  T.pt.v13 = { allT: "Tudo feito por hoje! 🎉", allP: (n) => `${n} está com a energia cheia e quer viver uma aventura!`, allB: "Escolha uma aventura", later: "Mais tarde", newTag: "Novidade!" };
+  /* as falas do companheiro são no masculino (ele, orgulhoso, mandá-lo) */
+  T.pt.pets.ondi[1] = "Um filhote de lontra com uma pedrinha da sorte.";
+  T.pt.pets.rufi[1] = "Um filhote de raposa, curioso e corajoso.";
+
+  /* ja */
+  Object.assign(T.ja.season, { zero: "ファウンダーズ・シーズン", passi: (n) => `${n}キラ`, next: (n) => `次のステージまであと${n}キラ`, how: "キラは、自分を大切にしたときだけたまります。目標1つで10キラ、1日ぜんぶ達成で20キラ、今週のチャレンジ1つで100キラ。お祭りの週は2倍になります。" });
+  T.ja.wk.reward = (t, p) => `ごほうび：${t} Tanìと${p}キラ`;
+  T.ja.festa.P = "お祭りの週：キラが2倍！";
+  T.ja.plus.soonP = "ストア版アプリといっしょに登場します。興味を持ってくれたこと、ちゃんと記録しました。ありがとう！";
+  T.ja.v13 = { allT: "今日はぜんぶ達成！🎉", allP: (n) => `${n}はエネルギー満タン、冒険の準備ばっちり！`, allB: "冒険をえらぶ", later: "あとで", newTag: "NEW!" };
+
+  /* ko */
+  Object.assign(T.ko.season, { zero: "창립 멤버 시즌", passi: (n) => `반짝이 ${n}개`, next: (n) => `다음 단계까지 반짝이 ${n}개 남았어요`, how: "반짝이는 나를 돌볼 때만 모을 수 있어요. 목표 하나에 10개, 하루 목표를 모두 해내면 20개, 주간 챌린지 하나에 100개. 축제 주간에는 두 배예요." });
+  T.ko.wk.reward = (t, p) => `보상: ${t} Tanì + 반짝이 ${p}개`;
+  T.ko.festa.P = "축제 주간: 반짝이가 두 배!";
+  T.ko.plus.soonP = "앱이 스토어에 출시될 때 함께 나와요. 관심을 보내 준 걸 잘 기록해 두었어요. 고마워요!";
+  T.ko.v13 = { allT: "오늘 할 일을 모두 끝냈어요! 🎉", allP: (n) => `에너지 가득! ${n}, 모험 떠날 준비 완료!`, allB: "모험 고르기", later: "나중에", newTag: "NEW!" };
+
+  /* zh */
+  Object.assign(T.zh.season, { zero: "创始季", passi: (n) => `${n} 火花`, next: (n) => `再得 ${n} 火花就到下一站`, how: "只有好好照顾自己才能获得火花：每完成 1 个目标得 10 火花，每完成一整天的目标得 20 火花，每完成 1 个每周挑战得 100 火花。庆典周期间火花翻倍。" });
+  T.zh.wk.reward = (t, p) => `奖励：${t} Tanì 和 ${p} 火花`;
+  T.zh.festa.P = "庆典周：火花翻倍！";
+  T.zh.plus.soonP = "它会随应用一起登陆应用商店。我们已经记下你的关注啦，谢谢你！";
+  T.zh.v13 = { allT: "今天的都完成啦！🎉", allP: (n) => `${n} 能量满满，准备好去冒险啦！`, allB: "选择冒险", later: "稍后", newTag: "新！" };
+
+  /* zht (Taiwan) */
+  Object.assign(T.zht.season, { zero: "創始季", passi: (n) => `${n} 火花`, next: (n) => `再得 ${n} 火花就到下一站`, how: "只有好好照顧自己才能獲得火花：每完成 1 個目標得 10 火花，每完成一整天的目標得 20 火花，每完成 1 個每週挑戰得 100 火花。祭典週期間火花加倍。" });
+  T.zht.wk.reward = (t, p) => `獎勵：${t} Tanì 和 ${p} 火花`;
+  T.zht.festa.P = "祭典週：火花加倍！";
+  T.zht.plus.soonP = "會在 App 上架後推出。我們已經記下你的興趣了，謝謝你！";
+  T.zht.v13 = { allT: "今天全部完成囉！🎉", allP: (n) => `${n} 能量滿滿，準備好去冒險囉！`, allB: "選擇冒險", later: "稍後", newTag: "新！" };
+
+  /* ru */
+  Object.assign(T.ru.season, { zero: "Сезон основателей", passi: (n) => ruS(n), next: (n) => `Ещё ${ruS(n)} до следующего этапа`, how: "Искорки можно получить, только заботясь о себе: 10 за каждую цель, 20 за каждый полностью выполненный день, 100 за каждое испытание недели. В праздничную неделю искорки считаются вдвойне." });
+  T.ru.wk.reward = (t, p) => `Награда: ${t} Tanì и ${ruS(p)}`;
+  T.ru.festa.P = "Праздничная неделя: искорки считаются вдвойне!";
+  T.ru.plus.soonP = "Он появится вместе с приложением в магазинах. Мы отметили твой интерес: спасибо!";
+  T.ru.v13 = { allT: "На сегодня всё сделано! 🎉", allP: (n) => `${n}: энергия на максимуме, можно отправляться в приключение!`, allB: "Выбрать приключение", later: "Позже", newTag: "Новое!" };
+  /* реплики питомца в мужском роде (он) */
+  T.ru.pets.ondi[1] = "Выдрёнок со счастливым камешком.";
+
+  /* pl */
+  Object.assign(T.pl.season, { zero: "Sezon Założycieli", passi: (n) => plS(n), next: (n) => `Jeszcze ${plS(n)} do następnego etapu`, how: "Iskierki zdobywasz tylko wtedy, gdy dbasz o siebie: 10 za każdy cel, 20 za każdy pełny dzień, 100 za każde wyzwanie tygodnia. W tygodniu święta liczą się podwójnie." });
+  T.pl.wk.reward = (t, p) => `Nagroda: ${t} Tanì i ${plS(p)}`;
+  T.pl.festa.P = "Tydzień święta: Iskierki liczą się podwójnie!";
+  T.pl.plus.soonP = "Pojawi się razem z aplikacją w sklepach. Odnotowaliśmy twoje zainteresowanie: dziękujemy!";
+  T.pl.v13 = { allT: "Wszystko na dziś zrobione! 🎉", allP: (n) => `${n} ma pełną energię i może ruszać na przygodę!`, allB: "Wybierz przygodę", later: "Później", newTag: "Nowość!" };
+
+  /* nl */
+  Object.assign(T.nl.season, { zero: "Oprichtersseizoen", passi: (n) => n === 1 ? "1 Vonkje" : `${n} Vonkjes`, next: (n) => n === 1 ? "Nog 1 Vonkje tot de volgende etappe" : `Nog ${n} Vonkjes tot de volgende etappe`, how: "Je verdient Vonkjes alleen door goed voor jezelf te zorgen: 10 per doel, 20 per volledige dag, 100 per weekuitdaging. In de feestweek tellen ze dubbel." });
+  T.nl.wk.reward = (t, p) => `Beloning: ${t} Tanì en ${p} Vonkjes`;
+  T.nl.festa.P = "Feestweek: Vonkjes tellen dubbel!";
+  T.nl.plus.soonP = "Het komt er zodra de app in de stores staat. We hebben je interesse genoteerd: dankjewel!";
+  T.nl.v13 = { allT: "Alles gedaan voor vandaag! 🎉", allP: (n) => `${n} zit vol energie en is klaar voor een avontuur!`, allB: "Kies een avontuur", later: "Later", newTag: "Nieuw!" };
+
+  /* tr */
+  Object.assign(T.tr.season, { zero: "Kurucular Sezonu", passi: (n) => `${n} Kıvılcım`, next: (n) => `Sonraki durağa ${n} Kıvılcım kaldı`, how: "Kıvılcımları sadece kendine bakarak kazanırsın: her hedef için 10, her tam gün için 20, her haftalık görev için 100. Şenlik haftasında iki kat değerlidirler." });
+  T.tr.wk.reward = (t, p) => `Ödül: ${t} Tanì ve ${p} Kıvılcım`;
+  T.tr.festa.P = "Şenlik haftası: Kıvılcımlar iki kat değerli!";
+  T.tr.plus.soonP = "Uygulama mağazalarda yayınlandığında hazır olacak. İlgini not ettik: teşekkürler!";
+  T.tr.v13 = { allT: "Bugünlük her şey tamam! 🎉", allP: (n) => `${n} enerji dolu, maceraya hazır!`, allB: "Macera seç", later: "Sonra", newTag: "Yeni!" };
+})();
+/* "Stagione 0" diventa "Stagione dei Fondatori" anche nel distintivo */
+T.it.season.founderP = "Hai giocato la Stagione dei Fondatori: questo distintivo e la lanterna d'oro restano tuoi per sempre.";
+T.en.season.founderP = "You played the Founders' Season: this badge and the golden lantern are yours forever.";
+T.de.season.founderP = "Du warst in der Gründer-Saison dabei: Dieses Abzeichen und die goldene Laterne gehören für immer dir.";
+T.es.season.founderP = "Jugaste la Temporada de los Fundadores: esta insignia y el farolillo dorado son tuyos para siempre.";
+T.fr.season.founderP = "Tu as joué la Saison des Fondateurs : ce badge et la lanterne dorée sont à toi pour toujours.";
+T.pt.season.founderP = "Você jogou a Temporada dos Fundadores: este emblema e a lanterna dourada são seus para sempre.";
+T.ja.season.founderP = "ファウンダーズ・シーズンに参加してくれたあなたへ。このバッジと金のランタンは、ずっとあなたのものです。";
+T.ko.season.founderP = "창립 멤버 시즌을 함께했어요. 이 배지와 황금 등불은 영원히 당신의 것이에요.";
+T.nl.season.founderP = "Je speelde het Oprichtersseizoen: deze badge en de gouden lantaarn zijn voor altijd van jou.";
+T.pl.season.founderP = "Sezon Założycieli przeżyty razem: ta odznaka i złoty lampion są twoje na zawsze.";
+T.ru.season.founderP = "Ты участник Сезона основателей: этот значок и золотой фонарик останутся с тобой навсегда.";
+T.tr.season.founderP = "Kurucular Sezonu'nda oynadın: bu rozet ve altın fener sonsuza dek senin.";
+T.zh.season.founderP = "你参加了创始季，这枚徽章和金灯笼永远属于你。";
+T.zht.season.founderP = "你參加了創始季，這枚徽章和金燈籠永遠都是你的。";
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -23713,6 +23891,106 @@ trackDaily = function () {
   const before = S.tracked && S.tracked.open; _trackDailyV12();
   if (S.tracked && S.tracked.open !== before && S.pet && S.firstDay) { const d = Math.round((new Date(dkey()) - new Date(S.firstDay)) / 86400000); track(`giorno-${d}-${S.src || "diretto"}`); }
 };
+
+/* =================== v13: rifiniture prima del test (revisione indipendente) =================== */
+const isFirstDay = () => !!S.firstDay && dkey() === S.firstDay;
+const dayIndex = () => (S.firstDay ? Math.round((new Date(dkey()) - new Date(S.firstDay)) / 86400000) : 0);
+
+/* 1) Guida iniziale piu' corta: compagno, obiettivi, menu (il regalo si spiega da solo) */
+TUT_TARGETS.splice(1, 2); Object.keys(T).forEach((l) => { if (T[l].tut && T[l].tut.length === 5) T[l].tut.splice(1, 2); });
+/* La guida si riposiziona se la pagina si sposta mentre appare */
+const _showTutStepV13 = showTutStep;
+showTutStep = function () {
+  _showTutStepV13();
+  setTimeout(() => {
+    if (!tutOn) return; const el = document.querySelector(TUT_TARGETS[S.tut]); const ring = document.querySelector(".tutring"); if (!el || !ring) return;
+    const r = el.getBoundingClientRect(); const q = ring.getBoundingClientRect();
+    if (Math.abs(r.top - 8 - q.top) > 6 || Math.abs(r.left - 8 - q.left) > 6) _showTutStepV13();
+  }, anim ? 1100 : 120);
+};
+
+/* 2) Il compagno si vede sempre quando festeggia */
+function roomVisible() { const r = document.getElementById("room"); if (!r) return false; const b = r.getBoundingClientRect(); return b.bottom > 120 && b.top < innerHeight - 160; }
+let peekT = null;
+function petPeek(text, e = "felice") {
+  if (!S.pet) return; document.querySelectorAll(".petpeek").forEach((x) => x.remove()); clearTimeout(peekT);
+  const d = document.createElement("div"); d.className = "petpeek"; d.setAttribute("role", "status");
+  d.innerHTML = `<span class="ppk">${petSVG(S.pet, e, S.hat, stage(), S.petName)}</span><span class="ppt"><b>${esc(S.petName)}</b>${text ? `<span>${esc(text)}</span>` : ""}</span>`;
+  document.body.appendChild(d);
+  if (anim) { G.fromTo(d, { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }); G.fromTo(d.querySelector(".ppk"), { rotation: -8 }, { rotation: 8, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }); }
+  peekT = setTimeout(() => { if (anim) G.to(d, { y: -80, opacity: 0, duration: 0.35, onComplete: () => d.remove() }); else d.remove(); }, 2800);
+}
+function openAllDone() {
+  const t = L();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="adT"><div class="box card wgbox alldone"><div class="fdpet">${petSVG(S.pet, "amore", S.hat, stage(), S.petName)}</div><h2 id="adT">${t.v13.allT}</h2><p>${esc(t.v13.allP(S.petName))}</p><button class="btn block" id="adGo" data-tab="trips">${t.v13.allB}</button><button class="link" id="closeLayer">${t.v13.later}</button></div></div>`;
+  SND.play("fanfare"); burst("confetti", 30); trackOnce("tutto-fatto");
+  if (anim) G.from(".alldone .fdpet", { y: 40, scale: 0.5, duration: 0.6, ease: "back.out(2)" });
+}
+const _completeGoalV13 = completeGoal;
+completeGoal = function (g, rect) {
+  const tg = todayGoals(); const wasAll = tg.every((x) => S.done.includes(x)); const lvl0 = S.level; const n0 = (S.log || []).length;
+  _completeGoalV13(g, rect);
+  if (!S.done.includes(g)) return;
+  const all = tg.every((x) => S.done.includes(x)); const t = L();
+  if (!roomVisible()) setTimeout(() => petPeek(sayText || "", all ? "amore" : "felice"), 250);
+  /* il primo giorno completo porta sempre al livello 2 */
+  if (all && !wasAll && S.level === 1 && !S.firstLevelGift) { S.firstLevelGift = dkey(); const prev = S.level; addXp(Math.max(0, xpNeed(1) - S.xp)); save(); setTimeout(() => showLevelUp(prev), 1300); return; }
+  if (all && !wasAll && S.level === lvl0 && !S.away) { setTimeout(() => { if (!layer.innerHTML) openAllDone(); }, 1500); return; }
+  /* subito dopo il primo obiettivo: il promemoria, quando la voglia e' piu' alta */
+  if (n0 === 0 && !all && !S.rem) setTimeout(() => { if (!layer.innerHTML && !tutOn) openRemAsk(); }, 3200);
+};
+function openRemAsk() {
+  const t = L(); trackOnce("promemoria-chiesto"); document.querySelectorAll("#app .remcard.ask").forEach((x) => x.remove());
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="raT"><div class="box remover"><div class="fdpet small">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div>${remCard(true).replace("<h3>", '<h3 id="raT">')}</div></div>`;
+  if (anim) G.from(".remover .remcard", { y: 30, opacity: 0, duration: 0.4, ease: "power3.out" });
+}
+
+/* 3) Primo giorno piu' semplice; dal secondo giorno arrivano stagione, sfida e festa come novita' */
+const _seasonCardV13 = seasonCard;
+seasonCard = function () { if (isFirstDay()) return ""; const h = _seasonCardV13(); return dayIndex() === 1 && h ? h.replace('<button class="seacard"', `<button class="seacard isnew" data-new="${esc(L().v13.newTag)}"`) : h; };
+const _challengeCardV13 = challengeCard;
+challengeCard = function () { return isFirstDay() ? "" : _challengeCardV13(); };
+const _festaBannerV13 = festaBanner;
+festaBanner = function () { return isFirstDay() ? "" : _festaBannerV13(); };
+/* niente visite di amici il primo giorno (confonderebbe) */
+const _friendTodayV13 = friendToday;
+friendToday = function () { return isFirstDay() ? null : _friendTodayV13(); };
+
+/* 4) Oggi: obiettivi prima dei contatori, e il promemoria vicino agli obiettivi */
+const _viewTodayV13 = viewToday;
+viewToday = function () {
+  let h = _viewTodayV13(); if (!S.pet) return h;
+  const goalsKey = `<div class="row"><button class="link" data-tab="more" data-focus="goals">`;
+  const ms = h.indexOf('<div class="meters2">');
+  if (!S.away && ms >= 0 && h.includes(goalsKey)) {
+    let depth = 0, k = ms, me = -1; const re = /<\/?div\b/g; re.lastIndex = ms;
+    for (let mt; (mt = re.exec(h)); ) { if (mt[0] === "<div") depth++; else { depth--; if (depth === 0) { me = h.indexOf(">", mt.index) + 1; break; } } }
+    if (me > ms) { const m = h.slice(ms, me); h = h.slice(0, ms) + h.slice(me); const i = h.indexOf(goalsKey); const j = h.indexOf("</div>", i) + 6; h = h.slice(0, j) + m + h.slice(j); }
+  }
+  const rc = remCard(true); if (h.includes(rc)) { h = h.replace(rc, ""); const i = h.indexOf(goalsKey); if (i >= 0) { const j = h.indexOf("</div>", i) + 6; h = h.slice(0, j) + rc + h.slice(j); } }
+  return h;
+};
+
+/* 5) Testi Plus: nome del compagno anche prima di sceglierlo */
+const _openPlusV13 = openPlus;
+openPlus = function (src, after) {
+  const had = S.petName; if (!S.petName) S.petName = (L().pets[draftPet] || L().pets.germo)[0];
+  try { _openPlusV13(src, after); } finally { if (!had) S.petName = had; }
+};
+
+/* 6) Il pulsante "fallo tornare subito" resta solo per le prove interne */
+const _applyRootV13 = applyRoot;
+applyRoot = function () { _applyRootV13(); document.documentElement.classList.toggle("dev", !!S.dev); };
+
+/* 7) Schermata di caricamento: sparisce appena l'app e' pronta */
+(() => { const b = document.getElementById("boot"); if (b) b.remove(); })();
+
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.id === "adGo") { closeLayer(); }
+  if ((b.id === "remI" || b.id === "remNo") && document.querySelector(".remover")) { setTimeout(() => { if (document.querySelector(".remover")) closeLayer(); }, 300); }
+}, true);
+document.addEventListener("click", (ev) => { const a = ev.target.closest && ev.target.closest("a#remG"); if (a && document.querySelector(".remover")) setTimeout(() => closeLayer(), 300); }, true);
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
