@@ -24082,10 +24082,20 @@ const NO_COUNT_KEY = "tanetto-non-contare";
 (() => {
   try {
     const q = new URLSearchParams(location.search);
-    if (q.get("io") === "1") { localStorage.setItem(NO_COUNT_KEY, "1"); setTimeout(() => toast(L().v13.noCount), 1200); }
+    if (q.get("io") === "1") { localStorage.setItem(NO_COUNT_KEY, "1"); setTimeout(noCountShow, 900); }
     if (q.get("io") === "0") { localStorage.removeItem(NO_COUNT_KEY); }
   } catch (e) { /* niente */ }
 })();
+/* conferma ben visibile: aspetta che sparisca la schermata iniziale, poi un popup con OK */
+function noCountShow(tries = 0) {
+  if (document.querySelector(".splash") && tries < 20) { setTimeout(() => noCountShow(tries + 1), 400); return; }
+  const msg = L().v13.noCount;
+  if (layer.innerHTML || tutOn) { toast(msg); clearTimeout(toastTimer); toastTimer = setTimeout(() => { document.getElementById("toast").hidden = true; }, 6000); return; }
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="ncT"><div class="box card wgbox"><div class="fdpet small">${petSVG(S.pet || draftPet || "germo", "felice", S.hat, S.pet ? stage() : 1, S.petName || "")}</div><p id="ncT" style="font-size:17px;line-height:1.4">${esc(msg)}</p><button class="btn block" id="closeLayer">OK</button></div></div>`;
+}
+/* in "Altro" resta scritto, cosi' si puo' sempre controllare */
+const _viewMoreNC = viewMore;
+viewMore = function () { const h = _viewMoreNC(); let on = false; try { on = localStorage.getItem(NO_COUNT_KEY) === "1"; } catch (e) { /* niente */ } return on ? h + `<p class="small muted" style="text-align:center;margin:8px 0 0">${esc(L().v13.noCount)}</p>` : h; };
 const _trackV13 = track;
 track = function (path) { try { if (localStorage.getItem(NO_COUNT_KEY) === "1") return; } catch (e) { /* niente */ } _trackV13(path); };
 
