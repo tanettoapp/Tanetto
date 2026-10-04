@@ -995,6 +995,25 @@ html.lite .seameta em, html.lite.firstgoal .goal .tick { animation: none; }
 :lang(ja) { word-break: auto-phrase; line-break: strict; }
 :lang(de), :lang(nl), :lang(pl), :lang(ru), :lang(tr), :lang(fr), :lang(es), :lang(pt), :lang(it) { hyphens: auto; -webkit-hyphens: auto; }
 h1, h2, .btn, .tab span, .pill { hyphens: manual; -webkit-hyphens: manual; }
+
+/* ===== v13b ===== */
+.plussticky { position: sticky; bottom: -12px; z-index: 3; background: var(--paper); margin: 0 -16px -12px; padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -8px 16px -10px rgba(0,0,0,.25); border-radius: 0 0 26px 26px; }
+.gamebox { min-width: 0; }
+.gamebox * { min-width: 0; overflow-wrap: anywhere; }
+.fdbox { align-self: center; height: auto; }
+@media (max-height: 700px) { #app .room:not(.roomwrap.full .room) { max-height: 36vh; aspect-ratio: auto; } #app .room > svg { height: 36vh; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .festa { background: linear-gradient(100deg, #4A3A1C, #4A2A22); color: #FBE3C4; }
+  :root:not([data-theme="light"]) .festa .fic { background: #2F2A24; }
+  :root:not([data-theme="light"]) .pluscard { background: linear-gradient(135deg, #4A3A1C, #3E2C18); color: #FBE3C4; }
+  :root:not([data-theme="light"]) .pluscard small { color: #D9BF95; }
+}
+:root[data-theme="dark"] .festa { background: linear-gradient(100deg, #4A3A1C, #4A2A22); color: #FBE3C4; }
+:root[data-theme="dark"] .festa .fic { background: #2F2A24; }
+:root[data-theme="dark"] .pluscard { background: linear-gradient(135deg, #4A3A1C, #3E2C18); color: #FBE3C4; }
+:root[data-theme="dark"] .pluscard small { color: #D9BF95; }
+:lang(ru) .tabs button, :lang(ru) .tab small, :lang(ru) .tabs small { font-size: 10.5px; letter-spacing: -.01em; }
+:lang(ru) .btn { font-size: 15px; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -18569,12 +18588,12 @@ Object.assign(T.it.season, { zero: "Stagione dei Fondatori", passi: (n) => `${n}
 T.it.wk.reward = (t, p) => `Premio: ${t} Tanì e ${p} Scintille`;
 T.it.festa.P = "Settimana di festa: le Scintille valgono il doppio!";
 T.it.plus.soonP = "Arriverà con l'app sugli store. Abbiamo registrato il tuo interesse: grazie!";
-T.it.v13 = { allT: "Tutto fatto per oggi! 🎉", allP: (n) => `${n} ha l'energia piena ed è pronto per un'avventura!`, allB: "Scegli l'avventura", later: "Più tardi", newTag: "Novità!" };
+T.it.v13 = { subscribe: "Abbonati", afterY: (p) => `7 giorni gratis, poi ${p}. Il rinnovo parte da solo alla fine della prova: puoi disdire quando vuoi, anche prima.`, afterM: (p) => `${p}. Si rinnova da solo ogni mese: puoi disdire quando vuoi.`, allT: "Tutto fatto per oggi! 🎉", allP: (n) => `${n} ha l'energia piena ed è pronto per un'avventura!`, allB: "Scegli l'avventura", later: "Più tardi", newTag: "Novità!" };
 Object.assign(T.en.season, { zero: "Founders' Season", passi: (n) => n === 1 ? "1 Spark" : `${n} Sparks`, next: (n) => n === 1 ? "1 more Spark to the next stage" : `${n} more Sparks to the next stage`, how: "You earn Sparks only by taking care of yourself: 10 for each goal, 20 for each complete day, 100 for each weekly challenge. During the festival week they're worth double." });
 T.en.wk.reward = (t, p) => `Reward: ${t} Tanì and ${p} Sparks`;
 T.en.festa.P = "Festival week: Sparks are worth double!";
 T.en.plus.soonP = "It will arrive with the app in the stores. We've noted your interest: thank you!";
-T.en.v13 = { allT: "All done for today! 🎉", allP: (n) => `${n} has full energy and is ready for an adventure!`, allB: "Choose an adventure", later: "Later", newTag: "New!" };
+T.en.v13 = { subscribe: "Subscribe", afterY: (p) => `7 days free, then ${p}. It renews automatically when the trial ends: you can cancel anytime, even before.`, afterM: (p) => `${p}. It renews automatically every month: cancel anytime.`, allT: "All done for today! 🎉", allP: (n) => `${n} has full energy and is ready for an adventure!`, allB: "Choose an adventure", later: "Later", newTag: "New!" };
 /* Le frasi del compagno sono al maschile: descrizioni coerenti */
 T.it.pets.ondi[1] = "Un cucciolo di lontra con un sassolino portafortuna.";
 T.it.pets.lumi[1] = "Un cucciolo di lucciola che brilla a ogni tuo passo.";
@@ -18699,6 +18718,35 @@ T.ru.season.founderP = "Ты участник Сезона основателе�
 T.tr.season.founderP = "Kurucular Sezonu'nda oynadın: bu rozet ve altın fener sonsuza dek senin.";
 T.zh.season.founderP = "你参加了创始季，这枚徽章和金灯笼永远属于你。";
 T.zht.season.founderP = "你參加了創始季，這枚徽章和金燈籠永遠都是你的。";
+/* Paywall: pulsante Abbonati e note sotto i piani (annuale con prova, mensile) */
+Object.assign(T.de.v13, { subscribe: "Abonnieren", afterY: (p) => `7 Tage gratis, dann ${p}. Verlängert sich automatisch nach Ende des Probezeitraums – jederzeit kündbar, auch vorher.`, afterM: (p) => `${p}. Verlängert sich automatisch jeden Monat – jederzeit kündbar.` });
+Object.assign(T.es.v13, { subscribe: "Suscribirse", afterY: (p) => `7 días gratis, luego ${p}. Se renueva automáticamente al terminar la prueba: puedes cancelar cuando quieras, incluso antes.`, afterM: (p) => `${p}. Se renueva automáticamente cada mes: cancela cuando quieras.` });
+Object.assign(T.fr.v13, { subscribe: "S'abonner", afterY: (p) => `7 jours gratuits, puis ${p}. Renouvellement automatique à la fin de l'essai : résiliable à tout moment, même avant.`, afterM: (p) => `${p}. Renouvellement automatique chaque mois : résiliable à tout moment.` });
+Object.assign(T.pt.v13, { subscribe: "Assinar", afterY: (p) => `7 dias grátis, depois ${p}. A renovação é automática no fim do teste: você pode cancelar quando quiser, até antes.`, afterM: (p) => `${p}. Renova automaticamente todo mês: cancele quando quiser.` });
+Object.assign(T.ja.v13, { subscribe: "登録する", afterY: (p) => `7日間無料、その後${p}。無料体験の終了時に自動更新されます。体験期間中も含め、いつでも解約できます。`, afterM: (p) => `${p}。毎月自動更新されます。いつでも解約できます。` });
+Object.assign(T.ko.v13, { subscribe: "구독하기", afterY: (p) => `7일 무료, 이후 ${p}. 무료 체험이 끝나면 자동으로 갱신돼요. 체험 중에도 언제든 해지할 수 있어요.`, afterM: (p) => `${p}. 매월 자동으로 갱신돼요. 언제든 해지할 수 있어요.` });
+Object.assign(T.zh.v13, { subscribe: "订阅", afterY: (p) => `免费试用 7 天，之后${p}。试用结束后自动续订，可随时取消，试用期内也可以。`, afterM: (p) => `${p}。每月自动续订，可随时取消。` });
+Object.assign(T.zht.v13, { subscribe: "訂閱", afterY: (p) => `免費試用 7 天，之後${p}。試用結束後自動續訂，可隨時取消，試用期間內也可以。`, afterM: (p) => `${p}。每月自動續訂，可隨時取消。` });
+Object.assign(T.ru.v13, { subscribe: "Оформить подписку", afterY: (p) => `7 дней бесплатно, затем ${p}. Подписка продлевается автоматически после пробного периода. Отменить можно в любой момент, даже до его окончания.`, afterM: (p) => `${p}. Подписка продлевается автоматически каждый месяц. Отменить можно в любой момент.` });
+Object.assign(T.pl.v13, { subscribe: "Subskrybuj", afterY: (p) => `7 dni za darmo, potem ${p}. Subskrypcja odnawia się automatycznie po okresie próbnym. Możesz anulować w dowolnym momencie, także wcześniej.`, afterM: (p) => `${p}. Subskrypcja odnawia się automatycznie co miesiąc. Możesz anulować w dowolnym momencie.` });
+Object.assign(T.nl.v13, { subscribe: "Abonneren", afterY: (p) => `7 dagen gratis, daarna ${p}. Wordt automatisch verlengd na de proefperiode. Je kunt altijd opzeggen, ook eerder.`, afterM: (p) => `${p}. Wordt elke maand automatisch verlengd. Je kunt altijd opzeggen.` });
+Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsiz, ardından ${p}. Deneme bitince otomatik olarak yenilenir. İstediğin zaman, deneme bitmeden bile iptal edebilirsin.`, afterM: (p) => `${p}. Her ay otomatik olarak yenilenir. İstediğin zaman iptal edebilirsin.` });
+/* Avviso per il proprietario (link ?io=1) e titolare dell'informativa durante la prova */
+[["it", "Fatto: le tue visite da questo dispositivo non verranno contate.", "il progetto Tanetto, gestito da una persona fisica"],
+ ["en", "Done: your visits from this device won't be counted.", "the Tanetto project, run by a private individual"],
+ ["de", "Erledigt: Deine Besuche von diesem Gerät werden nicht gezählt.", "das Projekt Tanetto, betrieben von einer Privatperson"],
+ ["es", "Hecho: tus visitas desde este dispositivo no se contarán.", "el proyecto Tanetto, gestionado por una persona física"],
+ ["fr", "C'est fait : tes visites depuis cet appareil ne seront pas comptées.", "le projet Tanetto, géré par une personne physique"],
+ ["pt", "Pronto: suas visitas a partir deste dispositivo não serão contadas.", "o projeto Tanetto, mantido por uma pessoa física"],
+ ["ja", "設定しました：この端末からの利用はカウントされません。", "Tanetto プロジェクト（個人が運営）"],
+ ["ko", "완료: 이 기기에서의 방문은 집계되지 않아요.", "개인이 운영하는 Tanetto 프로젝트"],
+ ["zh", "已设置：此设备的访问将不会被统计。", "Tanetto 项目（由个人运营）"],
+ ["zht", "已設定：這台裝置的造訪不會被統計。", "Tanetto 專案（由個人經營）"],
+ ["ru", "Готово: посещения с этого устройства не будут учитываться.", "проект Tanetto, который ведёт частное лицо"],
+ ["pl", "Gotowe: wizyty z tego urządzenia nie będą liczone.", "projekt Tanetto prowadzony przez osobę prywatną"],
+ ["nl", "Klaar: je bezoeken vanaf dit apparaat worden niet meegeteld.", "het project Tanetto, beheerd door een privépersoon"],
+ ["tr", "Tamam: bu cihazdan yaptığın ziyaretler sayılmayacak.", "bir birey tarafından yürütülen Tanetto projesi"]
+].forEach(([l, nc, own]) => { if (T[l]) { T[l].v13 = Object.assign(T[l].v13 || {}, { noCount: nc }); T[l].ownerMissing = own; } });
 
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
@@ -21366,8 +21414,9 @@ function maybeTutorial() {
   if (tutOn || !S.pet || S.tut >= 99 || tab !== "today" || layer.innerHTML || S.away) return;
   setTimeout(showTutStep, anim ? 700 : 50);
 }
+let tutGen = 0;
 function tutClose(done) {
-  document.querySelectorAll(".tutwrap").forEach((x) => x.remove()); tutOn = false;
+  tutGen++; document.querySelectorAll(".tutwrap").forEach((x) => x.remove()); tutOn = false;
   if (done) { S.tut = 99; save(); trackOnce("tutorial-finito"); }
 }
 function showTutStep() {
@@ -21379,7 +21428,10 @@ function showTutStep() {
   document.querySelectorAll(".tutwrap").forEach((x) => x.remove());
   const t = L(); const last = i === TUT_TARGETS.length - 1 || !TUT_TARGETS.slice(i + 1).some((s) => document.querySelector(s));
   if (TUT_TARGETS[i] !== "#tabs") el.scrollIntoView({ block: "center", behavior: anim ? "smooth" : "auto" });
+  const gen = ++tutGen;
   setTimeout(() => {
+    if (gen !== tutGen || !tutOn) return; if (!el.isConnected) { el = document.querySelector(TUT_TARGETS[i]); if (!el) { tutClose(true); return; } }
+    document.querySelectorAll(".tutwrap").forEach((x) => x.remove());
     const r = el.getBoundingClientRect(); const pad = 8;
     const w = document.createElement("div"); w.className = "tutwrap";
     w.innerHTML = `<div class="tutblock"></div><div class="tutring" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div><div class="tutbox card" role="dialog" aria-live="polite"><p>${esc(t.tut[i].split("{n}").join(S.petName))}</p><div class="row"><button class="link" id="tutSkip">${t.tutSkip}</button><span class="spacer"></span><span class="small muted">${i + 1}/${TUT_TARGETS.length}</span><button class="btn small" id="tutNext">${last ? t.tutDone : t.tutNext}</button></div></div>`;
@@ -21396,7 +21448,8 @@ document.addEventListener("click", (ev) => {
   if (b.id === "tutNext") { ev.stopPropagation(); SND.play("click"); S.tut++; save(); if (S.tut >= TUT_TARGETS.length) { tutClose(true); burst("confetti", 24); SND.play("fanfare"); return; } showTutStep(); return; }
   if (b.id === "tutSkip") { ev.stopPropagation(); tutClose(true); return; }
 }, true);
-window.addEventListener("resize", () => { if (tutOn) showTutStep(); });
+let tutRz = null;
+window.addEventListener("resize", () => { if (!tutOn) return; clearTimeout(tutRz); tutRz = setTimeout(() => { if (tutOn) showTutStep(); }, 250); });
 
 /* --- Gestione dei nuovi pulsanti --- */
 let clickT0 = 0;
@@ -23279,6 +23332,7 @@ furnAlt = function (slot, furn, lit, lampId) {
 Object.assign(ALT_VB, { rug_autumn: "54 240 256 56", rug_moon: "54 240 256 56", lamp_stone: "16 186 60 80", tree_lights: "286 124 70 130", founder_lantern: "66 176 62 96" });
 
 /* --- Stagioni --- */
+const ldate = (k) => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
 const SEASONS = [{ id: "lanterns", zero: true, start: "2026-10-03", end: "2026-12-31" }];
 const curSeason = () => { const d = dkey(); return SEASONS.find((x) => d >= x.start && d <= x.end) || null; };
 const SFREE = { 5: { item: "founder_lantern" }, 10: { item: "curt_autumn" }, 15: { shield: 1 }, 20: { item: "rug_autumn" }, 25: { tani: 250 }, 30: { item: "s_autumn" }, 35: { shield: 1 }, 40: { tani: 400 }, 45: { tani: 300 }, 50: { item: "w_lanterns" } };
@@ -23290,7 +23344,7 @@ function passi(se) {
   se = se || curSeason(); if (!se) return 0; let p = 0;
   (S.log || []).forEach((x) => { if (x.d >= se.start && x.d <= se.end) p += 10 * (isFesta(x.d) ? 2 : 1); });
   Object.keys(S.days || {}).forEach((k) => { const r = S.days[k]; if (k >= se.start && k <= se.end && r.total > 0 && r.done >= r.total) p += 20 * (isFesta(k) ? 2 : 1); });
-  Object.keys(S.wkc || {}).forEach((k) => { if (S.wkc[k] && k >= weekKey(new Date(se.start)) && k <= se.end) p += 100; });
+  Object.keys(S.wkc || {}).forEach((k) => { if (S.wkc[k] && k >= weekKey(ldate(se.start)) && k <= se.end) p += 100; });
   return p;
 }
 const sTier = (p) => Math.min(50, Math.floor(p / 100));
@@ -23353,14 +23407,14 @@ openLetter = function () {
 /* --- Sfida della settimana --- */
 function weekChallenge() {
   const wk = weekKey(); const idx = Math.round(new Date(wk).getTime() / 604800000) % 4; const t = L().wk;
-  const start = wk, endD = new Date(wk); endD.setDate(endD.getDate() + 6); const end = dkey(endD);
+  const start = wk, endD = ldate(wk); endD.setDate(endD.getDate() + 6); const end = dkey(endD);
   const log = (S.log || []).filter((x) => x.d >= start && x.d <= end); const days = Object.keys(S.days || {}).filter((k) => k >= start && k <= end);
   let goal, have, text;
   if (idx === 0) { goal = 20; have = log.length; text = t.goals(goal); }
   else if (idx === 1) { goal = 5; const cnt = {}; log.forEach((x) => { cnt[x.d] = (cnt[x.d] || 0) + 1; }); have = Object.values(cnt).filter((v) => v >= 2).length; text = t.days(goal); }
   else if (idx === 2) { goal = 3; have = days.filter((k) => S.days[k].total > 0 && S.days[k].done >= S.days[k].total).length; text = t.full(goal); }
   else { const cats = {}; (S.goals || []).forEach((g) => { const c = goalCat(g.id); cats[c] = (cats[c] || 0) + 1; }); const cat = Object.keys(cats).sort((a, b) => cats[b] - cats[a])[0] || "body"; goal = 8; have = log.filter((x) => goalCat(x.g) === cat).length; text = t.cat(goal, L().cats[cat]); }
-  const left = Math.max(1, Math.round((endD - new Date(dkey())) / 86400000) + 1);
+  const left = Math.max(1, Math.round((endD - ldate(dkey())) / 86400000) + 1);
   return { wk, goal, have: Math.min(have, goal), text, left, done: have >= goal, claimed: !!(S.wkc && S.wkc[wk]) };
 }
 function challengeCard() {
@@ -23991,6 +24045,121 @@ document.addEventListener("click", (ev) => {
   if ((b.id === "remI" || b.id === "remNo") && document.querySelector(".remover")) { setTimeout(() => { if (document.querySelector(".remover")) closeLayer(); }, 300); }
 }, true);
 document.addEventListener("click", (ev) => { const a = ev.target.closest && ev.target.closest("a#remG"); if (a && document.querySelector(".remover")) setTimeout(() => closeLayer(), 300); }, true);
+
+/* 8) Guida iniziale a prova di blocco: toccare lo sfondo scuro va avanti, e un controllo la ripara da sola */
+document.addEventListener("click", (ev) => {
+  if (!ev.target.closest || !ev.target.closest(".tutblock")) return; ev.preventDefault(); ev.stopPropagation();
+  const n = document.getElementById("tutNext"); if (n) n.click(); else tutClose(true);
+}, true);
+let tutBad = 0;
+setInterval(() => {
+  if (!tutOn) { tutBad = 0; document.querySelectorAll(".tutwrap").forEach((x) => x.remove()); return; }
+  if (document.querySelectorAll(".tutwrap").length > 1) { tutBad = 0; showTutStep(); return; }
+  if (layer.innerHTML) { tutClose(false); setTimeout(maybeTutorial, 800); tutBad = 0; return; }
+  const box = document.querySelector(".tutbox"); let ok = !!box;
+  if (box) { const r = box.getBoundingClientRect(); const op = +getComputedStyle(box).opacity; ok = r.height > 20 && r.bottom > 0 && r.top < innerHeight && op > 0.5; }
+  if (ok) { tutBad = 0; return; }
+  tutBad++;
+  if (tutBad === 2) { if (box) { box.style.opacity = "1"; box.style.transform = "none"; } else showTutStep(); }
+  if (tutBad >= 4) { tutClose(true); tutBad = 0; }
+}, 900);
+
+/* 9) Plus: la prova gratuita vale solo per l'annuale, e il testo lo dice chiaro (addebito automatico a fine prova) */
+function plusLabels() {
+  const go = document.getElementById("plusGo"), a = document.getElementById("plusAfterTxt"); if (!go || !a) return; const p = L().plus, v = L().v13;
+  const yr = plusPlan === "year";
+  go.innerHTML = yr ? esc(p.trial) : esc(v.subscribe);
+  a.textContent = yr ? v.afterY(p.perYear(money(PLUS_PRICE.year))) : v.afterM(p.perMonth(money(PLUS_PRICE.month)));
+}
+const _openPlusV13b = openPlus;
+openPlus = function (src, after) { _openPlusV13b(src, after); plusLabels(); };
+document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest("button"); if (b && b.dataset.plan) setTimeout(plusLabels, 0); });
+
+/* =================== v13b: seconda revisione indipendente =================== */
+
+/* A) Il proprietario non viene contato: basta aprire una volta il link con ?io=1 su ogni dispositivo */
+const NO_COUNT_KEY = "tanetto-non-contare";
+(() => {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.get("io") === "1") { localStorage.setItem(NO_COUNT_KEY, "1"); setTimeout(() => toast(L().v13.noCount), 1200); }
+    if (q.get("io") === "0") { localStorage.removeItem(NO_COUNT_KEY); }
+  } catch (e) { /* niente */ }
+})();
+const _trackV13 = track;
+track = function (path) { try { if (localStorage.getItem(NO_COUNT_KEY) === "1") return; } catch (e) { /* niente */ } _trackV13(path); };
+
+/* B) A mezzanotte, o tornando all'app il giorno dopo, si passa subito al giorno nuovo */
+const _completeGoalV13b = completeGoal;
+completeGoal = function (g, rect) { if (S.pet && S.day !== dkey()) { render(); return; } _completeGoalV13b(g, rect); };
+function dayCheck() { if (S.pet && S.day !== dkey() && !layer.innerHTML && !tutOn) { const y = window.scrollY; render(); window.scrollTo(0, y); } }
+document.addEventListener("visibilitychange", () => { if (!document.hidden) dayCheck(); });
+window.addEventListener("focus", dayCheck);
+setInterval(dayCheck, 30000);
+
+/* C) Il regalo di benvenuto arriva anche se si ricarica la pagina durante la guida */
+const _tutCloseV13b = tutClose;
+tutClose = function (done) { _tutCloseV13b(done); if (done && S.pet && !S.welcomeGift && (!S.firstDay || S.firstDay === dkey()) && !layer.innerHTML) setTimeout(() => { if (!S.welcomeGift && !layer.innerHTML) openWelcomeGift(); }, 450); };
+
+/* D) Esc dopo il minuto di respiro conta come "OK" */
+document.addEventListener("keydown", (e) => { if (e.key !== "Escape" || !layer.innerHTML) return; const c = layer.querySelector("#closeLayer[data-breath-done]"); if (c) { e.stopImmediatePropagation(); c.click(); } }, true);
+
+/* E) Tasto "indietro" del telefono: chiude il popup o lo schermo intero invece di uscire dall'app */
+let histOpen = false, histSkip = false;
+const HIST_OK = (() => { try { return window.top === window.self; } catch (e) { return false; } })();
+function wantsHist() { return HIST_OK && (!!layer.innerHTML || (typeof full !== "undefined" && full)); }
+new MutationObserver(() => {
+  if (wantsHist() && !histOpen) { try { history.pushState({ tanetto: 1 }, ""); histOpen = true; } catch (e) { /* niente */ } }
+  else if (!wantsHist() && histOpen) { histOpen = false; histSkip = true; try { history.back(); } catch (e) { histSkip = false; } }
+}).observe(document.body, { childList: true, subtree: true });
+window.addEventListener("popstate", () => {
+  if (histSkip) { histSkip = false; return; }
+  if (!histOpen) return; histOpen = false;
+  if (layer.innerHTML) { const c = layer.querySelector("#closeLayer, #fdOk, #wgOk, #closeLetter, #closeGame"); if (c) c.click(); else closeLayer(); }
+  else if (typeof full !== "undefined" && full) { const fc = document.getElementById("fullClose"); if (fc) fc.click(); }
+  setTimeout(() => { if (wantsHist() && !histOpen) { try { history.pushState({ tanetto: 1 }, ""); histOpen = true; } catch (e) { /* niente */ } } }, 300);
+});
+
+/* F) Il consiglio del resoconto parla del punto debole solo se c'e' davvero */
+const _openReportV13 = openReport;
+openReport = function () {
+  _openReportV13(); const m = monthStats(); const tip = layer.querySelector(".rpsec.tip p"); if (!tip) return;
+  const cats = ["body", "mind", "home", "people", "work", "sleep"].filter((c) => (S.goals || []).some((g) => goalCat(g.id) === c));
+  if (!cats.length || !m.n) return;
+  const share = (c) => (m.cc[c] || 0) / m.n; const top = Math.max(...cats.map(share)); const weak = cats.slice().sort((a, b) => share(a) - share(b))[0];
+  tip.textContent = share(weak) < 0.25 && share(weak) < top - 0.1 ? L().rep.tips[weak] : L().rep.tips.custom;
+};
+
+/* G) Il compagno "affacciato" non copre mai i popup */
+const _petPeekV13 = petPeek;
+petPeek = function (text, e) { if (layer.innerHTML) return; _petPeekV13(text, e); };
+new MutationObserver(() => { if (layer.innerHTML) document.querySelectorAll(".petpeek").forEach((x) => x.remove()); }).observe(layer, { childList: true });
+
+/* H) "Rivedi la guida" non si usa mentre il compagno e' in viaggio */
+const _viewMoreV13b = viewMore;
+viewMore = function () { const h = _viewMoreV13b(); return S.away ? h.replace(/<button[^>]*id="tutAgain"[^>]*>.*?<\/button>/, "") : h; };
+
+/* I) La presentazione ricorda le scelte anche se si ricarica la pagina */
+(() => {
+  try { const d = JSON.parse(sessionStorage.getItem("tanetto-bozza") || "null"); if (d && !S.pet) { if (d.p && ALL_PETS.includes(d.p)) draftPet = d.p; if (typeof d.n === "string") draftName = d.n; if (Array.isArray(d.g) && d.g.length) draftGoals = d.g; } } catch (e) { /* niente */ }
+})();
+setInterval(() => { if (S.pet) { try { sessionStorage.removeItem("tanetto-bozza"); } catch (e) { /* niente */ } return; } try { sessionStorage.setItem("tanetto-bozza", JSON.stringify({ p: draftPet, n: draftName, g: draftGoals })); } catch (e) { /* niente */ } }, 1000);
+
+/* J) Oggi: niente "0 giorni di fila" il primo giorno */
+const _viewTodayV13b = viewToday;
+viewToday = function () { const h = _viewTodayV13b(); if (!S.pet || streak() > 0) return h; return h.replace(/<span class="pill" style="color:var\(--sun\)">[\s\S]*?<\/span><\/span>/, ""); };
+
+/* K) Plus: piano e pulsante restano sempre visibili in basso, anche sui telefoni piccoli */
+const _plusLabelsV13 = plusLabels;
+plusLabels = function () {
+  _plusLabelsV13(); const box = document.querySelector(".plusbox"); const plans = box && box.querySelector(".plans"); const go = document.getElementById("plusGo"); const a = document.getElementById("plusAfterTxt");
+  if (!box || !plans || !go || box.querySelector(".plussticky")) return;
+  const st = document.createElement("div"); st.className = "plussticky"; plans.parentNode.insertBefore(st, plans); st.append(plans, go); if (a) st.append(a);
+};
+
+/* L) Popup "arriva presto": niente doppio "Intanto" */
+const _fakeDoorV13 = fakeDoor;
+fakeDoor = function (title, text, extra) { _fakeDoorV13(title, text, extra); if (extra) { const g = layer.querySelector(".fdgift b"); if (g) g.textContent = `+${FD_GIFT} Tanì`; } };
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
