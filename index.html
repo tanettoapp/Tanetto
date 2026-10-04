@@ -23252,7 +23252,7 @@ viewTrips = function () {
   const t = L(); const h = _viewTripsV10(); const { world } = destList(); const plus = plusActive();
   const btns = world.map((d) => { const found = S.cards.includes(d.cards[0]); return `<button class="dest wdest ${plus ? "" : "plusl"}" ${S.away ? "disabled" : ""} aria-pressed="${pickedDest === d.key}" data-dest="${d.key}" ${plus ? "" : `data-wplus="1"`}><span class="pc">${d.art()}</span><span class="meta"><b>${esc(d.name)}</b><span class="small muted">${plus ? `${t.hours(d.h)}${found ? ` · ${icon("check")}` : ""}` : `${icon("p_crown")} Tanetto Plus`}</span></span></button>`; }).join("");
   const have = world.filter((d) => S.cards.includes(d.cards[0])).length;
-  const sec = `<div class="worldsec"><div class="sec"><h2>${icon("p_crown")}${t.worldT}</h2><span class="small muted">${have}/${world.length}</span></div><p class="small muted">${t.worldP}</p><div class="stack-s">${btns}</div></div>`;
+  const sec = `<div class="worldsec"><div class="sec"><h2>${icon("p_crown")}${t.worldT}</h2><span class="small muted">${have}/${world.length}</span></div><p class="small muted">${t.worldP}</p><div class="stack-s">${btns}</div>${have ? `<h3>${t.albumT}</h3>${albumGrid(world)}` : ""}</div>`;
   const key = `<div class="sec"><h2>${t.albumT}</h2>`; let out = h.includes(key) ? h.replace(key, sec + key) : h + sec;
   const wp = pickedDest && pickedDest.startsWith("w:") ? world.find((d) => d.key === pickedDest) : null;
   if (wp && plus && !S.away && S.energy >= 100 && !out.includes('id="depart"')) out += `<div class="departbar"><div class="in"><button class="btn block" id="depart">${esc(t.depart(wp.name))} · ${t.hours(wp.h)}</button></div></div>`;
@@ -23701,6 +23701,18 @@ viewMore = function () {
   return h.includes(key) ? h.replace(key, key + row) : h;
 };
 document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest("button"); if (b && b.id === "liteSw") { ev.stopImmediatePropagation(); S.lite = !isLite(); save(); applyLite(); const y = window.scrollY; render(); window.scrollTo(0, y); } }, true);
+
+/* --- Da quale canale arriva chi prova l'app (anonimo): ?src=nome nel link --- */
+(() => {
+  let src = ""; try { src = (new URLSearchParams(location.search).get("src") || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 24); } catch (e) { /* niente */ }
+  if (src && !S.src) { S.src = src; save(); track(`arrivo-${src}`); }
+  else if (!S.src && !S.srcSeen) { S.srcSeen = 1; save(); track("arrivo-diretto"); }
+})();
+const _trackDailyV12 = trackDaily;
+trackDaily = function () {
+  const before = S.tracked && S.tracked.open; _trackDailyV12();
+  if (S.tracked && S.tracked.open !== before && S.pet && S.firstDay) { const d = Math.round((new Date(dkey()) - new Date(S.firstDay)) / 86400000); track(`giorno-${d}-${S.src || "diretto"}`); }
+};
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
