@@ -1035,6 +1035,9 @@ a.btn { display: flex; align-items: center; justify-content: center; text-align:
 .switchrow small { display: inline-block; line-height: 1.35; margin-top: 2px; }
 .rembtns .btn { white-space: nowrap; font-size: 15px; padding-inline: 14px; }
 @media (max-width: 400px) { .rembtns { grid-template-columns: 1fr; } }
+.splash.still { transition: opacity .4s ease; }
+.splash.still.out { opacity: 0; }
+.splash.still .spname { font-family: var(--font-display); font-size: 40px; font-weight: 600; color: #3E7A3A; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -24521,7 +24524,7 @@ window.addEventListener("click", (ev) => {
   ev.stopImmediatePropagation(); ev.preventDefault();
   const on = !liteOn(); S.lite = on; S.calm = on; save(); b.setAttribute("aria-checked", String(on));
   trackOnce(on ? "modalita-leggera-on" : "modalita-leggera-off");
-  setTimeout(() => location.reload(), 250);
+  try { sessionStorage.setItem("tanetto-nosplash", "1"); } catch (e) { /* niente */ } setTimeout(() => location.reload(), 250);
 }, true);
 
 /* =================== v13e: suono del logo e musica gia' accesa all'apertura =================== */
@@ -24534,12 +24537,21 @@ function audioReady() { try { const c = SND.unlock(); return !!c && c.state === 
 function startMusicNow() { if (S.music && !SND.playing()) SND.musicOn(phase() === "night" ? 3 : S.track); }
 
 const _splashV13e = splash;
+/* Logo all'apertura: ogni volta che si apre l'app (non nei ricaricamenti interni, es. modalita' leggera) */
+function staticSplash() {
+  const t = L(); const d = document.createElement("div"); d.className = "splash v9 still";
+  d.innerHTML = `<div class="spglow"></div><div class="splogo">${ICON_BIG}</div><div class="spname">Tanetto</div><div class="sptag">${esc(t.tagline || "")}</div>`;
+  document.body.appendChild(d); const end = () => { d.classList.add("out"); setTimeout(() => d.remove(), 400); };
+  const tm = setTimeout(end, 1500); d.addEventListener("click", () => { clearTimeout(tm); end(); });
+}
 splash = function () {
-  const will = anim && !sessionStorageSafe("splash");
-  _splashV13e();
-  if (!will || !document.querySelector(".splash")) { setTimeout(() => { if (audioReady()) startMusicNow(); }, 300); return; }
+  let ss = null, one = false;
+  try { ss = sessionStorage.getItem("splash"); one = sessionStorage.getItem("tanetto-nosplash") === "1"; sessionStorage.removeItem("tanetto-nosplash"); } catch (e) { /* niente */ }
+  const show = !ss && !one;
+  if (show) { if (anim) _splashV13e(); else staticSplash(); try { sessionStorage.removeItem("splash"); } catch (e) { /* niente */ } }
+  if (!show || !document.querySelector(".splash")) { setTimeout(() => { if (audioReady()) startMusicNow(); }, 300); return; }
   if (audioReady()) { SND.play("logo"); setTimeout(startMusicNow, 1700); return; }
-  /* senza permesso: il suono del logo parte al primo tocco, se il logo e' ancora sullo schermo */
+  /* nei browser il suono parte solo dopo un tocco: se si tocca il logo, suona */
   const once = () => { document.removeEventListener("pointerdown", once, true); if (document.querySelector(".splash")) SND.play("logo"); };
   document.addEventListener("pointerdown", once, true);
   setTimeout(() => document.removeEventListener("pointerdown", once, true), 4000);
