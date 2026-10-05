@@ -1014,6 +1014,20 @@ h1, h2, .btn, .tab span, .pill { hyphens: manual; -webkit-hyphens: manual; }
 :root[data-theme="dark"] .pluscard small { color: #D9BF95; }
 :lang(ru) .tabs button, :lang(ru) .tab small, :lang(ru) .tabs small { font-size: 10.5px; letter-spacing: -.01em; }
 :lang(ru) .btn { font-size: 15px; }
+
+/* ===== v13c: iPhone, cucciolo al sicuro ===== */
+.iossafe, .iosonb { border: 2px solid var(--accent-soft); background: linear-gradient(160deg, var(--accent-soft), var(--paper) 70%); }
+.iosrow { display: flex; gap: 12px; align-items: center; }
+.iospet { width: 64px; height: 64px; flex: none; }
+.iospet svg { width: 100%; height: 100%; }
+.iossafe h3, .iosonb h3 { margin: 0 0 4px; }
+.iossteps { margin: 2px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; line-height: 1.4; }
+.iossteps li::marker { color: var(--accent); font-weight: 700; }
+.iossh { display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
+.iosico { width: 17px; height: 17px; color: #2F7CF6; vertical-align: -3px; }
+.iospaste textarea { width: 100%; box-sizing: border-box; border: 2px solid var(--line); border-radius: 14px; padding: 10px 12px; font: 13px/1.35 ui-monospace, Menlo, monospace; background: var(--paper); color: var(--ink); resize: vertical; word-break: break-all; }
+.iospaste textarea:focus { border-color: var(--accent); outline: none; }
+.iospaste .link { align-self: center; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -18748,6 +18762,193 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
  ["tr", "Tamam: bu cihazdan yaptığın ziyaretler sayılmayacak.", "bir birey tarafından yürütülen Tanetto projesi"]
 ].forEach(([l, nc, own]) => { if (T[l]) { T[l].v13 = Object.assign(T[l].v13 || {}, { noCount: nc }); T[l].ownerMissing = own; } });
 
+/* v13c: iPhone — mettere al sicuro il cucciolo (Safari puo' cancellare i dati dei siti non aperti per giorni) */
+/* [lingua, Condividi, Aggiungi alla schermata Home, testi] */
+[
+  ["it", "Condividi", "Aggiungi alla schermata Home", {
+    T: (n) => `Metti al sicuro ${n}`,
+    P: (n) => `Su iPhone, Safari può cancellare i dati dei siti che non apri per qualche giorno. Installa Tanetto sulla schermata Home: lì ${n} è al sicuro.`,
+    s1: (n) => `Tocca «Copia ${n}» qui sotto.`,
+    s2: (sh, add) => `In Safari tocca ${sh}, poi «${add}».`,
+    s3: (n) => `Apri Tanetto dalla schermata Home e tocca «Ho già un cucciolo»: ritrovi ${n} com'era.`,
+    copy: (n) => `Copia ${n}`, copied: (n) => `${n} è copiato! Ora aggiungi Tanetto alla schermata Home.`, later: "Più tardi",
+    onbT: "Su iPhone? Installa prima l'app", onbP: "Così il tuo cucciolo resta sempre al sicuro: Safari può cancellare i dati dei siti che non apri per qualche giorno.",
+    onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Benvenuto nell'app!", appP: "Avevi già un cucciolo in Safari? Riportalo qui in un attimo.",
+    have: "Ho già un cucciolo", pasteT: "Riporta qui il tuo cucciolo", pasteP: "Incolla il codice che hai copiato in Safari, oppure apri un file di copia.",
+    ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il cucciolo", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo da Safari e riprova.",
+    manual: "Tieni premuto sul codice, scegli «Seleziona tutto» e poi «Copia».", close: "Chiudi"
+  }],
+  ["en", "Share", "Add to Home Screen", {
+    T: (n) => `Keep ${n} safe`,
+    P: (n) => `On iPhone, Safari can delete the data of websites you don't open for a few days. Add Tanetto to your Home Screen and ${n} stays safe there.`,
+    s1: (n) => `Tap “Copy ${n}” below.`,
+    s2: (sh, add) => `In Safari, tap ${sh}, then “${add}”.`,
+    s3: (n) => `Open Tanetto from your Home Screen and tap “I already have a pet”: ${n} will be just as you left them.`,
+    copy: (n) => `Copy ${n}`, copied: (n) => `${n} is copied! Now add Tanetto to your Home Screen.`, later: "Later",
+    onbT: "On iPhone? Install the app first", onbP: "That way your pet is always safe: Safari can delete the data of websites you don't open for a few days.",
+    onb3: "Then open Tanetto from your Home Screen.", appT: "Welcome to the app!", appP: "Already had a pet in Safari? Bring it here in a moment.",
+    have: "I already have a pet", pasteT: "Bring your pet here", pasteP: "Paste the code you copied in Safari, or open a backup file.",
+    ph: "Tanetto code", paste: "Paste", go: "Bring my pet", file: "Open a backup file", bad: "This code doesn't work. Copy it again from Safari and try once more.",
+    manual: "Press and hold the code, choose “Select All”, then “Copy”.", close: "Close"
+  }],
+  ["de", "Teilen", "Zum Home-Bildschirm", {
+    T: (n) => `Bring ${n} in Sicherheit`,
+    P: (n) => `Auf dem iPhone kann Safari die Daten von Websites löschen, die du ein paar Tage nicht öffnest. Füge Tanetto zum Home-Bildschirm hinzu, dort ist ${n} sicher.`,
+    s1: (n) => `Tippe unten auf „${n} kopieren“.`,
+    s2: (sh, add) => `Tippe in Safari auf ${sh} und dann auf „${add}“.`,
+    s3: (n) => `Öffne Tanetto vom Home-Bildschirm und tippe auf „Ich habe schon ein Haustier“: ${n} ist genau wie vorher.`,
+    copy: (n) => `${n} kopieren`, copied: (n) => `${n} ist kopiert! Füge Tanetto jetzt zum Home-Bildschirm hinzu.`, later: "Später",
+    onbT: "Auf dem iPhone? Installiere zuerst die App", onbP: "So ist dein Haustier immer sicher: Safari kann die Daten von Websites löschen, die du ein paar Tage nicht öffnest.",
+    onb3: "Öffne Tanetto dann vom Home-Bildschirm.", appT: "Willkommen in der App!", appP: "Hattest du schon ein Haustier in Safari? Hol es mit einem Fingertipp hierher.",
+    have: "Ich habe schon ein Haustier", pasteT: "Hol dein Haustier hierher", pasteP: "Füge den Code ein, den du in Safari kopiert hast, oder öffne eine Sicherungsdatei.",
+    ph: "Tanetto-Code", paste: "Einfügen", go: "Haustier holen", file: "Sicherungsdatei öffnen", bad: "Dieser Code funktioniert nicht. Kopiere ihn noch einmal in Safari und versuch es erneut.",
+    manual: "Halte den Code gedrückt, wähle „Alles auswählen“ und dann „Kopieren“.", close: "Schließen"
+  }],
+  ["es", "Compartir", "Añadir a pantalla de inicio", {
+    T: (n) => `Pon a salvo a ${n}`,
+    P: (n) => `En iPhone, Safari puede borrar los datos de las webs que no abres durante unos días. Añade Tanetto a la pantalla de inicio y ${n} estará a salvo.`,
+    s1: (n) => `Toca «Copiar a ${n}» aquí abajo.`,
+    s2: (sh, add) => `En Safari, toca ${sh} y luego «${add}».`,
+    s3: (n) => `Abre Tanetto desde la pantalla de inicio y toca «Ya tengo un compañero»: ${n} estará tal como lo dejaste.`,
+    copy: (n) => `Copiar a ${n}`, copied: (n) => `¡${n} está copiado! Ahora añade Tanetto a la pantalla de inicio.`, later: "Más tarde",
+    onbT: "¿Usas iPhone? Instala primero la app", onbP: "Así tu compañero estará siempre a salvo: Safari puede borrar los datos de las webs que no abres durante unos días.",
+    onb3: "Luego abre Tanetto desde la pantalla de inicio.", appT: "¡Bienvenido a la app!", appP: "¿Ya tenías un compañero en Safari? Tráelo aquí en un momento.",
+    have: "Ya tengo un compañero", pasteT: "Trae aquí a tu compañero", pasteP: "Pega el código que copiaste en Safari o abre un archivo de copia.",
+    ph: "Código de Tanetto", paste: "Pegar", go: "Traer a mi compañero", file: "Abrir un archivo de copia", bad: "Este código no funciona. Cópialo otra vez desde Safari e inténtalo de nuevo.",
+    manual: "Mantén pulsado el código, elige «Seleccionar todo» y luego «Copiar».", close: "Cerrar"
+  }],
+  ["fr", "Partager", "Sur l'écran d'accueil", {
+    T: (n) => `Mets ${n} à l'abri`,
+    P: (n) => `Sur iPhone, Safari peut effacer les données des sites que tu n'ouvres pas pendant quelques jours. Ajoute Tanetto à l'écran d'accueil : là, ${n} est à l'abri.`,
+    s1: (n) => `Touche « Copier ${n} » ci-dessous.`,
+    s2: (sh, add) => `Dans Safari, touche ${sh}, puis « ${add} ».`,
+    s3: (n) => `Ouvre Tanetto depuis l'écran d'accueil et touche « J'ai déjà un compagnon » : tu retrouves ${n} tel quel.`,
+    copy: (n) => `Copier ${n}`, copied: (n) => `${n} est copié ! Ajoute maintenant Tanetto à l'écran d'accueil.`, later: "Plus tard",
+    onbT: "Sur iPhone ? Installe d'abord l'app", onbP: "Comme ça, ton compagnon est toujours à l'abri : Safari peut effacer les données des sites que tu n'ouvres pas pendant quelques jours.",
+    onb3: "Puis ouvre Tanetto depuis l'écran d'accueil.", appT: "Bienvenue dans l'app !", appP: "Tu avais déjà un compagnon dans Safari ? Ramène-le ici en un instant.",
+    have: "J'ai déjà un compagnon", pasteT: "Ramène ton compagnon ici", pasteP: "Colle le code copié dans Safari, ou ouvre un fichier de sauvegarde.",
+    ph: "Code Tanetto", paste: "Coller", go: "Ramener mon compagnon", file: "Ouvrir un fichier de sauvegarde", bad: "Ce code ne marche pas. Copie-le à nouveau dans Safari et réessaie.",
+    manual: "Appuie longuement sur le code, choisis « Tout sélectionner » puis « Copier ».", close: "Fermer"
+  }],
+  ["pt", "Compartilhar", "Adicionar à Tela de Início", {
+    T: (n) => `Deixe ${n} em segurança`,
+    P: (n) => `No iPhone, o Safari pode apagar os dados de sites que você não abre por alguns dias. Adicione o Tanetto à Tela de Início e ${n} fica em segurança.`,
+    s1: (n) => `Toque em “Copiar ${n}” aqui embaixo.`,
+    s2: (sh, add) => `No Safari, toque em ${sh} e depois em “${add}”.`,
+    s3: (n) => `Abra o Tanetto pela Tela de Início e toque em “Já tenho um companheiro”: ${n} vai estar do jeito que você deixou.`,
+    copy: (n) => `Copiar ${n}`, copied: (n) => `${n} foi copiado! Agora adicione o Tanetto à Tela de Início.`, later: "Mais tarde",
+    onbT: "Está no iPhone? Instale o app primeiro", onbP: "Assim seu companheiro fica sempre em segurança: o Safari pode apagar os dados de sites que você não abre por alguns dias.",
+    onb3: "Depois abra o Tanetto pela Tela de Início.", appT: "Boas-vindas ao app!", appP: "Você já tinha um companheiro no Safari? Traga ele para cá num instante.",
+    have: "Já tenho um companheiro", pasteT: "Traga seu companheiro para cá", pasteP: "Cole o código que você copiou no Safari ou abra um arquivo de cópia.",
+    ph: "Código do Tanetto", paste: "Colar", go: "Trazer meu companheiro", file: "Abrir um arquivo de cópia", bad: "Este código não funciona. Copie de novo no Safari e tente outra vez.",
+    manual: "Toque e segure o código, escolha “Selecionar Tudo” e depois “Copiar”.", close: "Fechar"
+  }],
+  ["ja", "共有", "ホーム画面に追加", {
+    T: (n) => `${n}を守ろう`,
+    P: (n) => `iPhoneのSafariは、数日開いていないサイトのデータを消すことがあります。Tanettoをホーム画面に追加すれば、${n}は安心です。`,
+    s1: (n) => `下の「${n}をコピー」をタップ。`,
+    s2: (sh, add) => `Safariで${sh}をタップして「${add}」を選ぶ。`,
+    s3: (n) => `ホーム画面からTanettoを開いて「もう相棒がいる」をタップ。${n}がそのまま戻ってきます。`,
+    copy: (n) => `${n}をコピー`, copied: (n) => `${n}をコピーしました！次にTanettoをホーム画面に追加してね。`, later: "あとで",
+    onbT: "iPhoneの方は、先にアプリを追加しよう", onbP: "そうすれば相棒はいつも安心。Safariは、数日開いていないサイトのデータを消すことがあります。",
+    onb3: "あとはホーム画面からTanettoを開くだけ。", appT: "アプリへようこそ！", appP: "Safariで相棒を育てていた？すぐにここへ連れてこられます。",
+    have: "もう相棒がいる", pasteT: "相棒をここへ連れてこよう", pasteP: "Safariでコピーしたコードを貼り付けるか、バックアップファイルを開いてね。",
+    ph: "Tanettoのコード", paste: "貼り付け", go: "相棒を連れてくる", file: "バックアップファイルを開く", bad: "このコードは使えません。Safariでもう一度コピーして試してね。",
+    manual: "コードを長押しして「すべてを選択」、それから「コピー」を選んでね。", close: "閉じる"
+  }],
+  ["ko", "공유", "홈 화면에 추가", {
+    T: (n) => `${n}을(를) 안전하게 지켜요`,
+    P: (n) => `iPhone의 Safari는 며칠 동안 열지 않은 사이트의 데이터를 지울 수 있어요. Tanetto를 홈 화면에 추가하면 ${n}은(는) 안전해요.`,
+    s1: (n) => `아래의 「${n} 복사」를 눌러요.`,
+    s2: (sh, add) => `Safari에서 ${sh}를 누른 다음 「${add}」를 눌러요.`,
+    s3: (n) => `홈 화면에서 Tanetto를 열고 「이미 친구가 있어요」를 눌러요. ${n}이(가) 그대로 돌아와요.`,
+    copy: (n) => `${n} 복사`, copied: (n) => `${n} 복사 완료! 이제 Tanetto를 홈 화면에 추가해요.`, later: "나중에",
+    onbT: "iPhone이라면 먼저 앱을 설치해요", onbP: "그러면 친구가 언제나 안전해요. Safari는 며칠 동안 열지 않은 사이트의 데이터를 지울 수 있어요.",
+    onb3: "그다음 홈 화면에서 Tanetto를 열어요.", appT: "앱에 오신 걸 환영해요!", appP: "Safari에서 이미 친구를 키우고 있었나요? 금방 여기로 데려올 수 있어요.",
+    have: "이미 친구가 있어요", pasteT: "친구를 여기로 데려와요", pasteP: "Safari에서 복사한 코드를 붙여넣거나 백업 파일을 열어요.",
+    ph: "Tanetto 코드", paste: "붙여넣기", go: "친구 데려오기", file: "백업 파일 열기", bad: "이 코드는 사용할 수 없어요. Safari에서 다시 복사해서 시도해 주세요.",
+    manual: "코드를 길게 누르고 「전체 선택」을 고른 다음 「복사」를 눌러요.", close: "닫기"
+  }],
+  ["zh", "分享", "添加到主屏幕", {
+    T: (n) => `保护好${n}`,
+    P: (n) => `在 iPhone 上，Safari 可能会删除几天没打开的网站数据。把 Tanetto 添加到主屏幕，${n}就安全了。`,
+    s1: (n) => `点下面的“复制${n}”。`,
+    s2: (sh, add) => `在 Safari 中点${sh}，再点“${add}”。`,
+    s3: (n) => `从主屏幕打开 Tanetto，点“我已经有伙伴了”，${n}就会原样回来。`,
+    copy: (n) => `复制${n}`, copied: (n) => `${n}已复制！现在把 Tanetto 添加到主屏幕吧。`, later: "稍后",
+    onbT: "用 iPhone？先安装应用吧", onbP: "这样你的伙伴会一直很安全：Safari 可能会删除几天没打开的网站数据。",
+    onb3: "然后从主屏幕打开 Tanetto。", appT: "欢迎来到应用！", appP: "之前在 Safari 里养过伙伴吗？马上就能把它带过来。",
+    have: "我已经有伙伴了", pasteT: "把伙伴带过来", pasteP: "粘贴你在 Safari 中复制的代码，或打开备份文件。",
+    ph: "Tanetto 代码", paste: "粘贴", go: "带回我的伙伴", file: "打开备份文件", bad: "这个代码不能用。请在 Safari 中重新复制后再试。",
+    manual: "长按代码，选择“全选”，然后点“拷贝”。", close: "关闭"
+  }],
+  ["zht", "分享", "加入主畫面", {
+    T: (n) => `保護好${n}`,
+    P: (n) => `在 iPhone 上，Safari 可能會刪除幾天沒打開的網站資料。把 Tanetto 加入主畫面，${n}就安全了。`,
+    s1: (n) => `點下面的「拷貝${n}」。`,
+    s2: (sh, add) => `在 Safari 中點${sh}，再點「${add}」。`,
+    s3: (n) => `從主畫面打開 Tanetto，點「我已經有夥伴了」，${n}就會原封不動地回來。`,
+    copy: (n) => `拷貝${n}`, copied: (n) => `${n}已拷貝！現在把 Tanetto 加入主畫面吧。`, later: "稍後",
+    onbT: "用 iPhone？先安裝 App 吧", onbP: "這樣你的夥伴會一直很安全：Safari 可能會刪除幾天沒打開的網站資料。",
+    onb3: "然後從主畫面打開 Tanetto。", appT: "歡迎來到 App！", appP: "之前在 Safari 裡養過夥伴嗎？馬上就能把牠帶過來。",
+    have: "我已經有夥伴了", pasteT: "把夥伴帶過來", pasteP: "貼上你在 Safari 中拷貝的代碼，或打開備份檔案。",
+    ph: "Tanetto 代碼", paste: "貼上", go: "帶回我的夥伴", file: "打開備份檔案", bad: "這個代碼不能用。請在 Safari 中重新拷貝後再試一次。",
+    manual: "長按代碼，選擇「全選」，然後點「拷貝」。", close: "關閉"
+  }],
+  ["ru", "Поделиться", "На экран «Домой»", {
+    T: (n) => `Сохрани ${n}`,
+    P: (n) => `На iPhone Safari может удалять данные сайтов, которые ты не открываешь несколько дней. Добавь Tanetto на экран «Домой» — там ${n} в безопасности.`,
+    s1: (n) => `Нажми «Скопировать ${n}» ниже.`,
+    s2: (sh, add) => `В Safari нажми ${sh}, затем «${add}».`,
+    s3: (n) => `Открой Tanetto с экрана «Домой» и нажми «У меня уже есть питомец» — ${n} вернётся таким же, как был.`,
+    copy: (n) => `Скопировать ${n}`, copied: (n) => `${n} скопирован! Теперь добавь Tanetto на экран «Домой».`, later: "Позже",
+    onbT: "У тебя iPhone? Сначала установи приложение", onbP: "Так твой питомец всегда будет в безопасности: Safari может удалять данные сайтов, которые ты не открываешь несколько дней.",
+    onb3: "Потом открой Tanetto с экрана «Домой».", appT: "Добро пожаловать в приложение!", appP: "У тебя уже был питомец в Safari? Перенеси его сюда за минуту.",
+    have: "У меня уже есть питомец", pasteT: "Перенеси питомца сюда", pasteP: "Вставь код, который ты скопировал в Safari, или открой файл копии.",
+    ph: "Код Tanetto", paste: "Вставить", go: "Перенести питомца", file: "Открыть файл копии", bad: "Этот код не подходит. Скопируй его ещё раз в Safari и попробуй снова.",
+    manual: "Нажми и удерживай код, выбери «Выбрать все», затем «Скопировать».", close: "Закрыть"
+  }],
+  ["pl", "Udostępnij", "Do ekranu początkowego", {
+    T: (n) => `Zadbaj o bezpieczeństwo: ${n}`,
+    P: (n) => `Na iPhonie Safari może usuwać dane stron, których nie otwierasz przez kilka dni. Dodaj Tanetto do ekranu początkowego, a ${n} będzie bezpieczny.`,
+    s1: (n) => `Stuknij poniżej „Skopiuj: ${n}”.`,
+    s2: (sh, add) => `W Safari stuknij ${sh}, a potem „${add}”.`,
+    s3: (n) => `Otwórz Tanetto z ekranu początkowego i stuknij „Mam już pupila”: ${n} wróci dokładnie taki, jak był.`,
+    copy: (n) => `Skopiuj: ${n}`, copied: (n) => `Skopiowano: ${n}! Teraz dodaj Tanetto do ekranu początkowego.`, later: "Później",
+    onbT: "Masz iPhone'a? Najpierw zainstaluj aplikację", onbP: "Wtedy twój pupil zawsze będzie bezpieczny: Safari może usuwać dane stron, których nie otwierasz przez kilka dni.",
+    onb3: "Potem otwórz Tanetto z ekranu początkowego.", appT: "Witaj w aplikacji!", appP: "Masz już pupila w Safari? Przenieś go tutaj w chwilę.",
+    have: "Mam już pupila", pasteT: "Przenieś tu swojego pupila", pasteP: "Wklej kod skopiowany w Safari albo otwórz plik kopii.",
+    ph: "Kod Tanetto", paste: "Wklej", go: "Przenieś pupila", file: "Otwórz plik kopii", bad: "Ten kod nie działa. Skopiuj go ponownie w Safari i spróbuj jeszcze raz.",
+    manual: "Przytrzymaj kod, wybierz „Zaznacz wszystko”, a potem „Kopiuj”.", close: "Zamknij"
+  }],
+  ["nl", "Deel", "Zet op beginscherm", {
+    T: (n) => `Houd ${n} veilig`,
+    P: (n) => `Op de iPhone kan Safari de gegevens wissen van websites die je een paar dagen niet opent. Zet Tanetto op je beginscherm, dan is ${n} daar veilig.`,
+    s1: (n) => `Tik hieronder op ‘Kopieer ${n}’.`,
+    s2: (sh, add) => `Tik in Safari op ${sh} en daarna op ‘${add}’.`,
+    s3: (n) => `Open Tanetto vanaf je beginscherm en tik op ‘Ik heb al een maatje’: ${n} is precies zoals je het achterliet.`,
+    copy: (n) => `Kopieer ${n}`, copied: (n) => `${n} is gekopieerd! Zet Tanetto nu op je beginscherm.`, later: "Later",
+    onbT: "Op een iPhone? Installeer eerst de app", onbP: "Zo is je maatje altijd veilig: Safari kan de gegevens wissen van websites die je een paar dagen niet opent.",
+    onb3: "Open Tanetto daarna vanaf je beginscherm.", appT: "Welkom in de app!", appP: "Had je al een maatje in Safari? Haal het hier in een handomdraai naartoe.",
+    have: "Ik heb al een maatje", pasteT: "Haal je maatje hierheen", pasteP: "Plak de code die je in Safari hebt gekopieerd, of open een back-upbestand.",
+    ph: "Tanetto-code", paste: "Plakken", go: "Haal mijn maatje", file: "Back-upbestand openen", bad: "Deze code werkt niet. Kopieer hem opnieuw in Safari en probeer het nog eens.",
+    manual: "Houd de code ingedrukt, kies ‘Selecteer alles’ en daarna ‘Kopieer’.", close: "Sluiten"
+  }],
+  ["tr", "Paylaş", "Ana Ekrana Ekle", {
+    T: (n) => `${n} güvende olsun`,
+    P: (n) => `iPhone'da Safari, birkaç gün açmadığın sitelerin verilerini silebilir. Tanetto'yu ana ekrana ekle, ${n} orada güvende olur.`,
+    s1: (n) => `Aşağıdaki “${n} kopyala” düğmesine dokun.`,
+    s2: (sh, add) => `Safari'de ${sh} simgesine, ardından “${add}” seçeneğine dokun.`,
+    s3: (n) => `Tanetto'yu ana ekrandan aç ve “Zaten bir dostum var”a dokun: ${n} bıraktığın gibi geri gelir.`,
+    copy: (n) => `${n} kopyala`, copied: (n) => `${n} kopyalandı! Şimdi Tanetto'yu ana ekrana ekle.`, later: "Sonra",
+    onbT: "iPhone mu kullanıyorsun? Önce uygulamayı yükle", onbP: "Böylece dostun hep güvende olur: Safari, birkaç gün açmadığın sitelerin verilerini silebilir.",
+    onb3: "Sonra Tanetto'yu ana ekrandan aç.", appT: "Uygulamaya hoş geldin!", appP: "Safari'de zaten bir dostun var mıydı? Onu hemen buraya getir.",
+    have: "Zaten bir dostum var", pasteT: "Dostunu buraya getir", pasteP: "Safari'de kopyaladığın kodu yapıştır ya da bir yedek dosyası aç.",
+    ph: "Tanetto kodu", paste: "Yapıştır", go: "Dostumu getir", file: "Yedek dosyası aç", bad: "Bu kod çalışmıyor. Safari'de yeniden kopyalayıp tekrar dene.",
+    manual: "Kodun üzerine basılı tut, “Tümünü Seç”i ve ardından “Kopyala”yı seç.", close: "Kapat"
+  }]
+].forEach(([l, sh, add, o]) => { if (T[l]) { T[l].v13 = T[l].v13 || {}; T[l].v13.ios = Object.assign({ share: sh, add }, o); } });
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -24170,6 +24371,132 @@ plusLabels = function () {
 /* L) Popup "arriva presto": niente doppio "Intanto" */
 const _fakeDoorV13 = fakeDoor;
 fakeDoor = function (title, text, extra) { _fakeDoorV13(title, text, extra); if (extra) { const g = layer.querySelector(".fdgift b"); if (g) g.textContent = `+${FD_GIFT} Tanì`; } };
+
+/* =================== v13c: iPhone — il cucciolo sempre al sicuro =================== */
+/* Su iPhone Safari puo' cancellare i dati dei siti non aperti per qualche giorno, e l'app sulla schermata Home
+   ha uno spazio dati separato da Safari: quindi si invita a installare prima, e chi ha gia' un cucciolo lo trasferisce
+   con un codice (copia in Safari, incolla nell'app installata). Il link pubblico resta sempre lo stesso. */
+const IOS_DEMO = /[?&]iosdemo=1/.test(location.search);
+const isIOSDevice = () => isIOS() || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) || IOS_DEMO;
+const iosSafari = () => isIOSDevice() && !isStandalone() && (/github\.io$/.test(location.hostname) || IOS_DEMO);
+const iosApp = () => isIOSDevice() && isStandalone();
+
+/* Chiede al browser di non cancellare i dati (Chrome/Android e Safari recenti) */
+(async () => { try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch (e) { /* niente */ } })();
+setTimeout(() => { try { if (isStandalone()) trackOnce("app-installata-aperta"); if (iosSafari()) trackOnce("iphone-safari"); } catch (e) { /* niente */ } }, 1500);
+
+/* --- Codice di trasferimento: stato compresso in testo --- */
+const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 32768) s += String.fromCharCode.apply(null, u8.subarray(i, i + 32768)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+const unb64u = (s) => { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; const b = atob(s); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+async function packState() {
+  const json = JSON.stringify({ app: "tanetto", v: 1, state: S });
+  try { if (typeof CompressionStream === "function") { const buf = await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream("deflate-raw"))).arrayBuffer(); return "TANETTO1:" + b64u(new Uint8Array(buf)); } } catch (e) { /* senza compressione */ }
+  return "TANETTO0:" + b64u(new TextEncoder().encode(json));
+}
+async function unpackState(code) {
+  try {
+    const m = String(code || "").replace(/\s+/g, "").match(/TANETTO([01]):([A-Za-z0-9_-]+)/); if (!m) return null;
+    const bytes = unb64u(m[2]); let json;
+    if (m[1] === "1") json = await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text();
+    else json = new TextDecoder().decode(bytes);
+    const o = JSON.parse(json); return o && o.app === "tanetto" && o.state && typeof o.state === "object" && o.state.pet ? o.state : null;
+  } catch (e) { return null; }
+}
+let packed = null, packedAt = 0;
+function prepack() { if (!S.pet) return; packState().then((c) => { packed = c; packedAt = Date.now(); }).catch(() => {}); }
+
+/* --- Disegno dell'icona Condividi di Safari --- */
+const SHARE_ICO = `<svg class="iosico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10H6.5A1.5 1.5 0 0 0 5 11.5v8A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 17.5 10H16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+const shareWord = () => { const i = L().v13.ios; return `<b class="iossh">${SHARE_ICO}${esc(i.share)}</b>`; };
+const addWord = () => esc(L().v13.ios.add);
+
+/* --- Riquadro "Metti al sicuro" (Oggi e Altro) --- */
+function iosSafeCard(where) {
+  const i = L().v13.ios, n = S.petName || "";
+  return `<div class="card iossafe stack-s" data-where="${where}"><div class="iosrow"><span class="iospet">${petSVG(S.pet, "felice", S.hat, stage(), n)}</span><div><h3>${esc(i.T(n))}</h3><p class="small muted">${esc(i.P(n))}</p></div></div>
+  <ol class="iossteps"><li>${esc(i.s1(n))}</li><li>${i.s2(shareWord(), addWord())}</li><li>${esc(i.s3(n))}</li></ol>
+  <div class="row"><button class="btn" id="iosCopy">${esc(i.copy(n))}</button>${where === "today" ? `<span class="spacer"></span><button class="link" id="iosLater">${esc(i.later)}</button>` : ""}</div></div>`;
+}
+function showIosToday() {
+  if (!iosSafari() || !S.pet || S.away || S.tut < 99) return false;
+  if (!(S.log || []).length) return false; /* dopo il primo obiettivo, non durante la prima scoperta */
+  return !(S.iosLater && S.iosLater > dkey());
+}
+const _viewTodayIos = viewToday;
+viewToday = function () {
+  let h = _viewTodayIos(); if (!showIosToday()) return h;
+  const key = `<div class="row"><button class="link" data-tab="more" data-focus="goals">`; const i = h.indexOf(key);
+  setTimeout(prepack, 0);
+  return i >= 0 ? h.slice(0, i) + iosSafeCard("today") + h.slice(i) : h + iosSafeCard("today");
+};
+/* In Altro: per iPhone in Safari il riquadro completo al posto del semplice "Installa" */
+const _installCardIos = installCard;
+installCard = function () { if (iosSafari() && S.pet) { setTimeout(prepack, 0); return iosSafeCard("more"); } return _installCardIos(); };
+
+/* --- Presentazione: su iPhone in Safari si invita a installare prima; nell'app installata si offre il trasferimento --- */
+const _viewOnboardIos = viewOnboard;
+viewOnboard = function () {
+  let h = _viewOnboardIos(); if (S.onboard !== 0) return h;
+  const i = L().v13.ios; let top = "";
+  if (iosSafari()) top = `<div class="card iosonb stack-s"><h3>${esc(i.onbT)}</h3><p class="small muted">${esc(i.onbP)}</p><ol class="iossteps"><li>${i.s2(shareWord(), addWord())}</li><li>${esc(i.onb3)}</li></ol></div>`;
+  else if (iosApp()) top = `<div class="card iosonb stack-s"><h3>${esc(i.appT)}</h3><p class="small muted">${esc(i.appP)}</p><button class="btn" id="iosHave">${esc(i.have)}</button></div>`;
+  const k = h.indexOf("<h1>"); if (top && k >= 0) h = h.slice(0, k) + top + h.slice(k);
+  const note = `<p class="note">`; const j = h.lastIndexOf(note);
+  const link = iosApp() ? "" : `<div class="row" style="justify-content:center"><button class="link" id="iosHave">${esc(i.have)}</button></div>`;
+  return j >= 0 ? h.slice(0, j) + link + h.slice(j) : h + link;
+};
+
+/* --- Finestra per incollare il codice (o aprire un file di copia) --- */
+function openIosPaste() {
+  const i = L().v13.ios;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="ipT"><div class="box card stack-s iospaste"><h2 id="ipT">${esc(i.pasteT)}</h2><p class="small muted">${esc(i.pasteP)}</p>
+  <textarea id="iosCode" rows="4" placeholder="${esc(i.ph)}" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+  <div class="row"><button class="btn ghost" id="iosPaste">${esc(i.paste)}</button><span class="spacer"></span><button class="btn" id="iosGo">${esc(i.go)}</button></div>
+  <button class="link" id="iosFile">${esc(i.file)}</button><input type="file" id="bkFile" accept="application/json,.json" hidden>
+  <button class="link" id="closeLayer">${esc(i.close)}</button></div></div>`;
+}
+/* Finestra di riserva se la copia automatica non e' permessa: il codice e' selezionato, basta copiarlo */
+function openIosManual(code) {
+  const i = L().v13.ios;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="imT"><div class="box card stack-s iospaste"><h2 id="imT">${esc(i.copy(S.petName || ""))}</h2><p class="small muted">${esc(i.manual)}</p>
+  <textarea id="iosOut" rows="5" readonly>${esc(code)}</textarea><button class="btn" id="closeLayer">${esc(i.close)}</button></div></div>`;
+  setTimeout(() => { const t = document.getElementById("iosOut"); if (t) { t.focus(); t.select(); try { t.setSelectionRange(0, t.value.length); } catch (e) { /* niente */ } } }, 60);
+}
+function restoreFrom(state) {
+  const t = L();
+  if (S.pet) { pendingRestore = state; layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="rsT"><div class="box card"><h2 id="rsT">${t.data.restore}</h2><p>${esc(t.data.ask)}</p><div class="row" style="justify-content:center"><button class="btn ghost" id="rsNo">${t.data.no}</button><button class="btn" id="rsYes">${t.data.yes}</button></div></div></div>`; return; }
+  S = Object.assign(fresh(), state); save(); layer.innerHTML = ""; applyRoot(); render(); toast(t.data.ok); SND.play("fanfare"); trackOnce("trasferimento-riuscito");
+}
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return; const i = L().v13.ios;
+  if (b.id === "iosCopy") {
+    ev.preventDefault(); trackOnce("trasferimento-copiato");
+    const done = () => { toast(i.copied(S.petName || "")); SND.play("coin"); };
+    const ready = packed && Date.now() - packedAt < 60000;
+    try {
+      if (ready && navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(packed).then(done).catch(() => openIosManual(packed)); return; }
+      if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem === "function") {
+        const p = packState().then((c) => { packed = c; packedAt = Date.now(); return new Blob([c], { type: "text/plain" }); });
+        navigator.clipboard.write([new ClipboardItem({ "text/plain": p })]).then(done).catch(() => p.then(() => openIosManual(packed)));
+        return;
+      }
+    } catch (e) { /* riserva sotto */ }
+    packState().then((c) => { packed = c; packedAt = Date.now(); openIosManual(c); });
+    return;
+  }
+  if (b.id === "iosLater") { const d = new Date(); d.setDate(d.getDate() + 3); S.iosLater = dkey(d); save(); render(); return; }
+  if (b.id === "iosHave") { openIosPaste(); return; }
+  if (b.id === "iosPaste") {
+    try { if (navigator.clipboard && navigator.clipboard.readText) navigator.clipboard.readText().then((x) => { const t = document.getElementById("iosCode"); if (t) t.value = x || ""; }).catch(() => { const t = document.getElementById("iosCode"); if (t) t.focus(); }); else { const t = document.getElementById("iosCode"); if (t) t.focus(); } } catch (e) { /* niente */ }
+    return;
+  }
+  if (b.id === "iosGo") {
+    const t = document.getElementById("iosCode"); const v = t ? t.value : "";
+    unpackState(v).then((st) => { if (!st) { toast(i.bad); SND.play("miss"); return; } restoreFrom(st); });
+    return;
+  }
+  if (b.id === "iosFile") { const f = document.getElementById("bkFile"); if (f) { f.value = ""; f.click(); } return; }
+}, true);
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
