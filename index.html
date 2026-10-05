@@ -1028,6 +1028,13 @@ h1, h2, .btn, .tab span, .pill { hyphens: manual; -webkit-hyphens: manual; }
 .iospaste textarea { width: 100%; box-sizing: border-box; border: 2px solid var(--line); border-radius: 14px; padding: 10px 12px; font: 13px/1.35 ui-monospace, Menlo, monospace; background: var(--paper); color: var(--ink); resize: vertical; word-break: break-all; }
 .iospaste textarea:focus { border-color: var(--accent); outline: none; }
 .iospaste .link { align-self: center; }
+
+/* ===== v13d ===== */
+a.btn { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; line-height: 1.2; box-sizing: border-box; }
+:lang(it), :lang(es), :lang(pt), :lang(fr) { hyphens: manual; -webkit-hyphens: manual; }
+.switchrow small { display: inline-block; line-height: 1.35; margin-top: 2px; }
+.rembtns .btn { white-space: nowrap; font-size: 15px; padding-inline: 14px; }
+@media (max-width: 400px) { .rembtns { grid-template-columns: 1fr; } }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -24496,6 +24503,24 @@ document.addEventListener("click", (ev) => {
     return;
   }
   if (b.id === "iosFile") { const f = document.getElementById("bkFile"); if (f) { f.value = ""; f.click(); } return; }
+}, true);
+
+/* =================== v13d: Altro piu' semplice =================== */
+/* Una sola voce "Modalita' leggera": meno animazioni ed effetti insieme (prima erano due voci separate) */
+const liteOn = () => isLite() || !!S.calm;
+const _viewMoreV13d = viewMore;
+viewMore = function () {
+  let h = _viewMoreV13d(); const t = L();
+  h = h.replace(/<div class="switchrow"><span id="calmL">[\s\S]*?id="calmSw"><\/button><\/div>/, "");
+  h = h.replace(/(id="liteSw")/, "$1").replace(/aria-checked="(true|false)"( aria-labelledby="liteL" id="liteSw")/, `aria-checked="${liteOn()}"$2`);
+  return h;
+};
+window.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b || b.id !== "liteSw") return;
+  ev.stopImmediatePropagation(); ev.preventDefault();
+  const on = !liteOn(); S.lite = on; S.calm = on; save(); b.setAttribute("aria-checked", String(on));
+  trackOnce(on ? "modalita-leggera-on" : "modalita-leggera-off");
+  setTimeout(() => location.reload(), 250);
 }, true);
 
 window.__tlevel = SND.level;
