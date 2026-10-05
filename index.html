@@ -19833,7 +19833,7 @@ function guessLang() { const n = (navigator.language || "en").toLowerCase(); if 
 function dkey(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
-const fresh = () => ({ v: 3, lang: guessLang(), theme: "system", pet: null, petName: "", goals: [], day: dkey(), done: [], energy: 0, xp: 0, level: 1, seeds: 20, owned: ["w_cream"], hat: null, furn: [], wall: "w_cream", away: null, cards: [], diary: [], days: {}, giftDay: null, onboard: 0, sfx: true, music: false, season: { key: null, n: 0, claimed: false }, joy: 40, joyAt: Date.now(), garden: [], log: [], capsules: [], fed: { day: null, n: 0 }, game: { day: null, seeds: 0, best: 0 }, lightsOff: false, tut: 0, firstDay: null, haptic: true, letterDay: null, letterN: 0, visit: { last: null, n: 0 }, track: 0, tracked: {} });
+const fresh = () => ({ v: 3, lang: guessLang(), theme: "system", pet: null, petName: "", goals: [], day: dkey(), done: [], energy: 0, xp: 0, level: 1, seeds: 20, owned: ["w_cream"], hat: null, furn: [], wall: "w_cream", away: null, cards: [], diary: [], days: {}, giftDay: null, onboard: 0, sfx: true, music: true, season: { key: null, n: 0, claimed: false }, joy: 40, joyAt: Date.now(), garden: [], log: [], capsules: [], fed: { day: null, n: 0 }, game: { day: null, seeds: 0, best: 0 }, lightsOff: false, tut: 0, firstDay: null, haptic: true, letterDay: null, letterN: 0, visit: { last: null, n: 0 }, track: 0, tracked: {} });
 let S;
 try { S = Object.assign(fresh(), JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { S = fresh(); }
 if (!T[S.lang]) S.lang = "en";
@@ -20490,6 +20490,7 @@ const SND = (() => {
     chime: (t) => { [784, 988, 1319].forEach((f, i) => bell(f, t + i * 0.075, 0.2, fxBus, 0.9)); },
     coin: (t) => { tone(988, t, 0.09, { type: "triangle", vol: 0.2 }); tone(1319, t + 0.08, 0.32, { type: "triangle", vol: 0.2 }); },
     fanfare: (t) => { [523, 659, 784].forEach((f, i) => bell(f, t + i * 0.12, 0.2, fxBus, 0.7)); bell(1047, t + 0.38, 0.25, fxBus, 1.6); tone(523, t + 0.38, 1.4, { type: "triangle", vol: 0.08 }); },
+    logo: (t) => { tone(392, t, 0.32, { vol: 0.09, glide: 784 }); [784, 988, 1175, 1568].forEach((f, i) => bell(f, t + 0.16 + i * 0.085, 0.13, fxBus, 0.9)); [523, 659, 784].forEach((f) => tone(f, t + 0.5, 0.95, { type: "triangle", vol: 0.05, attack: 0.06, filter: 1800 })); [2093, 2637].forEach((f, i) => bell(f, t + 0.62 + i * 0.06, 0.06, fxBus, 0.6)); },
     jingle: (t) => { [1319, 1568, 1760, 2093, 1760].forEach((f, i) => bell(f, t + i * 0.07, 0.13, fxBus, 0.6)); },
     depart: (t) => { tone(330, t, 0.6, { type: "triangle", vol: 0.18, glide: 990 }); noise(t, 0.5, 0.12, 1800); },
     back: (t) => { [659, 784, 988, 1175].forEach((f, i) => bell(f, t + i * 0.09, 0.16, fxBus, 0.8)); },
@@ -21215,7 +21216,7 @@ document.addEventListener("keydown", (ev) => {
 let unlocked = false;
 document.addEventListener("pointerdown", () => {
   if (unlocked) return; unlocked = true;
-  SND.unlock(); if (S.music && S.pet) SND.musicOn(phase() === "night" ? 3 : S.track);
+  SND.unlock(); if (S.music) SND.musicOn(phase() === "night" ? 3 : S.track);
 }, { capture: true });
 document.addEventListener("visibilitychange", () => { if (document.hidden) SND.suspend(); else SND.resume(); });
 document.addEventListener("submit", (ev) => {
@@ -24522,6 +24523,27 @@ window.addEventListener("click", (ev) => {
   trackOnce(on ? "modalita-leggera-on" : "modalita-leggera-off");
   setTimeout(() => location.reload(), 250);
 }, true);
+
+/* =================== v13e: suono del logo e musica gia' accesa all'apertura =================== */
+/* Musica accesa di base: una sola volta anche per chi aveva gia' iniziato (poi decide sempre la persona) */
+if (!S.musicDef) { S.musicDef = 1; if (!S.music) S.music = true; save(); }
+document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest("button"); if (b && (b.id === "musicBtn" || b.id === "musSw")) S.musicDef = 2; }, true);
+
+/* I browser fanno partire i suoni solo dopo il primo tocco; nell'app Android partono subito */
+function audioReady() { try { const c = SND.unlock(); return !!c && c.state === "running"; } catch (e) { return false; } }
+function startMusicNow() { if (S.music && !SND.playing()) SND.musicOn(phase() === "night" ? 3 : S.track); }
+
+const _splashV13e = splash;
+splash = function () {
+  const will = anim && !sessionStorageSafe("splash");
+  _splashV13e();
+  if (!will || !document.querySelector(".splash")) { setTimeout(() => { if (audioReady()) startMusicNow(); }, 300); return; }
+  if (audioReady()) { SND.play("logo"); setTimeout(startMusicNow, 1700); return; }
+  /* senza permesso: il suono del logo parte al primo tocco, se il logo e' ancora sullo schermo */
+  const once = () => { document.removeEventListener("pointerdown", once, true); if (document.querySelector(".splash")) SND.play("logo"); };
+  document.addEventListener("pointerdown", once, true);
+  setTimeout(() => document.removeEventListener("pointerdown", once, true), 4000);
+};
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
