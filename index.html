@@ -24134,8 +24134,9 @@ applyRoot = function () { _applyRootV12b(); applyLite(); };
 function measureLite() {
   if (!anim || S.liteAuto != null || S.lite != null) return;
   let n = 0, t0 = 0, slow = 0;
-  const f = (t) => { if (!t0) t0 = t; else if (t - last > 26) slow++; last = t; n++; if (n < 90) requestAnimationFrame(f); else { S.liteAuto = slow > 20 || (t - t0) / (n - 1) > 21; save(); if (S.liteAuto) { trackOnce("modalita-leggera-auto"); render(); } } };
-  let last = 0; setTimeout(() => requestAnimationFrame(f), 2500);
+  /* si misura solo con l'app davanti: in una scheda nascosta i fotogrammi si fermano e sembrerebbe un telefono lento */
+  const f = (t) => { if (document.hidden || (last && t - last > 400)) return; if (!t0) t0 = t; else if (t - last > 26) slow++; last = t; n++; if (n < 90) requestAnimationFrame(f); else { S.liteAuto = slow > 20 || (t - t0) / (n - 1) > 21; save(); if (S.liteAuto) { trackOnce("modalita-leggera-auto"); render(); } } };
+  let last = 0; setTimeout(() => { if (!document.hidden && !layer.innerHTML) requestAnimationFrame(f); }, 3500);
 }
 measureLite();
 const _viewMoreV12b = viewMore;
@@ -24526,6 +24527,8 @@ window.addEventListener("click", (ev) => {
   trackOnce(on ? "modalita-leggera-on" : "modalita-leggera-off");
   try { sessionStorage.setItem("tanetto-nosplash", "1"); } catch (e) { /* niente */ } setTimeout(() => location.reload(), 250);
 }, true);
+/* Una sola volta: rimisura chi era finito in modalita' leggera per errore (scheda nascosta), se non l'ha scelta a mano */
+if (S.pet && !S.liteRe) { S.liteRe = 1; if (S.liteAuto === true && S.lite == null && !S.calm) { S.liteAuto = null; save(); applyLite(); setTimeout(measureLite, 0); } else save(); }
 
 /* =================== v13e: suono del logo e musica gia' accesa all'apertura =================== */
 /* Musica accesa di base: una sola volta anche per chi aveva gia' iniziato (poi decide sempre la persona) */
