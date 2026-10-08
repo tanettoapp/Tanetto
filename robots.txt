@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tanettoapp.github.io/Tanetto/sitemap.xml
