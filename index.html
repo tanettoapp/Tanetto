@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
-<meta name="description" content="Tanetto is a free, gentle self-care habit app: pick a few small goals a day and they keep a cute illustrated pet happy. No sign-up, no ads, works in the browser, 14 languages.">
+<meta name="description" content="Tanetto is a free, gentle self-care habit app: pick a few small goals a day and they keep a cute illustrated pet happy. No ads, account optional, works in the browser, 14 languages.">
 <link rel="canonical" href="https://tanettoapp.github.io/Tanetto/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tanetto","url":"https://tanettoapp.github.io/Tanetto/","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","description":"A free, gentle self-care habit app where small daily goals keep a cute illustrated pet happy.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"inLanguage":["en","it","de","es","fr","pt","ja","ko","zh","ru","pl","nl","tr"]}</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tanetto">
 <meta property="og:title" content="Tanetto — a tiny friend for your self-care">
-<meta property="og:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no sign-up, in 14 languages.">
+<meta property="og:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no ads, in 14 languages.">
 <meta property="og:url" content="https://tanettoapp.github.io/Tanetto/">
 <meta property="og:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="Tanetto: seven cute illustrated companions in a cozy room">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tanetto — a tiny friend for your self-care">
-<meta name="twitter:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no sign-up, in 14 languages.">
+<meta name="twitter:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no ads, in 14 languages.">
 <meta name="twitter:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -1041,6 +1041,68 @@ a.btn { display: flex; align-items: center; justify-content: center; text-align:
 .splash.still { transition: opacity .4s ease; }
 .splash.still.out { opacity: 0; }
 .splash.still .spname { font-family: var(--font-display); font-size: 40px; font-weight: 600; color: #3E7A3A; }
+
+/* =================== v14: account e backup =================== */
+.gate { text-align: center; align-items: stretch; gap: 14px; }
+.gate h1, .gate > p { text-align: center; }
+.gatepets { display: flex; justify-content: center; align-items: flex-end; gap: 0; margin: 6px auto 2px; height: 128px; }
+.gatepets .gp { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; }
+.gatepets .gp svg { width: 92%; height: 92%; }
+.gatepets .gp-germo { width: 128px; height: 128px; z-index: 1; margin: 0 -14px; }
+.gatebtns { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.btn.gbtn, .btn.gbtn:active { background: #FFFFFF; color: #1F1F1F; box-shadow: inset 0 0 0 1.5px #747775, 0 2px 0 rgba(0, 0, 0, .08); }
+.btn.gbtn, .gate .btn.ghost, .accard .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.btn .glogo { width: 20px; height: 20px; margin: 0; vertical-align: 0; flex: none; }
+.btn.ghost svg { width: 20px; height: 20px; margin: 0; flex: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.gbtn { background: #131314; color: #E3E3E3; box-shadow: inset 0 0 0 1.5px #8E918F; } }
+:root[data-theme="dark"] .btn.gbtn { background: #131314; color: #E3E3E3; box-shadow: inset 0 0 0 1.5px #8E918F; }
+.orline { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; margin-top: 2px; }
+.orline::before, .orline::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.gate #acSkip { align-self: center; margin-top: -6px; }
+.gatenote { margin-top: -10px; }
+.gatelegal { font-size: 12.5px; }
+.inlink { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.acerr { color: #B3261E; font-size: 14px; font-weight: 600; min-height: 0; text-align: center; }
+.acerr:empty { display: none; }
+.acerr.ok { color: var(--accent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .acerr:not(.ok) { color: #F2B8B5; } }
+:root[data-theme="dark"] .acerr:not(.ok) { color: #F2B8B5; }
+.overlay .acbox { text-align: left; align-items: stretch; gap: 14px; }
+.overlay .acbox h2, .overlay .acbox > p { text-align: center; }
+.overlay .acbox .link { align-self: center; }
+.segs { display: flex; background: var(--paper-2); border-radius: 999px; padding: 4px; gap: 4px; }
+.seg { flex: 1; border: 0; background: transparent; border-radius: 999px; min-height: 40px; font-weight: 700; color: var(--muted); font-family: var(--font-display); font-size: 15px; }
+.seg[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--shadow); }
+.pwrow { position: relative; display: flex; }
+.pwrow input { padding-right: 54px; }
+.pwrow .pweye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); box-shadow: none; background: transparent; color: var(--muted); width: 44px; height: 44px; }
+.pwrow .pweye svg { width: 22px; height: 22px; }
+.acrow { flex-direction: column-reverse; align-items: stretch; gap: 8px; }
+.acrow .btn { width: 100%; }
+.btn.danger, .btn.danger:active { background: #B3261E; color: #fff; box-shadow: 0 3px 0 #7A1A14; }
+.link.danger { color: #B3261E; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .link.danger { color: #F2B8B5; } }
+:root[data-theme="dark"] .link.danger { color: #F2B8B5; }
+.btn.busy { opacity: .6; }
+.accard h3 { display: flex; align-items: center; gap: 8px; }
+.accard h3 svg { width: 22px; height: 22px; color: var(--accent); flex: none; }
+.accard .chips { margin-top: -2px; }
+.acwho { overflow-wrap: anywhere; }
+.acwarn { color: #8A5A00; font-weight: 600; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .acwarn { color: var(--sun); } }
+:root[data-theme="dark"] .acwarn { color: var(--sun); }
+.accard .acmore { align-self: center; font-size: 14px; color: var(--muted); }
+.acmanage { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 4px; border-top: 1px dashed var(--line); }
+.acmanage .btn { width: 100%; }
+.chpets { display: flex; justify-content: center; gap: 18px; }
+.chpets span { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 104px; }
+.chpets svg { width: 92px; height: 92px; }
+.chpets b { font-family: var(--font-display); overflow-wrap: anywhere; text-align: center; }
+html.bigtext .gatelegal { font-size: 14px; }
+.btn .spin { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; display: inline-block; vertical-align: -3px; margin-right: 8px; animation: acspin .8s linear infinite; }
+@keyframes acspin { to { transform: rotate(360deg); } }
+html.lite .btn .spin { animation-duration: 1.6s; }
+.gatelegal .nw { white-space: nowrap; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -18962,6 +19024,608 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
   }]
 ].forEach(([l, sh, add, o]) => { if (T[l]) { T[l].v13 = T[l].v13 || {}; T[l].v13.ios = Object.assign({ share: sh, add }, o); } });
 
+/* =================== v14: account e backup online — testi in 14 lingue =================== */
+/* legal(a, b): a = pulsante "Condizioni", b = pulsante "Privacy" (gia' in HTML) */
+T.it.acct = {
+  gateT: "Tieni al sicuro il tuo compagno",
+  gateP: "Accedi per salvare i progressi online e ritrovarli su qualsiasi telefono. È gratis.",
+  google: "Continua con Google", email: "Continua con l'e-mail", or: "oppure",
+  skip: "Continua senza account",
+  skipP: "I dati restano solo su questo telefono. Puoi creare un account quando vuoi da Altro.",
+  legal: (a, b) => `Continuando accetti le ${a} e l'${b}.`,
+  tabIn: "Accedi", tabUp: "Crea account", emT: "Accedi con l'e-mail",
+  emailL: "E-mail", pwL: "Password", pwHint: "Almeno 8 caratteri", show: "Mostra", hide: "Nascondi",
+  forgot: "Password dimenticata?",
+  resetSent: (e) => `Ti abbiamo mandato un'e-mail a ${e} per scegliere una nuova password.`,
+  verifySent: "Account creato! Ti abbiamo mandato un'e-mail per confermare l'indirizzo.",
+  welcome: (n) => `Bentornato! ${n} è di nuovo qui.`,
+  signedIn: "Accesso fatto! Ora scegli il tuo compagno.",
+  wait: "Un attimo…",
+  err: { email: "Questo indirizzo e-mail non sembra giusto.", cred: "E-mail o password non corretti.", inUse: "Esiste già un account con questa e-mail: accedi.", weak: "La password deve avere almeno 8 caratteri.", many: "Troppi tentativi. Riprova tra qualche minuto.", net: "Serve una connessione a internet.", other: "Qualcosa è andato storto. Riprova.", noAcc: "Su questo telefono non c'è un account Google. Aggiungilo nelle impostazioni di Android oppure usa l'e-mail.", diff: "Questa e-mail usa già una password: accedi con l'e-mail.", empty: "Scrivi e-mail e password." },
+  cardT: "Account e backup", as: (e) => `Accesso fatto come ${e}`,
+  localP: (n) => `${n} vive solo su questo telefono. Con un account gratuito lo ritrovi anche se cambi telefono.`,
+  autoL: "Backup automatico", freq: { day: "Ogni giorno", week: "Ogni settimana", month: "Ogni mese", manual: "Solo a mano" },
+  last: (d) => `Ultimo backup: ${d}`, never: "Ancora nessun backup",
+  now: "Fai il backup ora", saved: (n) => `Fatto! ${n} è al sicuro.`, saveFail: "Backup non riuscito: controlla la connessione a internet.",
+  restore: "Ripristina il backup", restAsk: (d) => `Ripristinare il backup del ${d}? Quello che c'è ora su questo telefono verrà sostituito.`, restYes: "Sì, ripristina", noBackup: "Non c'è ancora nessun backup.",
+  manage: "Gestisci account", out: "Esci dall'account", outT: "Uscire dall'account?",
+  outP: (n) => `Prima salvo un backup di ${n}. Poi i dati vengono tolti da questo telefono e torni alla schermata di accesso: rientrando ritrovi tutto.`,
+  outFail: (d) => d ? `Ora non riesco a salvare il backup (serve internet). Se esci adesso, i progressi dopo il ${d} andranno persi.` : "Ora non riesco a salvare il backup (serve internet). Se esci adesso, i progressi andranno persi.",
+  outForce: "Esci lo stesso", outDone: "Sei uscito dall'account.",
+  del: "Elimina profilo", delT: "Eliminare il profilo?",
+  delP: (e, n) => `Verranno cancellati per sempre il tuo account (${e}), il backup online e ${n} su questo telefono. Non si può tornare indietro.`,
+  delYes: "Elimina per sempre", delPw: "Per sicurezza, scrivi la tua password per confermare.", delDone: "Profilo eliminato.",
+  confirm: "Conferma", cancel: "Annulla",
+  choiceT: "Hai già un backup",
+  choiceP: (n2, d, n1) => `Nel tuo account c'è ${n2} (backup del ${d}). Su questo telefono c'è ${n1}. Quale vuoi tenere? L'altro verrà sostituito.`,
+  useCloud: (n) => `Usa il backup (${n})`, keepLocal: (n) => `Tieni ${n}`,
+  lost: "L'accesso è scaduto: accedi di nuovo per continuare a fare il backup.",
+  webT: "Elimina il tuo account Tanetto", webP: "Accedi all'account che vuoi eliminare. L'account e il suo backup online verranno cancellati per sempre. I dati salvati solo sul telefono si cancellano dall'app (Altro › Ricomincia da capo) o disinstallandola.",
+  webBack: "Torna a Tanetto",
+};
+T.en.acct = {
+  gateT: "Keep your companion safe",
+  gateP: "Sign in to save your progress online and find it again on any phone. It's free.",
+  google: "Continue with Google", email: "Continue with email", or: "or",
+  skip: "Continue without an account",
+  skipP: "Your data stays only on this phone. You can create an account anytime from More.",
+  legal: (a, b) => `By continuing you accept the ${a} and the ${b}.`,
+  tabIn: "Sign in", tabUp: "Create account", emT: "Sign in with email",
+  emailL: "Email", pwL: "Password", pwHint: "At least 8 characters", show: "Show", hide: "Hide",
+  forgot: "Forgot your password?",
+  resetSent: (e) => `We sent an email to ${e} so you can choose a new password.`,
+  verifySent: "Account created! We sent you an email to confirm your address.",
+  welcome: (n) => `Welcome back! ${n} is here again.`,
+  signedIn: "You're signed in! Now choose your companion.",
+  wait: "Just a moment…",
+  err: { email: "This email address doesn't look right.", cred: "Wrong email or password.", inUse: "An account with this email already exists: sign in instead.", weak: "The password needs at least 8 characters.", many: "Too many attempts. Try again in a few minutes.", net: "You need an internet connection.", other: "Something went wrong. Please try again.", noAcc: "There's no Google account on this phone. Add one in Android settings or use email.", diff: "This email already uses a password: sign in with email.", empty: "Enter your email and password." },
+  cardT: "Account and backup", as: (e) => `Signed in as ${e}`,
+  localP: (n) => `${n} lives only on this phone. With a free account you can find it again even if you change phones.`,
+  autoL: "Automatic backup", freq: { day: "Every day", week: "Every week", month: "Every month", manual: "Only manually" },
+  last: (d) => `Last backup: ${d}`, never: "No backup yet",
+  now: "Back up now", saved: (n) => `Done! ${n} is safe.`, saveFail: "Backup failed: check your internet connection.",
+  restore: "Restore backup", restAsk: (d) => `Restore the backup from ${d}? What's on this phone now will be replaced.`, restYes: "Yes, restore", noBackup: "There's no backup yet.",
+  manage: "Manage account", out: "Sign out", outT: "Sign out?",
+  outP: (n) => `First I'll save a backup of ${n}. Then the data is removed from this phone and you go back to the sign-in screen: sign in again to find everything.`,
+  outFail: (d) => d ? `I can't save the backup right now (you need internet). If you sign out now, progress made after ${d} will be lost.` : "I can't save the backup right now (you need internet). If you sign out now, your progress will be lost.",
+  outForce: "Sign out anyway", outDone: "You've signed out.",
+  del: "Delete profile", delT: "Delete your profile?",
+  delP: (e, n) => `Your account (${e}), the online backup and ${n} on this phone will be deleted forever. This can't be undone.`,
+  delYes: "Delete forever", delPw: "For your safety, enter your password to confirm.", delDone: "Profile deleted.",
+  confirm: "Confirm", cancel: "Cancel",
+  choiceT: "You already have a backup",
+  choiceP: (n2, d, n1) => `Your account has ${n2} (backup from ${d}). This phone has ${n1}. Which one do you want to keep? The other will be replaced.`,
+  useCloud: (n) => `Use the backup (${n})`, keepLocal: (n) => `Keep ${n}`,
+  lost: "Your sign-in has expired: sign in again to keep backing up.",
+  webT: "Delete your Tanetto account", webP: "Sign in to the account you want to delete. The account and its online backup will be deleted forever. Data saved only on your phone is deleted from the app (More › Start over) or by uninstalling it.",
+  webBack: "Back to Tanetto",
+};
+T.de.acct = {
+  gateT: "Halte deinen Begleiter sicher",
+  gateP: "Melde dich an, um deinen Fortschritt online zu sichern und auf jedem Handy wiederzufinden. Es ist kostenlos.",
+  google: "Weiter mit Google", email: "Weiter mit E-Mail", or: "oder",
+  skip: "Ohne Konto weiter",
+  skipP: "Deine Daten bleiben nur auf diesem Handy. Unter „Mehr“ kannst du jederzeit ein Konto erstellen.",
+  legal: (a, b) => `Wenn du fortfährst, akzeptierst du die ${a} und die ${b}.`,
+  tabIn: "Anmelden", tabUp: "Konto erstellen", emT: "Mit E-Mail anmelden",
+  emailL: "E-Mail", pwL: "Passwort", pwHint: "Mindestens 8 Zeichen", show: "Zeigen", hide: "Verbergen",
+  forgot: "Passwort vergessen?",
+  resetSent: (e) => `Wir haben dir eine E-Mail an ${e} geschickt, damit du ein neues Passwort wählen kannst.`,
+  verifySent: "Konto erstellt! Wir haben dir eine E-Mail geschickt, um deine Adresse zu bestätigen.",
+  welcome: (n) => `Willkommen zurück! ${n} ist wieder da.`,
+  signedIn: "Du bist angemeldet! Jetzt such dir deinen Begleiter aus.",
+  wait: "Einen Moment …",
+  err: { email: "Diese E-Mail-Adresse scheint nicht zu stimmen.", cred: "E-Mail oder Passwort falsch.", inUse: "Mit dieser E-Mail gibt es schon ein Konto: melde dich an.", weak: "Das Passwort braucht mindestens 8 Zeichen.", many: "Zu viele Versuche. Versuch es in ein paar Minuten noch mal.", net: "Du brauchst eine Internetverbindung.", other: "Etwas ist schiefgelaufen. Versuch es noch mal.", noAcc: "Auf diesem Handy gibt es kein Google-Konto. Füge eins in den Android-Einstellungen hinzu oder nutze die E-Mail.", diff: "Diese E-Mail nutzt bereits ein Passwort: melde dich mit E-Mail an.", empty: "Gib E-Mail und Passwort ein." },
+  cardT: "Konto und Backup", as: (e) => `Angemeldet als ${e}`,
+  localP: (n) => `${n} lebt nur auf diesem Handy. Mit einem kostenlosen Konto findest du ${n} auch nach einem Handywechsel wieder.`,
+  autoL: "Automatisches Backup", freq: { day: "Jeden Tag", week: "Jede Woche", month: "Jeden Monat", manual: "Nur von Hand" },
+  last: (d) => `Letztes Backup: ${d}`, never: "Noch kein Backup",
+  now: "Jetzt sichern", saved: (n) => `Fertig! ${n} ist in Sicherheit.`, saveFail: "Backup fehlgeschlagen: Prüfe deine Internetverbindung.",
+  restore: "Backup wiederherstellen", restAsk: (d) => `Das Backup vom ${d} wiederherstellen? Was jetzt auf diesem Handy ist, wird ersetzt.`, restYes: "Ja, wiederherstellen", noBackup: "Es gibt noch kein Backup.",
+  manage: "Konto verwalten", out: "Abmelden", outT: "Abmelden?",
+  outP: (n) => `Zuerst sichere ich ein Backup von ${n}. Dann werden die Daten von diesem Handy entfernt und du kommst zurück zur Anmeldung: Melde dich wieder an, und alles ist wieder da.`,
+  outFail: (d) => d ? `Ich kann das Backup gerade nicht sichern (du brauchst Internet). Wenn du dich jetzt abmeldest, geht der Fortschritt nach dem ${d} verloren.` : "Ich kann das Backup gerade nicht sichern (du brauchst Internet). Wenn du dich jetzt abmeldest, geht dein Fortschritt verloren.",
+  outForce: "Trotzdem abmelden", outDone: "Du bist abgemeldet.",
+  del: "Profil löschen", delT: "Profil löschen?",
+  delP: (e, n) => `Dein Konto (${e}), das Online-Backup und ${n} auf diesem Handy werden für immer gelöscht. Das lässt sich nicht rückgängig machen.`,
+  delYes: "Für immer löschen", delPw: "Zur Sicherheit: Gib dein Passwort ein, um zu bestätigen.", delDone: "Profil gelöscht.",
+  confirm: "Bestätigen", cancel: "Abbrechen",
+  choiceT: "Du hast schon ein Backup",
+  choiceP: (n2, d, n1) => `In deinem Konto ist ${n2} (Backup vom ${d}). Auf diesem Handy ist ${n1}. Was möchtest du behalten? Das andere wird ersetzt.`,
+  useCloud: (n) => `Backup nutzen (${n})`, keepLocal: (n) => `${n} behalten`,
+  lost: "Deine Anmeldung ist abgelaufen: Melde dich wieder an, damit weiter gesichert wird.",
+  webT: "Dein Tanetto-Konto löschen", webP: "Melde dich mit dem Konto an, das du löschen möchtest. Das Konto und sein Online-Backup werden für immer gelöscht. Daten, die nur auf deinem Handy sind, löschst du in der App (Mehr › Von vorne beginnen) oder indem du sie deinstallierst.",
+  webBack: "Zurück zu Tanetto",
+};
+T.es.acct = {
+  gateT: "Mantén a salvo a tu compañero",
+  gateP: "Inicia sesión para guardar tu progreso en línea y recuperarlo en cualquier móvil. Es gratis.",
+  google: "Continuar con Google", email: "Continuar con correo", or: "o",
+  skip: "Continuar sin cuenta",
+  skipP: "Tus datos se quedan solo en este móvil. Puedes crear una cuenta cuando quieras desde Más.",
+  legal: (a, b) => `Al continuar aceptas las ${a} y la ${b}.`,
+  tabIn: "Iniciar sesión", tabUp: "Crear cuenta", emT: "Iniciar sesión con correo",
+  emailL: "Correo electrónico", pwL: "Contraseña", pwHint: "Al menos 8 caracteres", show: "Mostrar", hide: "Ocultar",
+  forgot: "¿Olvidaste tu contraseña?",
+  resetSent: (e) => `Te hemos enviado un correo a ${e} para elegir una nueva contraseña.`,
+  verifySent: "¡Cuenta creada! Te hemos enviado un correo para confirmar tu dirección.",
+  welcome: (n) => `¡Bienvenido de nuevo! ${n} ya está aquí.`,
+  signedIn: "¡Sesión iniciada! Ahora elige a tu compañero.",
+  wait: "Un momento…",
+  err: { email: "Esta dirección de correo no parece correcta.", cred: "Correo o contraseña incorrectos.", inUse: "Ya existe una cuenta con este correo: inicia sesión.", weak: "La contraseña necesita al menos 8 caracteres.", many: "Demasiados intentos. Vuelve a probar en unos minutos.", net: "Necesitas conexión a internet.", other: "Algo ha salido mal. Inténtalo de nuevo.", noAcc: "No hay ninguna cuenta de Google en este móvil. Añade una en los ajustes de Android o usa el correo.", diff: "Este correo ya usa una contraseña: inicia sesión con correo.", empty: "Escribe tu correo y tu contraseña." },
+  cardT: "Cuenta y copia de seguridad", as: (e) => `Sesión iniciada como ${e}`,
+  localP: (n) => `${n} vive solo en este móvil. Con una cuenta gratis lo recuperas aunque cambies de móvil.`,
+  autoL: "Copia automática", freq: { day: "Cada día", week: "Cada semana", month: "Cada mes", manual: "Solo a mano" },
+  last: (d) => `Última copia: ${d}`, never: "Aún no hay ninguna copia",
+  now: "Hacer copia ahora", saved: (n) => `¡Listo! ${n} está a salvo.`, saveFail: "La copia no se ha podido hacer: revisa tu conexión a internet.",
+  restore: "Restaurar la copia", restAsk: (d) => `¿Restaurar la copia del ${d}? Lo que hay ahora en este móvil se sustituirá.`, restYes: "Sí, restaurar", noBackup: "Aún no hay ninguna copia.",
+  manage: "Gestionar cuenta", out: "Cerrar sesión", outT: "¿Cerrar sesión?",
+  outP: (n) => `Primero guardo una copia de ${n}. Luego los datos se quitan de este móvil y vuelves a la pantalla de inicio de sesión: al entrar de nuevo lo recuperas todo.`,
+  outFail: (d) => d ? `Ahora no puedo guardar la copia (necesitas internet). Si cierras sesión ahora, se perderá el progreso posterior al ${d}.` : "Ahora no puedo guardar la copia (necesitas internet). Si cierras sesión ahora, se perderá tu progreso.",
+  outForce: "Cerrar sesión igualmente", outDone: "Has cerrado sesión.",
+  del: "Eliminar perfil", delT: "¿Eliminar tu perfil?",
+  delP: (e, n) => `Se borrarán para siempre tu cuenta (${e}), la copia en línea y ${n} en este móvil. No se puede deshacer.`,
+  delYes: "Eliminar para siempre", delPw: "Por seguridad, escribe tu contraseña para confirmar.", delDone: "Perfil eliminado.",
+  confirm: "Confirmar", cancel: "Cancelar",
+  choiceT: "Ya tienes una copia",
+  choiceP: (n2, d, n1) => `En tu cuenta está ${n2} (copia del ${d}). En este móvil está ${n1}. ¿Cuál quieres conservar? El otro se sustituirá.`,
+  useCloud: (n) => `Usar la copia (${n})`, keepLocal: (n) => `Quedarme con ${n}`,
+  lost: "Tu sesión ha caducado: vuelve a iniciar sesión para seguir haciendo copias.",
+  webT: "Elimina tu cuenta de Tanetto", webP: "Inicia sesión con la cuenta que quieres eliminar. La cuenta y su copia en línea se borrarán para siempre. Los datos guardados solo en el móvil se borran desde la app (Más › Empezar de nuevo) o desinstalándola.",
+  webBack: "Volver a Tanetto",
+};
+T.fr.acct = {
+  gateT: "Garde ton compagnon en sécurité",
+  gateP: "Connecte-toi pour sauvegarder ta progression en ligne et la retrouver sur n'importe quel téléphone. C'est gratuit.",
+  google: "Continuer avec Google", email: "Continuer avec l'e-mail", or: "ou",
+  skip: "Continuer sans compte",
+  skipP: "Tes données restent uniquement sur ce téléphone. Tu peux créer un compte quand tu veux depuis Plus.",
+  legal: (a, b) => `En continuant, tu acceptes les ${a} et la ${b}.`,
+  tabIn: "Se connecter", tabUp: "Créer un compte", emT: "Se connecter avec l'e-mail",
+  emailL: "E-mail", pwL: "Mot de passe", pwHint: "Au moins 8 caractères", show: "Afficher", hide: "Masquer",
+  forgot: "Mot de passe oublié ?",
+  resetSent: (e) => `On t'a envoyé un e-mail à ${e} pour choisir un nouveau mot de passe.`,
+  verifySent: "Compte créé ! On t'a envoyé un e-mail pour confirmer ton adresse.",
+  welcome: (n) => `Bon retour ! ${n} est de nouveau là.`,
+  signedIn: "Tu es connecté ! Maintenant, choisis ton compagnon.",
+  wait: "Un instant…",
+  err: { email: "Cette adresse e-mail ne semble pas correcte.", cred: "E-mail ou mot de passe incorrect.", inUse: "Un compte existe déjà avec cet e-mail : connecte-toi.", weak: "Le mot de passe doit contenir au moins 8 caractères.", many: "Trop de tentatives. Réessaie dans quelques minutes.", net: "Il faut une connexion internet.", other: "Un problème est survenu. Réessaie.", noAcc: "Il n'y a aucun compte Google sur ce téléphone. Ajoutes-en un dans les réglages d'Android ou utilise l'e-mail.", diff: "Cet e-mail utilise déjà un mot de passe : connecte-toi avec l'e-mail.", empty: "Écris ton e-mail et ton mot de passe." },
+  cardT: "Compte et sauvegarde", as: (e) => `Connecté en tant que ${e}`,
+  localP: (n) => `${n} vit uniquement sur ce téléphone. Avec un compte gratuit, tu le retrouves même si tu changes de téléphone.`,
+  autoL: "Sauvegarde automatique", freq: { day: "Chaque jour", week: "Chaque semaine", month: "Chaque mois", manual: "Seulement à la main" },
+  last: (d) => `Dernière sauvegarde : ${d}`, never: "Pas encore de sauvegarde",
+  now: "Sauvegarder maintenant", saved: (n) => `C'est fait ! ${n} est en sécurité.`, saveFail: "La sauvegarde a échoué : vérifie ta connexion internet.",
+  restore: "Restaurer la sauvegarde", restAsk: (d) => `Restaurer la sauvegarde du ${d} ? Ce qu'il y a maintenant sur ce téléphone sera remplacé.`, restYes: "Oui, restaurer", noBackup: "Il n'y a pas encore de sauvegarde.",
+  manage: "Gérer le compte", out: "Se déconnecter", outT: "Se déconnecter ?",
+  outP: (n) => `D'abord, je sauvegarde ${n}. Ensuite, les données sont retirées de ce téléphone et tu reviens à l'écran de connexion : en te reconnectant, tu retrouves tout.`,
+  outFail: (d) => d ? `Je ne peux pas sauvegarder maintenant (il faut internet). Si tu te déconnectes maintenant, la progression faite après le ${d} sera perdue.` : "Je ne peux pas sauvegarder maintenant (il faut internet). Si tu te déconnectes maintenant, ta progression sera perdue.",
+  outForce: "Se déconnecter quand même", outDone: "Tu es déconnecté.",
+  del: "Supprimer le profil", delT: "Supprimer ton profil ?",
+  delP: (e, n) => `Ton compte (${e}), la sauvegarde en ligne et ${n} sur ce téléphone seront supprimés pour toujours. C'est irréversible.`,
+  delYes: "Supprimer pour toujours", delPw: "Par sécurité, écris ton mot de passe pour confirmer.", delDone: "Profil supprimé.",
+  confirm: "Confirmer", cancel: "Annuler",
+  choiceT: "Tu as déjà une sauvegarde",
+  choiceP: (n2, d, n1) => `Ton compte contient ${n2} (sauvegarde du ${d}). Ce téléphone contient ${n1}. Lequel veux-tu garder ? L'autre sera remplacé.`,
+  useCloud: (n) => `Utiliser la sauvegarde (${n})`, keepLocal: (n) => `Garder ${n}`,
+  lost: "Ta connexion a expiré : reconnecte-toi pour continuer les sauvegardes.",
+  webT: "Supprimer ton compte Tanetto", webP: "Connecte-toi au compte que tu veux supprimer. Le compte et sa sauvegarde en ligne seront supprimés pour toujours. Les données enregistrées uniquement sur ton téléphone se suppriment dans l'app (Plus › Tout recommencer) ou en la désinstallant.",
+  webBack: "Retour à Tanetto",
+};
+T.pt.acct = {
+  gateT: "Mantenha seu companheiro seguro",
+  gateP: "Entre para salvar seu progresso online e recuperá-lo em qualquer celular. É grátis.",
+  google: "Continuar com o Google", email: "Continuar com e-mail", or: "ou",
+  skip: "Continuar sem conta",
+  skipP: "Seus dados ficam só neste celular. Você pode criar uma conta quando quiser em Mais.",
+  legal: (a, b) => `Ao continuar, você aceita os ${a} e a ${b}.`,
+  tabIn: "Entrar", tabUp: "Criar conta", emT: "Entrar com e-mail",
+  emailL: "E-mail", pwL: "Senha", pwHint: "Pelo menos 8 caracteres", show: "Mostrar", hide: "Ocultar",
+  forgot: "Esqueceu a senha?",
+  resetSent: (e) => `Enviamos um e-mail para ${e} para você escolher uma nova senha.`,
+  verifySent: "Conta criada! Enviamos um e-mail para confirmar seu endereço.",
+  welcome: (n) => `Que bom te ver de novo! ${n} está de volta.`,
+  signedIn: "Você entrou! Agora escolha seu companheiro.",
+  wait: "Só um momento…",
+  err: { email: "Este endereço de e-mail não parece correto.", cred: "E-mail ou senha incorretos.", inUse: "Já existe uma conta com este e-mail: entre nela.", weak: "A senha precisa ter pelo menos 8 caracteres.", many: "Tentativas demais. Tente de novo daqui a alguns minutos.", net: "Você precisa de conexão com a internet.", other: "Algo deu errado. Tente de novo.", noAcc: "Não há nenhuma conta do Google neste celular. Adicione uma nas configurações do Android ou use o e-mail.", diff: "Este e-mail já usa uma senha: entre com e-mail.", empty: "Digite seu e-mail e sua senha." },
+  cardT: "Conta e backup", as: (e) => `Conectado como ${e}`,
+  localP: (n) => `${n} vive só neste celular. Com uma conta grátis, você o recupera mesmo se trocar de celular.`,
+  autoL: "Backup automático", freq: { day: "Todo dia", week: "Toda semana", month: "Todo mês", manual: "Só manualmente" },
+  last: (d) => `Último backup: ${d}`, never: "Ainda não há backup",
+  now: "Fazer backup agora", saved: (n) => `Pronto! ${n} está seguro.`, saveFail: "O backup falhou: verifique sua conexão com a internet.",
+  restore: "Restaurar backup", restAsk: (d) => `Restaurar o backup de ${d}? O que está neste celular agora será substituído.`, restYes: "Sim, restaurar", noBackup: "Ainda não há nenhum backup.",
+  manage: "Gerenciar conta", out: "Sair da conta", outT: "Sair da conta?",
+  outP: (n) => `Primeiro salvo um backup de ${n}. Depois os dados são removidos deste celular e você volta à tela de entrada: ao entrar de novo, recupera tudo.`,
+  outFail: (d) => d ? `Agora não consigo salvar o backup (você precisa de internet). Se sair agora, o progresso feito depois de ${d} será perdido.` : "Agora não consigo salvar o backup (você precisa de internet). Se sair agora, seu progresso será perdido.",
+  outForce: "Sair mesmo assim", outDone: "Você saiu da conta.",
+  del: "Excluir perfil", delT: "Excluir seu perfil?",
+  delP: (e, n) => `Sua conta (${e}), o backup online e ${n} neste celular serão apagados para sempre. Não dá para desfazer.`,
+  delYes: "Excluir para sempre", delPw: "Por segurança, digite sua senha para confirmar.", delDone: "Perfil excluído.",
+  confirm: "Confirmar", cancel: "Cancelar",
+  choiceT: "Você já tem um backup",
+  choiceP: (n2, d, n1) => `Na sua conta está ${n2} (backup de ${d}). Neste celular está ${n1}. Qual você quer manter? O outro será substituído.`,
+  useCloud: (n) => `Usar o backup (${n})`, keepLocal: (n) => `Manter ${n}`,
+  lost: "Sua sessão expirou: entre de novo para continuar fazendo backup.",
+  webT: "Excluir sua conta do Tanetto", webP: "Entre na conta que você quer excluir. A conta e o backup online dela serão apagados para sempre. Os dados salvos só no celular são apagados pelo app (Mais › Começar de novo) ou desinstalando-o.",
+  webBack: "Voltar ao Tanetto",
+};
+T.ja.acct = {
+  gateT: "パートナーを大切に守ろう",
+  gateP: "ログインすると進み具合をオンラインに保存して、どのスマホでも続きから使えます。無料です。",
+  google: "Googleで続ける", email: "メールアドレスで続ける", or: "または",
+  skip: "アカウントなしで続ける",
+  skipP: "データはこのスマホの中だけに保存されます。アカウントは「その他」からいつでも作れます。",
+  legal: (a, b) => `続けることで、${a}と${b}に同意したものとみなされます。`,
+  tabIn: "ログイン", tabUp: "アカウント作成", emT: "メールアドレスでログイン",
+  emailL: "メールアドレス", pwL: "パスワード", pwHint: "8文字以上", show: "表示", hide: "隠す",
+  forgot: "パスワードをお忘れですか？",
+  resetSent: (e) => `${e} にメールを送りました。新しいパスワードを設定してください。`,
+  verifySent: "アカウントを作成しました！アドレス確認のメールを送りました。",
+  welcome: (n) => `おかえりなさい！${n}がまた戻ってきました。`,
+  signedIn: "ログインしました！パートナーを選びましょう。",
+  wait: "少々お待ちください…",
+  err: { email: "メールアドレスが正しくないようです。", cred: "メールアドレスまたはパスワードが違います。", inUse: "このメールアドレスのアカウントはすでにあります。ログインしてください。", weak: "パスワードは8文字以上にしてください。", many: "試行回数が多すぎます。数分後にもう一度お試しください。", net: "インターネット接続が必要です。", other: "問題が発生しました。もう一度お試しください。", noAcc: "このスマホにGoogleアカウントがありません。Androidの設定で追加するか、メールアドレスを使ってください。", diff: "このメールアドレスはパスワードで登録済みです。メールアドレスでログインしてください。", empty: "メールアドレスとパスワードを入力してください。" },
+  cardT: "アカウントとバックアップ", as: (e) => `${e} でログイン中`,
+  localP: (n) => `${n}はこのスマホの中だけにいます。無料のアカウントがあれば、スマホを変えても${n}に会えます。`,
+  autoL: "自動バックアップ", freq: { day: "毎日", week: "毎週", month: "毎月", manual: "手動のみ" },
+  last: (d) => `最後のバックアップ：${d}`, never: "まだバックアップはありません",
+  now: "今すぐバックアップ", saved: (n) => `完了！${n}は安全です。`, saveFail: "バックアップできませんでした。インターネット接続を確認してください。",
+  restore: "バックアップを復元", restAsk: (d) => `${d}のバックアップを復元しますか？今このスマホにあるデータは置き換えられます。`, restYes: "はい、復元する", noBackup: "まだバックアップはありません。",
+  manage: "アカウントの管理", out: "ログアウト", outT: "ログアウトしますか？",
+  outP: (n) => `まず${n}のバックアップを保存します。そのあとデータはこのスマホから消え、ログイン画面に戻ります。もう一度ログインすれば、すべて元どおりです。`,
+  outFail: (d) => d ? `今はバックアップを保存できません（インターネットが必要です）。今ログアウトすると、${d}より後の進み具合は失われます。` : "今はバックアップを保存できません（インターネットが必要です）。今ログアウトすると、進み具合は失われます。",
+  outForce: "それでもログアウト", outDone: "ログアウトしました。",
+  del: "プロフィールを削除", delT: "プロフィールを削除しますか？",
+  delP: (e, n) => `アカウント（${e}）、オンラインのバックアップ、このスマホの${n}が完全に削除されます。元には戻せません。`,
+  delYes: "完全に削除する", delPw: "安全のため、確認としてパスワードを入力してください。", delDone: "プロフィールを削除しました。",
+  confirm: "確認", cancel: "キャンセル",
+  choiceT: "バックアップがすでにあります",
+  choiceP: (n2, d, n1) => `アカウントには${n2}（${d}のバックアップ）がいます。このスマホには${n1}がいます。どちらを残しますか？もう一方は置き換えられます。`,
+  useCloud: (n) => `バックアップを使う（${n}）`, keepLocal: (n) => `${n}を残す`,
+  lost: "ログインの有効期限が切れました。バックアップを続けるには、もう一度ログインしてください。",
+  webT: "Tanettoのアカウントを削除", webP: "削除したいアカウントでログインしてください。アカウントとオンラインのバックアップは完全に削除されます。スマホの中だけに保存されたデータは、アプリ内（その他 › 最初からやり直す）またはアンインストールで削除できます。",
+  webBack: "Tanettoに戻る",
+};
+T.ko.acct = {
+  gateT: "내 친구를 안전하게 지켜요",
+  gateP: "로그인하면 진행 상황을 온라인에 저장하고 어떤 폰에서든 다시 찾을 수 있어요. 무료예요.",
+  google: "Google로 계속하기", email: "이메일로 계속하기", or: "또는",
+  skip: "계정 없이 계속하기",
+  skipP: "데이터는 이 폰에만 저장돼요. 계정은 언제든 ‘더 보기’에서 만들 수 있어요.",
+  legal: (a, b) => `계속하면 ${a} 및 ${b}에 동의하는 거예요.`,
+  tabIn: "로그인", tabUp: "계정 만들기", emT: "이메일로 로그인",
+  emailL: "이메일", pwL: "비밀번호", pwHint: "8자 이상", show: "보기", hide: "숨기기",
+  forgot: "비밀번호를 잊으셨나요?",
+  resetSent: (e) => `${e}(으)로 새 비밀번호를 정할 수 있는 이메일을 보냈어요.`,
+  verifySent: "계정이 만들어졌어요! 주소 확인 이메일을 보냈어요.",
+  welcome: (n) => `다시 오신 걸 환영해요! ${n}이(가) 돌아왔어요.`,
+  signedIn: "로그인했어요! 이제 친구를 골라 보세요.",
+  wait: "잠시만요…",
+  err: { email: "이메일 주소가 올바르지 않은 것 같아요.", cred: "이메일 또는 비밀번호가 맞지 않아요.", inUse: "이 이메일로 된 계정이 이미 있어요. 로그인해 주세요.", weak: "비밀번호는 8자 이상이어야 해요.", many: "시도 횟수가 너무 많아요. 몇 분 뒤에 다시 해 보세요.", net: "인터넷 연결이 필요해요.", other: "문제가 생겼어요. 다시 시도해 주세요.", noAcc: "이 폰에 Google 계정이 없어요. Android 설정에서 추가하거나 이메일을 사용하세요.", diff: "이 이메일은 이미 비밀번호로 가입되어 있어요. 이메일로 로그인해 주세요.", empty: "이메일과 비밀번호를 입력해 주세요." },
+  cardT: "계정 및 백업", as: (e) => `${e}(으)로 로그인됨`,
+  localP: (n) => `${n}은(는) 이 폰에만 있어요. 무료 계정이 있으면 폰을 바꿔도 다시 만날 수 있어요.`,
+  autoL: "자동 백업", freq: { day: "매일", week: "매주", month: "매월", manual: "직접 할 때만" },
+  last: (d) => `마지막 백업: ${d}`, never: "아직 백업이 없어요",
+  now: "지금 백업하기", saved: (n) => `완료! ${n}은(는) 안전해요.`, saveFail: "백업에 실패했어요. 인터넷 연결을 확인해 주세요.",
+  restore: "백업 복원", restAsk: (d) => `${d} 백업을 복원할까요? 지금 이 폰에 있는 데이터는 바뀌어요.`, restYes: "네, 복원할게요", noBackup: "아직 백업이 없어요.",
+  manage: "계정 관리", out: "로그아웃", outT: "로그아웃할까요?",
+  outP: (n) => `먼저 ${n}의 백업을 저장해요. 그다음 데이터가 이 폰에서 지워지고 로그인 화면으로 돌아가요. 다시 로그인하면 모두 그대로예요.`,
+  outFail: (d) => d ? `지금은 백업을 저장할 수 없어요(인터넷이 필요해요). 지금 로그아웃하면 ${d} 이후의 진행 상황은 사라져요.` : "지금은 백업을 저장할 수 없어요(인터넷이 필요해요). 지금 로그아웃하면 진행 상황이 사라져요.",
+  outForce: "그래도 로그아웃", outDone: "로그아웃했어요.",
+  del: "프로필 삭제", delT: "프로필을 삭제할까요?",
+  delP: (e, n) => `계정(${e}), 온라인 백업, 이 폰에 있는 ${n}이(가) 영원히 삭제돼요. 되돌릴 수 없어요.`,
+  delYes: "영원히 삭제", delPw: "안전을 위해 비밀번호를 입력해 확인해 주세요.", delDone: "프로필이 삭제되었어요.",
+  confirm: "확인", cancel: "취소",
+  choiceT: "이미 백업이 있어요",
+  choiceP: (n2, d, n1) => `계정에는 ${n2}(${d} 백업)이(가) 있고, 이 폰에는 ${n1}이(가) 있어요. 어느 쪽을 남길까요? 다른 쪽은 바뀌어요.`,
+  useCloud: (n) => `백업 사용(${n})`, keepLocal: (n) => `${n} 남기기`,
+  lost: "로그인이 만료되었어요. 백업을 계속하려면 다시 로그인해 주세요.",
+  webT: "Tanetto 계정 삭제", webP: "삭제할 계정으로 로그인하세요. 계정과 온라인 백업은 영원히 삭제돼요. 폰에만 저장된 데이터는 앱에서(더 보기 › 처음부터 다시) 또는 앱을 삭제해서 지울 수 있어요.",
+  webBack: "Tanetto로 돌아가기",
+};
+T.zh.acct = {
+  gateT: "保护好你的小伙伴",
+  gateP: "登录后可以把进度保存在网上，在任何手机上都能找回来。完全免费。",
+  google: "使用 Google 继续", email: "使用邮箱继续", or: "或",
+  skip: "不登录，直接继续",
+  skipP: "数据只会保存在这部手机上。你可以随时在“更多”里创建账号。",
+  legal: (a, b) => `继续即表示你接受${a}和${b}。`,
+  tabIn: "登录", tabUp: "创建账号", emT: "使用邮箱登录",
+  emailL: "邮箱", pwL: "密码", pwHint: "至少 8 个字符", show: "显示", hide: "隐藏",
+  forgot: "忘记密码？",
+  resetSent: (e) => `我们已向 ${e} 发送邮件，你可以设置新密码。`,
+  verifySent: "账号已创建！我们已发送一封邮件，请确认你的邮箱地址。",
+  welcome: (n) => `欢迎回来！${n}又回来啦。`,
+  signedIn: "登录成功！现在选择你的小伙伴吧。",
+  wait: "请稍等…",
+  err: { email: "这个邮箱地址好像不对。", cred: "邮箱或密码错误。", inUse: "这个邮箱已经有账号了，请直接登录。", weak: "密码至少需要 8 个字符。", many: "尝试次数太多，请过几分钟再试。", net: "需要连接互联网。", other: "出了点问题，请再试一次。", noAcc: "这部手机上没有 Google 账号。请在 Android 设置中添加，或使用邮箱。", diff: "这个邮箱已经设置了密码，请使用邮箱登录。", empty: "请输入邮箱和密码。" },
+  cardT: "账号与备份", as: (e) => `已登录：${e}`,
+  localP: (n) => `${n}只住在这部手机里。有了免费账号，换手机也能找回它。`,
+  autoL: "自动备份", freq: { day: "每天", week: "每周", month: "每月", manual: "仅手动" },
+  last: (d) => `上次备份：${d}`, never: "还没有备份",
+  now: "立即备份", saved: (n) => `完成！${n}很安全。`, saveFail: "备份失败，请检查网络连接。",
+  restore: "恢复备份", restAsk: (d) => `要恢复 ${d} 的备份吗？这部手机上现有的数据将被替换。`, restYes: "是的，恢复", noBackup: "还没有任何备份。",
+  manage: "管理账号", out: "退出登录", outT: "要退出登录吗？",
+  outP: (n) => `我会先保存${n}的备份。然后这部手机上的数据会被移除，你会回到登录页面：重新登录就能找回一切。`,
+  outFail: (d) => d ? `现在无法保存备份（需要联网）。如果现在退出，${d}之后的进度将会丢失。` : "现在无法保存备份（需要联网）。如果现在退出，你的进度将会丢失。",
+  outForce: "仍然退出", outDone: "你已退出登录。",
+  del: "删除个人资料", delT: "要删除个人资料吗？",
+  delP: (e, n) => `你的账号（${e}）、网上的备份以及这部手机上的${n}都将被永久删除，无法恢复。`,
+  delYes: "永久删除", delPw: "为了安全，请输入密码确认。", delDone: "个人资料已删除。",
+  confirm: "确认", cancel: "取消",
+  choiceT: "你已经有备份了",
+  choiceP: (n2, d, n1) => `你的账号里有${n2}（${d}的备份），这部手机上有${n1}。你想保留哪一个？另一个将被替换。`,
+  useCloud: (n) => `使用备份（${n}）`, keepLocal: (n) => `保留${n}`,
+  lost: "登录已过期：请重新登录以继续备份。",
+  webT: "删除你的 Tanetto 账号", webP: "请登录你想删除的账号。账号及其网上备份将被永久删除。只保存在手机上的数据，可以在应用内（更多 › 重新开始）删除，或卸载应用来删除。",
+  webBack: "返回 Tanetto",
+};
+T.zht.acct = {
+  gateT: "好好保護你的小夥伴",
+  gateP: "登入後可以把進度儲存在網路上，在任何手機上都能找回來。完全免費。",
+  google: "使用 Google 繼續", email: "使用電子郵件繼續", or: "或",
+  skip: "不登入，直接繼續",
+  skipP: "資料只會留在這支手機上。你隨時可以在「更多」裡建立帳號。",
+  legal: (a, b) => `繼續即表示你接受${a}和${b}。`,
+  tabIn: "登入", tabUp: "建立帳號", emT: "使用電子郵件登入",
+  emailL: "電子郵件", pwL: "密碼", pwHint: "至少 8 個字元", show: "顯示", hide: "隱藏",
+  forgot: "忘記密碼？",
+  resetSent: (e) => `我們已寄信到 ${e}，你可以設定新密碼。`,
+  verifySent: "帳號已建立！我們已寄出一封信，請確認你的電子郵件地址。",
+  welcome: (n) => `歡迎回來！${n}又回來了。`,
+  signedIn: "登入成功！現在選擇你的小夥伴吧。",
+  wait: "請稍候…",
+  err: { email: "這個電子郵件地址好像不對。", cred: "電子郵件或密碼錯誤。", inUse: "這個電子郵件已經有帳號了，請直接登入。", weak: "密碼至少需要 8 個字元。", many: "嘗試次數太多，請過幾分鐘再試。", net: "需要連上網路。", other: "發生了一點問題，請再試一次。", noAcc: "這支手機上沒有 Google 帳號。請在 Android 設定中新增，或使用電子郵件。", diff: "這個電子郵件已經設定了密碼，請使用電子郵件登入。", empty: "請輸入電子郵件和密碼。" },
+  cardT: "帳號與備份", as: (e) => `已登入：${e}`,
+  localP: (n) => `${n}只住在這支手機裡。有了免費帳號，換手機也能找回它。`,
+  autoL: "自動備份", freq: { day: "每天", week: "每週", month: "每月", manual: "只手動" },
+  last: (d) => `上次備份：${d}`, never: "還沒有備份",
+  now: "立即備份", saved: (n) => `完成！${n}很安全。`, saveFail: "備份失敗，請檢查網路連線。",
+  restore: "還原備份", restAsk: (d) => `要還原 ${d} 的備份嗎？這支手機上現有的資料會被取代。`, restYes: "是的，還原", noBackup: "還沒有任何備份。",
+  manage: "管理帳號", out: "登出", outT: "要登出嗎？",
+  outP: (n) => `我會先儲存${n}的備份。接著這支手機上的資料會被移除，你會回到登入畫面：重新登入就能找回一切。`,
+  outFail: (d) => d ? `現在無法儲存備份（需要連上網路）。如果現在登出，${d}之後的進度將會遺失。` : "現在無法儲存備份（需要連上網路）。如果現在登出，你的進度將會遺失。",
+  outForce: "仍然登出", outDone: "你已登出。",
+  del: "刪除個人檔案", delT: "要刪除個人檔案嗎？",
+  delP: (e, n) => `你的帳號（${e}）、網路上的備份以及這支手機上的${n}都會被永久刪除，無法復原。`,
+  delYes: "永久刪除", delPw: "為了安全，請輸入密碼確認。", delDone: "個人檔案已刪除。",
+  confirm: "確認", cancel: "取消",
+  choiceT: "你已經有備份了",
+  choiceP: (n2, d, n1) => `你的帳號裡有${n2}（${d}的備份），這支手機上有${n1}。你想保留哪一個？另一個會被取代。`,
+  useCloud: (n) => `使用備份（${n}）`, keepLocal: (n) => `保留${n}`,
+  lost: "登入已過期：請重新登入以繼續備份。",
+  webT: "刪除你的 Tanetto 帳號", webP: "請登入你想刪除的帳號。帳號及其網路備份將被永久刪除。只儲存在手機上的資料，可以在 App 內（更多 › 重新開始）刪除，或解除安裝 App 來刪除。",
+  webBack: "回到 Tanetto",
+};
+T.ru.acct = {
+  gateT: "Сохрани своего питомца",
+  gateP: "Войди, чтобы сохранять прогресс онлайн и находить его на любом телефоне. Это бесплатно.",
+  google: "Продолжить с Google", email: "Продолжить с e-mail", or: "или",
+  skip: "Продолжить без аккаунта",
+  skipP: "Данные останутся только на этом телефоне. Создать аккаунт можно в любой момент в разделе «Ещё».",
+  legal: (a, b) => `Продолжая, ты соглашаешься с документами: ${a} и ${b}.`,
+  tabIn: "Войти", tabUp: "Создать аккаунт", emT: "Вход по e-mail",
+  emailL: "E-mail", pwL: "Пароль", pwHint: "Не меньше 8 символов", show: "Показать", hide: "Скрыть",
+  forgot: "Забыли пароль?",
+  resetSent: (e) => `Мы отправили письмо на ${e}, чтобы ты мог выбрать новый пароль.`,
+  verifySent: "Аккаунт создан! Мы отправили письмо, чтобы подтвердить адрес.",
+  welcome: (n) => `С возвращением! ${n} снова с тобой.`,
+  signedIn: "Ты вошёл! Теперь выбери питомца.",
+  wait: "Минутку…",
+  err: { email: "Похоже, этот адрес e-mail указан неверно.", cred: "Неверный e-mail или пароль.", inUse: "Аккаунт с таким e-mail уже есть: войди в него.", weak: "Пароль должен быть не короче 8 символов.", many: "Слишком много попыток. Попробуй через несколько минут.", net: "Нужно подключение к интернету.", other: "Что-то пошло не так. Попробуй ещё раз.", noAcc: "На этом телефоне нет аккаунта Google. Добавь его в настройках Android или используй e-mail.", diff: "Для этого e-mail уже задан пароль: войди по e-mail.", empty: "Введи e-mail и пароль." },
+  cardT: "Аккаунт и резервная копия", as: (e) => `Вход выполнен: ${e}`,
+  localP: (n) => `${n} живёт только на этом телефоне. С бесплатным аккаунтом ты найдёшь питомца, даже если сменишь телефон.`,
+  autoL: "Автоматическая копия", freq: { day: "Каждый день", week: "Каждую неделю", month: "Каждый месяц", manual: "Только вручную" },
+  last: (d) => `Последняя копия: ${d}`, never: "Копий пока нет",
+  now: "Сохранить копию сейчас", saved: (n) => `Готово! ${n} в безопасности.`, saveFail: "Не удалось сохранить копию: проверь подключение к интернету.",
+  restore: "Восстановить копию", restAsk: (d) => `Восстановить копию от ${d}? То, что сейчас на этом телефоне, будет заменено.`, restYes: "Да, восстановить", noBackup: "Копий пока нет.",
+  manage: "Управление аккаунтом", out: "Выйти из аккаунта", outT: "Выйти из аккаунта?",
+  outP: (n) => `Сначала я сохраню копию: ${n}. Потом данные будут удалены с этого телефона, и ты вернёшься на экран входа. Войдёшь снова — и всё будет на месте.`,
+  outFail: (d) => d ? `Сейчас не получается сохранить копию (нужен интернет). Если выйти сейчас, прогресс после ${d} пропадёт.` : "Сейчас не получается сохранить копию (нужен интернет). Если выйти сейчас, прогресс пропадёт.",
+  outForce: "Всё равно выйти", outDone: "Ты вышел из аккаунта.",
+  del: "Удалить профиль", delT: "Удалить профиль?",
+  delP: (e, n) => `Твой аккаунт (${e}), онлайн-копия и ${n} на этом телефоне будут удалены навсегда. Это нельзя отменить.`,
+  delYes: "Удалить навсегда", delPw: "Для безопасности введи пароль, чтобы подтвердить.", delDone: "Профиль удалён.",
+  confirm: "Подтвердить", cancel: "Отмена",
+  choiceT: "У тебя уже есть копия",
+  choiceP: (n2, d, n1) => `В аккаунте: ${n2} (копия от ${d}). На этом телефоне: ${n1}. Кого оставить? Второй будет заменён.`,
+  useCloud: (n) => `Взять копию (${n})`, keepLocal: (n) => `Оставить: ${n}`,
+  lost: "Срок входа истёк: войди снова, чтобы копии продолжали сохраняться.",
+  webT: "Удаление аккаунта Tanetto", webP: "Войди в аккаунт, который хочешь удалить. Аккаунт и его онлайн-копия будут удалены навсегда. Данные, сохранённые только на телефоне, удаляются в приложении («Ещё» › «Начать заново») или при его удалении.",
+  webBack: "Вернуться в Tanetto",
+};
+T.pl.acct = {
+  gateT: "Zadbaj o bezpieczeństwo towarzysza",
+  gateP: "Zaloguj się, aby zapisywać postępy online i odzyskać je na każdym telefonie. To nic nie kosztuje.",
+  google: "Kontynuuj z Google", email: "Kontynuuj z e-mailem", or: "lub",
+  skip: "Kontynuuj bez konta",
+  skipP: "Dane zostaną tylko na tym telefonie. Konto możesz założyć w każdej chwili w zakładce Więcej.",
+  legal: (a, b) => `Kontynuując, akceptujesz dokumenty: ${a} i ${b}.`,
+  tabIn: "Zaloguj się", tabUp: "Załóż konto", emT: "Logowanie e-mailem",
+  emailL: "E-mail", pwL: "Hasło", pwHint: "Co najmniej 8 znaków", show: "Pokaż", hide: "Ukryj",
+  forgot: "Nie pamiętasz hasła?",
+  resetSent: (e) => `Wysłaliśmy e-mail na adres ${e}, abyś mógł ustawić nowe hasło.`,
+  verifySent: "Konto założone! Wysłaliśmy ci e-mail, aby potwierdzić adres.",
+  welcome: (n) => `Witaj z powrotem! ${n} znów tu jest.`,
+  signedIn: "Zalogowano! Teraz wybierz swojego towarzysza.",
+  wait: "Chwileczkę…",
+  err: { email: "Ten adres e-mail wygląda na błędny.", cred: "Nieprawidłowy e-mail lub hasło.", inUse: "Konto z tym adresem już istnieje: zaloguj się.", weak: "Hasło musi mieć co najmniej 8 znaków.", many: "Za dużo prób. Spróbuj ponownie za kilka minut.", net: "Potrzebne jest połączenie z internetem.", other: "Coś poszło nie tak. Spróbuj ponownie.", noAcc: "Na tym telefonie nie ma konta Google. Dodaj je w ustawieniach Androida albo użyj e-maila.", diff: "Ten e-mail ma już hasło: zaloguj się e-mailem.", empty: "Wpisz e-mail i hasło." },
+  cardT: "Konto i kopia zapasowa", as: (e) => `Zalogowano jako ${e}`,
+  localP: (n) => `${n} mieszka tylko na tym telefonie. Z darmowym kontem odzyskasz towarzysza nawet po zmianie telefonu.`,
+  autoL: "Automatyczna kopia", freq: { day: "Codziennie", week: "Co tydzień", month: "Co miesiąc", manual: "Tylko ręcznie" },
+  last: (d) => `Ostatnia kopia: ${d}`, never: "Brak kopii",
+  now: "Zrób kopię teraz", saved: (n) => `Gotowe! ${n} jest bezpieczny.`, saveFail: "Nie udało się zrobić kopii: sprawdź połączenie z internetem.",
+  restore: "Przywróć kopię", restAsk: (d) => `Przywrócić kopię z ${d}? To, co jest teraz na tym telefonie, zostanie zastąpione.`, restYes: "Tak, przywróć", noBackup: "Nie ma jeszcze żadnej kopii.",
+  manage: "Zarządzaj kontem", out: "Wyloguj się", outT: "Wylogować się?",
+  outP: (n) => `Najpierw zapiszę kopię: ${n}. Potem dane zostaną usunięte z tego telefonu i wrócisz do ekranu logowania. Po ponownym zalogowaniu wszystko wróci.`,
+  outFail: (d) => d ? `Nie mogę teraz zapisać kopii (potrzebny internet). Jeśli wylogujesz się teraz, postępy po ${d} przepadną.` : "Nie mogę teraz zapisać kopii (potrzebny internet). Jeśli wylogujesz się teraz, twoje postępy przepadną.",
+  outForce: "Wyloguj mimo to", outDone: "Wylogowano.",
+  del: "Usuń profil", delT: "Usunąć profil?",
+  delP: (e, n) => `Twoje konto (${e}), kopia online i ${n} na tym telefonie zostaną usunięte na zawsze. Tego nie da się cofnąć.`,
+  delYes: "Usuń na zawsze", delPw: "Dla bezpieczeństwa wpisz hasło, aby potwierdzić.", delDone: "Profil usunięty.",
+  confirm: "Potwierdź", cancel: "Anuluj",
+  choiceT: "Masz już kopię",
+  choiceP: (n2, d, n1) => `Na koncie jest ${n2} (kopia z ${d}). Na tym telefonie jest ${n1}. Którego chcesz zatrzymać? Drugi zostanie zastąpiony.`,
+  useCloud: (n) => `Użyj kopii (${n})`, keepLocal: (n) => `Zostaw: ${n}`,
+  lost: "Logowanie wygasło: zaloguj się ponownie, aby dalej robić kopie.",
+  webT: "Usuń swoje konto Tanetto", webP: "Zaloguj się na konto, które chcesz usunąć. Konto i jego kopia online zostaną usunięte na zawsze. Dane zapisane tylko na telefonie usuniesz w aplikacji (Więcej › Zacznij od nowa) lub odinstalowując ją.",
+  webBack: "Wróć do Tanetto",
+};
+T.nl.acct = {
+  gateT: "Houd je maatje veilig",
+  gateP: "Log in om je voortgang online te bewaren en op elke telefoon terug te vinden. Het is gratis.",
+  google: "Doorgaan met Google", email: "Doorgaan met e-mail", or: "of",
+  skip: "Doorgaan zonder account",
+  skipP: "Je gegevens blijven alleen op deze telefoon. Je kunt altijd een account maken via Meer.",
+  legal: (a, b) => `Door verder te gaan accepteer je de ${a} en het ${b}.`,
+  tabIn: "Inloggen", tabUp: "Account maken", emT: "Inloggen met e-mail",
+  emailL: "E-mail", pwL: "Wachtwoord", pwHint: "Minstens 8 tekens", show: "Tonen", hide: "Verbergen",
+  forgot: "Wachtwoord vergeten?",
+  resetSent: (e) => `We hebben een e-mail gestuurd naar ${e} om een nieuw wachtwoord te kiezen.`,
+  verifySent: "Account gemaakt! We hebben je een e-mail gestuurd om je adres te bevestigen.",
+  welcome: (n) => `Welkom terug! ${n} is er weer.`,
+  signedIn: "Je bent ingelogd! Kies nu je maatje.",
+  wait: "Even geduld…",
+  err: { email: "Dit e-mailadres lijkt niet te kloppen.", cred: "Onjuist e-mailadres of wachtwoord.", inUse: "Er bestaat al een account met dit e-mailadres: log in.", weak: "Het wachtwoord moet minstens 8 tekens hebben.", many: "Te veel pogingen. Probeer het over een paar minuten opnieuw.", net: "Je hebt een internetverbinding nodig.", other: "Er ging iets mis. Probeer het opnieuw.", noAcc: "Er staat geen Google-account op deze telefoon. Voeg er een toe in de Android-instellingen of gebruik e-mail.", diff: "Dit e-mailadres gebruikt al een wachtwoord: log in met e-mail.", empty: "Vul je e-mailadres en wachtwoord in." },
+  cardT: "Account en back-up", as: (e) => `Ingelogd als ${e}`,
+  localP: (n) => `${n} woont alleen op deze telefoon. Met een gratis account vind je ${n} terug, ook als je van telefoon wisselt.`,
+  autoL: "Automatische back-up", freq: { day: "Elke dag", week: "Elke week", month: "Elke maand", manual: "Alleen met de hand" },
+  last: (d) => `Laatste back-up: ${d}`, never: "Nog geen back-up",
+  now: "Nu back-up maken", saved: (n) => `Klaar! ${n} is veilig.`, saveFail: "Back-up mislukt: controleer je internetverbinding.",
+  restore: "Back-up terugzetten", restAsk: (d) => `De back-up van ${d} terugzetten? Wat nu op deze telefoon staat, wordt vervangen.`, restYes: "Ja, terugzetten", noBackup: "Er is nog geen back-up.",
+  manage: "Account beheren", out: "Uitloggen", outT: "Uitloggen?",
+  outP: (n) => `Eerst maak ik een back-up van ${n}. Daarna worden de gegevens van deze telefoon gehaald en ga je terug naar het inlogscherm: log opnieuw in en alles is er weer.`,
+  outFail: (d) => d ? `Ik kan de back-up nu niet maken (je hebt internet nodig). Als je nu uitlogt, gaat de voortgang na ${d} verloren.` : "Ik kan de back-up nu niet maken (je hebt internet nodig). Als je nu uitlogt, gaat je voortgang verloren.",
+  outForce: "Toch uitloggen", outDone: "Je bent uitgelogd.",
+  del: "Profiel verwijderen", delT: "Je profiel verwijderen?",
+  delP: (e, n) => `Je account (${e}), de online back-up en ${n} op deze telefoon worden voorgoed verwijderd. Dit kan niet ongedaan worden gemaakt.`,
+  delYes: "Voorgoed verwijderen", delPw: "Vul voor de veiligheid je wachtwoord in om te bevestigen.", delDone: "Profiel verwijderd.",
+  confirm: "Bevestigen", cancel: "Annuleren",
+  choiceT: "Je hebt al een back-up",
+  choiceP: (n2, d, n1) => `In je account staat ${n2} (back-up van ${d}). Op deze telefoon staat ${n1}. Welke wil je houden? De andere wordt vervangen.`,
+  useCloud: (n) => `Back-up gebruiken (${n})`, keepLocal: (n) => `${n} houden`,
+  lost: "Je inlog is verlopen: log opnieuw in om back-ups te blijven maken.",
+  webT: "Je Tanetto-account verwijderen", webP: "Log in met het account dat je wilt verwijderen. Het account en de online back-up worden voorgoed verwijderd. Gegevens die alleen op je telefoon staan, verwijder je in de app (Meer › Opnieuw beginnen) of door de app te verwijderen.",
+  webBack: "Terug naar Tanetto",
+};
+T.tr.acct = {
+  gateT: "Arkadaşını güvende tut",
+  gateP: "Giriş yap, ilerlemeni çevrim içi kaydet ve her telefonda yeniden bul. Ücretsiz.",
+  google: "Google ile devam et", email: "E-posta ile devam et", or: "veya",
+  skip: "Hesapsız devam et",
+  skipP: "Verilerin yalnızca bu telefonda kalır. İstediğin zaman Diğer bölümünden hesap oluşturabilirsin.",
+  legal: (a, b) => `Devam ederek şu belgeleri kabul etmiş olursun: ${a} ve ${b}.`,
+  tabIn: "Giriş yap", tabUp: "Hesap oluştur", emT: "E-posta ile giriş",
+  emailL: "E-posta", pwL: "Şifre", pwHint: "En az 8 karakter", show: "Göster", hide: "Gizle",
+  forgot: "Şifreni mi unuttun?",
+  resetSent: (e) => `Yeni bir şifre seçebilmen için ${e} adresine e-posta gönderdik.`,
+  verifySent: "Hesap oluşturuldu! Adresini onaylaman için sana bir e-posta gönderdik.",
+  welcome: (n) => `Tekrar hoş geldin! ${n} yine burada.`,
+  signedIn: "Giriş yaptın! Şimdi arkadaşını seç.",
+  wait: "Bir saniye…",
+  err: { email: "Bu e-posta adresi doğru görünmüyor.", cred: "E-posta veya şifre yanlış.", inUse: "Bu e-postayla zaten bir hesap var: giriş yap.", weak: "Şifre en az 8 karakter olmalı.", many: "Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar dene.", net: "İnternet bağlantısı gerekiyor.", other: "Bir şeyler ters gitti. Tekrar dene.", noAcc: "Bu telefonda Google hesabı yok. Android ayarlarından ekle ya da e-posta kullan.", diff: "Bu e-posta zaten bir şifre kullanıyor: e-posta ile giriş yap.", empty: "E-posta ve şifreni yaz." },
+  cardT: "Hesap ve yedek", as: (e) => `Giriş yapılan hesap: ${e}`,
+  localP: (n) => `${n} yalnızca bu telefonda yaşıyor. Ücretsiz bir hesapla telefon değiştirsen bile onu yeniden bulursun.`,
+  autoL: "Otomatik yedek", freq: { day: "Her gün", week: "Her hafta", month: "Her ay", manual: "Yalnızca elle" },
+  last: (d) => `Son yedek: ${d}`, never: "Henüz yedek yok",
+  now: "Şimdi yedekle", saved: (n) => `Tamam! ${n} güvende.`, saveFail: "Yedekleme başarısız: internet bağlantını kontrol et.",
+  restore: "Yedeği geri yükle", restAsk: (d) => `${d} tarihli yedek geri yüklensin mi? Şu an bu telefonda olanlar değiştirilecek.`, restYes: "Evet, geri yükle", noBackup: "Henüz hiç yedek yok.",
+  manage: "Hesabı yönet", out: "Çıkış yap", outT: "Çıkış yapılsın mı?",
+  outP: (n) => `Önce ${n} için bir yedek kaydediyorum. Sonra veriler bu telefondan kaldırılır ve giriş ekranına dönersin: tekrar giriş yapınca her şeyi geri bulursun.`,
+  outFail: (d) => d ? `Şu an yedek kaydedemiyorum (internet gerekiyor). Şimdi çıkış yaparsan ${d} sonrasındaki ilerleme kaybolur.` : "Şu an yedek kaydedemiyorum (internet gerekiyor). Şimdi çıkış yaparsan ilerlemen kaybolur.",
+  outForce: "Yine de çıkış yap", outDone: "Çıkış yaptın.",
+  del: "Profili sil", delT: "Profilin silinsin mi?",
+  delP: (e, n) => `Hesabın (${e}), çevrim içi yedek ve bu telefondaki ${n} kalıcı olarak silinecek. Bu işlem geri alınamaz.`,
+  delYes: "Kalıcı olarak sil", delPw: "Güvenliğin için onaylamak üzere şifreni yaz.", delDone: "Profil silindi.",
+  confirm: "Onayla", cancel: "Vazgeç",
+  choiceT: "Zaten bir yedeğin var",
+  choiceP: (n2, d, n1) => `Hesabında ${n2} var (${d} tarihli yedek). Bu telefonda ${n1} var. Hangisini tutmak istersin? Diğeri değiştirilecek.`,
+  useCloud: (n) => `Yedeği kullan (${n})`, keepLocal: (n) => `${n} kalsın`,
+  lost: "Oturumun süresi doldu: yedeklemeye devam etmek için tekrar giriş yap.",
+  webT: "Tanetto hesabını sil", webP: "Silmek istediğin hesapla giriş yap. Hesap ve çevrim içi yedeği kalıcı olarak silinecek. Yalnızca telefonda kayıtlı veriler uygulamadan (Diğer › Baştan başla) ya da uygulamayı kaldırarak silinir.",
+  webBack: "Tanetto'ya dön",
+};
+
+/* --- Privacy, condizioni e scheda "I tuoi dati" aggiornate per l'account facoltativo --- */
+const ACCT_PRIV = {
+  it: { p1: "Quali dati: Tanetto funziona anche senza account. In quel caso compagno, obiettivi, diario, giardino e progressi vengono salvati solo nella memoria di questo dispositivo e non vengono inviati a nessuno. I pensieri scritti in «Lascia andare» non vengono salvati affatto.",
+    acc: "Account facoltativo e backup online: se scegli di creare un account (con Google o con e-mail e password), conserviamo il tuo indirizzo e-mail e una copia dei tuoi progressi, solo per farti accedere e per permetterti di ripristinarli. I dati sono custoditi da Google Firebase (Google Ireland Ltd.) su server nell'Unione Europea, trasmessi in modo cifrato e accessibili solo con il tuo account. Base giuridica: esecuzione del servizio che hai richiesto (art. 6, par. 1, lett. b del GDPR). Il backup resta finché non elimini il profilo: puoi farlo quando vuoi in Altro › Account e backup › Gestisci account › Elimina profilo, oppure dalla pagina tanettoapp.github.io/Tanetto/elimina-account.html. L'account e il backup vengono cancellati subito.",
+    privP: "Compagno, obiettivi e diario restano su questo dispositivo. Se crei un account, salviamo anche la tua e-mail e un backup dei progressi, solo per farteli ritrovare. Per migliorare l'app contiamo soltanto, in forma anonima, quante volte viene aperta. Tanetto non è uno strumento medico ed è pensato per persone dai 16 anni in su.",
+    t2: "Quello che scrivi resta tuo: sul tuo dispositivo e, se usi un account, nel tuo backup personale. Usa l'app con serenità, senza forzarti.",
+    dataP: "Puoi anche salvare una copia dei progressi in un file, pure senza internet." },
+  en: { p1: "What data: Tanetto also works without an account. In that case your companion, goals, journal, garden and progress are saved only in this device's memory and are not sent to anyone. Thoughts written in “Let it go” are not saved at all.",
+    acc: "Optional account and online backup: if you choose to create an account (with Google or with email and password), we keep your email address and a copy of your progress, only to let you sign in and restore it. The data is held by Google Firebase (Google Ireland Ltd.) on servers in the European Union, sent encrypted and accessible only with your account. Legal basis: providing the service you asked for (Art. 6(1)(b) GDPR). The backup stays until you delete your profile: you can do so anytime in More › Account and backup › Manage account › Delete profile, or on the page tanettoapp.github.io/Tanetto/elimina-account.html. The account and the backup are deleted immediately.",
+    privP: "Your companion, goals and journal stay on this device. If you create an account, we also save your email and a backup of your progress, only so you can get it back. To improve the app we only count, anonymously, how often it's opened. Tanetto is not a medical tool and is meant for people aged 16 and over.",
+    t2: "What you write is yours: on your device and, if you use an account, in your personal backup. Use the app calmly, without pushing yourself.",
+    dataP: "You can also save a copy of your progress as a file, even without internet." },
+  de: { p1: "Welche Daten: Tanetto funktioniert auch ohne Konto. Dann werden Begleiter, Ziele, Tagebuch, Garten und Fortschritt nur im Speicher dieses Geräts gesichert und an niemanden gesendet. Gedanken, die du bei „Loslassen“ schreibst, werden überhaupt nicht gespeichert.",
+    acc: "Freiwilliges Konto und Online-Backup: Wenn du ein Konto erstellst (mit Google oder mit E-Mail und Passwort), speichern wir deine E-Mail-Adresse und eine Kopie deines Fortschritts, nur damit du dich anmelden und ihn wiederherstellen kannst. Die Daten liegen bei Google Firebase (Google Ireland Ltd.) auf Servern in der Europäischen Union, werden verschlüsselt übertragen und sind nur mit deinem Konto zugänglich. Rechtsgrundlage: Erbringung des von dir gewünschten Dienstes (Art. 6 Abs. 1 lit. b DSGVO). Das Backup bleibt, bis du dein Profil löschst: jederzeit unter Mehr › Konto und Backup › Konto verwalten › Profil löschen oder auf der Seite tanettoapp.github.io/Tanetto/elimina-account.html. Konto und Backup werden sofort gelöscht.",
+    privP: "Begleiter, Ziele und Tagebuch bleiben auf diesem Gerät. Wenn du ein Konto erstellst, speichern wir auch deine E-Mail und ein Backup deines Fortschritts, nur damit du ihn wiederfindest. Um die App zu verbessern, zählen wir nur anonym, wie oft sie geöffnet wird. Tanetto ist kein medizinisches Hilfsmittel und für Menschen ab 16 Jahren gedacht.",
+    t2: "Was du schreibst, gehört dir: auf deinem Gerät und, wenn du ein Konto nutzt, in deinem persönlichen Backup. Nutze die App entspannt und ohne Druck.",
+    dataP: "Du kannst deinen Fortschritt auch als Datei sichern, sogar ohne Internet." },
+  es: { p1: "Qué datos: Tanetto también funciona sin cuenta. En ese caso, el compañero, los objetivos, el diario, el jardín y el progreso se guardan solo en la memoria de este dispositivo y no se envían a nadie. Los pensamientos escritos en «Soltar» no se guardan en absoluto.",
+    acc: "Cuenta opcional y copia en línea: si decides crear una cuenta (con Google o con correo y contraseña), guardamos tu dirección de correo y una copia de tu progreso, solo para que puedas iniciar sesión y restaurarlo. Los datos los custodia Google Firebase (Google Ireland Ltd.) en servidores de la Unión Europea, se transmiten cifrados y solo se puede acceder a ellos con tu cuenta. Base jurídica: prestación del servicio que has pedido (art. 6.1.b del RGPD). La copia se conserva hasta que elimines tu perfil: puedes hacerlo cuando quieras en Más › Cuenta y copia de seguridad › Gestionar cuenta › Eliminar perfil, o en la página tanettoapp.github.io/Tanetto/elimina-account.html. La cuenta y la copia se borran al momento.",
+    privP: "El compañero, los objetivos y el diario se quedan en este dispositivo. Si creas una cuenta, guardamos también tu correo y una copia de tu progreso, solo para que puedas recuperarlo. Para mejorar la app solo contamos, de forma anónima, cuántas veces se abre. Tanetto no es una herramienta médica y está pensada para personas a partir de 16 años.",
+    t2: "Lo que escribes es tuyo: en tu dispositivo y, si usas una cuenta, en tu copia personal. Usa la app con calma, sin forzarte.",
+    dataP: "También puedes guardar una copia de tu progreso en un archivo, incluso sin internet." },
+  fr: { p1: "Quelles données : Tanetto fonctionne aussi sans compte. Dans ce cas, le compagnon, les objectifs, le journal, le jardin et les progrès sont enregistrés uniquement dans la mémoire de cet appareil et ne sont envoyés à personne. Les pensées écrites dans « Lâcher prise » ne sont pas enregistrées du tout.",
+    acc: "Compte facultatif et sauvegarde en ligne : si tu choisis de créer un compte (avec Google ou avec e-mail et mot de passe), nous conservons ton adresse e-mail et une copie de ta progression, uniquement pour te permettre de te connecter et de la restaurer. Les données sont hébergées par Google Firebase (Google Ireland Ltd.) sur des serveurs dans l'Union européenne, transmises de façon chiffrée et accessibles uniquement avec ton compte. Base légale : exécution du service que tu as demandé (art. 6, par. 1, point b du RGPD). La sauvegarde reste jusqu'à ce que tu supprimes ton profil : tu peux le faire à tout moment dans Plus › Compte et sauvegarde › Gérer le compte › Supprimer le profil, ou sur la page tanettoapp.github.io/Tanetto/elimina-account.html. Le compte et la sauvegarde sont supprimés immédiatement.",
+    privP: "Le compagnon, les objectifs et le journal restent sur cet appareil. Si tu crées un compte, nous enregistrons aussi ton e-mail et une sauvegarde de ta progression, uniquement pour que tu la retrouves. Pour améliorer l'app, on compte seulement, de façon anonyme, combien de fois elle est ouverte. Tanetto n'est pas un outil médical et s'adresse aux personnes de 16 ans et plus.",
+    t2: "Ce que tu écris t'appartient : sur ton appareil et, si tu utilises un compte, dans ta sauvegarde personnelle. Utilise l'app sereinement, sans te forcer.",
+    dataP: "Tu peux aussi enregistrer une copie de ta progression dans un fichier, même sans internet." },
+  pt: { p1: "Quais dados: o Tanetto também funciona sem conta. Nesse caso, o companheiro, as metas, o diário, o jardim e o progresso ficam salvos só na memória deste aparelho e não são enviados a ninguém. Os pensamentos escritos em “Deixe ir” não são salvos de jeito nenhum.",
+    acc: "Conta opcional e backup online: se você decidir criar uma conta (com o Google ou com e-mail e senha), guardamos seu endereço de e-mail e uma cópia do seu progresso, só para você entrar e restaurá-lo. Os dados ficam com o Google Firebase (Google Ireland Ltd.) em servidores na União Europeia, são transmitidos com criptografia e só podem ser acessados com a sua conta. Base legal: prestação do serviço que você pediu (art. 6.º, n.º 1, alínea b do RGPD). O backup fica guardado até você excluir seu perfil: dá para fazer isso quando quiser em Mais › Conta e backup › Gerenciar conta › Excluir perfil, ou na página tanettoapp.github.io/Tanetto/elimina-account.html. A conta e o backup são apagados na hora.",
+    privP: "O companheiro, as metas e o diário ficam neste aparelho. Se você criar uma conta, também salvamos seu e-mail e um backup do seu progresso, só para você recuperá-lo. Para melhorar o app, contamos apenas, de forma anônima, quantas vezes ele é aberto. Tanetto não é uma ferramenta médica e é pensado para pessoas a partir de 16 anos.",
+    t2: "O que você escreve é seu: no seu aparelho e, se você usar uma conta, no seu backup pessoal. Use o app com tranquilidade, sem se cobrar.",
+    dataP: "Você também pode salvar uma cópia do seu progresso em um arquivo, mesmo sem internet." },
+  ja: { p1: "取り扱うデータ：Tanettoはアカウントなしでも使えます。その場合、パートナー、目標、日記、お庭、進み具合はこの端末の中だけに保存され、誰にも送信されません。「手放そう」に書いた思いは一切保存されません。",
+    acc: "任意のアカウントとオンラインバックアップ：アカウントを作成した場合（Google、またはメールアドレスとパスワード）、ログインと復元のためだけに、メールアドレスと進み具合のコピーを保管します。データはGoogle Firebase（Google Ireland Ltd.）が欧州連合内のサーバーで管理し、暗号化して送信され、あなたのアカウントでのみアクセスできます。法的根拠：あなたが求めたサービスの提供（GDPR第6条1項b）。バックアップはプロフィールを削除するまで保管されます。削除はいつでも「その他 › アカウントとバックアップ › アカウントの管理 › プロフィールを削除」、またはページ tanettoapp.github.io/Tanetto/elimina-account.html からできます。アカウントとバックアップはすぐに削除されます。",
+    privP: "パートナー、目標、日記はこの端末の中に保存されます。アカウントを作成した場合は、取り戻せるようにメールアドレスと進み具合のバックアップも保存します。アプリの改善のため、起動された回数だけを匿名で数えています。Tanettoは医療ツールではなく、16歳以上の方を対象としています。",
+    t2: "あなたが書いたものはあなたのものです。あなたの端末と、アカウントを使う場合はあなた専用のバックアップに保存されます。無理をせず、ゆったりとご利用ください。",
+    dataP: "インターネットがなくても、進み具合のコピーをファイルに保存できます。" },
+  ko: { p1: "수집하는 데이터: Tanetto는 계정 없이도 작동해요. 이 경우 친구, 목표, 일기, 정원, 진행 상황은 이 기기에만 저장되며 누구에게도 전송되지 않아요. ‘흘려보내기’에 적은 생각은 아예 저장되지 않아요.",
+    acc: "선택 사항인 계정과 온라인 백업: 계정을 만들면(Google 또는 이메일과 비밀번호) 로그인과 복원을 위해서만 이메일 주소와 진행 상황 사본을 보관해요. 데이터는 Google Firebase(Google Ireland Ltd.)가 유럽연합 내 서버에 보관하고, 암호화되어 전송되며, 사용자의 계정으로만 접근할 수 있어요. 법적 근거: 사용자가 요청한 서비스 제공(GDPR 제6조 1항 b). 백업은 프로필을 삭제할 때까지 보관돼요. 삭제는 언제든 더 보기 › 계정 및 백업 › 계정 관리 › 프로필 삭제, 또는 tanettoapp.github.io/Tanetto/elimina-account.html 페이지에서 할 수 있어요. 계정과 백업은 바로 삭제돼요.",
+    privP: "친구, 목표, 일기는 이 기기에 저장돼요. 계정을 만들면 다시 찾을 수 있도록 이메일과 진행 상황 백업도 저장해요. 앱을 개선하기 위해 앱이 얼마나 자주 열리는지만 익명으로 집계해요. Tanetto는 의료 도구가 아니며 만 16세 이상을 위한 앱이에요.",
+    t2: "사용자가 쓴 내용은 사용자의 것이에요. 기기에, 그리고 계정을 쓰면 개인 백업에 저장돼요. 무리하지 말고 편안하게 사용하세요.",
+    dataP: "인터넷이 없어도 진행 상황 사본을 파일로 저장할 수 있어요." },
+  zh: { p1: "收集哪些数据：Tanetto 不登录也能使用。这种情况下，你的小伙伴、目标、日记、花园和进度只保存在这台设备上，不会发送给任何人。在“放下吧”中写下的念头完全不会被保存。",
+    acc: "可选账号与网上备份：如果你选择创建账号（使用 Google 或邮箱和密码），我们会保存你的邮箱地址和一份进度副本，仅用于让你登录和恢复进度。数据由 Google Firebase（Google Ireland Ltd.）存放在欧盟境内的服务器上，以加密方式传输，只有用你的账号才能访问。法律依据：提供你所请求的服务（GDPR 第 6 条第 1 款 b 项）。备份会一直保留，直到你删除个人资料：你可以随时在“更多 › 账号与备份 › 管理账号 › 删除个人资料”中删除，或在页面 tanettoapp.github.io/Tanetto/elimina-account.html 上删除。账号和备份会立即删除。",
+    privP: "你的小伙伴、目标和日记保存在这台设备上。如果你创建账号，我们还会保存你的邮箱和进度备份，只为了让你能找回来。为了改进应用，我们只会匿名统计它被打开的次数。Tanetto 不是医疗工具，适合 16 岁及以上的人使用。",
+    t2: "你写下的内容属于你：保存在你的设备上；如果你使用账号，也保存在你的个人备份中。请轻松地使用本应用，不要勉强自己。",
+    dataP: "即使没有网络，你也可以把进度副本保存成文件。" },
+  zht: { p1: "收集哪些資料：Tanetto 不登入也能使用。這種情況下，你的小夥伴、目標、日記、花園和進度只會儲存在這台裝置上，不會傳送給任何人。在「放下吧」中寫下的念頭完全不會被儲存。",
+    acc: "選用帳號與網路備份：如果你選擇建立帳號（使用 Google 或電子郵件和密碼），我們會保存你的電子郵件地址和一份進度副本，僅用於讓你登入並還原進度。資料由 Google Firebase（Google Ireland Ltd.）存放在歐盟境內的伺服器上，以加密方式傳輸，只有用你的帳號才能存取。法律依據：提供你所要求的服務（GDPR 第 6 條第 1 項 b 款）。備份會一直保留，直到你刪除個人檔案：你隨時可以在「更多 › 帳號與備份 › 管理帳號 › 刪除個人檔案」刪除，或在頁面 tanettoapp.github.io/Tanetto/elimina-account.html 上刪除。帳號和備份會立即刪除。",
+    privP: "你的小夥伴、目標和日記會留在這台裝置上。如果你建立帳號，我們也會保存你的電子郵件和進度備份，只為了讓你能找回來。為了改善 App，我們只會匿名統計開啟次數。Tanetto 不是醫療工具，適用於 16 歲以上的使用者。",
+    t2: "你寫下的內容屬於你：保留在你的裝置上；如果你使用帳號，也會保留在你的個人備份中。請放輕鬆使用這個 App，不要勉強自己。",
+    dataP: "即使沒有網路，你也可以把進度備份存成檔案。" },
+  ru: { p1: "Какие данные: Tanetto работает и без аккаунта. В этом случае питомец, цели, дневник, сад и прогресс сохраняются только в памяти этого устройства и никому не передаются. Мысли, записанные в «Отпусти», не сохраняются вообще.",
+    acc: "Необязательный аккаунт и онлайн-копия: если ты решишь создать аккаунт (через Google или с e-mail и паролем), мы храним твой адрес e-mail и копию твоего прогресса — только чтобы ты мог войти и восстановить его. Данные хранит Google Firebase (Google Ireland Ltd.) на серверах в Европейском союзе, они передаются в зашифрованном виде и доступны только через твой аккаунт. Правовое основание: оказание услуги, которую ты запросил (ст. 6(1)(b) GDPR). Копия хранится, пока ты не удалишь профиль: это можно сделать в любой момент в «Ещё» › «Аккаунт и резервная копия» › «Управление аккаунтом» › «Удалить профиль» или на странице tanettoapp.github.io/Tanetto/elimina-account.html. Аккаунт и копия удаляются сразу.",
+    privP: "Питомец, цели и дневник хранятся на этом устройстве. Если ты создашь аккаунт, мы также сохраним твой e-mail и копию прогресса — только чтобы ты мог его вернуть. Чтобы улучшать приложение, мы лишь анонимно считаем, как часто его открывают. Tanetto не является медицинским инструментом и предназначено для людей от 16 лет.",
+    t2: "Всё, что ты пишешь, принадлежит тебе: на твоём устройстве и, если ты пользуешься аккаунтом, в твоей личной копии. Пользуйся приложением спокойно, не перегружая себя.",
+    dataP: "Можно также сохранить копию прогресса в файл, даже без интернета." },
+  pl: { p1: "Jakie dane: Tanetto działa także bez konta. Wtedy twój towarzysz, cele, dziennik, ogród i postępy są zapisywane wyłącznie w pamięci tego urządzenia i nie są nikomu przesyłane. Myśli zapisane w „Puść to” nie są w ogóle zachowywane.",
+    acc: "Konto opcjonalne i kopia online: jeśli zdecydujesz się założyć konto (przez Google albo e-mail i hasło), przechowujemy twój adres e-mail i kopię twoich postępów wyłącznie po to, abyś mógł się zalogować i je przywrócić. Dane przechowuje Google Firebase (Google Ireland Ltd.) na serwerach w Unii Europejskiej; są przesyłane w formie zaszyfrowanej i dostępne tylko z twojego konta. Podstawa prawna: świadczenie usługi, o którą prosisz (art. 6 ust. 1 lit. b RODO). Kopia jest przechowywana do momentu usunięcia profilu: możesz to zrobić w każdej chwili w Więcej › Konto i kopia zapasowa › Zarządzaj kontem › Usuń profil albo na stronie tanettoapp.github.io/Tanetto/elimina-account.html. Konto i kopia są usuwane od razu.",
+    privP: "Twój towarzysz, cele i dziennik zostają na tym urządzeniu. Jeśli założysz konto, zapisujemy też twój e-mail i kopię postępów wyłącznie po to, abyś mógł je odzyskać. Aby ulepszać aplikację, liczymy jedynie anonimowo, jak często jest otwierana. Tanetto nie jest narzędziem medycznym i jest przeznaczone dla osób, które ukończyły 16 lat.",
+    t2: "To, co piszesz, należy do ciebie: na twoim urządzeniu, a jeśli używasz konta, także w twojej osobistej kopii. Korzystaj z aplikacji spokojnie, bez zmuszania się.",
+    dataP: "Możesz też zapisać kopię postępów w pliku, nawet bez internetu." },
+  nl: { p1: "Welke gegevens: Tanetto werkt ook zonder account. In dat geval worden je maatje, doelen, dagboek, tuin en voortgang alleen in het geheugen van dit apparaat opgeslagen en naar niemand verstuurd. Gedachten die je schrijft bij “Laat het los” worden helemaal niet opgeslagen.",
+    acc: "Optioneel account en online back-up: als je ervoor kiest een account te maken (met Google of met e-mail en wachtwoord), bewaren we je e-mailadres en een kopie van je voortgang, alleen zodat je kunt inloggen en hem kunt terugzetten. De gegevens worden bewaard door Google Firebase (Google Ireland Ltd.) op servers in de Europese Unie, versleuteld verstuurd en zijn alleen met jouw account toegankelijk. Rechtsgrond: uitvoering van de dienst waar je om vraagt (art. 6 lid 1 sub b AVG). De back-up blijft bewaard tot je je profiel verwijdert: dat kan altijd via Meer › Account en back-up › Account beheren › Profiel verwijderen, of op de pagina tanettoapp.github.io/Tanetto/elimina-account.html. Account en back-up worden meteen verwijderd.",
+    privP: "Je maatje, doelen en dagboek blijven op dit apparaat. Als je een account maakt, bewaren we ook je e-mailadres en een back-up van je voortgang, alleen zodat je hem terugvindt. Om de app te verbeteren tellen we alleen anoniem hoe vaak hij wordt geopend. Tanetto is geen medisch hulpmiddel en is bedoeld voor mensen van 16 jaar en ouder.",
+    t2: "Wat je schrijft is van jou: op je apparaat en, als je een account gebruikt, in je persoonlijke back-up. Gebruik de app rustig, zonder jezelf onder druk te zetten.",
+    dataP: "Je kunt ook een kopie van je voortgang als bestand opslaan, zelfs zonder internet." },
+  tr: { p1: "Hangi veriler: Tanetto hesap olmadan da çalışır. Bu durumda arkadaşın, hedeflerin, günlüğün, bahçen ve ilerlemen yalnızca bu cihazın belleğine kaydedilir ve kimseye gönderilmez. “Bırak gitsin” bölümüne yazılan düşünceler hiç kaydedilmez.",
+    acc: "İsteğe bağlı hesap ve çevrim içi yedek: Hesap oluşturmayı seçersen (Google ile ya da e-posta ve şifreyle), yalnızca giriş yapabilmen ve ilerlemeni geri yükleyebilmen için e-posta adresini ve ilerlemenin bir kopyasını saklarız. Veriler Google Firebase (Google Ireland Ltd.) tarafından Avrupa Birliği'ndeki sunucularda tutulur, şifreli olarak iletilir ve yalnızca senin hesabınla erişilebilir. Hukuki dayanak: talep ettiğin hizmetin sunulması (GDPR md. 6/1-b). Yedek, profilini silene kadar saklanır: bunu istediğin zaman Diğer › Hesap ve yedek › Hesabı yönet › Profili sil yoluyla ya da tanettoapp.github.io/Tanetto/elimina-account.html sayfasından yapabilirsin. Hesap ve yedek hemen silinir.",
+    privP: "Arkadaşın, hedeflerin ve günlüğün bu cihazda kalır. Hesap oluşturursan, yalnızca geri bulabilmen için e-postanı ve ilerlemenin yedeğini de saklarız. Uygulamayı geliştirmek için sadece kaç kez açıldığını anonim olarak sayarız. Tanetto bir tıbbi araç değildir ve 16 yaş ve üzeri kişiler içindir.",
+    t2: "Yazdıkların sana aittir: cihazında ve hesap kullanıyorsan kişisel yedeğinde. Uygulamayı kendini zorlamadan, gönül rahatlığıyla kullan.",
+    dataP: "İnternet olmadan da ilerlemenin bir kopyasını dosya olarak kaydedebilirsin." },
+};
+Object.keys(ACCT_PRIV).forEach((l) => {
+  const L0 = T[l], P = ACCT_PRIV[l]; if (!L0) return;
+  if (L0.privDoc) { L0.privDoc[1] = P.p1; if (!L0.privDoc.includes(P.acc)) L0.privDoc.splice(3, 0, P.acc); }
+  L0.privP = P.privP; if (L0.terms) L0.terms[2] = P.t2; if (L0.data) L0.data.P = P.dataP;
+});
+/* La nota in fondo ("i dati restano solo su questo dispositivo") non e' piu' vera per chi usa un account: resta solo la prima parte */
+Object.keys(T).forEach((l) => { if (typeof T[l].demo === "string") T[l].demo = T[l].demo.split(/\s*[·・]\s*/)[0]; });
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -24630,6 +25294,340 @@ document.addEventListener("click", (ev) => {
   reviewPending = false; S.revAsk = dkey(); save(); trackOnce("recensione-chiesta");
   setTimeout(() => { const p = reviewPlugin(); if (p && p.requestReview) p.requestReview().catch(() => {}); }, 700);
 }, true);
+
+/* =================== v14: account facoltativo e backup online =================== */
+/* Dopo il logo, prima della scelta del compagno: Google, e-mail oppure "Continua senza account".
+   Il backup e' lo stesso codice compresso del trasferimento (packState) salvato su Firebase, solo per la persona.
+   Le informazioni dell'account stanno in una chiave separata, cosi' un ripristino non le sovrascrive. */
+const FB_CFG = { apiKey: "AIzaSyDt7-JxuuK0-Q0rXchYpivOkKE5-5Y4m2A", authDomain: "tanettoapp-pet.firebaseapp.com", projectId: "tanettoapp-pet", storageBucket: "tanettoapp-pet.firebasestorage.app", messagingSenderId: "223551726724", appId: "1:223551726724:web:449dffc7c8b48a155eced1" };
+const FB_WEB_CLIENT = "223551726724-4ra88t49uj1q31lt55v072pds55h7iom.apps.googleusercontent.com";
+const ACCT_KEY = "tanetto-account";
+const BK_MAX = 790000; /* limite del documento online (le regole accettano fino a 800.000 caratteri) */
+const BK_GAP = { day: 20 * 3600e3, week: 7 * 86400e3 - 2 * 3600e3, month: 30 * 86400e3 };
+const PW_MIN = 8;
+
+let A = (() => { try { return Object.assign({ freq: "week" }, JSON.parse(localStorage.getItem(ACCT_KEY) || "{}")); } catch (e) { return { freq: "week" }; } })();
+function saveA() { try { localStorage.setItem(ACCT_KEY, JSON.stringify(A)); } catch (e) { /* niente */ } }
+const signedIn = () => !!A.uid;
+const AC = () => L().acct;
+const fmtDT = (ms) => new Intl.DateTimeFormat(loc(), { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
+const fmtD = (ms) => new Intl.DateTimeFormat(loc(), { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(ms));
+
+Object.assign(ICON, {
+  ac_mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/>',
+  ac_cloud: '<path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.5 4.3 4.3 0 0 0 7 18z"/><path d="M12 15v-5M9.5 12.5 12 10l2.5 2.5"/>',
+  ac_eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  ac_eyeoff: '<path d="M3 3l18 18"/><path d="M10.6 5.1A10.6 10.6 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 4.4-1.1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+});
+/* Logo ufficiale "G" di Google (a colori, come chiedono le regole del pulsante "Accedi con Google") */
+const G_LOGO = `<svg class="glogo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>`;
+
+/* --- Firebase caricato solo quando serve --- */
+let fbP = null;
+function fbLoad() {
+  if (fbP) return fbP;
+  fbP = new Promise((res, rej) => {
+    if (window.TanFB) { res(); return; }
+    const s = document.createElement("script"); s.src = "fb.js"; s.async = true;
+    s.onload = () => (window.TanFB ? res() : rej(netErr())); s.onerror = () => rej(netErr());
+    document.head.appendChild(s);
+  }).then(() => window.TanFB.init(FB_CFG, { native: isNativeApp(), emu: window.__FB_EMU || null, lang: fbLang() }))
+    .then((u) => { checkSession(u); return u; })
+    .catch((e) => { fbP = null; throw e; });
+  return fbP;
+}
+const fbLang = () => { const l = L().locale || "en"; return /^(zh|pt)/.test(l) ? l : l.slice(0, 2); };
+function netErr() { const e = new Error("net"); e.code = "auth/network-request-failed"; return e; }
+/* Se l'accesso salvato non c'e' piu' (scaduto o account eliminato altrove), l'app torna in modalita' locale */
+function checkSession(u) {
+  if (A.uid && (!u || u.uid !== A.uid)) { A.uid = null; A.lost = true; saveA(); if (tab === "more" && S.pet) render(); }
+}
+const gsi = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.GoogleSignIn) || (C.registerPlugin ? C.registerPlugin("GoogleSignIn") : null); } catch (e) { return null; } };
+async function googleIdToken() {
+  if (!isNativeApp()) return null;
+  const p = gsi(); if (!p) { const e = new Error("plugin"); e.code = "other"; throw e; }
+  try { const r = await p.signIn({ clientId: FB_WEB_CLIENT }); return r.idToken; }
+  catch (e) { const c = (e && e.code) || ""; const x = new Error(c); x.code = c === "cancelled" ? "auth/popup-closed-by-user" : c === "no-account" ? "no-account" : (/network/i.test((e && e.message) || "") ? "auth/network-request-failed" : "other"); throw x; }
+}
+function errText(e) {
+  const E = AC().err; const c = (e && e.code) || "";
+  if (/popup-closed|cancelled-popup|user-cancelled/.test(c)) return "";
+  if (c === "no-account") return E.noAcc;
+  if (/invalid-email|missing-email/.test(c)) return E.email;
+  if (/invalid-credential|wrong-password|user-not-found|invalid-login|missing-password/.test(c)) return E.cred;
+  if (/email-already-in-use|credential-already-in-use/.test(c)) return E.inUse;
+  if (/weak-password|password-does-not-meet/.test(c)) return E.weak;
+  if (/too-many-requests|quota/.test(c)) return E.many;
+  if (/network|unavailable|offline|timeout/.test(c)) return E.net;
+  if (/account-exists-with-different-credential/.test(c)) return E.diff;
+  return E.other;
+}
+
+/* --- Schermata di accesso (dopo il logo, prima della scelta del compagno) --- */
+const gateNeeded = () => !S.pet && S.onboard === 0 && !A.gateDone;
+let acBusy = false;
+function viewGate() {
+  const a = AC(), t = L(); setTimeout(() => fbLoad().catch(() => {}), 0); /* pronto prima del tocco: la finestra di Google non viene bloccata */
+  const legal = a.legal(`<button class="inlink" data-doc="terms">${esc(t.termsB)}</button>`, `<button class="inlink" data-doc="privDoc">${esc(t.privB)}</button>`);
+  /* l'ultimo collegamento resta unito al punto finale (e in italiano a "l'"), cosi' non va a capo da solo */
+  const legalH = legal.replace(/(l'|l’)?(<button class="inlink" data-doc="privDoc">[^<]*<\/button>)([.。]?)/, '<span class="nw">$1$2$3</span>');
+  return `${topBar()}<div class="stack gate">
+  <div class="gatepets" aria-hidden="true">${["ondi", "germo", "lumi"].map((p) => `<span class="gp gp-${p}" style="background:radial-gradient(circle at 50% 60%, ${HALO[p]} 0 62%, transparent 63%)">${petSVG(p, "felice", null, 0, "")}</span>`).join("")}</div>
+  <h1>${esc(a.gateT)}</h1><p class="muted">${esc(a.gateP)}</p>
+  <div class="gatebtns"><button class="btn gbtn block" id="acGoogle" ${acBusy ? "disabled" : ""}>${G_LOGO}<span>${esc(a.google)}</span></button>
+  <button class="btn ghost block" id="acEmail" ${acBusy ? "disabled" : ""}>${icon("ac_mail")}<span>${esc(a.email)}</span></button></div>
+  <p class="acerr" id="gateErr" role="alert"></p>
+  <div class="orline"><span>${esc(a.or)}</span></div>
+  <button class="link" id="acSkip">${esc(a.skip)}</button>
+  <p class="note gatenote">${esc(a.skipP)}</p>
+  <p class="note gatelegal">${legalH}</p></div>`;
+}
+const _viewOnboardV14 = viewOnboard;
+viewOnboard = function () { return gateNeeded() ? viewGate() : _viewOnboardV14(); };
+
+/* --- Finestra e-mail: accedi / crea account / password dimenticata --- */
+let emMode = "in", emFrom = "gate", emShow = false;
+function openEmail(from, mode) {
+  emFrom = from || "gate"; if (mode) emMode = mode; const a = AC();
+  const prevE = (document.getElementById("acEm") || {}).value || ""; const prevP = (document.getElementById("acPw") || {}).value || "";
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="emT"><form class="box card acbox" id="acForm" novalidate>
+  <h2 id="emT">${esc(a.emT)}</h2>
+  <div class="segs" role="tablist"><button type="button" class="seg" role="tab" aria-selected="${emMode === "in"}" data-emmode="in">${esc(a.tabIn)}</button><button type="button" class="seg" role="tab" aria-selected="${emMode === "up"}" data-emmode="up">${esc(a.tabUp)}</button></div>
+  <div class="field"><label for="acEm">${esc(a.emailL)}</label><input id="acEm" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" value="${esc(prevE)}"></div>
+  <div class="field"><label for="acPw">${esc(a.pwL)}</label><div class="pwrow"><input id="acPw" type="${emShow ? "text" : "password"}" autocomplete="${emMode === "up" ? "new-password" : "current-password"}" maxlength="100" value="${esc(prevP)}"><button type="button" class="iconbtn pweye" id="acEye" aria-label="${esc(emShow ? a.hide : a.show)}" aria-pressed="${emShow}">${icon(emShow ? "ac_eyeoff" : "ac_eye")}</button></div>${emMode === "up" ? `<span class="small muted">${esc(a.pwHint)}</span>` : ""}</div>
+  <p class="acerr" id="emErr" role="alert"></p>
+  <button type="submit" class="btn block" id="acGo">${esc(emMode === "up" ? a.tabUp : a.tabIn)}</button>
+  ${emMode === "in" ? `<button type="button" class="link" id="acForgot">${esc(a.forgot)}</button>` : ""}
+  <button type="button" class="link muted" id="closeLayer">${esc(a.cancel)}</button></form></div>`;
+  if (anim) G.from(".acbox", { y: 24, opacity: 0, duration: 0.3, ease: "power3.out" });
+  setTimeout(() => { const i = document.getElementById(prevE ? "acPw" : "acEm"); if (i && !("ontouchstart" in window)) i.focus(); }, 80);
+}
+function emErr(msg) { const p = document.getElementById("emErr"); if (p) p.textContent = msg || ""; }
+const BUSY_LBL = ["acGo", "acNow", "acOutYes", "acOutForce", "acDelYes", "acPwGo", "acKeepLocal", "acUseCloud"];
+function setBusy(on, ids) {
+  acBusy = on;
+  (ids || ["acGo", "acGoogle", "acEmail", "acGoogle2", "acEmail2", "acNow", "acRestore", "acOutYes", "acOutForce", "acDelYes", "acPwGo", "acUseCloud", "acKeepLocal"]).forEach((id) => {
+    const b = document.getElementById(id); if (!b) return; b.disabled = on; b.classList.toggle("busy", on);
+    /* sul pulsante appena toccato compare "Un attimo..." con un piccolo cerchio che gira */
+    if (on && BUSY_LBL.includes(id) && b === document.activeElement && !b.dataset.lbl) { b.dataset.lbl = b.innerHTML; b.innerHTML = `<span class="spin" aria-hidden="true"></span>${esc(AC().wait)}`; }
+    if (!on && b.dataset.lbl) { b.innerHTML = b.dataset.lbl; delete b.dataset.lbl; }
+  });
+}
+async function submitEmail() {
+  const a = AC(); const em = (document.getElementById("acEm").value || "").trim(); const pw = document.getElementById("acPw").value || "";
+  if (!em || !pw) { emErr(a.err.empty); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { emErr(a.err.email); return; }
+  if (emMode === "up" && pw.length < PW_MIN) { emErr(a.err.weak); return; }
+  emErr(""); setBusy(true);
+  try {
+    await fbLoad();
+    const u = emMode === "up" ? await window.TanFB.emailSignUp(em, pw) : await window.TanFB.emailSignIn(em, pw);
+    await afterLogin(u, emFrom, emMode === "up" ? "email-nuovo" : "email-accesso");
+    if (emMode === "up") setTimeout(() => toast(a.verifySent), 2600);
+  } catch (e) { setBusy(false); emErr(errText(e)); SND.play("miss"); }
+}
+async function doGoogle(from) {
+  const a = AC(); const errEl = from === "gate" ? "gateErr" : null; const show = (m) => { if (errEl) { const p = document.getElementById(errEl); if (p) p.textContent = m; } else if (m) toast(m); };
+  show(""); setBusy(true);
+  try {
+    await fbLoad();
+    const tok = await googleIdToken();
+    const u = await window.TanFB.google(tok);
+    if (!u) { setBusy(false); return; } /* accesso con reindirizzamento: si torna qui dopo */
+    await afterLogin(u, from, "google");
+  } catch (e) { setBusy(false); const m = errText(e); if (m) { show(m); SND.play("miss"); } }
+  void a;
+}
+
+/* --- Dopo l'accesso: ripristino o primo backup --- */
+let cloudPending = null;
+async function afterLogin(u, from, how) {
+  const a = AC();
+  /* Prima si legge il backup: se internet cade proprio ora, l'accesso non vale e non si rischia di sovrascrivere un backup esistente */
+  let cloud = null;
+  try { cloud = await window.TanFB.pull(); } catch (e) { try { await window.TanFB.out(); } catch (x) { /* niente */ } throw e; }
+  const st = cloud && cloud.d ? await unpackState(cloud.d) : null;
+  A.uid = u.uid; A.email = u.email; A.prov = u.provider; A.gateDone = true; A.lost = false; A.last = 0; A.err = 0; saveA();
+  track("account-" + how);
+  setBusy(false); layer.innerHTML = "";
+  if (from === "gate" || !S.pet) {
+    if (st) { applyCloud(st, cloud.at); toast(a.welcome(S.petName)); SND.play("fanfare"); trackOnce("ripristino-online"); return; }
+    render(); toast(a.signedIn); SND.play("coin"); return;
+  }
+  if (st) { cloudPending = { st, at: cloud.at }; openChoice(); return; }
+  render(); const ok = await backupNow(true); toast(ok ? a.saved(S.petName) : a.saveFail); if (ok) SND.play("coin");
+}
+function applyCloud(st, at) {
+  S = Object.assign(fresh(), st); save(); A.last = at || Date.now(); saveA();
+  tab = "today"; layer.innerHTML = ""; applyRoot(); render();
+}
+function openChoice() {
+  const a = AC(), c = cloudPending; if (!c) return; const n2 = c.st.petName || "", n1 = S.petName || "";
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="chT"><div class="box card acbox"><h2 id="chT">${esc(a.choiceT)}</h2>
+  <div class="chpets"><span>${petSVG(c.st.pet, "felice", c.st.hat || null, c.st.level >= 6 ? 2 : c.st.level >= 3 ? 1 : 0, n2)}<b>${esc(n2)}</b></span><span>${petSVG(S.pet, "felice", S.hat, stage(), n1)}<b>${esc(n1)}</b></span></div>
+  <p>${esc(a.choiceP(n2, fmtD(c.at || Date.now()), n1))}</p>
+  <button class="btn block" id="acUseCloud">${ICON.ac_cloud ? icon("ac_cloud") : ""}${esc(a.useCloud(n2))}</button><button class="btn ghost block" id="acKeepLocal">${esc(a.keepLocal(n1))}</button></div></div>`;
+}
+
+/* --- Backup --- */
+let bkBusy = null;
+function backupNow(force) {
+  if (bkBusy) return bkBusy;
+  bkBusy = (async () => {
+    if (!A.uid || !S.pet) return false;
+    try {
+      await fbLoad(); if (!A.uid) return false;
+      const d = await packState(); if (d.length > BK_MAX) { trackOnce("backup-troppo-grande"); return false; }
+      const h = hashStr(d);
+      if (A.h === h && A.last) { if (force) { A.last = Date.now(); saveA(); } return true; } /* niente di nuovo da salvare */
+      /* le regole online accettano un backup ogni 10 secondi: se ne e' appena partito uno, si aspetta un attimo */
+      const wait = A.last ? 11500 - (Date.now() - A.last) : 0; if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+      A.last = await window.TanFB.push(d); A.h = h; A.err = 0; saveA(); return true;
+    } catch (e) { A.err = Date.now(); saveA(); if (/permission|unauthenticated|user-token-expired|user-disabled|user-not-found/.test((e && e.code) || "")) { A.uid = null; A.lost = true; saveA(); } return false; }
+  })().finally(() => { bkBusy = null; });
+  return bkBusy;
+}
+function hashStr(x) { let h = 5381; for (let i = 0; i < x.length; i++) h = ((h << 5) + h + x.charCodeAt(i)) | 0; return x.length + ":" + (h >>> 0).toString(36); }
+function backupDue() {
+  if (!A.uid || !S.pet || A.freq === "manual") return false;
+  if (A.err && Date.now() - A.err < 30 * 60e3) return false;
+  return Date.now() - (A.last || 0) >= (BK_GAP[A.freq] || BK_GAP.week);
+}
+function autoBackup() {
+  if (!backupDue() || navigator.onLine === false) return;
+  backupNow(false).then((ok) => { if (ok) { trackOnce("backup-automatico"); if (tab === "more") refreshLast(); } });
+}
+function refreshLast() { const p = document.getElementById("acLast"); if (p) p.textContent = A.last ? AC().last(fmtDT(A.last)) : AC().never; }
+setTimeout(() => { if (A.uid) fbLoad().then(autoBackup).catch(() => {}); }, 3500);
+setInterval(autoBackup, 30 * 60e3);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") autoBackup(); });
+/* Primo backup subito dopo aver scelto il compagno (chi ha fatto l'accesso nella schermata iniziale) */
+const _renderV14 = render;
+render = function () {
+  _renderV14();
+  if (S.pet && A.uid && !A.last && !A.err) setTimeout(autoBackup, 1500);
+};
+
+/* --- Altro: riquadro "Account e backup" --- */
+let acManage = false;
+function acctCard() {
+  const a = AC(), n = S.petName || "";
+  if (!signedIn()) setTimeout(() => fbLoad().catch(() => {}), 0);
+  if (!signedIn()) return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3>${A.lost ? `<p class="small acwarn">${esc(a.lost)}</p>` : ""}<p class="small muted">${esc(a.localP(n))}</p>
+  <div class="imgbtns col"><button class="btn gbtn" id="acGoogle2">${G_LOGO}<span>${esc(a.google)}</span></button><button class="btn ghost" id="acEmail2">${icon("ac_mail")}<span>${esc(a.email)}</span></button></div></div>`;
+  return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3><p class="small muted acwho">${esc(a.as(A.email || ""))}</p>
+  <p class="small"><b>${esc(a.autoL)}</b></p><div class="chips">${["day", "week", "month", "manual"].map((f) => `<button class="chip" aria-pressed="${A.freq === f}" data-acfreq="${f}">${esc(a.freq[f])}</button>`).join("")}</div>
+  <p class="small muted" id="acLast">${esc(A.last ? a.last(fmtDT(A.last)) : a.never)}</p>
+  <div class="imgbtns col"><button class="btn" id="acNow">${esc(a.now)}</button><button class="btn ghost" id="acRestore">${esc(a.restore)}</button></div>
+  <button class="link small acmore" id="acManage" aria-expanded="${acManage}">${esc(a.manage)} <span aria-hidden="true">${acManage ? "▴" : "▾"}</span></button>
+  ${acManage ? `<div class="acmanage"><button class="btn ghost small" id="acOut">${esc(a.out)}</button><button class="link danger small" id="acDel">${esc(a.del)}</button></div>` : ""}</div>`;
+}
+const _viewMoreV14 = viewMore;
+viewMore = function () {
+  const h = _viewMoreV14(); const key = `<div class="card stack-s" id="dataCard">`;
+  if (h.includes(key)) return h.replace(key, acctCard() + key);
+  const k2 = `<div class="card stack-s"><h3>${L().legalT}</h3>`; return h.includes(k2) ? h.replace(k2, acctCard() + k2) : h + acctCard();
+};
+
+/* --- Esci ed Elimina profilo --- */
+function wipeLocal() {
+  const lang = S.lang, theme = S.theme, sfx = S.sfx, music = S.music, haptic = S.haptic;
+  try { localStorage.removeItem(KEY); } catch (e) { /* niente */ }
+  S = Object.assign(fresh(), { lang, theme, sfx, music, haptic }); save();
+  A = { freq: A.freq || "week" }; saveA(); acManage = false;
+  tab = "today"; draftPet = "germo"; draftName = ""; draftGoals = ["water", "walk", "breathe"]; confirmReset = false; pendingWelcome = false; tutClose(false);
+  const p = gsi(); if (isNativeApp() && p && p.signOut) p.signOut().catch(() => {});
+  layer.innerHTML = ""; applyRoot(); render(); window.scrollTo(0, 0);
+}
+function openOut(failed) {
+  const a = AC(), n = S.petName || "";
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="ouT"><div class="box card acbox"><h2 id="ouT">${esc(a.outT)}</h2>
+  <p>${esc(failed ? a.outFail(A.last ? fmtDT(A.last) : "") : a.outP(n))}</p>
+  <div class="row acrow"><button class="btn ghost" id="closeLayer">${esc(a.cancel)}</button>${failed ? `<button class="btn" id="acOutForce">${esc(a.outForce)}</button>` : `<button class="btn" id="acOutYes">${esc(a.out)}</button>`}</div></div></div>`;
+}
+async function signOutNow(force) {
+  const a = AC(); setBusy(true);
+  if (!force) { const ok = await backupNow(true); if (!ok) { setBusy(false); openOut(true); return; } }
+  try { await fbLoad(); await window.TanFB.out(); } catch (e) { /* si esce comunque da questo telefono */ }
+  setBusy(false); track("account-esci"); wipeLocal(); toast(a.outDone);
+}
+function openDel() {
+  const a = AC();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="deT"><div class="box card acbox"><h2 id="deT">${esc(a.delT)}</h2>
+  <p>${esc(a.delP(A.email || "", S.petName || ""))}</p><p class="acerr" id="delErr" role="alert"></p>
+  <div class="row acrow"><button class="btn ghost" id="closeLayer">${esc(a.cancel)}</button><button class="btn danger" id="acDelYes">${esc(a.delYes)}</button></div></div></div>`;
+}
+function openDelPw() {
+  const a = AC();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="dpT"><form class="box card acbox" id="acPwForm" novalidate><h2 id="dpT">${esc(a.delT)}</h2><p>${esc(a.delPw)}</p>
+  <div class="field"><label for="acPw2">${esc(a.pwL)}</label><input id="acPw2" type="password" autocomplete="current-password" maxlength="100"></div><p class="acerr" id="delErr" role="alert"></p>
+  <div class="row acrow"><button type="button" class="btn ghost" id="closeLayer">${esc(a.cancel)}</button><button type="submit" class="btn danger" id="acPwGo">${esc(a.delYes)}</button></div></form></div>`;
+  setTimeout(() => { const i = document.getElementById("acPw2"); if (i) i.focus(); }, 80);
+}
+function delErr(m) { const p = document.getElementById("delErr"); if (p) p.textContent = m || ""; }
+async function deleteNow(pw) {
+  const a = AC(); setBusy(true); delErr("");
+  try {
+    await fbLoad();
+    if (pw) await window.TanFB.reauthPassword(pw);
+    try { await window.TanFB.remove(); }
+    catch (e) {
+      if (!/requires-recent-login/.test((e && e.code) || "")) throw e;
+      if (A.prov === "google") { await window.TanFB.reauthGoogle(await googleIdToken()); await window.TanFB.remove(); }
+      else { setBusy(false); openDelPw(); return; }
+    }
+    setBusy(false); track("profilo-eliminato"); wipeLocal(); toast(a.delDone);
+  } catch (e) { setBusy(false); const m = errText(e); if (m) { delErr(m); SND.play("miss"); } }
+}
+
+/* --- Ripristino dal backup online --- */
+let restorePending = null;
+async function askRestore() {
+  const a = AC(); setBusy(true);
+  try {
+    await fbLoad(); const c = await window.TanFB.pull(); setBusy(false);
+    const st = c && c.d ? await unpackState(c.d) : null; if (!st) { toast(a.noBackup); return; }
+    restorePending = { st, at: c.at };
+    layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="rcT"><div class="box card acbox"><h2 id="rcT">${esc(a.restore)}</h2><p>${esc(a.restAsk(fmtDT(c.at || Date.now())))}</p>
+    <div class="row acrow"><button class="btn ghost" id="closeLayer">${esc(a.cancel)}</button><button class="btn" id="acRestYes">${esc(a.restYes)}</button></div></div></div>`;
+  } catch (e) { setBusy(false); toast(errText(e) || a.err.other); }
+}
+
+/* --- Tocchi --- */
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return; const a = AC();
+  if (b.id === "acGoogle" || b.id === "acGoogle2") { ev.preventDefault(); SND.play("click"); doGoogle(b.id === "acGoogle" ? "gate" : "more"); return; }
+  if (b.id === "acEmail" || b.id === "acEmail2") { ev.preventDefault(); SND.play("click"); emShow = false; openEmail(b.id === "acEmail" ? "gate" : "more", "in"); return; }
+  if (b.id === "acSkip") { A.gateDone = true; saveA(); track("account-saltato"); SND.play("click"); render(); window.scrollTo(0, 0); return; }
+  if (b.dataset.emmode) { if (emMode !== b.dataset.emmode) { emMode = b.dataset.emmode; openEmail(emFrom); } return; }
+  if (b.id === "acEye") { emShow = !emShow; const i = document.getElementById("acPw"); if (i) i.type = emShow ? "text" : "password"; b.setAttribute("aria-pressed", String(emShow)); b.setAttribute("aria-label", emShow ? a.hide : a.show); b.innerHTML = icon(emShow ? "ac_eyeoff" : "ac_eye"); return; }
+  if (b.id === "acForgot") {
+    const em = ((document.getElementById("acEm") || {}).value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { emErr(a.err.email); const i = document.getElementById("acEm"); if (i) i.focus(); return; }
+    setBusy(true, ["acForgot", "acGo"]);
+    fbLoad().then(() => window.TanFB.resetPw(em)).then(() => { setBusy(false, ["acForgot", "acGo"]); emErr(""); const p = document.getElementById("emErr"); if (p) { p.textContent = a.resetSent(em); p.classList.add("ok"); } })
+      .catch((e) => { setBusy(false, ["acForgot", "acGo"]); emErr(errText(e)); });
+    return;
+  }
+  if (b.dataset.acfreq) { A.freq = b.dataset.acfreq; saveA(); document.querySelectorAll("[data-acfreq]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.acfreq === A.freq))); trackOnce("backup-" + A.freq); setTimeout(autoBackup, 300); return; }
+  if (b.id === "acNow") { setBusy(true); backupNow(true).then((ok) => { setBusy(false); refreshLast(); toast(ok ? a.saved(S.petName) : (A.uid ? a.saveFail : a.lost)); if (ok) { SND.play("coin"); trackOnce("backup-manuale"); } else if (!A.uid) render(); }); return; }
+  if (b.id === "acRestore") { askRestore(); return; }
+  if (b.id === "acRestYes" && restorePending) { const r = restorePending; restorePending = null; applyCloud(r.st, r.at); toast(L().data.ok); SND.play("fanfare"); trackOnce("ripristino-online"); return; }
+  if (b.id === "acManage") { acManage = !acManage; render(); setTimeout(() => { const c = document.getElementById("acctCard"); if (c && c.scrollIntoView) c.scrollIntoView({ block: "center" }); }, 30); return; }
+  if (b.id === "acOut") { openOut(false); return; }
+  if (b.id === "acOutYes") { signOutNow(false); return; }
+  if (b.id === "acOutForce") { signOutNow(true); return; }
+  if (b.id === "acDel") { openDel(); return; }
+  if (b.id === "acDelYes") { deleteNow(null); return; }
+  if (b.id === "acUseCloud" && cloudPending) { const c = cloudPending; cloudPending = null; applyCloud(c.st, c.at); toast(a.welcome(S.petName)); SND.play("fanfare"); trackOnce("ripristino-online"); return; }
+  if (b.id === "acKeepLocal" && cloudPending) { cloudPending = null; layer.innerHTML = ""; setBusy(true); backupNow(true).then((ok) => { setBusy(false); render(); toast(ok ? a.saved(S.petName) : a.saveFail); }); return; }
+}, true);
+document.addEventListener("submit", (ev) => {
+  if (ev.target && ev.target.id === "acForm") { ev.preventDefault(); if (!acBusy) submitEmail(); }
+  if (ev.target && ev.target.id === "acPwForm") { ev.preventDefault(); const v = (document.getElementById("acPw2") || {}).value || ""; if (!v) { delErr(AC().err.empty); return; } if (!acBusy) deleteNow(v); }
+}, true);
+/* Lingua: anche le e-mail di Firebase (conferma, nuova password) arrivano nella lingua dell'app */
+document.addEventListener("change", (ev) => { if (ev.target && /^langSel/.test(ev.target.id) && window.TanFB && window.TanFB.setLang) setTimeout(() => window.TanFB.setLang(fbLang()), 0); });
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
