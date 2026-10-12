@@ -1099,10 +1099,30 @@ a.btn { display: flex; align-items: center; justify-content: center; text-align:
 .chpets svg { width: 92px; height: 92px; }
 .chpets b { font-family: var(--font-display); overflow-wrap: anywhere; text-align: center; }
 html.bigtext .gatelegal { font-size: 14px; }
-.btn .spin { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; display: inline-block; vertical-align: -3px; margin-right: 8px; animation: acspin .8s linear infinite; }
+.spin, .btn .spin { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; display: inline-block; vertical-align: -3px; margin-right: 8px; animation: acspin .8s linear infinite; }
 @keyframes acspin { to { transform: rotate(360deg); } }
 html.lite .btn .spin { animation-duration: 1.6s; }
 .gatelegal .nw { white-space: nowrap; }
+/* v14: pagamenti */
+.plusbox .plegal { text-align: center; color: var(--muted); }
+.plusbox .pweb, .tshop .pweb { text-align: center; font-weight: 600; }
+.plusbox .ploading { text-align: center; padding: 14px 0; }
+.plusbox #billRestore, .tshop #billRestore { align-self: center; color: var(--muted); }
+.pluscard.on { cursor: default; }
+.pmanage { display: block; text-align: center; margin-top: -6px; text-decoration: none; }
+.pack[disabled] { opacity: .6; cursor: default; }
+.pack .pp .spin { width: 14px; height: 14px; border-width: 2px; margin: 0; }
+.note:empty, p.note:empty { display: none; }
+/* v14: schermo intero su Android (la barra di stato in alto non copre i contenuti) */
+.app { padding-top: calc(10px + env(safe-area-inset-top, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.overlay { padding-top: calc(16px + env(safe-area-inset-top, 0px)); padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+.chic.acc { background: color-mix(in srgb, var(--accent) 16%, var(--paper)); color: var(--accent); }
+.nudgecard .link, .remcard .link { align-self: center; }
+.nudgecard { display: flex; flex-direction: column; gap: 10px; }
+.remcard .rembtns .btn svg { width: 18px; height: 18px; margin-right: 6px; vertical-align: -3px; }
+.playcard { display: flex; flex-direction: column; gap: 10px; }
+.nudgecard .btn, .wdgcard .btn, .playcard .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.wdgcard { display: flex; flex-direction: column; gap: 10px; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -19623,8 +19643,326 @@ Object.keys(ACCT_PRIV).forEach((l) => {
   if (L0.privDoc) { L0.privDoc[1] = P.p1; if (!L0.privDoc.includes(P.acc)) L0.privDoc.splice(3, 0, P.acc); }
   L0.privP = P.privP; if (L0.terms) L0.terms[2] = P.t2; if (L0.data) L0.data.P = P.dataP;
 });
-/* La nota in fondo ("i dati restano solo su questo dispositivo") non e' piu' vera per chi usa un account: resta solo la prima parte */
-Object.keys(T).forEach((l) => { if (typeof T[l].demo === "string") T[l].demo = T[l].demo.split(/\s*[·・]\s*/)[0]; });
+/* Versione per lo store: niente piu' "Versione di prova" in fondo alle schermate */
+Object.keys(T).forEach((l) => { if (typeof T[l].demo === "string") T[l].demo = ""; });
+
+/* =================== v14: pagamenti veri con Google Play — testi in 14 lingue =================== */
+const BILL_TXT = {
+  it: { unavail: "Ora i pagamenti non sono disponibili. Controlla la connessione e riprova.", retry: "Riprova",
+    webOnly: "Tanetto Plus e i pacchetti di Tanì si prendono nell'app per Android.", getApp: "Scarica da Google Play",
+    restore: "Ripristina acquisti", restored: "Acquisti ripristinati.", nothing: "Nessun acquisto da ripristinare.",
+    pending: "Pagamento in attesa: appena Google lo conferma, lo trovi nell'app.",
+    thanksPlus: (n) => `Grazie! Tanetto Plus è attivo: ${n} è felicissimo.`, thanksTani: (k) => `Grazie! +${k} Tanì`,
+    active: "Tanetto Plus è attivo", manage: "Gestisci abbonamento", manageP: "Puoi disdire quando vuoi da Google Play › Abbonamenti.",
+    trial: (d) => `Prova gratis per ${d} giorni`,
+    afterTrial: (d, p) => `${d} giorni gratis, poi ${p}. Il rinnovo parte da solo alla fine della prova: puoi disdire quando vuoi, anche prima.`,
+    afterY: (p) => `${p}. Si rinnova da solo ogni anno: puoi disdire quando vuoi.`, afterM: (p) => `${p}. Si rinnova da solo ogni mese: puoi disdire quando vuoi.`,
+    monthGift: "Regalo di Tanetto Plus: +300 Tanì e 2 scudi della serie", owned: "Hai già Tanetto Plus.", chatPerk: "Chiacchiere con {n}",
+    terms0: "Tanetto è offerto così com'è, senza garanzia di funzionamento continuo, e può cambiare nel tempo.",
+    termsPay: "Funzioni a pagamento: Tanetto è gratuito. Tanetto Plus (abbonamento mensile o annuale) e i pacchetti di Tanì sono facoltativi e si acquistano tramite Google Play, che gestisce pagamento, rinnovi, disdette e rimborsi secondo le proprie condizioni. Gli abbonamenti si rinnovano da soli finché non li disdici in Google Play › Abbonamenti: la disdetta ferma il rinnovo successivo e Plus resta attivo fino alla fine del periodo già pagato. I Tanì sono una moneta virtuale da usare solo nell'app: non hanno valore in denaro e non si possono convertire in soldi.",
+    privPay: "Acquisti: i pagamenti di Tanetto Plus e dei pacchetti di Tanì sono gestiti interamente da Google Play. Non riceviamo mai i dati della tua carta o del pagamento: Google comunica all'app solo quali acquisti sono attivi, per sbloccarli." },
+  en: { unavail: "Payments aren't available right now. Check your connection and try again.", retry: "Try again",
+    webOnly: "Tanetto Plus and Tanì packs are available in the Android app.", getApp: "Get it on Google Play",
+    restore: "Restore purchases", restored: "Purchases restored.", nothing: "No purchases to restore.",
+    pending: "Payment pending: as soon as Google confirms it, you'll find it in the app.",
+    thanksPlus: (n) => `Thank you! Tanetto Plus is active: ${n} is overjoyed.`, thanksTani: (k) => `Thank you! +${k} Tanì`,
+    active: "Tanetto Plus is active", manage: "Manage subscription", manageP: "You can cancel anytime in Google Play › Subscriptions.",
+    trial: (d) => `Try it free for ${d} days`,
+    afterTrial: (d, p) => `${d} days free, then ${p}. It renews automatically at the end of the trial: you can cancel anytime, even before.`,
+    afterY: (p) => `${p}. It renews automatically every year: you can cancel anytime.`, afterM: (p) => `${p}. It renews automatically every month: you can cancel anytime.`,
+    monthGift: "Tanetto Plus gift: +300 Tanì and 2 streak shields", owned: "You already have Tanetto Plus.", chatPerk: "Chats with {n}",
+    terms0: "Tanetto is offered as it is, without a guarantee of uninterrupted operation, and may change over time.",
+    termsPay: "Paid features: Tanetto is free. Tanetto Plus (monthly or yearly subscription) and Tanì packs are optional and are bought through Google Play, which handles payment, renewals, cancellations and refunds under its own terms. Subscriptions renew automatically until you cancel them in Google Play › Subscriptions: cancelling stops the next renewal, and Plus stays active until the end of the period already paid. Tanì are a virtual currency for use only inside the app: they have no monetary value and cannot be exchanged for money.",
+    privPay: "Purchases: payments for Tanetto Plus and Tanì packs are handled entirely by Google Play. We never receive your card or payment details: Google only tells the app which purchases are active, so it can unlock them." },
+  de: { unavail: "Zahlungen sind gerade nicht verfügbar. Prüfe deine Verbindung und versuch es noch mal.", retry: "Noch mal versuchen",
+    webOnly: "Tanetto Plus und Tanì-Pakete gibt es in der Android-App.", getApp: "Bei Google Play laden",
+    restore: "Käufe wiederherstellen", restored: "Käufe wiederhergestellt.", nothing: "Keine Käufe zum Wiederherstellen.",
+    pending: "Zahlung ausstehend: Sobald Google sie bestätigt, findest du sie in der App.",
+    thanksPlus: (n) => `Danke! Tanetto Plus ist aktiv: ${n} ist überglücklich.`, thanksTani: (k) => `Danke! +${k} Tanì`,
+    active: "Tanetto Plus ist aktiv", manage: "Abo verwalten", manageP: "Du kannst jederzeit in Google Play › Abos kündigen.",
+    trial: (d) => `${d} Tage kostenlos testen`,
+    afterTrial: (d, p) => `${d} Tage kostenlos, danach ${p}. Am Ende des Tests verlängert es sich automatisch: Du kannst jederzeit kündigen, auch vorher.`,
+    afterY: (p) => `${p}. Verlängert sich automatisch jedes Jahr: Du kannst jederzeit kündigen.`, afterM: (p) => `${p}. Verlängert sich automatisch jeden Monat: Du kannst jederzeit kündigen.`,
+    monthGift: "Geschenk von Tanetto Plus: +300 Tanì und 2 Serienschilde", owned: "Du hast Tanetto Plus schon.", chatPerk: "Plaudern mit {n}",
+    terms0: "Tanetto wird so angeboten, wie es ist, ohne Garantie für einen ununterbrochenen Betrieb, und kann sich mit der Zeit ändern.",
+    termsPay: "Kostenpflichtige Funktionen: Tanetto ist kostenlos. Tanetto Plus (Monats- oder Jahresabo) und Tanì-Pakete sind freiwillig und werden über Google Play gekauft; Google Play wickelt Zahlung, Verlängerungen, Kündigungen und Erstattungen nach den eigenen Bedingungen ab. Abos verlängern sich automatisch, bis du sie in Google Play › Abos kündigst: Die Kündigung stoppt die nächste Verlängerung, und Plus bleibt bis zum Ende des bereits bezahlten Zeitraums aktiv. Tanì sind eine virtuelle Währung nur für die App: Sie haben keinen Geldwert und können nicht in Geld umgetauscht werden.",
+    privPay: "Käufe: Die Zahlungen für Tanetto Plus und Tanì-Pakete wickelt vollständig Google Play ab. Wir erhalten nie deine Karten- oder Zahlungsdaten: Google teilt der App nur mit, welche Käufe aktiv sind, damit sie freigeschaltet werden." },
+  es: { unavail: "Ahora los pagos no están disponibles. Revisa tu conexión y vuelve a intentarlo.", retry: "Reintentar",
+    webOnly: "Tanetto Plus y los paquetes de Tanì están disponibles en la app para Android.", getApp: "Descárgala en Google Play",
+    restore: "Restaurar compras", restored: "Compras restauradas.", nothing: "No hay compras que restaurar.",
+    pending: "Pago pendiente: en cuanto Google lo confirme, lo tendrás en la app.",
+    thanksPlus: (n) => `¡Gracias! Tanetto Plus está activo: ${n} está feliz.`, thanksTani: (k) => `¡Gracias! +${k} Tanì`,
+    active: "Tanetto Plus está activo", manage: "Gestionar suscripción", manageP: "Puedes cancelarla cuando quieras en Google Play › Suscripciones.",
+    trial: (d) => `Pruébalo gratis ${d} días`,
+    afterTrial: (d, p) => `${d} días gratis, luego ${p}. Se renueva sola al terminar la prueba: puedes cancelar cuando quieras, incluso antes.`,
+    afterY: (p) => `${p}. Se renueva sola cada año: puedes cancelar cuando quieras.`, afterM: (p) => `${p}. Se renueva sola cada mes: puedes cancelar cuando quieras.`,
+    monthGift: "Regalo de Tanetto Plus: +300 Tanì y 2 escudos de racha", owned: "Ya tienes Tanetto Plus.", chatPerk: "Charlas con {n}",
+    terms0: "Tanetto se ofrece tal cual, sin garantía de funcionamiento ininterrumpido, y puede cambiar con el tiempo.",
+    termsPay: "Funciones de pago: Tanetto es gratis. Tanetto Plus (suscripción mensual o anual) y los paquetes de Tanì son opcionales y se compran a través de Google Play, que gestiona el pago, las renovaciones, las cancelaciones y los reembolsos según sus propias condiciones. Las suscripciones se renuevan solas hasta que las canceles en Google Play › Suscripciones: la cancelación detiene la siguiente renovación y Plus sigue activo hasta el final del periodo ya pagado. Los Tanì son una moneda virtual para usar solo dentro de la app: no tienen valor económico y no se pueden cambiar por dinero.",
+    privPay: "Compras: los pagos de Tanetto Plus y de los paquetes de Tanì los gestiona por completo Google Play. Nunca recibimos los datos de tu tarjeta ni del pago: Google solo indica a la app qué compras están activas para desbloquearlas." },
+  fr: { unavail: "Les paiements ne sont pas disponibles pour le moment. Vérifie ta connexion et réessaie.", retry: "Réessayer",
+    webOnly: "Tanetto Plus et les packs de Tanì sont disponibles dans l'app Android.", getApp: "Disponible sur Google Play",
+    restore: "Restaurer les achats", restored: "Achats restaurés.", nothing: "Aucun achat à restaurer.",
+    pending: "Paiement en attente : dès que Google le confirme, tu le retrouves dans l'app.",
+    thanksPlus: (n) => `Merci ! Tanetto Plus est actif : ${n} est aux anges.`, thanksTani: (k) => `Merci ! +${k} Tanì`,
+    active: "Tanetto Plus est actif", manage: "Gérer l'abonnement", manageP: "Tu peux résilier quand tu veux dans Google Play › Abonnements.",
+    trial: (d) => `Essai gratuit de ${d} jours`,
+    afterTrial: (d, p) => `${d} jours gratuits, puis ${p}. Le renouvellement est automatique à la fin de l'essai : tu peux résilier quand tu veux, même avant.`,
+    afterY: (p) => `${p}. Se renouvelle automatiquement chaque année : tu peux résilier quand tu veux.`, afterM: (p) => `${p}. Se renouvelle automatiquement chaque mois : tu peux résilier quand tu veux.`,
+    monthGift: "Cadeau de Tanetto Plus : +300 Tanì et 2 boucliers de série", owned: "Tu as déjà Tanetto Plus.", chatPerk: "Discussions avec {n}",
+    terms0: "Tanetto est proposé tel quel, sans garantie de fonctionnement ininterrompu, et peut évoluer avec le temps.",
+    termsPay: "Fonctions payantes : Tanetto est gratuit. Tanetto Plus (abonnement mensuel ou annuel) et les packs de Tanì sont facultatifs et s'achètent via Google Play, qui gère le paiement, les renouvellements, les résiliations et les remboursements selon ses propres conditions. Les abonnements se renouvellent automatiquement jusqu'à ce que tu les résilies dans Google Play › Abonnements : la résiliation arrête le renouvellement suivant et Plus reste actif jusqu'à la fin de la période déjà payée. Les Tanì sont une monnaie virtuelle à utiliser uniquement dans l'app : ils n'ont aucune valeur monétaire et ne peuvent pas être échangés contre de l'argent.",
+    privPay: "Achats : les paiements de Tanetto Plus et des packs de Tanì sont entièrement gérés par Google Play. Nous ne recevons jamais les données de ta carte ou de ton paiement : Google indique seulement à l'app quels achats sont actifs, pour les débloquer." },
+  pt: { unavail: "Os pagamentos não estão disponíveis agora. Verifique sua conexão e tente de novo.", retry: "Tentar de novo",
+    webOnly: "O Tanetto Plus e os pacotes de Tanì estão disponíveis no app para Android.", getApp: "Baixar no Google Play",
+    restore: "Restaurar compras", restored: "Compras restauradas.", nothing: "Nenhuma compra para restaurar.",
+    pending: "Pagamento pendente: assim que o Google confirmar, você vai encontrar no app.",
+    thanksPlus: (n) => `Obrigado! O Tanetto Plus está ativo: ${n} está muito feliz.`, thanksTani: (k) => `Obrigado! +${k} Tanì`,
+    active: "Tanetto Plus está ativo", manage: "Gerenciar assinatura", manageP: "Você pode cancelar quando quiser em Google Play › Assinaturas.",
+    trial: (d) => `Teste grátis por ${d} dias`,
+    afterTrial: (d, p) => `${d} dias grátis, depois ${p}. A renovação é automática no fim do teste: você pode cancelar quando quiser, até antes.`,
+    afterY: (p) => `${p}. Renova automaticamente todo ano: você pode cancelar quando quiser.`, afterM: (p) => `${p}. Renova automaticamente todo mês: você pode cancelar quando quiser.`,
+    monthGift: "Presente do Tanetto Plus: +300 Tanì e 2 escudos de sequência", owned: "Você já tem o Tanetto Plus.", chatPerk: "Conversas com {n}",
+    terms0: "O Tanetto é oferecido como está, sem garantia de funcionamento contínuo, e pode mudar com o tempo.",
+    termsPay: "Recursos pagos: o Tanetto é gratuito. O Tanetto Plus (assinatura mensal ou anual) e os pacotes de Tanì são opcionais e são comprados pelo Google Play, que cuida do pagamento, das renovações, dos cancelamentos e dos reembolsos conforme os próprios termos. As assinaturas renovam automaticamente até você cancelar em Google Play › Assinaturas: o cancelamento interrompe a próxima renovação e o Plus continua ativo até o fim do período já pago. Os Tanì são uma moeda virtual para usar só dentro do app: não têm valor em dinheiro e não podem ser trocados por dinheiro.",
+    privPay: "Compras: os pagamentos do Tanetto Plus e dos pacotes de Tanì são feitos inteiramente pelo Google Play. Nunca recebemos os dados do seu cartão ou do pagamento: o Google só informa ao app quais compras estão ativas, para liberá-las." },
+  ja: { unavail: "現在お支払いを利用できません。接続を確認して、もう一度お試しください。", retry: "もう一度試す",
+    webOnly: "Tanetto PlusとTanìのパックは、Android版アプリで利用できます。", getApp: "Google Playで手に入れよう",
+    restore: "購入を復元", restored: "購入を復元しました。", nothing: "復元できる購入はありません。",
+    pending: "お支払いの確認待ちです。Googleで確認され次第、アプリに反映されます。",
+    thanksPlus: (n) => `ありがとうございます！Tanetto Plusが有効になりました。${n}も大喜びです。`, thanksTani: (k) => `ありがとうございます！+${k} Tanì`,
+    active: "Tanetto Plusは有効です", manage: "定期購入を管理", manageP: "Google Play › 定期購入から、いつでも解約できます。",
+    trial: (d) => `${d}日間無料で試す`,
+    afterTrial: (d, p) => `${d}日間無料、その後は${p}。無料期間の終わりに自動で更新されます。いつでも解約できます（無料期間中も可）。`,
+    afterY: (p) => `${p}。毎年自動で更新されます。いつでも解約できます。`, afterM: (p) => `${p}。毎月自動で更新されます。いつでも解約できます。`,
+    monthGift: "Tanetto Plusのプレゼント：+300 Tanìと連続記録シールド2個", owned: "Tanetto Plusはすでに有効です。", chatPerk: "{n}とおしゃべり",
+    terms0: "Tanettoは現状のまま提供され、継続的な動作を保証するものではありません。内容は変わることがあります。",
+    termsPay: "有料機能：Tanettoは無料です。Tanetto Plus（月額または年額の定期購入）とTanìのパックは任意で、Google Playを通じて購入します。支払い、更新、解約、返金はGoogle Playの規約に従って処理されます。定期購入はGoogle Play › 定期購入で解約するまで自動で更新されます。解約すると次回の更新が止まり、Plusはすでに支払った期間の終わりまで有効です。Tanìはアプリ内だけで使える仮想通貨で、金銭的な価値はなく、お金に交換することはできません。",
+    privPay: "購入：Tanetto PlusとTanìのパックの支払いは、すべてGoogle Playが処理します。カードや支払いの情報を私たちが受け取ることはありません。Googleがアプリに伝えるのは、ロックを解除するために、どの購入が有効かという情報だけです。" },
+  ko: { unavail: "지금은 결제를 이용할 수 없어요. 연결을 확인하고 다시 시도해 주세요.", retry: "다시 시도",
+    webOnly: "Tanetto Plus와 Tanì 패키지는 Android 앱에서 이용할 수 있어요.", getApp: "Google Play에서 다운로드",
+    restore: "구매 복원", restored: "구매를 복원했어요.", nothing: "복원할 구매가 없어요.",
+    pending: "결제 대기 중이에요. Google에서 확인되면 바로 앱에 반영돼요.",
+    thanksPlus: (n) => `고마워요! Tanetto Plus가 활성화되었어요. ${n}이(가) 정말 기뻐해요.`, thanksTani: (k) => `고마워요! +${k} Tanì`,
+    active: "Tanetto Plus 이용 중", manage: "구독 관리", manageP: "Google Play › 구독에서 언제든 해지할 수 있어요.",
+    trial: (d) => `${d}일 무료 체험`,
+    afterTrial: (d, p) => `${d}일 무료, 이후 ${p}. 체험이 끝나면 자동으로 갱신돼요. 언제든, 체험 중에도 해지할 수 있어요.`,
+    afterY: (p) => `${p}. 매년 자동으로 갱신돼요. 언제든 해지할 수 있어요.`, afterM: (p) => `${p}. 매달 자동으로 갱신돼요. 언제든 해지할 수 있어요.`,
+    monthGift: "Tanetto Plus 선물: +300 Tanì와 연속 기록 방패 2개", owned: "이미 Tanetto Plus를 이용 중이에요.", chatPerk: "{n}와(과) 수다 떨기",
+    terms0: "Tanetto는 있는 그대로 제공되며, 중단 없는 작동을 보장하지 않고, 시간이 지나며 바뀔 수 있어요.",
+    termsPay: "유료 기능: Tanetto는 무료예요. Tanetto Plus(월간 또는 연간 구독)와 Tanì 패키지는 선택 사항이며 Google Play를 통해 구매해요. 결제, 갱신, 해지, 환불은 Google Play가 자체 약관에 따라 처리해요. 구독은 Google Play › 구독에서 해지할 때까지 자동으로 갱신돼요. 해지하면 다음 갱신이 멈추고, Plus는 이미 결제한 기간이 끝날 때까지 유지돼요. Tanì는 앱 안에서만 쓰는 가상 화폐로, 금전적 가치가 없고 돈으로 바꿀 수 없어요.",
+    privPay: "구매: Tanetto Plus와 Tanì 패키지의 결제는 모두 Google Play가 처리해요. 카드나 결제 정보는 절대 받지 않아요. Google은 잠금 해제를 위해 어떤 구매가 활성 상태인지만 앱에 알려 줘요." },
+  zh: { unavail: "现在无法付款。请检查网络连接后重试。", retry: "重试",
+    webOnly: "Tanetto Plus 和 Tanì 礼包可在 Android 应用中购买。", getApp: "在 Google Play 下载",
+    restore: "恢复购买", restored: "已恢复购买。", nothing: "没有可恢复的购买。",
+    pending: "付款处理中：Google 确认后，你就能在应用里看到。",
+    thanksPlus: (n) => `谢谢！Tanetto Plus 已开通，${n}开心极了。`, thanksTani: (k) => `谢谢！+${k} Tanì`,
+    active: "Tanetto Plus 已开通", manage: "管理订阅", manageP: "你可以随时在 Google Play › 订阅中取消。",
+    trial: (d) => `免费试用 ${d} 天`,
+    afterTrial: (d, p) => `免费 ${d} 天，之后 ${p}。试用结束时会自动续订：你可以随时取消，试用期内也可以。`,
+    afterY: (p) => `${p}。每年自动续订：你可以随时取消。`, afterM: (p) => `${p}。每月自动续订：你可以随时取消。`,
+    monthGift: "Tanetto Plus 礼物：+300 Tanì 和 2 个连续记录护盾", owned: "你已经开通了 Tanetto Plus。", chatPerk: "和{n}聊天",
+    terms0: "Tanetto 按现状提供，不保证不间断运行，并且可能随时间变化。",
+    termsPay: "付费功能：Tanetto 是免费的。Tanetto Plus（按月或按年订阅）和 Tanì 礼包是可选的，通过 Google Play 购买，付款、续订、取消和退款均由 Google Play 按其条款处理。订阅会自动续订，直到你在 Google Play › 订阅中取消：取消后将停止下一次续订，Plus 会保持有效直到已付费期间结束。Tanì 是只能在应用内使用的虚拟货币：没有货币价值，不能兑换成钱。",
+    privPay: "购买：Tanetto Plus 和 Tanì 礼包的付款完全由 Google Play 处理。我们绝不会收到你的银行卡或付款信息：Google 只会告诉应用哪些购买有效，以便解锁。" },
+  zht: { unavail: "現在無法付款。請檢查網路連線後再試一次。", retry: "再試一次",
+    webOnly: "Tanetto Plus 和 Tanì 禮包可在 Android App 中購買。", getApp: "在 Google Play 下載",
+    restore: "還原購買項目", restored: "已還原購買項目。", nothing: "沒有可還原的購買項目。",
+    pending: "付款處理中：Google 確認後，你就能在 App 裡看到。",
+    thanksPlus: (n) => `謝謝！Tanetto Plus 已啟用，${n}開心極了。`, thanksTani: (k) => `謝謝！+${k} Tanì`,
+    active: "Tanetto Plus 已啟用", manage: "管理訂閱", manageP: "你隨時可以在 Google Play › 訂閱中取消。",
+    trial: (d) => `免費試用 ${d} 天`,
+    afterTrial: (d, p) => `免費 ${d} 天，之後 ${p}。試用結束時會自動續訂：你隨時可以取消，試用期間也可以。`,
+    afterY: (p) => `${p}。每年自動續訂：你隨時可以取消。`, afterM: (p) => `${p}。每月自動續訂：你隨時可以取消。`,
+    monthGift: "Tanetto Plus 禮物：+300 Tanì 和 2 個連續紀錄護盾", owned: "你已經啟用了 Tanetto Plus。", chatPerk: "和{n}聊天",
+    terms0: "Tanetto 依現狀提供，不保證不中斷運作，並可能隨時間改變。",
+    termsPay: "付費功能：Tanetto 是免費的。Tanetto Plus（月訂或年訂）和 Tanì 禮包為選用項目，透過 Google Play 購買，付款、續訂、取消和退款皆由 Google Play 依其條款處理。訂閱會自動續訂，直到你在 Google Play › 訂閱中取消：取消後會停止下一次續訂，Plus 會維持有效到已付費期間結束。Tanì 是只能在 App 內使用的虛擬貨幣：沒有金錢價值，也不能兌換成錢。",
+    privPay: "購買：Tanetto Plus 和 Tanì 禮包的付款完全由 Google Play 處理。我們絕不會收到你的信用卡或付款資料：Google 只會告訴 App 哪些購買有效，以便解鎖。" },
+  ru: { unavail: "Сейчас оплата недоступна. Проверь подключение и попробуй ещё раз.", retry: "Попробовать снова",
+    webOnly: "Tanetto Plus и наборы Tanì доступны в приложении для Android.", getApp: "Скачать в Google Play",
+    restore: "Восстановить покупки", restored: "Покупки восстановлены.", nothing: "Нет покупок для восстановления.",
+    pending: "Платёж в обработке: как только Google его подтвердит, всё появится в приложении.",
+    thanksPlus: (n) => `Спасибо! Tanetto Plus активирован: ${n} очень рад.`, thanksTani: (k) => `Спасибо! +${k} Tanì`,
+    active: "Tanetto Plus активен", manage: "Управлять подпиской", manageP: "Отменить можно в любой момент в Google Play › Подписки.",
+    trial: (d) => `${d} дней бесплатно`,
+    afterTrial: (d, p) => `${d} дней бесплатно, затем ${p}. По окончании пробного периода подписка продлевается автоматически: отменить можно в любой момент, даже раньше.`,
+    afterY: (p) => `${p}. Продлевается автоматически каждый год: отменить можно в любой момент.`, afterM: (p) => `${p}. Продлевается автоматически каждый месяц: отменить можно в любой момент.`,
+    monthGift: "Подарок Tanetto Plus: +300 Tanì и 2 щита серии", owned: "У тебя уже есть Tanetto Plus.", chatPerk: "Болтовня с питомцем {n}",
+    terms0: "Tanetto предоставляется как есть, без гарантии бесперебойной работы, и может меняться со временем.",
+    termsPay: "Платные функции: Tanetto бесплатно. Tanetto Plus (подписка на месяц или год) и наборы Tanì необязательны и покупаются через Google Play, который обрабатывает оплату, продления, отмены и возвраты по своим условиям. Подписка продлевается автоматически, пока ты не отменишь её в Google Play › Подписки: отмена останавливает следующее продление, а Plus остаётся активным до конца уже оплаченного периода. Tanì — виртуальная валюта только для приложения: она не имеет денежной ценности и не обменивается на деньги.",
+    privPay: "Покупки: оплату Tanetto Plus и наборов Tanì полностью обрабатывает Google Play. Мы никогда не получаем данные твоей карты или платежа: Google сообщает приложению только о том, какие покупки активны, чтобы их разблокировать." },
+  pl: { unavail: "Płatności są teraz niedostępne. Sprawdź połączenie i spróbuj ponownie.", retry: "Spróbuj ponownie",
+    webOnly: "Tanetto Plus i pakiety Tanì są dostępne w aplikacji na Androida.", getApp: "Pobierz z Google Play",
+    restore: "Przywróć zakupy", restored: "Zakupy przywrócone.", nothing: "Brak zakupów do przywrócenia.",
+    pending: "Płatność w toku: gdy tylko Google ją potwierdzi, znajdziesz ją w aplikacji.",
+    thanksPlus: (n) => `Dziękujemy! Tanetto Plus jest aktywne: ${n} bardzo się cieszy.`, thanksTani: (k) => `Dziękujemy! +${k} Tanì`,
+    active: "Tanetto Plus jest aktywne", manage: "Zarządzaj subskrypcją", manageP: "Możesz anulować w każdej chwili w Google Play › Subskrypcje.",
+    trial: (d) => `Wypróbuj za darmo przez ${d} dni`,
+    afterTrial: (d, p) => `${d} dni za darmo, potem ${p}. Po okresie próbnym subskrypcja odnawia się automatycznie: możesz anulować w każdej chwili, także wcześniej.`,
+    afterY: (p) => `${p}. Odnawia się automatycznie co rok: możesz anulować w każdej chwili.`, afterM: (p) => `${p}. Odnawia się automatycznie co miesiąc: możesz anulować w każdej chwili.`,
+    monthGift: "Prezent od Tanetto Plus: +300 Tanì i 2 tarcze serii", owned: "Masz już Tanetto Plus.", chatPerk: "Pogawędki z {n}",
+    terms0: "Tanetto jest udostępniane w obecnej postaci, bez gwarancji nieprzerwanego działania, i może się z czasem zmieniać.",
+    termsPay: "Funkcje płatne: Tanetto jest darmowe. Tanetto Plus (subskrypcja miesięczna lub roczna) i pakiety Tanì są opcjonalne i kupuje się je przez Google Play, który obsługuje płatności, odnowienia, anulowania i zwroty zgodnie z własnymi warunkami. Subskrypcje odnawiają się automatycznie, dopóki nie anulujesz ich w Google Play › Subskrypcje: anulowanie zatrzymuje kolejne odnowienie, a Plus działa do końca opłaconego okresu. Tanì to wirtualna waluta do używania tylko w aplikacji: nie ma wartości pieniężnej i nie można jej wymienić na pieniądze.",
+    privPay: "Zakupy: płatności za Tanetto Plus i pakiety Tanì obsługuje w całości Google Play. Nigdy nie otrzymujemy danych twojej karty ani płatności: Google przekazuje aplikacji tylko informację, które zakupy są aktywne, aby je odblokować." },
+  nl: { unavail: "Betalen kan nu niet. Controleer je verbinding en probeer het opnieuw.", retry: "Opnieuw proberen",
+    webOnly: "Tanetto Plus en Tanì-pakketten zijn beschikbaar in de Android-app.", getApp: "Download via Google Play",
+    restore: "Aankopen herstellen", restored: "Aankopen hersteld.", nothing: "Geen aankopen om te herstellen.",
+    pending: "Betaling in behandeling: zodra Google die bevestigt, vind je het in de app.",
+    thanksPlus: (n) => `Bedankt! Tanetto Plus is actief: ${n} is dolblij.`, thanksTani: (k) => `Bedankt! +${k} Tanì`,
+    active: "Tanetto Plus is actief", manage: "Abonnement beheren", manageP: "Je kunt altijd opzeggen via Google Play › Abonnementen.",
+    trial: (d) => `${d} dagen gratis proberen`,
+    afterTrial: (d, p) => `${d} dagen gratis, daarna ${p}. Aan het eind van de proefperiode wordt het automatisch verlengd: je kunt altijd opzeggen, ook eerder.`,
+    afterY: (p) => `${p}. Wordt elk jaar automatisch verlengd: je kunt altijd opzeggen.`, afterM: (p) => `${p}. Wordt elke maand automatisch verlengd: je kunt altijd opzeggen.`,
+    monthGift: "Cadeau van Tanetto Plus: +300 Tanì en 2 reeksschilden", owned: "Je hebt Tanetto Plus al.", chatPerk: "Kletsen met {n}",
+    terms0: "Tanetto wordt aangeboden zoals het is, zonder garantie op ononderbroken werking, en kan in de loop van de tijd veranderen.",
+    termsPay: "Betaalde functies: Tanetto is gratis. Tanetto Plus (maand- of jaarabonnement) en Tanì-pakketten zijn optioneel en koop je via Google Play, dat betaling, verlengingen, opzeggingen en terugbetalingen regelt volgens de eigen voorwaarden. Abonnementen worden automatisch verlengd tot je ze opzegt via Google Play › Abonnementen: opzeggen stopt de volgende verlenging en Plus blijft actief tot het einde van de al betaalde periode. Tanì zijn een virtuele munt die je alleen in de app gebruikt: ze hebben geen geldwaarde en kunnen niet worden ingewisseld voor geld.",
+    privPay: "Aankopen: betalingen voor Tanetto Plus en Tanì-pakketten worden volledig door Google Play afgehandeld. We ontvangen nooit je kaart- of betaalgegevens: Google laat de app alleen weten welke aankopen actief zijn, zodat ze worden ontgrendeld." },
+  tr: { unavail: "Şu an ödeme yapılamıyor. Bağlantını kontrol edip tekrar dene.", retry: "Tekrar dene",
+    webOnly: "Tanetto Plus ve Tanì paketleri Android uygulamasında.", getApp: "Google Play'den indir",
+    restore: "Satın alımları geri yükle", restored: "Satın alımlar geri yüklendi.", nothing: "Geri yüklenecek satın alım yok.",
+    pending: "Ödeme bekleniyor: Google onaylar onaylamaz uygulamada bulacaksın.",
+    thanksPlus: (n) => `Teşekkürler! Tanetto Plus etkin: ${n} çok mutlu.`, thanksTani: (k) => `Teşekkürler! +${k} Tanì`,
+    active: "Tanetto Plus etkin", manage: "Aboneliği yönet", manageP: "İstediğin zaman Google Play › Abonelikler'den iptal edebilirsin.",
+    trial: (d) => `${d} gün ücretsiz dene`,
+    afterTrial: (d, p) => `${d} gün ücretsiz, sonra ${p}. Deneme bitince otomatik yenilenir: istediğin zaman, daha önce de iptal edebilirsin.`,
+    afterY: (p) => `${p}. Her yıl otomatik yenilenir: istediğin zaman iptal edebilirsin.`, afterM: (p) => `${p}. Her ay otomatik yenilenir: istediğin zaman iptal edebilirsin.`,
+    monthGift: "Tanetto Plus hediyesi: +300 Tanì ve 2 seri kalkanı", owned: "Tanetto Plus zaten sende.", chatPerk: "{n} ile sohbet",
+    terms0: "Tanetto olduğu gibi sunulur, kesintisiz çalışma garantisi yoktur ve zamanla değişebilir.",
+    termsPay: "Ücretli özellikler: Tanetto ücretsizdir. Tanetto Plus (aylık veya yıllık abonelik) ve Tanì paketleri isteğe bağlıdır ve Google Play üzerinden satın alınır; ödeme, yenileme, iptal ve iadeleri Google Play kendi koşullarına göre yönetir. Abonelikler, Google Play › Abonelikler'den iptal edene kadar otomatik yenilenir: iptal bir sonraki yenilemeyi durdurur ve Plus, ödenmiş dönemin sonuna kadar etkin kalır. Tanì yalnızca uygulama içinde kullanılan sanal bir paradır: parasal değeri yoktur ve paraya çevrilemez.",
+    privPay: "Satın alımlar: Tanetto Plus ve Tanì paketlerinin ödemeleri tamamen Google Play tarafından yapılır. Kart veya ödeme bilgilerini asla almayız: Google uygulamaya yalnızca hangi satın alımların etkin olduğunu, kilitleri açmak için bildirir." },
+};
+Object.keys(BILL_TXT).forEach((l) => {
+  const L0 = T[l], B = BILL_TXT[l]; if (!L0) return;
+  L0.bill = B;
+  if (L0.plus && L0.plus.perks) L0.plus.perks[1] = B.chatPerk;
+  if (L0.terms) { L0.terms[0] = B.terms0; if (!L0.terms.includes(B.termsPay)) L0.terms.splice(3, 0, B.termsPay); }
+  if (L0.privDoc && !L0.privDoc.includes(B.privPay)) { const i = L0.privDoc.findIndex((x) => x === (ACCT_PRIV[l] || {}).acc); L0.privDoc.splice(i >= 0 ? i + 1 : 3, 0, B.privPay); }
+});
+/* Eliminando il profilo l'abbonamento di Google Play NON si annulla da solo: lo diciamo chiaramente */
+const DEL_SUB = {
+  it: "Attenzione: l'abbonamento Tanetto Plus non si annulla da solo. Disdicilo in Google Play › Abbonamenti.",
+  en: "Note: your Tanetto Plus subscription isn't cancelled automatically. Cancel it in Google Play › Subscriptions.",
+  de: "Achtung: Dein Tanetto-Plus-Abo wird nicht automatisch gekündigt. Kündige es in Google Play › Abos.",
+  es: "Atención: tu suscripción a Tanetto Plus no se cancela sola. Cancélala en Google Play › Suscripciones.",
+  fr: "Attention : ton abonnement Tanetto Plus n'est pas résilié automatiquement. Résilie-le dans Google Play › Abonnements.",
+  pt: "Atenção: sua assinatura do Tanetto Plus não é cancelada sozinha. Cancele em Google Play › Assinaturas.",
+  ja: "ご注意：Tanetto Plusの定期購入は自動では解約されません。Google Play › 定期購入から解約してください。",
+  ko: "참고: Tanetto Plus 구독은 자동으로 해지되지 않아요. Google Play › 구독에서 해지해 주세요.",
+  zh: "注意：Tanetto Plus 订阅不会自动取消。请在 Google Play › 订阅中取消。",
+  zht: "注意：Tanetto Plus 訂閱不會自動取消。請在 Google Play › 訂閱中取消。",
+  ru: "Внимание: подписка Tanetto Plus не отменяется сама. Отмени её в Google Play › Подписки.",
+  pl: "Uwaga: subskrypcja Tanetto Plus nie anuluje się sama. Anuluj ją w Google Play › Subskrypcje.",
+  nl: "Let op: je Tanetto Plus-abonnement wordt niet automatisch opgezegd. Zeg het op via Google Play › Abonnementen.",
+  tr: "Dikkat: Tanetto Plus aboneliğin kendiliğinden iptal edilmez. Google Play › Abonelikler'den iptal et.",
+};
+Object.keys(DEL_SUB).forEach((l) => { if (T[l] && T[l].bill) T[l].bill.delSub = DEL_SUB[l]; });
+
+/* =================== v14: notifiche, invito all'account, regalo del lancio, widget — testi in 14 lingue =================== */
+const MORE_TXT = {
+  it: { notif: { p: (n) => `Scegli l'ora: ${n} ti manderà una notifica gentile per ricordarti di passare.`, on: "Attiva il promemoria", active: (h) => `Promemoria attivo ogni giorno alle ${h}`, off: "Disattiva", offDone: "Promemoria disattivato.", onDone: (h) => `Fatto! A domani alle ${h}.`, denied: "Le notifiche sono bloccate: puoi attivarle in Impostazioni di Android › App › Tanetto.",
+      msgs: ["Un piccolo passo per te, oggi?", "I tuoi obiettivi di oggi ti aspettano, senza fretta.", "Un sorso d'acqua, un respiro, un sorriso: si parte da lì.", "Anche un solo obiettivo rende felice {n}.", "Cinque minuti per te: {n} ti fa compagnia."], trip: (n) => `${n} è tornato dalla gita!`, tripB: "Vieni a vedere la cartolina nuova." },
+    nudge: { t: (n) => `Tieni al sicuro ${n}`, p: (n) => `Con un account gratuito ${n} non si perde se cambi o ripristini il telefono.`, no: "No, grazie" },
+    launch: { t: "Un regalo per il lancio!", p: (n, d) => `Per festeggiare l'arrivo di Tanetto, ${n} riceve un cappellino da festa esclusivo. Solo per chi arriva entro il ${d}!`, b: "Indossalo!", item: "Cappellino del lancio" },
+    gplay: { t: "Tanetto per Android", p: "Scarica l'app da Google Play: promemoria con le notifiche, il widget del tuo compagno e molto altro." },
+    widget: { goals: (d, t) => `${d} di ${t} obiettivi oggi`, done: "Tutto fatto per oggi!", free: "Giornata libera", open: "Apri Tanetto", away: (n) => `${n} è in gita`, hint: "Aggiungi il widget di Tanetto alla schermata Home: tieni premuto su uno spazio vuoto › Widget › Tanetto." } },
+  en: { notif: { p: (n) => `Choose the time: ${n} will send you a gentle notification to stop by.`, on: "Turn on the reminder", active: (h) => `Reminder on, every day at ${h}`, off: "Turn off", offDone: "Reminder turned off.", onDone: (h) => `Done! See you tomorrow at ${h}.`, denied: "Notifications are blocked: you can allow them in Android Settings › Apps › Tanetto.",
+      msgs: ["A small step for yourself today?", "Today's goals are waiting for you, no rush.", "A sip of water, a breath, a smile: start from there.", "Even one goal makes {n} happy.", "Five minutes for you: {n} will keep you company."], trip: (n) => `${n} is back from the trip!`, tripB: "Come and see the new postcard." },
+    nudge: { t: (n) => `Keep ${n} safe`, p: (n) => `With a free account, ${n} won't get lost if you change or reset your phone.`, no: "No, thanks" },
+    launch: { t: "A launch gift!", p: (n, d) => `To celebrate Tanetto's arrival, ${n} gets an exclusive party hat. Only for those who join by ${d}!`, b: "Wear it!", item: "Launch hat" },
+    gplay: { t: "Tanetto for Android", p: "Get the app on Google Play: reminders as notifications, your companion's widget and much more." },
+    widget: { goals: (d, t) => `${d} of ${t} goals today`, done: "All done for today!", free: "Free day", open: "Open Tanetto", away: (n) => `${n} is on a trip`, hint: "Add the Tanetto widget to your Home screen: touch and hold an empty spot › Widgets › Tanetto." } },
+  de: { notif: { p: (n) => `Wähle die Uhrzeit: ${n} schickt dir eine sanfte Benachrichtigung, damit du vorbeischaust.`, on: "Erinnerung einschalten", active: (h) => `Erinnerung an, jeden Tag um ${h}`, off: "Ausschalten", offDone: "Erinnerung ausgeschaltet.", onDone: (h) => `Fertig! Bis morgen um ${h}.`, denied: "Benachrichtigungen sind blockiert: Du kannst sie in den Android-Einstellungen › Apps › Tanetto erlauben.",
+      msgs: ["Heute ein kleiner Schritt für dich?", "Deine Ziele für heute warten auf dich, ganz ohne Eile.", "Ein Schluck Wasser, ein Atemzug, ein Lächeln: Fang damit an.", "Schon ein Ziel macht {n} glücklich.", "Fünf Minuten für dich: {n} leistet dir Gesellschaft."], trip: (n) => `${n} ist vom Ausflug zurück!`, tripB: "Komm und sieh dir die neue Postkarte an." },
+    nudge: { t: (n) => `Halte ${n} sicher`, p: (n) => `Mit einem kostenlosen Konto geht ${n} nicht verloren, wenn du dein Handy wechselst oder zurücksetzt.`, no: "Nein, danke" },
+    launch: { t: "Ein Geschenk zum Start!", p: (n, d) => `Zur Feier von Tanettos Start bekommt ${n} einen exklusiven Partyhut. Nur für alle, die bis zum ${d} dabei sind!`, b: "Aufsetzen!", item: "Starthut" },
+    gplay: { t: "Tanetto für Android", p: "Hol dir die App bei Google Play: Erinnerungen als Benachrichtigung, das Widget deines Begleiters und vieles mehr." },
+    widget: { goals: (d, t) => `${d} von ${t} Zielen heute`, done: "Alles geschafft für heute!", free: "Freier Tag", open: "Tanetto öffnen", away: (n) => `${n} ist auf Ausflug`, hint: "Füge das Tanetto-Widget zum Startbildschirm hinzu: Halte eine freie Stelle gedrückt › Widgets › Tanetto." } },
+  es: { notif: { p: (n) => `Elige la hora: ${n} te enviará una notificación amable para que pases a verle.`, on: "Activar el recordatorio", active: (h) => `Recordatorio activo, cada día a las ${h}`, off: "Desactivar", offDone: "Recordatorio desactivado.", onDone: (h) => `¡Listo! Hasta mañana a las ${h}.`, denied: "Las notificaciones están bloqueadas: puedes permitirlas en Ajustes de Android › Aplicaciones › Tanetto.",
+      msgs: ["¿Un pequeño paso por ti hoy?", "Tus objetivos de hoy te esperan, sin prisa.", "Un sorbo de agua, una respiración, una sonrisa: empieza por ahí.", "Incluso un solo objetivo hace feliz a {n}.", "Cinco minutos para ti: {n} te hace compañía."], trip: (n) => `¡${n} ha vuelto de la excursión!`, tripB: "Ven a ver la postal nueva." },
+    nudge: { t: (n) => `Mantén a salvo a ${n}`, p: (n) => `Con una cuenta gratis, ${n} no se pierde si cambias o restableces el móvil.`, no: "No, gracias" },
+    launch: { t: "¡Un regalo de lanzamiento!", p: (n, d) => `Para celebrar la llegada de Tanetto, ${n} recibe un gorro de fiesta exclusivo. ¡Solo para quien llegue antes del ${d}!`, b: "¡Póntelo!", item: "Gorro del lanzamiento" },
+    gplay: { t: "Tanetto para Android", p: "Descarga la app en Google Play: recordatorios con notificaciones, el widget de tu compañero y mucho más." },
+    widget: { goals: (d, t) => `${d} de ${t} objetivos hoy`, done: "¡Todo hecho por hoy!", free: "Día libre", open: "Abrir Tanetto", away: (n) => `${n} está de excursión`, hint: "Añade el widget de Tanetto a la pantalla de inicio: mantén pulsado un espacio vacío › Widgets › Tanetto." } },
+  fr: { notif: { p: (n) => `Choisis l'heure : ${n} t'enverra une notification douce pour te rappeler de passer.`, on: "Activer le rappel", active: (h) => `Rappel activé, chaque jour à ${h}`, off: "Désactiver", offDone: "Rappel désactivé.", onDone: (h) => `C'est fait ! À demain à ${h}.`, denied: "Les notifications sont bloquées : tu peux les autoriser dans Paramètres d'Android › Applications › Tanetto.",
+      msgs: ["Un petit pas pour toi aujourd'hui ?", "Tes objectifs du jour t'attendent, sans te presser.", "Une gorgée d'eau, une respiration, un sourire : on commence par là.", "Même un seul objectif rend {n} heureux.", "Cinq minutes pour toi : {n} te tient compagnie."], trip: (n) => `${n} est rentré d'excursion !`, tripB: "Viens voir la nouvelle carte postale." },
+    nudge: { t: (n) => `Garde ${n} en sécurité`, p: (n) => `Avec un compte gratuit, ${n} ne se perd pas si tu changes ou réinitialises ton téléphone.`, no: "Non, merci" },
+    launch: { t: "Un cadeau de lancement !", p: (n, d) => `Pour fêter l'arrivée de Tanetto, ${n} reçoit un chapeau de fête exclusif. Seulement pour ceux qui arrivent avant le ${d} !`, b: "Le porter !", item: "Chapeau du lancement" },
+    gplay: { t: "Tanetto pour Android", p: "Télécharge l'app sur Google Play : rappels en notifications, le widget de ton compagnon et bien plus." },
+    widget: { goals: (d, t) => `${d} objectifs sur ${t} aujourd'hui`, done: "Tout est fait pour aujourd'hui !", free: "Jour libre", open: "Ouvrir Tanetto", away: (n) => `${n} est en excursion`, hint: "Ajoute le widget Tanetto à l'écran d'accueil : appuie longuement sur un espace vide › Widgets › Tanetto." } },
+  pt: { notif: { p: (n) => `Escolha o horário: ${n} vai mandar uma notificação carinhosa para você passar aqui.`, on: "Ativar o lembrete", active: (h) => `Lembrete ativo, todo dia às ${h}`, off: "Desativar", offDone: "Lembrete desativado.", onDone: (h) => `Pronto! Até amanhã às ${h}.`, denied: "As notificações estão bloqueadas: você pode permiti-las em Configurações do Android › Apps › Tanetto.",
+      msgs: ["Um passinho por você hoje?", "Suas metas de hoje estão esperando, sem pressa.", "Um gole de água, uma respiração, um sorriso: comece por aí.", "Até uma só meta deixa {n} feliz.", "Cinco minutos para você: {n} te faz companhia."], trip: (n) => `${n} voltou do passeio!`, tripB: "Venha ver o cartão-postal novo." },
+    nudge: { t: (n) => `Mantenha ${n} seguro`, p: (n) => `Com uma conta grátis, ${n} não se perde se você trocar ou restaurar o celular.`, no: "Não, obrigado" },
+    launch: { t: "Um presente de lançamento!", p: (n, d) => `Para comemorar a chegada do Tanetto, ${n} ganha um chapéu de festa exclusivo. Só para quem chegar até ${d}!`, b: "Usar agora!", item: "Chapéu do lançamento" },
+    gplay: { t: "Tanetto para Android", p: "Baixe o app no Google Play: lembretes com notificações, o widget do seu companheiro e muito mais." },
+    widget: { goals: (d, t) => `${d} de ${t} metas hoje`, done: "Tudo feito por hoje!", free: "Dia livre", open: "Abrir Tanetto", away: (n) => `${n} está passeando`, hint: "Adicione o widget do Tanetto à tela inicial: toque e segure um espaço vazio › Widgets › Tanetto." } },
+  ja: { notif: { p: (n) => `時間を選んでね。${n}がやさしい通知で、会いに来てねとお知らせします。`, on: "リマインダーをオンにする", active: (h) => `リマインダーオン：毎日${h}`, off: "オフにする", offDone: "リマインダーをオフにしました。", onDone: (h) => `設定しました！また明日${h}に。`, denied: "通知がブロックされています。Androidの設定 › アプリ › Tanettoで許可できます。",
+      msgs: ["今日、自分のために小さな一歩を？", "今日の目標が待っています。急がなくて大丈夫。", "お水をひと口、深呼吸、にっこり。そこから始めよう。", "目標ひとつでも、{n}はうれしいよ。", "自分のための5分間。{n}がそばにいるよ。"], trip: (n) => `${n}がおでかけから帰ってきたよ！`, tripB: "新しいポストカードを見に来てね。" },
+    nudge: { t: (n) => `${n}を大切に守ろう`, p: (n) => `無料のアカウントがあれば、スマホを変えたり初期化したりしても${n}はいなくなりません。`, no: "今はしない" },
+    launch: { t: "リリース記念のプレゼント！", p: (n, d) => `Tanettoの登場を記念して、${n}に限定のパーティー帽子をプレゼント。${d}までに来てくれた方だけ！`, b: "かぶってみる！", item: "リリース記念の帽子" },
+    gplay: { t: "Android版Tanetto", p: "Google Playでアプリを入手：通知でリマインダー、パートナーのウィジェットなど、もっと便利に。" },
+    widget: { goals: (d, t) => `今日の目標 ${d}/${t}`, done: "今日はぜんぶできた！", free: "おやすみの日", open: "Tanettoを開く", away: (n) => `${n}はおでかけ中`, hint: "ホーム画面にTanettoのウィジェットを追加：空いている所を長押し › ウィジェット › Tanetto。" } },
+  ko: { notif: { p: (n) => `시간을 골라 주세요. ${n}이(가) 다정한 알림으로 들러 달라고 알려 줄 거예요.`, on: "알림 켜기", active: (h) => `알림 켜짐: 매일 ${h}`, off: "끄기", offDone: "알림을 껐어요.", onDone: (h) => `완료! 내일 ${h}에 만나요.`, denied: "알림이 차단되어 있어요. Android 설정 › 앱 › Tanetto에서 허용할 수 있어요.",
+      msgs: ["오늘 나를 위한 작은 한 걸음 어때요?", "오늘의 목표가 기다리고 있어요. 서두르지 않아도 돼요.", "물 한 모금, 숨 한 번, 미소 한 번: 거기서 시작해요.", "목표 하나만 해도 {n}은(는) 행복해요.", "나를 위한 5분: {n}이(가) 곁에 있어요."], trip: (n) => `${n}이(가) 여행에서 돌아왔어요!`, tripB: "새 엽서를 보러 오세요." },
+    nudge: { t: (n) => `${n}을(를) 안전하게 지켜요`, p: (n) => `무료 계정이 있으면 폰을 바꾸거나 초기화해도 ${n}을(를) 잃어버리지 않아요.`, no: "괜찮아요" },
+    launch: { t: "출시 기념 선물!", p: (n, d) => `Tanetto 출시를 축하하며 ${n}에게 한정 파티 모자를 선물해요. ${d}까지 함께한 분들만!`, b: "써 볼래요!", item: "출시 기념 모자" },
+    gplay: { t: "Android용 Tanetto", p: "Google Play에서 앱을 받으세요: 알림으로 받는 리마인더, 친구 위젯 등 더 많은 기능이 있어요." },
+    widget: { goals: (d, t) => `오늘 목표 ${d}/${t}`, done: "오늘 목표 완료!", free: "쉬는 날", open: "Tanetto 열기", away: (n) => `${n}은(는) 여행 중`, hint: "홈 화면에 Tanetto 위젯 추가: 빈 곳을 길게 누르기 › 위젯 › Tanetto." } },
+  zh: { notif: { p: (n) => `选择时间：${n}会发来一条温柔的通知，提醒你过来看看。`, on: "开启提醒", active: (h) => `提醒已开启：每天 ${h}`, off: "关闭", offDone: "提醒已关闭。", onDone: (h) => `好了！明天 ${h} 见。`, denied: "通知被关闭了：你可以在 Android 设置 › 应用 › Tanetto 中允许。",
+      msgs: ["今天为自己迈出一小步？", "今天的目标在等你，不用着急。", "喝一口水，深呼吸，笑一笑：就从这里开始。", "哪怕完成一个目标，{n}也会很开心。", "给自己五分钟：{n}陪着你。"], trip: (n) => `${n}旅行回来啦！`, tripB: "快来看看新的明信片。" },
+    nudge: { t: (n) => `保护好${n}`, p: (n) => `有了免费账号，换手机或重置手机时${n}也不会丢失。`, no: "不用了，谢谢" },
+    launch: { t: "上线礼物！", p: (n, d) => `为了庆祝 Tanetto 上线，${n}获得一顶限定派对帽。仅限 ${d} 前加入的朋友！`, b: "戴上吧！", item: "上线纪念帽" },
+    gplay: { t: "Android 版 Tanetto", p: "在 Google Play 下载应用：通知提醒、小伙伴小组件，还有更多。" },
+    widget: { goals: (d, t) => `今天的目标 ${d}/${t}`, done: "今天全部完成！", free: "休息日", open: "打开 Tanetto", away: (n) => `${n}在旅行中`, hint: "把 Tanetto 小组件添加到主屏幕：长按空白处 › 小组件 › Tanetto。" } },
+  zht: { notif: { p: (n) => `選擇時間：${n}會傳來一則溫柔的通知，提醒你過來看看。`, on: "開啟提醒", active: (h) => `提醒已開啟：每天 ${h}`, off: "關閉", offDone: "提醒已關閉。", onDone: (h) => `好了！明天 ${h} 見。`, denied: "通知已被封鎖：你可以在 Android 設定 › 應用程式 › Tanetto 中允許。",
+      msgs: ["今天為自己踏出一小步？", "今天的目標在等你，不用著急。", "喝一口水，深呼吸，笑一笑：就從這裡開始。", "哪怕只完成一個目標，{n}也會很開心。", "給自己五分鐘：{n}陪著你。"], trip: (n) => `${n}旅行回來了！`, tripB: "快來看看新的明信片。" },
+    nudge: { t: (n) => `好好保護${n}`, p: (n) => `有了免費帳號，換手機或重設手機時${n}也不會不見。`, no: "不用了，謝謝" },
+    launch: { t: "上線禮物！", p: (n, d) => `為了慶祝 Tanetto 上線，${n}獲得一頂限定派對帽。只送給 ${d} 前加入的朋友！`, b: "戴上吧！", item: "上線紀念帽" },
+    gplay: { t: "Android 版 Tanetto", p: "在 Google Play 下載 App：通知提醒、小夥伴小工具，還有更多。" },
+    widget: { goals: (d, t) => `今天的目標 ${d}/${t}`, done: "今天全部完成！", free: "休息日", open: "開啟 Tanetto", away: (n) => `${n}正在旅行`, hint: "把 Tanetto 小工具加到主畫面：長按空白處 › 小工具 › Tanetto。" } },
+  ru: { notif: { p: (n) => `Выбери время: ${n} пришлёт мягкое уведомление, чтобы ты заглянул.`, on: "Включить напоминание", active: (h) => `Напоминание включено: каждый день в ${h}`, off: "Выключить", offDone: "Напоминание выключено.", onDone: (h) => `Готово! До завтра в ${h}.`, denied: "Уведомления заблокированы: их можно разрешить в настройках Android › Приложения › Tanetto.",
+      msgs: ["Маленький шаг для себя сегодня?", "Цели на сегодня ждут тебя, без спешки.", "Глоток воды, вдох, улыбка: начни с этого.", "Даже одна цель радует питомца {n}.", "Пять минут для себя: {n} рядом с тобой."], trip: (n) => `${n} вернулся из поездки!`, tripB: "Загляни посмотреть новую открытку." },
+    nudge: { t: (n) => `Сохрани питомца ${n}`, p: (n) => `С бесплатным аккаунтом ${n} не потеряется, если ты сменишь телефон или сбросишь настройки.`, no: "Нет, спасибо" },
+    launch: { t: "Подарок к запуску!", p: (n, d) => `В честь запуска Tanetto ${n} получает эксклюзивный праздничный колпак. Только для тех, кто с нами до ${d}!`, b: "Надеть!", item: "Колпак запуска" },
+    gplay: { t: "Tanetto для Android", p: "Скачай приложение в Google Play: напоминания в уведомлениях, виджет питомца и многое другое." },
+    widget: { goals: (d, t) => `Сегодня целей: ${d} из ${t}`, done: "На сегодня всё сделано!", free: "Свободный день", open: "Открыть Tanetto", away: (n) => `${n} в поездке`, hint: "Добавь виджет Tanetto на главный экран: удерживай пустое место › Виджеты › Tanetto." } },
+  pl: { notif: { p: (n) => `Wybierz godzinę: ${n} wyśle ci delikatne powiadomienie, żebyś zajrzał.`, on: "Włącz przypomnienie", active: (h) => `Przypomnienie włączone, codziennie o ${h}`, off: "Wyłącz", offDone: "Przypomnienie wyłączone.", onDone: (h) => `Gotowe! Do jutra o ${h}.`, denied: "Powiadomienia są zablokowane: możesz je włączyć w Ustawieniach Androida › Aplikacje › Tanetto.",
+      msgs: ["Mały krok dla siebie dzisiaj?", "Dzisiejsze cele na ciebie czekają, bez pośpiechu.", "Łyk wody, oddech, uśmiech: zacznij od tego.", "Nawet jeden cel cieszy: {n} już się uśmiecha.", "Pięć minut dla siebie: {n} dotrzyma ci towarzystwa."], trip: (n) => `${n} wrócił z wycieczki!`, tripB: "Zajrzyj i zobacz nową pocztówkę." },
+    nudge: { t: (n) => `Zadbaj o bezpieczeństwo: ${n}`, p: (n) => `Z darmowym kontem ${n} nie zginie, gdy zmienisz lub zresetujesz telefon.`, no: "Nie, dziękuję" },
+    launch: { t: "Prezent na start!", p: (n, d) => `Na świętowanie startu Tanetto ${n} dostaje wyjątkową czapeczkę imprezową. Tylko dla tych, którzy dołączą do ${d}!`, b: "Załóż ją!", item: "Czapeczka startowa" },
+    gplay: { t: "Tanetto na Androida", p: "Pobierz aplikację z Google Play: przypomnienia w powiadomieniach, widżet towarzysza i dużo więcej." },
+    widget: { goals: (d, t) => `Dziś celów: ${d} z ${t}`, done: "Na dziś wszystko zrobione!", free: "Dzień wolny", open: "Otwórz Tanetto", away: (n) => `${n} jest na wycieczce`, hint: "Dodaj widżet Tanetto do ekranu głównego: przytrzymaj puste miejsce › Widżety › Tanetto." } },
+  nl: { notif: { p: (n) => `Kies het tijdstip: ${n} stuurt je een lieve melding om even langs te komen.`, on: "Herinnering aanzetten", active: (h) => `Herinnering aan, elke dag om ${h}`, off: "Uitzetten", offDone: "Herinnering uitgezet.", onDone: (h) => `Klaar! Tot morgen om ${h}.`, denied: "Meldingen zijn geblokkeerd: je kunt ze toestaan via Android-instellingen › Apps › Tanetto.",
+      msgs: ["Vandaag een klein stapje voor jezelf?", "Je doelen van vandaag wachten op je, zonder haast.", "Een slokje water, een ademhaling, een glimlach: begin daar.", "Zelfs één doel maakt {n} blij.", "Vijf minuten voor jezelf: {n} houdt je gezelschap."], trip: (n) => `${n} is terug van het uitje!`, tripB: "Kom de nieuwe ansichtkaart bekijken." },
+    nudge: { t: (n) => `Houd ${n} veilig`, p: (n) => `Met een gratis account raak je ${n} niet kwijt als je van telefoon wisselt of hem reset.`, no: "Nee, bedankt" },
+    launch: { t: "Een cadeautje voor de lancering!", p: (n, d) => `Om de komst van Tanetto te vieren krijgt ${n} een exclusief feesthoedje. Alleen voor wie er vóór ${d} bij is!`, b: "Opzetten!", item: "Lanceringshoedje" },
+    gplay: { t: "Tanetto voor Android", p: "Download de app via Google Play: herinneringen als meldingen, de widget van je maatje en nog veel meer." },
+    widget: { goals: (d, t) => `${d} van ${t} doelen vandaag`, done: "Alles gedaan voor vandaag!", free: "Vrije dag", open: "Tanetto openen", away: (n) => `${n} is op uitje`, hint: "Zet de Tanetto-widget op je startscherm: houd een lege plek ingedrukt › Widgets › Tanetto." } },
+  tr: { notif: { p: (n) => `Saati seç: ${n} uğraman için sana nazik bir bildirim gönderecek.`, on: "Hatırlatıcıyı aç", active: (h) => `Hatırlatıcı açık: her gün ${h}`, off: "Kapat", offDone: "Hatırlatıcı kapatıldı.", onDone: (h) => `Tamam! Yarın ${h}'de görüşürüz.`, denied: "Bildirimler engelli: Android Ayarları › Uygulamalar › Tanetto'dan izin verebilirsin.",
+      msgs: ["Bugün kendin için küçük bir adım?", "Bugünkü hedeflerin seni bekliyor, acele yok.", "Bir yudum su, bir nefes, bir gülümseme: oradan başla.", "Tek bir hedef bile {n} için büyük mutluluk.", "Kendine beş dakika: {n} sana eşlik ediyor."], trip: (n) => `${n} geziden döndü!`, tripB: "Gel, yeni kartpostala bak." },
+    nudge: { t: (n) => `${n} güvende kalsın`, p: (n) => `Ücretsiz bir hesapla telefonunu değiştirsen ya da sıfırlasan da ${n} kaybolmaz.`, no: "Hayır, teşekkürler" },
+    launch: { t: "Lansman hediyesi!", p: (n, d) => `Tanetto'nun gelişini kutlamak için ${n} özel bir parti şapkası kazandı. Yalnızca ${d} tarihine kadar gelenlere!`, b: "Tak!", item: "Lansman şapkası" },
+    gplay: { t: "Android için Tanetto", p: "Uygulamayı Google Play'den indir: bildirimle hatırlatıcılar, arkadaşının widget'ı ve çok daha fazlası." },
+    widget: { goals: (d, t) => `Bugün ${t} hedeften ${d} tanesi`, done: "Bugünlük her şey tamam!", free: "Serbest gün", open: "Tanetto'yu aç", away: (n) => `${n} gezide`, hint: "Tanetto widget'ını ana ekrana ekle: boş bir yere basılı tut › Widget'lar › Tanetto." } },
+};
+Object.keys(MORE_TXT).forEach((l) => { if (!T[l]) return; Object.assign(T[l], MORE_TXT[l]); if (T[l].items) T[l].items.h_launch = MORE_TXT[l].launch.item; });
+/* Riquadro in Altro per aggiungere il widget alla schermata Home (solo app Android) */
+const WIDGET_CARD = {
+  it: ["Il tuo compagno sulla schermata Home", "Un'occhiata agli obiettivi di oggi senza aprire l'app.", "Aggiungi il widget"],
+  en: ["Your companion on the Home screen", "A quick look at today's goals without opening the app.", "Add the widget"],
+  de: ["Dein Begleiter auf dem Startbildschirm", "Ein schneller Blick auf die Ziele von heute, ohne die App zu öffnen.", "Widget hinzufügen"],
+  es: ["Tu compañero en la pantalla de inicio", "Un vistazo a los objetivos de hoy sin abrir la app.", "Añadir el widget"],
+  fr: ["Ton compagnon sur l'écran d'accueil", "Un coup d'œil aux objectifs du jour sans ouvrir l'app.", "Ajouter le widget"],
+  pt: ["Seu companheiro na tela inicial", "Uma olhada nas metas de hoje sem abrir o app.", "Adicionar o widget"],
+  ja: ["パートナーをホーム画面に", "アプリを開かなくても、今日の目標がひと目でわかります。", "ウィジェットを追加"],
+  ko: ["홈 화면에 내 친구를", "앱을 열지 않아도 오늘의 목표를 한눈에 볼 수 있어요.", "위젯 추가"],
+  zh: ["把小伙伴放到主屏幕", "不用打开应用，就能看到今天的目标。", "添加小组件"],
+  zht: ["把小夥伴放到主畫面", "不用開啟 App，就能看到今天的目標。", "新增小工具"],
+  ru: ["Питомец на главном экране", "Цели на сегодня одним взглядом, не открывая приложение.", "Добавить виджет"],
+  pl: ["Twój towarzysz na ekranie głównym", "Rzut oka na dzisiejsze cele bez otwierania aplikacji.", "Dodaj widżet"],
+  nl: ["Je maatje op je startscherm", "Even kijken naar de doelen van vandaag zonder de app te openen.", "Widget toevoegen"],
+  tr: ["Arkadaşın ana ekranda", "Uygulamayı açmadan bugünün hedeflerine bir göz at.", "Widget'ı ekle"],
+};
+Object.keys(WIDGET_CARD).forEach((l) => { if (T[l] && T[l].widget) { const [a, b, c] = WIDGET_CARD[l]; Object.assign(T[l].widget, { cardT: a, cardP: b, add: c }); } });
 
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
@@ -19723,7 +20061,8 @@ const FAV = { germo: "berries", ondi: "fish", lumi: "honey" };
 const FEED_MAX = 3, GAME_SEEDS_MAX = 20, GAME_SECS = 20;
 const giftValue = (n) => 10 + 5 * Math.min(Math.max(n, 1), 7);
 /* Conteggio anonimo delle aperture (GoatCounter): resta spento finché il codice è vuoto */
-const GC_CODE = /github\.io$/.test(location.hostname) ? "tanettoapp" : "";
+/* Conteggi anonimi: sul sito pubblico e nell'app Android (che gira su "localhost" dentro il telefono) */
+const GC_CODE = (/github\.io$/.test(location.hostname) || (() => { try { return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()); } catch (e) { return false; } })()) ? "tanettoapp" : "";
 const FEEDBACK_EMAIL = "tanettoapp@gmail.com";
 
 /* Luoghi veri aggiunti per le nuove lingue: disegni e colori del cielo */
@@ -22371,7 +22710,7 @@ document.addEventListener("pointerdown", (ev) => {
 
 /* =================== VERSIONE 5: giochi di benessere, condivisione, informative =================== */
 const OWNER_NAME = "", OWNER_EMAIL = "tanettoapp@gmail.com";
-const PRIVACY_DATE = "2026-10-03";
+const PRIVACY_DATE = "2026-10-13";
 let pendingGoals = [], exprTimer = null;
 
 function fadeLayer() {
@@ -23919,7 +24258,7 @@ const PLUS_PRICE = { month: 4.99, year: 44.99 };
 const PLUS_SCENES = ["beach", "camp", "snow"];
 const FD_GIFT = 15;
 const money = (v) => { try { return new Intl.NumberFormat(loc(), { style: "currency", currency: "EUR" }).format(v); } catch (e) { return `€${v}`; } };
-const plusActive = () => S.plusPreview === dkey();
+const plusActive = () => plusOk(); /* v14: vale solo un abbonamento vero di Google Play (vedi 97o_billing.js) */
 
 /* --- L'icona grande di Tanetto (benvenuto e icone dell'app) --- */
 const ICON_BIG = `<svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="ibg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A6E3A8"/><stop offset="1" stop-color="#4FA866"/></linearGradient><radialGradient id="ihl" cx="28%" cy="18%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="ilf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9BE08F"/><stop offset="1" stop-color="#4FAE55"/></linearGradient><radialGradient id="ifc" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#FFFDF7"/><stop offset=".75" stop-color="#FFF4E2"/><stop offset="1" stop-color="#F3E1C6"/></radialGradient></defs>
@@ -25254,14 +25593,15 @@ setTimeout(() => { try { backCheck(false); } catch (e) { /* niente */ } }, 2000)
 /* =================== v13i: far vedere Tanetto a un amico (link misurabile) =================== */
 /* Ogni immagine condivisa porta con se' il link con ?src=amico: cosi' su GoatCounter si vede quante
    persone arrivano grazie a chi gia' usa l'app ("arrivo-amico"). */
-const SHARE_URL = SITE_URL + "?src=amico";
+/* v14: nell'app Android il link porta alla scheda del Play Store (con la provenienza "amico"), sul sito resta il sito */
+function shareUrl() { try { if (isNativeApp()) return PLAY_URL + "&referrer=utm_source%3Damico%26utm_medium%3Dinvito"; } catch (e) { /* niente */ } return SITE_URL + "?src=amico"; }
 shareImage = async function (url, name) {
   const t = L(); const inv = inviteMode;
   try {
     const blob = await (await fetch(url)).blob(); const file = new File([blob], name, { type: blob.type || "image/png" });
-    const text = inv ? `${t.v12.invText(S.petName)} ${SHARE_URL}` : `${t.shareText} · ${SHARE_URL}`;
+    const text = inv ? `${t.v12.invText(S.petName)} ${shareUrl()}` : `${t.shareText} · ${shareUrl()}`;
     if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "Tanetto", text }); trackOnce(inv ? "invito-inviato" : "condivisione"); return true; }
-    if (inv && navigator.share) { await navigator.share({ title: "Tanetto", text: t.v12.invText(S.petName), url: SHARE_URL }); trackOnce("invito-inviato"); return true; }
+    if (inv && navigator.share) { await navigator.share({ title: "Tanetto", text: t.v12.invText(S.petName), url: shareUrl() }); trackOnce("invito-inviato"); return true; }
   } catch (e) { if (e && e.name === "AbortError") return true; }
   return false;
 };
@@ -25554,7 +25894,7 @@ async function signOutNow(force) {
 function openDel() {
   const a = AC();
   layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="deT"><div class="box card acbox"><h2 id="deT">${esc(a.delT)}</h2>
-  <p>${esc(a.delP(A.email || "", S.petName || ""))}</p><p class="acerr" id="delErr" role="alert"></p>
+  <p>${esc(a.delP(A.email || "", S.petName || ""))}</p>${typeof plusActive === "function" && plusActive() ? `<p class="small acwarn">${esc(L().bill.delSub)}</p>` : ""}<p class="acerr" id="delErr" role="alert"></p>
   <div class="row acrow"><button class="btn ghost" id="closeLayer">${esc(a.cancel)}</button><button class="btn danger" id="acDelYes">${esc(a.delYes)}</button></div></div></div>`;
 }
 function openDelPw() {
@@ -25628,6 +25968,413 @@ document.addEventListener("submit", (ev) => {
 }, true);
 /* Lingua: anche le e-mail di Firebase (conferma, nuova password) arrivano nella lingua dell'app */
 document.addEventListener("change", (ev) => { if (ev.target && /^langSel/.test(ev.target.id) && window.TanFB && window.TanFB.setLang) setTimeout(() => window.TanFB.setLang(fbLang()), 0); });
+
+/* =================== v14: pagamenti veri con Google Play =================== */
+/* Tanetto Plus (abbonamento "tanetto_plus": piani "mensile" e "annuale", prova gratuita sull'annuale) e
+   pacchetti di Tani (prodotti consumabili). Prezzi, valuta, prova e rinnovi li decide Google Play: l'app mostra
+   quello che Google restituisce. Sul sito non si compra nulla: si invita a scaricare l'app per Android. */
+const BILL = { SUB: "tanetto_plus", PLAN: { month: "mensile", year: "annuale" }, PACK_IDS: ["tani_200", "tani_1100", "tani_2400", "tani_5000"] };
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.tanettoapp.tanetto";
+const PLAY_FROM = "2026-12-01"; /* da questa data il sito mostra il pulsante per lo store (scheda in pre-registrazione o pubblicata) */
+const SUBS_URL = "https://play.google.com/store/account/subscriptions?sku=tanetto_plus&package=com.tanettoapp.tanetto";
+const PLUS_MONTH_TANI = 300, PLUS_MONTH_SHIELDS = 2;
+const BT = () => L().bill;
+
+/* Plus vale solo nell'app Android con un abbonamento attivo confermato da Google Play */
+function plusOk() { return isNativeApp() && !!S.plusOn; }
+const billPlugin = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.Billing) || (C.registerPlugin ? C.registerPlugin("Billing") : null); } catch (e) { return null; } };
+const playLive = () => dkey() >= PLAY_FROM;
+const curFmt = (micros, cur) => { try { return new Intl.NumberFormat(loc(), { style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
+const isoDays = (p) => { const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?$/.exec(p || ""); if (!m) return 0; return (+m[1] || 0) * 365 + (+m[2] || 0) * 30 + (+m[3] || 0) * 7 + (+m[4] || 0); };
+
+/* --- Prodotti e prezzi da Google --- */
+let billProducts = null, billProdP = null;
+function loadProducts(force) {
+  if (!isNativeApp()) return Promise.reject(Object.assign(new Error("web"), { code: "web" }));
+  if (billProducts && !force) return Promise.resolve(billProducts);
+  if (billProdP && !force) return billProdP;
+  const p = billPlugin(); if (!p) return Promise.reject(Object.assign(new Error("plugin"), { code: "unavailable" }));
+  billProdP = p.products({ subs: [BILL.SUB], inapp: BILL.PACK_IDS }).then((r) => {
+    const out = { plans: {}, packs: {} };
+    (r.products || []).forEach((d) => {
+      if (d.id === BILL.SUB) {
+        Object.entries(BILL.PLAN).forEach(([k, base]) => {
+          const offers = (d.offers || []).filter((o) => o.basePlanId === base); if (!offers.length) return;
+          const basic = offers.find((o) => !o.offerId) || offers[0];
+          const trialO = offers.find((o) => o.offerId && (o.phases || [])[0] && o.phases[0].micros === 0);
+          const full = (basic.phases || [])[basic.phases.length - 1] || {};
+          out.plans[k] = { token: basic.token, trialToken: trialO ? trialO.token : null, trialDays: trialO ? isoDays(trialO.phases[0].period) : 0, price: full.price, micros: full.micros, currency: full.currency };
+        });
+      } else if (BILL.PACK_IDS.includes(d.id)) out.packs[d.id] = { price: d.price, micros: d.micros, currency: d.currency };
+    });
+    if (!out.plans.year && !out.plans.month && !Object.keys(out.packs).length) throw Object.assign(new Error("none"), { code: "item-unavailable" });
+    billProducts = out; return out;
+  }).finally(() => { billProdP = null; });
+  return billProdP;
+}
+
+/* --- Stato dell'abbonamento: chiesto a Google all'apertura e quando l'app torna in primo piano --- */
+let billSyncAt = 0;
+async function syncPurchases(show) {
+  const p = billPlugin(); if (!isNativeApp() || !p || !S.pet) return null;
+  billSyncAt = Date.now();
+  let changed = false, found = 0;
+  try {
+    const subs = (await p.owned({ type: "subs" })).purchases || [];
+    const act = subs.filter((x) => (x.products || []).includes(BILL.SUB) && x.state === "purchased");
+    for (const x of act) if (!x.acknowledged) { try { await p.acknowledge({ token: x.token }); } catch (e) { /* si riprova alla prossima apertura */ } }
+    const on = act.length > 0; if (on !== !!S.plusOn) { S.plusOn = on; changed = true; if (on && !S.plusSince) S.plusSince = dkey(); }
+    S.plusCheck = Date.now(); found += act.length;
+    const packs = (await p.owned({ type: "inapp" })).purchases || [];
+    for (const x of packs) if (x.state === "purchased") { if (await creditPack(x, false)) { changed = true; found++; } }
+  } catch (e) { if (show) toast(errBill(e)); return null; }
+  save();
+  if (plusMonthly()) changed = true;
+  if (changed) render();
+  if (show) toast(found ? BT().restored : BT().nothing);
+  return found;
+}
+/* Consegna un pacchetto di Tani una sola volta per acquisto (il codice dell'acquisto viene ricordato, anche nel backup) */
+async function creditPack(x, celebrate) {
+  const p = billPlugin(); const id = (x.products || [])[0]; const i = BILL.PACK_IDS.indexOf(id); if (i < 0) return false;
+  S.paidTokens = S.paidTokens || [];
+  let credited = false;
+  if (!S.paidTokens.includes(x.token)) {
+    const n = PACKS[i].n * Math.max(1, x.quantity || 1);
+    S.seeds += n; S.paidTokens.push(x.token); if (S.paidTokens.length > 200) S.paidTokens.shift(); save(); credited = true;
+    trackOnce("tani-acquistati-" + PACKS[i].n);
+    if (celebrate) { toast(BT().thanksTani(n)); SND.play("fanfare"); SND.haptic([20, 60, 30]); burst("confetti", 24); }
+  }
+  try { await p.consume({ token: x.token }); } catch (e) { /* resta da consumare: alla prossima apertura si riprova, senza consegnare due volte */ }
+  return credited;
+}
+/* Regalo mensile di Plus: 300 Tani e 2 scudi, una volta al mese finche' Plus e' attivo */
+function plusMonthly() {
+  if (!plusActive()) return false; const ym = dkey().slice(0, 7); if (S.plusMonth === ym) return false;
+  S.plusMonth = ym; S.seeds += PLUS_MONTH_TANI; S.shields = (S.shields || 0) + PLUS_MONTH_SHIELDS; save();
+  setTimeout(() => { toast(BT().monthGift); SND.play("jingle"); }, 1200); trackOnce("plus-regalo-mese"); return true;
+}
+/* Plus: +50% di Tani dagli obiettivi */
+const _completeGoalV14 = completeGoal;
+completeGoal = function (g, rect) {
+  const before = S.seeds; _completeGoalV14(g, rect);
+  if (plusActive() && S.seeds > before) { S.seeds += Math.round((S.seeds - before) * 0.5); save(); const el = document.getElementById("seedN"); if (el) el.textContent = S.seeds; lastSeeds = S.seeds; }
+};
+function errBill(e) { const c = (e && e.code) || ""; return /network/.test(c) ? L().acct.err.net : BT().unavail; }
+async function buyThing(id, offerToken) {
+  const p = billPlugin(); if (!p) throw Object.assign(new Error("plugin"), { code: "unavailable" });
+  const r = await p.buy({ id, offerToken: offerToken || "" });
+  return (r && r.purchases) || [];
+}
+async function handlePurchases(list, celebrate) {
+  const p = billPlugin(); let gotPlus = false, pending = false;
+  for (const x of list || []) {
+    if (x.state === "pending") { pending = true; continue; }
+    if (x.state !== "purchased") continue;
+    if ((x.products || []).includes(BILL.SUB)) {
+      if (!x.acknowledged) { try { await p.acknowledge({ token: x.token }); } catch (e) { /* riprova alla prossima apertura */ } }
+      if (!S.plusOn) { S.plusOn = true; S.plusSince = S.plusSince || dkey(); gotPlus = true; } S.plusCheck = Date.now(); save();
+    } else await creditPack(x, celebrate);
+  }
+  if (pending) toast(BT().pending);
+  if (gotPlus) { plusMonthly(); return "plus"; }
+  return null;
+}
+/* Acquisti completati piu' tardi (pagamenti in attesa) */
+setTimeout(() => { const p = billPlugin(); if (isNativeApp() && p && p.addListener) { try { p.addListener("purchases", (o) => { handlePurchases(o.purchases, true).then((k) => { if (k === "plus") { toast(BT().thanksPlus(S.petName)); render(); } else render(); }); }); } catch (e) { /* niente */ } } }, 0);
+setTimeout(() => { if (isNativeApp()) syncPurchases(false); }, 2500);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && isNativeApp() && Date.now() - billSyncAt > 3600e3) syncPurchases(false); });
+
+/* --- Finestra di Tanetto Plus --- */
+let billBusy = false;
+function plusPerks() {
+  const t = L(); const ic = ["p_chat", "p_trip", "p_crown", "p_gift", "p_shield", "p_two", "p_stats"];
+  const rows = [1, 2, 3, 4, 5, 6, 7].map((i, k) => `<li><span class="pk">${icon(ic[k])}</span><span>${esc(t.plus.perks[i].replace("{n}", S.petName || ""))}</span></li>`);
+  rows.splice(1, 0, `<li class="pkpets"><span class="pk">${icon("p_heart")}</span><span>${esc(t.v12.perk)}</span></li>`);
+  return rows.join("");
+}
+openPlus = function (src, after) {
+  const t = L(), p = t.plus, b = BT(); plusAfter = after || null;
+  const legal = `<p class="plegal small"><button class="inlink" data-doc="terms">${esc(t.termsB)}</button> · <button class="inlink" data-doc="privDoc">${esc(t.privB)}</button></p>`;
+  let foot;
+  if (!isNativeApp()) foot = `<div class="plussticky"><p class="small pweb">${esc(b.webOnly)}</p>${playLive() ? `<a class="btn gold block" id="playGet" href="${PLAY_URL}" target="_blank" rel="noopener">${esc(b.getApp)}</a>` : ""}</div>`;
+  else if (plusActive()) foot = `<div class="plussticky"><p class="okline">${icon("check")} ${esc(b.active)}</p><a class="btn ghost block" href="${SUBS_URL}" target="_blank" rel="noopener">${esc(b.manage)}</a><p class="small muted">${esc(b.manageP)}</p></div>`;
+  else foot = `<div class="plussticky" id="plusFoot"><p class="small muted ploading"><span class="spin" aria-hidden="true"></span>${esc(L().acct.wait)}</p></div>`;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="plT"><div class="box plusbox"><div class="plushead"><div class="plpet">${petSVG(S.pet || draftPet, "felice", "h_crown", S.pet ? stage() : 0, S.petName || "")}</div><h2 id="plT">${p.name}</h2><p>${esc(p.tag)}</p></div>
+  <ul class="perks">${plusPerks()}</ul>${foot}
+  ${isNativeApp() && !plusActive() ? `<button class="link small" id="billRestore">${esc(b.restore)}</button>` : ""}${legal}
+  <button class="link" id="closeLayer">${t.tani.close}</button></div></div>`;
+  trackOnce("plus-aperto"); if (src) trackOnce("plus-da-" + src);
+  if (anim) { G.from(".plusbox", { y: 40, opacity: 0, duration: 0.45, ease: "power3.out" }); G.from(".perks li", { x: -20, opacity: 0, duration: 0.35, stagger: 0.05, delay: 0.15 }); }
+  if (isNativeApp() && !plusActive()) loadProducts().then(plusFoot).catch(() => plusFootErr());
+};
+function plusFootErr() {
+  const f = document.getElementById("plusFoot"); if (!f) return;
+  f.innerHTML = `<p class="small pweb">${esc(BT().unavail)}</p><button class="btn ghost block" id="billRetry">${esc(BT().retry)}</button>`;
+}
+function plusFoot() {
+  const f = document.getElementById("plusFoot"); if (!f || !billProducts) return; const t = L(), p = t.plus, pl = billProducts.plans;
+  if (!pl[plusPlan]) plusPlan = pl.year ? "year" : "month";
+  const save = pl.year && pl.month && pl.month.micros ? Math.round((1 - pl.year.micros / (pl.month.micros * 12)) * 100) : 0;
+  const y = pl.year ? `<button class="plan" role="radio" data-plan="year" aria-checked="${plusPlan === "year"}"><span class="ppop">${p.popular}</span><b>${p.yearly}</b><span>${esc(p.perYear(pl.year.price))}</span><small>${esc(p.yearNote(curFmt(pl.year.micros / 12, pl.year.currency)))}${save >= 5 ? ` · ${esc(p.save(save))}` : ""}</small></button>` : "";
+  const m = pl.month ? `<button class="plan" role="radio" data-plan="month" aria-checked="${plusPlan === "month"}"><b>${p.monthly}</b><span>${esc(p.perMonth(pl.month.price))}</span><small>&nbsp;</small></button>` : "";
+  f.innerHTML = `<div class="plans" role="radiogroup">${y}${m}</div><button class="btn gold block" id="plusGo"></button><p class="small muted" id="plusAfterTxt"></p>`;
+  billLabels();
+}
+function billLabels() {
+  const go = document.getElementById("plusGo"), a = document.getElementById("plusAfterTxt"); if (!go || !a || !billProducts) return;
+  const t = L(), p = t.plus, b = BT(), pl = billProducts.plans[plusPlan]; if (!pl) return;
+  const per = plusPlan === "year" ? p.perYear(pl.price) : p.perMonth(pl.price);
+  if (pl.trialToken && pl.trialDays) { go.innerHTML = `${icon("p_crown")}${esc(b.trial(pl.trialDays))}`; a.textContent = b.afterTrial(pl.trialDays, per); }
+  else { go.innerHTML = `${icon("p_crown")}${esc(t.v13.subscribe)}`; a.textContent = plusPlan === "year" ? b.afterY(per) : b.afterM(per); }
+  document.querySelectorAll(".plan").forEach((x) => x.setAttribute("aria-checked", String(x.dataset.plan === plusPlan)));
+}
+plusLabels = billLabels; /* i vecchi aggiornamenti dei testi (prezzi finti) ora usano i prezzi veri */
+
+/* --- Negozio dei Tani --- */
+openTaniShop = function (src) {
+  const t = L(), tt = t.tani, b = BT();
+  const packs = PACKS.map((p, i) => `<button class="pack ${i === 3 ? "best" : ""}" data-pack="${i}" ${isNativeApp() ? "" : "disabled"}>${i === 3 ? `<span class="pbadge">${tt.best}</span>` : ""}<span class="part">${packArt(i)}</span><b>${tt.packs[i]}</b><span class="pn">${SEED}${p.n.toLocaleString(loc())}</span>${p.b ? `<span class="pb">${tt.bonus(p.b)}</span>` : `<span class="pb"></span>`}<span class="penough">${esc((tt.enough || [])[i] || "")}</span><span class="pp" data-pp="${i}">${isNativeApp() ? `<span class="spin" aria-hidden="true"></span>` : ""}</span></button>`).join("");
+  const web = isNativeApp() ? "" : `<p class="small pweb">${esc(b.webOnly)}</p>${playLive() ? `<a class="btn gold block" href="${PLAY_URL}" target="_blank" rel="noopener">${esc(b.getApp)}</a>` : ""}`;
+  layer.innerHTML = `<div class="overlay sheetwrap" role="dialog" aria-modal="true" aria-labelledby="tsT"><div class="sheet tshop"><div class="grab"></div><h2 id="tsT">${SEED}${tt.shopT}</h2><p class="small muted">${tt.shopP}</p>
+  <div class="packs">${packs}</div>${web}<p class="acerr" id="shopErr" role="alert"></p>
+  ${isNativeApp() ? `<button class="link small" id="billRestore">${esc(b.restore)}</button>` : ""}<button class="link" id="closeLayer">${tt.close}</button></div></div>`;
+  trackOnce("negozio-tani-aperto"); if (src) trackOnce("negozio-tani-da-" + src);
+  if (anim) { G.from(".tshop", { y: 60, opacity: 0, duration: 0.4, ease: "power3.out" }); G.from(".pack", { scale: 0.7, opacity: 0, duration: 0.45, stagger: 0.06, ease: "back.out(2)", delay: 0.1 }); }
+  if (isNativeApp()) loadProducts().then(shopPrices).catch(() => { const e = document.getElementById("shopErr"); if (e) e.textContent = b.unavail; document.querySelectorAll("[data-pp]").forEach((x) => { x.innerHTML = ""; }); document.querySelectorAll(".pack").forEach((x) => { x.disabled = true; }); });
+};
+function shopPrices() {
+  document.querySelectorAll("[data-pp]").forEach((x) => { const id = BILL.PACK_IDS[+x.dataset.pp]; const pr = billProducts.packs[id]; x.textContent = pr ? pr.price : ""; const btn = x.closest(".pack"); if (btn) btn.disabled = !pr; });
+}
+
+/* --- Tocchi (prima dei vecchi gestori, che mostravano i "presto in arrivo") --- */
+window.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  const stop = () => { ev.stopImmediatePropagation(); ev.preventDefault(); };
+  if (b.dataset.plan && b.closest(".plusbox")) { stop(); plusPlan = b.dataset.plan; billLabels(); SND.play("click"); return; }
+  if (b.id === "billRetry") { stop(); const f = document.getElementById("plusFoot"); if (f) f.innerHTML = `<p class="small muted ploading"><span class="spin" aria-hidden="true"></span>${esc(L().acct.wait)}</p>`; loadProducts(true).then(plusFoot).catch(() => plusFootErr()); return; }
+  if (b.id === "billRestore") { stop(); if (billBusy) return; billBusy = true; b.disabled = true; syncPurchases(true).finally(() => { billBusy = false; b.disabled = false; if (plusActive() && layer.querySelector(".plusbox")) { const after = plusAfter; closeLayer(); if (after) after(); } }); return; }
+  if (b.id === "plusGo") {
+    stop(); if (billBusy || !billProducts) return; const pl = billProducts.plans[plusPlan]; if (!pl) return;
+    billBusy = true; b.disabled = true; trackOnce(`plus-cassa-${plusPlan === "year" ? "annuale" : "mensile"}`);
+    buyThing(BILL.SUB, pl.trialToken || pl.token).then((list) => handlePurchases(list, true)).then((k) => {
+      if (k === "plus") { trackOnce(`plus-acquistato-${plusPlan === "year" ? "annuale" : "mensile"}`); const after = plusAfter; closeLayer(); toast(BT().thanksPlus(S.petName)); SND.play("fanfare"); burst("confetti", 30); render(); if (after) setTimeout(after, 300); }
+    }).catch((e) => { const c = (e && e.code) || ""; if (c === "owned") { syncPurchases(false); toast(BT().owned); } else if (c !== "cancelled") toast(errBill(e)); })
+      .finally(() => { billBusy = false; const g = document.getElementById("plusGo"); if (g) g.disabled = false; });
+    return;
+  }
+  if (b.dataset.pack !== undefined && b.closest(".tshop")) {
+    stop(); if (!isNativeApp() || billBusy || !billProducts) return; const id = BILL.PACK_IDS[+b.dataset.pack]; if (!billProducts.packs[id]) return;
+    billBusy = true; b.disabled = true; trackOnce("tani-cassa-" + PACKS[+b.dataset.pack].n);
+    buyThing(id, null).then((list) => handlePurchases(list, true)).then(() => { render(); const n = document.getElementById("seedN"); if (n) n.textContent = S.seeds; })
+      .catch((e) => { const c = (e && e.code) || ""; if (c === "owned") syncPurchases(false); else if (c !== "cancelled") { const er = document.getElementById("shopErr"); if (er) er.textContent = errBill(e); } })
+      .finally(() => { billBusy = false; b.disabled = false; });
+    return;
+  }
+}, true);
+
+/* --- Altro: il riquadro di Plus dice se e' attivo, con il collegamento per gestire l'abbonamento --- */
+const _viewMoreV14b = viewMore;
+viewMore = function () {
+  let h = _viewMoreV14b(); if (!plusActive()) return h; const b = BT();
+  return h.replace(/<button class="pluscard" id="plusCard">[\s\S]*?<\/button>/, `<div class="pluscard on"><span class="pcrown">${icon("p_crown")}</span><span><b>${esc(b.active)}</b><small>${esc(b.manageP)}</small></span></div><a class="link small pmanage" href="${SUBS_URL}" target="_blank" rel="noopener">${esc(b.manage)} ›</a>`);
+};
+
+/* =================== v14: versione per il Play Store — notifiche, invito all'account, regalo del lancio, errori, barre di sistema =================== */
+
+/* ---------- Promemoria con notifiche vere (solo app Android) ---------- */
+const LN = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.LocalNotifications) || (C.registerPlugin ? C.registerPlugin("LocalNotifications") : null); } catch (e) { return null; } };
+const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200;
+const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return new Intl.DateTimeFormat(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
+let notifBusy = null;
+/* Programma i prossimi 7 giorni (un messaggio diverso ogni giorno); se oggi e' gia' tutto fatto, oggi niente notifica.
+   Si riprogramma a ogni apertura: chi non apre l'app per una settimana non riceve altro (niente insistenza). */
+function notifSchedule() {
+  if (!isNativeApp()) return Promise.resolve();
+  const p = LN(); if (!p) return Promise.resolve();
+  const run = async () => {
+    const ids = []; for (let i = 0; i < NOTIF_DAYS; i++) ids.push({ id: NOTIF_ID0 + i }); ids.push({ id: NOTIF_TRIP });
+    try { await p.cancel({ notifications: ids }); } catch (e) { /* niente da cancellare */ }
+    if (!S.notif || !S.pet) return;
+    const t = L(), n = S.petName || ""; const { h, m } = remTimes(); const now = Date.now(); const list = [];
+    const tg = todayGoals(); const allDone = tg.length > 0 && tg.every((g) => S.done.includes(g));
+    const day0 = Math.floor(new Date(dkey() + "T12:00:00").getTime() / 86400000);
+    for (let i = 0; i < NOTIF_DAYS; i++) {
+      const d = new Date(); d.setDate(d.getDate() + i); d.setHours(h, m, 0, 0);
+      if (d.getTime() < now + 60000) continue; if (i === 0 && allDone) continue;
+      const msgs = t.notif.msgs; const body = msgs[(day0 + i) % msgs.length].split("{n}").join(n);
+      list.push({ id: NOTIF_ID0 + i, title: t.v12.remTitle(n), body, schedule: { at: d, allowWhileIdle: true }, isExactNotification: false, smallIcon: "ic_stat_tanetto", iconColor: "#4E8A4A" });
+    }
+    if (S.away && S.away.until > now + 60000) list.push({ id: NOTIF_TRIP, title: t.notif.trip(n), body: t.notif.tripB, schedule: { at: new Date(S.away.until), allowWhileIdle: true }, isExactNotification: false, smallIcon: "ic_stat_tanetto", iconColor: "#4E8A4A" });
+    if (list.length) { try { await p.schedule({ notifications: list }); } catch (e) { trackOnce("notifiche-errore"); } }
+  };
+  notifBusy = (notifBusy || Promise.resolve()).then(run, run);
+  return notifBusy;
+}
+async function notifEnable() {
+  const p = LN(); const t = L(); if (!p) return;
+  let st = null; try { st = await p.requestPermissions(); } catch (e) { st = null; }
+  if (!st || st.display !== "granted") { toast(t.notif.denied); trackOnce("notifiche-negate"); return; }
+  S.notif = true; S.rem = "ok"; save(); await notifSchedule();
+  toast(t.notif.onDone(fmtTime(S.remTime))); SND.play("coin"); trackOnce("notifiche-attivate");
+  const y = window.scrollY; render(); window.scrollTo(0, y);
+}
+const _remCardV14 = remCard;
+remCard = function (ask) {
+  if (!isNativeApp()) return _remCardV14(ask);
+  const t = L(), on = !!S.notif && !ask;
+  return `<div class="card remcard ${ask ? "ask" : ""}"><div class="chhd"><span class="chic rem">${icon("p_bell")}</span><div><h3>${ask ? t.v12.remAsk : t.v12.remT}</h3><p class="small muted">${esc(on ? t.notif.active(fmtTime(S.remTime)) : t.notif.p(S.petName))}</p></div></div>
+  <div class="field remrow"><label for="remTime${ask ? "A" : ""}">${t.v12.remTime}</label><input type="time" id="remTime${ask ? "A" : ""}" class="remtime" value="${S.remTime || "20:00"}"></div>
+  <div class="rembtns">${on ? `<button class="btn small ghost" id="notifOff">${esc(t.notif.off)}</button>` : `<button class="btn small" id="notifOn">${icon("p_bell")}${esc(t.notif.on)}</button>`}</div>${ask ? `<button class="link" id="remNo">${t.v12.remLater}</button>` : ""}</div>`;
+};
+document.addEventListener("change", (ev) => { if (ev.target && ev.target.classList && ev.target.classList.contains("remtime") && S.notif) setTimeout(() => { notifSchedule(); const p = document.querySelector(".remcard:not(.ask) .muted"); if (p) p.textContent = L().notif.active(fmtTime(S.remTime)); }, 0); });
+/* Dopo ogni obiettivo (se e' tutto fatto, oggi niente notifica) e quando parte una gita */
+const _completeGoalV14n = completeGoal;
+completeGoal = function (g, rect) { _completeGoalV14n(g, rect); if (S.notif) notifSchedule(); };
+let notifAway = null;
+const _renderV14n = render;
+render = function () { _renderV14n(); const u = S.away ? S.away.until : 0; if (S.notif && u !== notifAway) { notifAway = u; notifSchedule(); } };
+setTimeout(() => { if (S.notif) notifSchedule(); }, 3000);
+document.addEventListener("change", (ev) => { if (ev.target && /^langSel/.test(ev.target.id) && S.notif) setTimeout(notifSchedule, 100); });
+
+/* ---------- Invito gentile a creare un account (una volta sola, dopo 3 giorni di uso) ---------- */
+function nudgeShow() {
+  if (!S.pet || S.away || A.uid || S.nudgeNo || S.tut < 99 || !S.rem) return false;
+  const days = new Set((S.log || []).map((x) => x.d)); return days.size >= 3;
+}
+function nudgeCard() {
+  const a = AC(), t = L().nudge, n = S.petName || "";
+  return `<div class="card nudgecard"><div class="chhd"><span class="chic acc">${icon("ac_cloud")}</span><div><h3>${esc(t.t(n))}</h3><p class="small muted">${esc(t.p(n))}</p></div></div>
+  <div class="imgbtns col"><button class="btn gbtn" id="acGoogle2">${G_LOGO}<span>${esc(a.google)}</span></button><button class="btn ghost" id="acEmail2">${icon("ac_mail")}<span>${esc(a.email)}</span></button></div><button class="link" id="nudgeNo">${esc(t.no)}</button></div>`;
+}
+const _viewTodayV14 = viewToday;
+viewToday = function () {
+  const h = _viewTodayV14(); if (!nudgeShow()) return h; trackOnce("invito-account-mostrato");
+  const key = `<p class="note">${L().demo}</p>`; return h.includes(key) ? h.replace(key, nudgeCard() + key) : h;
+};
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.id === "nudgeNo") { S.nudgeNo = dkey(); save(); trackOnce("invito-account-no"); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if ((b.id === "acGoogle2" || b.id === "acEmail2") && b.closest(".nudgecard")) trackOnce("invito-account-si");
+  if (b.id === "notifOn") { ev.preventDefault(); notifEnable(); return; }
+  if (b.id === "notifOff") { S.notif = false; save(); notifSchedule(); toast(L().notif.offDone); trackOnce("notifiche-disattivate"); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if (b.id === "launchWear") { S.hat = "h_launch"; save(); closeLayer(); render(); SND.play("pop"); burst("confetti", 24); return; }
+});
+
+/* ---------- Regalo del lancio: cappellino esclusivo per chi arriva entro il 31/01/2027 ---------- */
+const LAUNCH_END = "2027-01-31";
+HAT_ART.h_launch = (b) => `<g transform="rotate(6 100 ${b})"><path d="M74 ${b + 4} L126 ${b + 4} L100 ${b - 56} Z" fill="#4E8A4A"/><path d="M100 ${b - 56} L126 ${b + 4} L113 ${b + 4} Z" fill="#000" opacity=".1"/>
+  <path d="M81 ${b - 12} L119 ${b - 12} M86 ${b - 26} L114 ${b - 26} M92 ${b - 40} L108 ${b - 40}" stroke="#A6E3A8" stroke-width="5" stroke-linecap="round"/>
+  <path d="M72 ${b + 4} Q100 ${b + 11} 128 ${b + 4}" stroke="#F2B33D" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M100 ${b - 71} l3.4 6.9 7.6 1.1 -5.5 5.4 1.3 7.6 -6.8 -3.6 -6.8 3.6 1.3 -7.6 -5.5 -5.4 7.6 -1.1z" fill="#F2B33D" stroke="#C9861F" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="90" cy="${b - 6}" r="2.4" fill="#FFE7A0"/><circle cx="109" cy="${b - 19}" r="2.2" fill="#F29BB8"/><circle cx="97" cy="${b - 33}" r="2" fill="#FFE7A0"/></g>`;
+HAT_VB.h_launch = "60 22 80 86";
+SHOP.push({ id: "h_launch", kind: "wear", price: 0, special: true, launch: true });
+const _shopListV14 = shopList;
+shopList = function (kind) { return _shopListV14(kind).filter((s) => !s.launch || S.owned.includes(s.id)); };
+function launchGift() {
+  if (!S.pet || S.owned.includes("h_launch") || dkey() > LAUNCH_END || window.__TEST_NOLAUNCH) return;
+  if (layer.innerHTML || tutOn || pendingWelcome || S.tut < 99 || S.away) return;
+  const t = L().launch, n = S.petName || ""; S.owned.push("h_launch"); S.launchGift = dkey(); save();
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="lgT"><div class="box card wgbox"><div class="fdpet">${petSVG(S.pet, "amore", "h_launch", stage(), n)}</div><h2 id="lgT">${esc(t.t)}</h2><p>${esc(t.p(n, fmtDate(LAUNCH_END)))}</p><button class="btn" id="launchWear">${esc(t.b)}</button><button class="link" id="closeLayer">${esc(L().close)}</button></div></div>`;
+  SND.play("fanfare"); burst("confetti", 28); trackOnce("regalo-lancio");
+  if (anim) G.from(".wgbox .fdpet", { scale: 0.4, rotation: -10, duration: 0.6, ease: "back.out(2)" });
+}
+setInterval(() => { try { launchGift(); } catch (e) { /* niente */ } }, 4000);
+setTimeout(() => { try { launchGift(); } catch (e) { /* niente */ } }, 2600);
+
+/* ---------- Sul sito, da telefono Android: invito a scaricare l'app dallo store ---------- */
+const isAndroidWeb = () => !isNativeApp() && /android/i.test(navigator.userAgent || "");
+function playCard() {
+  if (!isAndroidWeb() || !playLive()) return ""; const t = L().gplay;
+  return `<div class="card playcard"><div class="chhd"><span class="chic acc">${icon("p_crown")}</span><div><h3>${esc(t.t)}</h3><p class="small muted">${esc(t.p)}</p></div></div><a class="btn block" href="${PLAY_URL}&referrer=utm_source%3Dsito" target="_blank" rel="noopener">${esc(BT().getApp)}</a></div>`;
+}
+const _viewMoreV14p = viewMore;
+viewMore = function () { const h = _viewMoreV14p(); const c = playCard(); if (!c) return h; const key = `<h1>${L().moreT}</h1>`; return h.includes(key) ? h.replace(key, key + c) : h; };
+const _viewGateV14 = viewGate;
+viewGate = function () { const h = _viewGateV14(); const c = playCard(); if (!c) return h; const key = `<div class="gatebtns">`; return h.includes(key) ? h.replace(key, c + key) : h; };
+
+/* ---------- Errori dell'app: conteggio anonimo (solo il tipo di errore, mai dati personali) ---------- */
+let errN = 0;
+function reportErr(msg, line) {
+  if (errN >= 5) return; const m = String(msg || "").replace(/^Uncaught\s+/i, "").slice(0, 200);
+  if (!m || /ResizeObserver loop|Script error|Load failed|NetworkError|Failed to fetch/i.test(m)) return;
+  errN++; const slug = m.toLowerCase().replace(/https?:\/\/\S+/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+  try { trackOnce(`errore-js-v14-${isNativeApp() ? "app" : "web"}-${slug}-l${line || 0}`); } catch (e) { /* niente */ }
+}
+window.addEventListener("error", (e) => { if (e && e.filename && !/index\.html|tanetto|localhost|github\.io|^$/.test(e.filename) && !e.filename.startsWith(location.origin)) return; reportErr(e && e.message, e && e.lineno); });
+window.addEventListener("unhandledrejection", (e) => { const r = e && e.reason; if (r && r.code) return; /* errori gestiti (rete, annullato...) */ reportErr(r && (r.message || r), 0); });
+
+/* ---------- Barre di sistema di Android: icone scure su sfondo chiaro, chiare su sfondo scuro ---------- */
+const sysBars = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.SystemBars) || (C.registerPlugin ? C.registerPlugin("SystemBars") : null); } catch (e) { return null; } };
+function sysBarsStyle() {
+  if (!isNativeApp()) return; const p = sysBars(); if (!p || !p.setStyle) return;
+  const dark = S.theme === "dark" || (S.theme === "system" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  try { const r = p.setStyle({ style: dark ? "DARK" : "LIGHT" }); if (r && r.catch) r.catch(() => {}); } catch (e) { /* niente */ }
+}
+const _applyRootV14 = applyRoot;
+applyRoot = function () { _applyRootV14(); sysBarsStyle(); };
+try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sysBarsStyle); } catch (e) { /* niente */ }
+
+/* ---------- Da dove si usa Tanetto: app Android o sito (conteggio anonimo, una volta al giorno) ---------- */
+setTimeout(() => { try { if (S.pet) trackOnce(isNativeApp() ? "apertura-app-android" : "apertura-sito"); } catch (e) { /* niente */ } }, 1800);
+
+/* =================== v14: widget del compagno sulla schermata Home (solo app Android) =================== */
+/* L'app disegna il compagno (con cappello e umore di adesso) e manda al widget immagine, nome e riga sugli obiettivi.
+   Si aggiorna solo quando qualcosa cambia davvero. */
+const widgetPlugin = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.TanettoWidget) || (C.registerPlugin ? C.registerPlugin("TanettoWidget") : null); } catch (e) { return null; } };
+let widgetKey = null, widgetTimer = null, widgetInfo = null;
+function widgetLine() {
+  const w = L().widget, n = S.petName || "";
+  if (S.away) return w.away(n);
+  const tg = todayGoals(); if (!tg.length) return w.free;
+  const d = S.done.filter((g) => tg.includes(g)).length;
+  return d >= tg.length ? w.done : w.goals(d, tg.length);
+}
+function widgetImage(expr) {
+  return new Promise((res) => {
+    try {
+      const svg = petSVG(S.pet, expr, S.hat, stage(), S.petName || "").replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" ');
+      const img = new Image(); img.onload = () => { try { const c = document.createElement("canvas"); c.width = 256; c.height = 256; c.getContext("2d").drawImage(img, 0, 0, 256, 256); res(c.toDataURL("image/png")); } catch (e) { res(null); } };
+      img.onerror = () => res(null); img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    } catch (e) { res(null); }
+  });
+}
+function widgetSync() {
+  if (!isNativeApp() || !S.pet) return; const p = widgetPlugin(); if (!p || !p.update) return;
+  const tg = todayGoals(); const allDone = tg.length && tg.every((g) => S.done.includes(g));
+  const expr = S.away ? "normale" : allDone ? "felice" : (S.lightsOff ? "assonnato" : "normale");
+  const line = widgetLine(); const key = [S.pet, S.petName, S.hat, stage(), expr, line, S.lang].join("|");
+  if (key === widgetKey) return; widgetKey = key;
+  clearTimeout(widgetTimer);
+  widgetTimer = setTimeout(async () => {
+    const image = await widgetImage(expr);
+    try { await p.update({ name: S.petName || "Tanetto", line, image: image || "" }); } catch (e) { widgetKey = null; }
+  }, 600);
+}
+const _renderV14w = render;
+render = function () { _renderV14w(); widgetSync(); };
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") { widgetKey = null; widgetSync(); } });
+
+/* Altro: riquadro per aggiungere il widget (Android chiede conferma con la sua finestra) */
+function widgetCard() {
+  if (!isNativeApp() || !S.pet || !widgetInfo || widgetInfo.count > 0) return "";
+  const w = L().widget;
+  return `<div class="card wdgcard"><div class="chhd"><span class="chic acc">${icon("home")}</span><div><h3>${esc(w.cardT)}</h3><p class="small muted">${esc(w.cardP)}</p></div></div>${widgetInfo.canPin ? `<button class="btn block" id="widgetAdd">${esc(w.add)}</button>` : `<p class="small">${esc(w.hint)}</p>`}</div>`;
+}
+const _viewMoreV14w = viewMore;
+viewMore = function () {
+  const h = _viewMoreV14w(); const c = widgetCard(); if (!c) return h;
+  const key = `<div class="card stack" id="goalsCard">`; return h.includes(key) ? h.replace(key, c + key) : h + c;
+};
+function widgetRefreshInfo() { const p = widgetPlugin(); if (!isNativeApp() || !p || !p.info) return; p.info().then((o) => { const was = JSON.stringify(widgetInfo); widgetInfo = o; if (tab === "more" && JSON.stringify(o) !== was) { const y = window.scrollY; render(); window.scrollTo(0, y); } }).catch(() => {}); }
+setTimeout(widgetRefreshInfo, 1500);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") setTimeout(widgetRefreshInfo, 500); });
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.dataset && b.dataset.tab === "more") setTimeout(widgetRefreshInfo, 50);
+  if (b.id === "widgetAdd") { const p = widgetPlugin(); if (!p) return; trackOnce("widget-richiesto"); widgetKey = null; widgetSync(); p.pin().then(() => setTimeout(widgetRefreshInfo, 4000)).catch(() => toast(L().widget.hint)); }
+});
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };

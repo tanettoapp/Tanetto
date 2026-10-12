@@ -7,8 +7,8 @@ android {
         applicationId "com.tanettoapp.tanetto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -17,6 +17,19 @@ android {
         }
     }
     signingConfigs {
+        // Chiave privata per il Play Store: sta FUORI dal progetto (mai su GitHub).
+        // Se il file non c'e' (es. sulle macchine di GitHub) si costruisce solo l'APK di prova.
+        def relProps = new Properties()
+        def relFile = new File(System.getenv("TANETTO_KEYS") ?: "/home/claude/chiavi", "tanetto-release.properties")
+        if (relFile.exists()) {
+            relFile.withInputStream { relProps.load(it) }
+            release {
+                storeFile file(relProps["storeFile"])
+                storePassword relProps["storePassword"]
+                keyAlias relProps["keyAlias"]
+                keyPassword relProps["keyPassword"]
+            }
+        }
         prova {
             // Chiave solo per l'APK di prova: cosi' gli aggiornamenti si installano sopra.
             // L'app per lo store avra' una chiave diversa e privata.
@@ -31,6 +44,7 @@ android {
             signingConfig signingConfigs.prova
         }
         release {
+            if (signingConfigs.findByName("release") != null) signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -51,6 +65,7 @@ dependencies {
     implementation project(':capacitor-android')
     implementation "com.google.android.play:review:2.0.2"
     implementation "androidx.credentials:credentials:1.5.0"
+    implementation "com.android.billingclient:billing:8.3.0"
     implementation "androidx.credentials:credentials-play-services-auth:1.5.0"
     implementation "com.google.android.libraries.identity.googleid:googleid:1.1.1"
     testImplementation "junit:junit:$junitVersion"

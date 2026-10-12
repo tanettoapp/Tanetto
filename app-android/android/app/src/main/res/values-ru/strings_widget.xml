@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_desc">Твой питомец и цели на сегодня на главном экране.</string>
+    <string name="widget_open">Открыть Tanetto</string>
+</resources>

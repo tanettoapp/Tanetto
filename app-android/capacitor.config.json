@@ -3,5 +3,13 @@
   "appName": "Tanetto",
   "webDir": "www",
   "backgroundColor": "#F4EFE6",
-  "android": { "allowMixedContent": false }
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_tanetto",
+      "iconColor": "#4E8A4A"
+    }
+  }
 }
