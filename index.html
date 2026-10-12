@@ -19963,6 +19963,24 @@ const WIDGET_CARD = {
   tr: ["Arkadaşın ana ekranda", "Uygulamayı açmadan bugünün hedeflerine bir göz at.", "Widget'ı ekle"],
 };
 Object.keys(WIDGET_CARD).forEach((l) => { if (T[l] && T[l].widget) { const [a, b, c] = WIDGET_CARD[l]; Object.assign(T[l].widget, { cardT: a, cardP: b, add: c }); } });
+/* Diario e "Dove sono i miei dati?": giusti anche per chi usa un account */
+const DATA_TXT = {
+  it: ["Il diario è privato: lo leggi solo tu.", "Sul tuo telefono. Se crei un account (gratis, da Altro › Account e backup), viene salvato anche un backup online, solo tuo, così ritrovi tutto se cambi telefono. Senza account, se cambi telefono o cancelli i dati i progressi ripartono da zero."],
+  en: ["Your journal is private: only you can read it.", "On your phone. If you create an account (free, from More › Account and backup), an online backup that only you can access is saved too, so you find everything again if you change phones. Without an account, changing phones or clearing data starts your progress from zero."],
+  de: ["Dein Tagebuch ist privat: Nur du kannst es lesen.", "Auf deinem Handy. Wenn du ein Konto erstellst (kostenlos, unter Mehr › Konto und Backup), wird auch ein Online-Backup gespeichert, auf das nur du Zugriff hast – so findest du alles wieder, wenn du das Handy wechselst. Ohne Konto beginnt dein Fortschritt beim Handywechsel oder Löschen der Daten von vorne."],
+  es: ["Tu diario es privado: solo lo lees tú.", "En tu móvil. Si creas una cuenta (gratis, desde Más › Cuenta y copia de seguridad), también se guarda una copia en línea solo para ti, así lo recuperas todo si cambias de móvil. Sin cuenta, si cambias de móvil o borras los datos, el progreso empieza de cero."],
+  fr: ["Ton journal est privé : toi seul peux le lire.", "Sur ton téléphone. Si tu crées un compte (gratuit, depuis Plus › Compte et sauvegarde), une sauvegarde en ligne rien que pour toi est aussi enregistrée : tu retrouves tout si tu changes de téléphone. Sans compte, si tu changes de téléphone ou effaces les données, tes progrès repartent de zéro."],
+  pt: ["Seu diário é privado: só você lê.", "No seu celular. Se você criar uma conta (grátis, em Mais › Conta e backup), também é salvo um backup online só seu, para recuperar tudo se trocar de celular. Sem conta, se você trocar de celular ou apagar os dados, o progresso começa do zero."],
+  ja: ["日記はあなただけのもの。読めるのはあなただけです。", "あなたのスマホの中です。アカウントを作ると（無料、「その他 › アカウントとバックアップ」から）、あなただけが使えるオンラインのバックアップも保存され、スマホを変えてもすべて元どおりです。アカウントがない場合、スマホを変えたりデータを消したりすると、進み具合はゼロからになります。"],
+  ko: ["일기는 비공개예요. 나만 읽을 수 있어요.", "내 폰에 있어요. 계정을 만들면(무료, 더 보기 › 계정 및 백업) 나만 볼 수 있는 온라인 백업도 저장돼서 폰을 바꿔도 모두 다시 찾을 수 있어요. 계정이 없으면 폰을 바꾸거나 데이터를 지울 때 진행 상황이 처음부터 시작돼요."],
+  zh: ["日记是私密的：只有你能看。", "在你的手机上。如果你创建账号（免费，在“更多 › 账号与备份”中），还会保存一份只有你能访问的网上备份，换手机也能找回一切。没有账号的话，换手机或清除数据后，进度会从零开始。"],
+  zht: ["日記是私密的：只有你能看。", "在你的手機上。如果你建立帳號（免費，在「更多 › 帳號與備份」中），還會儲存一份只有你能存取的網路備份，換手機也能找回一切。沒有帳號的話，換手機或清除資料後，進度就會從零開始。"],
+  ru: ["Дневник личный: читать его можешь только ты.", "На твоём телефоне. Если создать аккаунт (бесплатно, в разделе «Ещё» › «Аккаунт и резервная копия»), сохраняется и онлайн-копия, доступная только тебе, — так всё найдётся после смены телефона. Без аккаунта при смене телефона или очистке данных прогресс начнётся с нуля."],
+  pl: ["Twój dziennik jest prywatny: czytasz go tylko ty.", "Na twoim telefonie. Jeśli założysz konto (za darmo, w Więcej › Konto i kopia zapasowa), zapisuje się też kopia online dostępna tylko dla ciebie, więc po zmianie telefonu wszystko odzyskasz. Bez konta zmiana telefonu lub usunięcie danych oznacza start od zera."],
+  nl: ["Je dagboek is privé: alleen jij kunt het lezen.", "Op je telefoon. Als je een account maakt (gratis, via Meer › Account en back-up), wordt ook een online back-up bewaard die alleen jij kunt zien, zodat je alles terugvindt als je van telefoon wisselt. Zonder account begint je voortgang bij nul als je van telefoon wisselt of gegevens wist."],
+  tr: ["Günlüğün özeldir: yalnızca sen okursun.", "Telefonunda. Bir hesap oluşturursan (ücretsiz, Diğer › Hesap ve yedek bölümünden), yalnızca senin erişebildiğin çevrim içi bir yedek de kaydedilir; telefon değiştirsen bile her şeyi geri bulursun. Hesap olmadan telefon değiştirir ya da verileri silersen ilerlemen sıfırdan başlar."],
+};
+Object.keys(DATA_TXT).forEach((l) => { const L0 = T[l]; if (!L0) return; L0.privacy = DATA_TXT[l][0]; if (L0.guide && L0.guide[7]) L0.guide[7][1] = DATA_TXT[l][1]; });
 
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
