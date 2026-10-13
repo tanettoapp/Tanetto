@@ -1123,6 +1123,53 @@ html.lite .btn .spin { animation-duration: 1.6s; }
 .playcard { display: flex; flex-direction: column; gap: 10px; }
 .nudgecard .btn, .wdgcard .btn, .playcard .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
 .wdgcard { display: flex; flex-direction: column; gap: 10px; }
+
+/* =================== v15: fluidita' su qualunque telefono =================== */
+/* 1) Niente sfocature dello sfondo: costano tantissimo a ogni movimento. Sfondi un filo piu' pieni, stesso effetto. */
+.overlay, .tabs, .fullbtn, .scn, .tabbar, .trybar, .departbar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.overlay { background: color-mix(in srgb, var(--bg) 93%, transparent); }
+.tabs { background: color-mix(in srgb, var(--paper) 98%, transparent); }
+.fullbtn, .scn { background: rgba(255, 251, 244, .94); }
+/* 2) Scena: grana come immagine fissa (disegnata una volta), riflesso senza fusione costosa */
+.room > .rgrain { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: url("data:image/png;base64,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") repeat; background-size: 128px 128px; transform: translateZ(0); }
+.room::after { mix-blend-mode: normal; background: radial-gradient(60% 50% at var(--sx, 30%) var(--sy, 20%), rgba(255, 255, 255, .07), transparent 60%); }
+@media (hover: none) { .room { will-change: auto; transform-style: flat; } .room::after { display: none; } }
+/* 3) Animazioni infinite solo con movimenti "leggeri" (spostamento e trasparenza) */
+.bar .fill::before { left: 0; width: 40%; transform: translateX(-130%); animation: shine15 3.6s ease-in-out infinite; will-change: transform; }
+@keyframes shine15 { 0%, 55% { transform: translateX(-130%); } 100% { transform: translateX(330%); } }
+html.firstgoal .goal .tick { animation: none; position: relative; }
+html.firstgoal .goal .tick::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 45%, transparent); animation: firstring15 1.6s ease-out infinite; pointer-events: none; will-change: transform, opacity; }
+@keyframes firstring15 { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
+html.calm.firstgoal .goal .tick::after, html.lite.firstgoal .goal .tick::after { animation: none; display: none; }
+@media (prefers-reduced-motion: reduce) { html.firstgoal .goal .tick::after { animation: none; display: none; } }
+body::after { will-change: transform; }
+.seameta em { will-change: transform; }
+/* 4) Tocco immediato: niente ritardo del doppio tocco, risposta visiva istantanea */
+button, a, .chip, .goal, .tab { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+/* 5) Elenchi lunghi (mete, cartoline, oggetti della casa): il telefono disegna solo quelli che si vedono */
+.dest, .post, .grid3 > .item { content-visibility: auto; }
+.dest { contain-intrinsic-size: auto 96px; }
+.post { contain-intrinsic-size: auto 150px; }
+.grid3 > .item { contain-intrinsic-size: auto 138px; }
+/* 6) Effetti disegnati: stessa grandezza dei vecchi caratteri */
+svg.fxg { width: 1em; height: 1em; display: block; overflow: visible; }
+.fx span { line-height: 1; }
+/* 7) Entrata delle pagine: dissolvenza + piccolo scivolamento, a cascata, eseguita dal browser */
+.venter { animation: venter15 .36s cubic-bezier(.22, .9, .3, 1) backwards; animation-delay: calc(var(--vi, 0) * 26ms); }
+@keyframes venter15 { from { opacity: 0; transform: translate3d(var(--vdx, 0), var(--vdy, 12px), 0); } }
+html.calm .venter, html.lite .venter { animation: none; }
+@media (prefers-reduced-motion: reduce) { .venter { animation: none; } }
+/* 8) Tocco "vivo": ogni elemento toccabile si abbassa appena sotto il dito (movimento leggero, fatto dal browser) */
+.goal { transition: background .2s, transform .16s cubic-bezier(.2, .8, .2, 1); }
+.chip, .item, .dest, .choice, .act, .pack, .plan, .post { transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
+.goal:active, .item:active, .dest:active, .choice:active, .act:active, .pack:active, .plan:active, .post:active { transform: scale(.975); }
+.chip:active { transform: scale(.95); }
+.tab:active .ic { transform: scale(.9); transition: transform .12s; }
+html.calm .goal:active, html.calm .chip:active, html.calm .item:active, html.calm .dest:active, html.calm .choice:active, html.calm .act:active, html.calm .pack:active, html.calm .plan:active, html.calm .post:active { transform: none; }
+/* 9) Luci della discoteca: bordo morbido con una maschera (fissa) invece della sfocatura ricalcolata a ogni fotogramma */
+.disco { filter: none !important; mix-blend-mode: normal !important; -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); will-change: opacity; }
+#fullwrap.fullin { animation: fullin15 .42s cubic-bezier(.22, .9, .3, 1) both; }
+@keyframes fullin15 { from { opacity: 0; transform: scale(.94); } }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -20867,10 +20914,10 @@ if (!T[S.lang]) S.lang = "en";
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* senza memoria l'app funziona lo stesso */ } }
 const L = () => T[S.lang];
 const loc = () => L().locale;
-function fmtDate(iso) { const [y, m, d] = iso.split("-").map(Number); return new Intl.DateTimeFormat(loc(), { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(y, m - 1, d)); }
-const fmtDay = (d) => { const s = new Intl.DateTimeFormat(loc(), { day: "numeric", month: "long" }).format(d); return d.getDate() === 1 && S.lang === "fr" ? s.replace(/^1 /, "1er ") : d.getDate() === 1 && S.lang === "it" ? s.replace(/^1 /, "1º ") : s; };
+function fmtDate(iso) { const [y, m, d] = iso.split("-").map(Number); return intlDT(loc(), { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(y, m - 1, d)); }
+const fmtDay = (d) => { const s = intlDT(loc(), { day: "numeric", month: "long" }).format(d); return d.getDate() === 1 && S.lang === "fr" ? s.replace(/^1 /, "1er ") : d.getDate() === 1 && S.lang === "it" ? s.replace(/^1 /, "1º ") : s; };
 const wdIdx = (d = new Date()) => (d.getDay() + 6) % 7;
-const wdName = (i, style = "short") => new Intl.DateTimeFormat(loc(), { weekday: style }).format(new Date(2024, 0, 1 + i)).replace(/\.$/, "");
+const wdName = (i, style = "short") => intlDT(loc(), { weekday: style }).format(new Date(2024, 0, 1 + i)).replace(/\.$/, "");
 const goalText = (g) => g.startsWith("c:") ? g.slice(2) : (L().goals[g] || g);
 const goalCat = (g) => g.startsWith("c:") ? "custom" : (GOAL_CAT[g] || "custom");
 function todayGoals() { const i = wdIdx(); return S.goals.filter((g) => g.days.includes(i)).map((g) => g.id); }
@@ -20938,11 +20985,14 @@ function trackDaily() {
   track("apertura"); track(`lingua-${S.lang}`);
   if (S.pet) { const d = Math.round((new Date(t) - new Date(S.firstDay)) / 86400000); track(`giorno-${d}`); }
 }
+/* v15: i "formattatori" di date e numeri si creano una volta sola e si riusano (crearli costa, e prima succedeva a ogni disegno) */
+function intlDT(l, o) { const c = intlDT.c || (intlDT.c = new Map()); const k = l + JSON.stringify(o || {}); let f = c.get(k); if (!f) { f = new Intl.DateTimeFormat(l, o); c.set(k, f); } return f; }
+function intlNF(l, o) { const c = intlNF.c || (intlNF.c = new Map()); const k = l + JSON.stringify(o || {}); let f = c.get(k); if (!f) { f = new Intl.NumberFormat(l, o); c.set(k, f); } return f; }
 
 /* =================== ILLUSTRAZIONI =================== */
 const INK = "#33302E";
-let uid = 0, SCENE_TOP = 0;
-const nid = (p) => `${p}${++uid}`;
+let uid = 0, SCENE_TOP = 0, nidScope = "";
+const nid = (p) => `${p}${nidScope}${++uid}`;
 function eyes(e, lx, rx, y) {
   if (e === "amore") return [lx, rx].map((x) => `<path d="M${x} ${y + 6} C${x - 7} ${y + 1} ${x - 9} ${y - 3} ${x - 7} ${y - 6} C${x - 5} ${y - 9} ${x - 1} ${y - 8} ${x} ${y - 5} C${x + 1} ${y - 8} ${x + 5} ${y - 9} ${x + 7} ${y - 6} C${x + 9} ${y - 3} ${x + 7} ${y + 1} ${x} ${y + 6} Z" fill="#E2454A"/><circle cx="${x - 3}" cy="${y - 4}" r="1.6" fill="#fff" opacity=".8"/>`).join("");
   if (e === "wow") return [lx, rx].map((x) => `<ellipse cx="${x}" cy="${y}" rx="7.6" ry="9.4" fill="${INK}"/><circle cx="${x + 2.6}" cy="${y - 3.6}" r="3" fill="#fff"/><circle cx="${x - 2.4}" cy="${y + 3.4}" r="1.5" fill="#fff" opacity=".9"/>`).join("");
@@ -21903,7 +21953,7 @@ function calendar() {
   const t = L(); const now = new Date(); const y = now.getFullYear(), m = now.getMonth();
   const days = new Date(y, m + 1, 0).getDate(); const lead = (new Date(y, m, 1).getDay() + 6) % 7;
   const wd = [...Array(7)].map((_, i) => wdName(i, "narrow"));
-  const mname = new Intl.DateTimeFormat(loc(), { month: "long", year: "numeric" }).format(now);
+  const mname = intlDT(loc(), { month: "long", year: "numeric" }).format(now);
   let cells = wd.map((w) => `<span class="wd">${w}</span>`).join("") + `<span class="d empty"></span>`.repeat(lead);
   for (let d = 1; d <= days; d++) {
     const k = dkey(new Date(y, m, d)); const r = S.days[k]; let cls = "";
@@ -21981,15 +22031,18 @@ function render() {
   applyRoot();
   ambient.forEach((a) => a.kill && a.kill()); ambient = [];
   const view = !S.pet ? "onb" + S.onboard : tab;
-  app.innerHTML = !S.pet ? viewOnboard() : tab === "trips" ? viewTrips() : tab === "home" ? viewHome() : tab === "diary" ? viewDiary() : tab === "more" ? viewMore() : viewToday();
+  /* id delle figure stabili tra un disegno e l'altro della stessa pagina: cosi' si aggiorna solo cio' che cambia */
+  const uid0 = uid; nidScope = "a"; uid = 0; let html;
+  try { html = !S.pet ? viewOnboard() : tab === "trips" ? viewTrips() : tab === "home" ? viewHome() : tab === "diary" ? viewDiary() : tab === "more" ? viewMore() : viewToday(); } finally { nidScope = ""; uid = uid0; }
+  viewPut(html, view === lastTab);
   document.body.classList.toggle("hasbar", !!document.querySelector(".departbar"));
   renderTabs(); startAmbient(); animateBars();
   countUp(document.getElementById("seedN"), lastSeeds, S.seeds); lastSeeds = S.seeds;
   if (anim && view !== lastTab) {
-    const items = app.querySelectorAll(".top, .roomwrap, .room, .meters, .stack > h1, .stack > h2, .stack > p, .card, .event, .goal, .dest, .item, .post, .catgroup, .cta, .story, .away, .teaser, .steps, .choose, .tabsx, .sec");
+    const items = viewEnterItems(app.querySelectorAll(".top, .roomwrap, .meters, .stack > h1, .stack > h2, .stack > p, .card, .event, .goal, .dest, .item, .post, .catgroup, .cta, .story, .away, .teaser, .steps, .choose, .tabsx, .sec")); ambQuiet(550);
     const TABS = ["today", "trips", "home", "diary", "more"]; const a = TABS.indexOf(view), bI = TABS.indexOf(lastTab);
-    const dx = a >= 0 && bI >= 0 ? (a > bI ? 26 : -26) : 0;
-    G.from(items, { opacity: 0, y: dx ? 6 : 14, x: dx, duration: 0.42, stagger: 0.024, ease: "power3.out", clearProps: "opacity,transform" });
+    const dx = a >= 0 && bI >= 0 ? (a > bI ? 16 : -16) : 0;
+    viewEnter(items, dx);
     const cur = document.querySelector('.tab[aria-current="page"] .ic');
     if (cur && lastTab) G.fromTo(cur, { y: 0, scale: 1 }, { keyframes: [{ y: -5, scale: 1.12, duration: 0.14, ease: "power2.out" }, { y: 0, scale: 1, duration: 0.45, ease: "bounce.out" }] });
   }
@@ -22060,7 +22113,7 @@ function burst(kind, n = 8, host) {
   const color = { heart: "#E2654F", star: "#E9A23B", seed: "#B07A3C" }[kind];
   const glyph = { heart: "♥", star: "✦", seed: "●" }[kind];
   for (let i = 0; i < n; i++) {
-    const s = document.createElement("span"); s.textContent = glyph; s.setAttribute("aria-hidden", "true");
+    const s = document.createElement("span"); s.innerHTML = fxGlyph(glyph); s.setAttribute("aria-hidden", "true");
     s.style.left = "50%"; s.style.top = "62%"; s.style.color = color; s.style.fontSize = `${14 + Math.random() * 12}px`;
     fx.appendChild(s);
     if (anim) G.to(s, { x: (Math.random() - 0.5) * 220, y: -60 - Math.random() * 110, opacity: 0, rotation: (Math.random() - 0.5) * 90, duration: 1 + Math.random() * 0.5, ease: "power2.out", onComplete: () => s.remove() });
@@ -22321,8 +22374,10 @@ document.addEventListener("click", (ev) => {
   if (b.id === "togglePicker") { showPicker = !showPicker; const y = window.scrollY; render(); window.scrollTo(0, y); return; }
   if (b.id === "makeWeek") { makeWeekCard(); return; }
   if (b.dataset.tab) {
-    const same = tab === b.dataset.tab; tab = b.dataset.tab; confirmReset = false; editGoals = null; showPicker = false; if (!same) SND.play("click"); render(); window.scrollTo(0, 0);
-    if (b.dataset.focus === "goals") setTimeout(() => document.getElementById("goalsCard")?.scrollIntoView({ behavior: "smooth" }), 50);
+    const same = tab === b.dataset.tab; tab = b.dataset.tab; confirmReset = false; editGoals = null; showPicker = false; if (!same) SND.play("click");
+    /* Risposta immediata: l'indicatore della scheda si muove subito, la pagina arriva al fotogramma dopo */
+    const go = () => { render(); window.scrollTo(0, 0); if (b.dataset.focus === "goals") setTimeout(() => document.getElementById("goalsCard")?.scrollIntoView({ behavior: "smooth" }), 50); };
+    if (!same && anim && S.pet) { renderTabs(); tabPending = requestAnimationFrame(() => { tabPending = setTimeout(() => { tabPending = 0; go(); }, 0); }); } else go();
     return;
   }
   if (b.dataset.hometab) { homeTab = b.dataset.hometab; SND.play("click"); render(); return; }
@@ -22450,7 +22505,7 @@ document.addEventListener("pointermove", (ev) => {
     dragInfo.step = dragInfo.dist;
     const fx = document.getElementById("fx"), room = document.getElementById("room");
     if (fx && room) {
-      const r = room.getBoundingClientRect(); const h = document.createElement("span"); h.textContent = "♥"; h.style.color = "#EE7FA0"; h.style.fontSize = "18px";
+      const r = room.getBoundingClientRect(); const h = document.createElement("span"); h.innerHTML = fxGlyph("♥"); h.style.color = "#EE7FA0"; h.style.fontSize = "18px";
       h.style.left = `${ev.clientX - r.left}px`; h.style.top = `${ev.clientY - r.top - 20}px`; fx.appendChild(h);
       if (anim) G.to(h, { y: -50, x: (Math.random() - 0.5) * 30, opacity: 0, duration: 0.9, ease: "power2.out", onComplete: () => h.remove() }); else setTimeout(() => h.remove(), 500);
     }
@@ -23076,7 +23131,7 @@ function performTrick(i) {
   else if (i === 3) { tl.to(p, { y: -80, duration: 0.3, ease: "power2.out", transformOrigin: "50% 50%" }).to(p, { rotation: 360, duration: 0.45, ease: "none" }, "<0.1").to(p, { y: 0, duration: 0.35, ease: "bounce.out" }).set(p, { rotation: 0 }); SND.play("giggle"); }
   else if (i === 4) { tl.to(p, { rotation: -10, duration: 0.15, transformOrigin: "50% 100%" }).to(p, { rotation: 10, duration: 0.15, repeat: 5, yoyo: true }).to(p, { rotation: 0, duration: 0.2 }); burst("heart", 8); SND.play("pop"); }
   else if (i === 5 && fx) {
-    const st = [0, 1, 2].map(() => { const s = document.createElement("span"); s.textContent = "★"; s.style.color = "#FFC94D"; s.style.fontSize = "22px"; s.style.left = "48%"; s.style.top = "30%"; fx.appendChild(s); return s; });
+    const st = [0, 1, 2].map(() => { const s = document.createElement("span"); s.innerHTML = fxGlyph("★"); s.style.color = "#FFC94D"; s.style.fontSize = "22px"; s.style.left = "48%"; s.style.top = "30%"; fx.appendChild(s); return s; });
     st.forEach((s, k) => G.to(s, { keyframes: [{ x: -40, y: -50 }, { x: 0, y: -80 }, { x: 40, y: -50 }, { x: 0, y: 0 }], duration: 0.9, repeat: 2, delay: k * 0.3, ease: "sine.inOut", onComplete: () => s.remove() }));
     tl.to(p, { y: -6, duration: 0.15, yoyo: true, repeat: 11 }); SND.play("jingle");
   } else if (fx) {
@@ -23298,7 +23353,7 @@ function calmStep(i) {
 
 /* --- Grafica: saluto, inclinazione 3D della stanza, indicatore delle sezioni, sorprese alla finestra --- */
 function greetLine() {
-  const t = L(); let d = new Intl.DateTimeFormat(loc(), { weekday: "long", day: "numeric", month: "long" }).format(new Date()); d = d.charAt(0).toUpperCase() + d.slice(1);
+  const t = L(); let d = intlDT(loc(), { weekday: "long", day: "numeric", month: "long" }).format(new Date()); d = d.charAt(0).toUpperCase() + d.slice(1);
   return `<div class="greet"><span class="gw">${t.greet[phase()]}</span><span class="gd">${esc(d)}</span></div>`;
 }
 document.addEventListener("pointermove", (ev) => {
@@ -23941,7 +23996,7 @@ function spotAction(k, b) {
   lookAtEl(b);
   if (k === "window") { windowSurprise(); say(pick(o.window), 2800); SND.play("chime"); }
   else if (k === "fish") { const f = document.querySelector("#room .fishg"); if (f && anim) G.fromTo(f, { scale: 1 }, { scale: 1.5, rotation: -20, transformOrigin: "50% 50%", duration: 0.22, yoyo: true, repeat: 1 }); fxAt(b, "○", "bubfx", 1, -30); SND.play("pop"); say(pick(o.fish), 2400); }
-  else if (k === "clock") { say(o.clock(new Intl.DateTimeFormat(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date())), 3000); SND.play("chime"); }
+  else if (k === "clock") { say(o.clock(intlDT(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date())), 3000); SND.play("chime"); }
   else if (k === "lamp") { glowAt(b, "#FFE3A3"); SND.play(S.lightsOff ? "lighton" : "click"); say(pick(o.lamp), 2400); }
   else if (k === "plant") { dropsAt(b); const pl = document.querySelectorAll("#room .plantg"); if (anim) G.fromTo(pl, { rotation: -6 }, { rotation: 0, duration: 0.8, ease: "elastic.out(1, .3)" }); SND.play("sparkle"); say(pick(o.plant), 2800); }
   else if (k === "guitar") { strum(); danceShort(); notesAt(b); say(pick(o.guitar), 2400); }
@@ -24275,7 +24330,7 @@ const PACKS = [{ n: 120, p: 0.99, b: 0 }, { n: 650, p: 4.99, b: 8 }, { n: 1400, 
 const PLUS_PRICE = { month: 4.99, year: 44.99 };
 const PLUS_SCENES = ["beach", "camp", "snow"];
 const FD_GIFT = 15;
-const money = (v) => { try { return new Intl.NumberFormat(loc(), { style: "currency", currency: "EUR" }).format(v); } catch (e) { return `€${v}`; } };
+const money = (v) => { try { return intlNF(loc(), { style: "currency", currency: "EUR" }).format(v); } catch (e) { return `€${v}`; } };
 const plusActive = () => plusOk(); /* v14: vale solo un abbonamento vero di Google Play (vedi 97o_billing.js) */
 
 /* --- L'icona grande di Tanetto (benvenuto e icone dell'app) --- */
@@ -24683,7 +24738,7 @@ function monthStats() {
   const cc = {}; log.forEach((x) => { const c = goalCat(x.g); cc[c] = (cc[c] || 0) + 1; });
   const weeks = [0, 0, 0, 0, 0]; log.forEach((x) => { weeks[Math.min(4, Math.floor((+x.d.slice(8, 10) - 1) / 7))]++; });
   const moods = [0, 0, 0, 0, 0]; (S.diary || []).filter((e) => e.day && e.day.startsWith(pre) && e.mood != null).forEach((e) => { moods[e.mood]++; });
-  return { n: log.length, days, top, gc, cc, weeks, moods, month: new Intl.DateTimeFormat(loc(), { month: "long" }).format(now) };
+  return { n: log.length, days, top, gc, cc, weeks, moods, month: intlDT(loc(), { month: "long" }).format(now) };
 }
 function reportCard() {
   const t = L().rep; const m = monthStats();
@@ -25668,8 +25723,8 @@ let A = (() => { try { return Object.assign({ freq: "week" }, JSON.parse(localSt
 function saveA() { try { localStorage.setItem(ACCT_KEY, JSON.stringify(A)); } catch (e) { /* niente */ } }
 const signedIn = () => !!A.uid;
 const AC = () => L().acct;
-const fmtDT = (ms) => new Intl.DateTimeFormat(loc(), { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
-const fmtD = (ms) => new Intl.DateTimeFormat(loc(), { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(ms));
+const fmtDT = (ms) => intlDT(loc(), { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
+const fmtD = (ms) => intlDT(loc(), { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(ms));
 
 Object.assign(ICON, {
   ac_mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/>',
@@ -26002,7 +26057,7 @@ const BT = () => L().bill;
 function plusOk() { return isNativeApp() && !!S.plusOn; }
 const billPlugin = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.Billing) || (C.registerPlugin ? C.registerPlugin("Billing") : null); } catch (e) { return null; } };
 const playLive = () => dkey() >= PLAY_FROM;
-const curFmt = (micros, cur) => { try { return new Intl.NumberFormat(loc(), { style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
+const curFmt = (micros, cur) => { try { return intlNF(loc(), { style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
 const isoDays = (p) => { const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?$/.exec(p || ""); if (!m) return 0; return (+m[1] || 0) * 365 + (+m[2] || 0) * 30 + (+m[3] || 0) * 7 + (+m[4] || 0); };
 
 /* --- Prodotti e prezzi da Google --- */
@@ -26204,7 +26259,7 @@ viewMore = function () {
 /* ---------- Promemoria con notifiche vere (solo app Android) ---------- */
 const LN = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.LocalNotifications) || (C.registerPlugin ? C.registerPlugin("LocalNotifications") : null); } catch (e) { return null; } };
 const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200, NOTIF_CH = "promemoria";
-const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return new Intl.DateTimeFormat(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
+const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
 let notifBusy = null;
 /* Programma i prossimi 7 giorni (un messaggio diverso ogni giorno); se oggi e' gia' tutto fatto, oggi niente notifica.
    Si riprogramma a ogni apertura: chi non apre l'app per una settimana non riceve altro (niente insistenza). */
@@ -26459,6 +26514,209 @@ setTimeout(async () => {
 }, 1500);
 /* All'apertura senza compagno (es. app chiusa subito dopo "Esci"): niente promemoria o widget rimasti indietro */
 setTimeout(() => { if (isNativeApp() && !S.pet) petGone(); }, 1200);
+
+/* =================== v15: fluidita' su qualunque telefono =================== */
+/* Il problema: la scena del compagno si ridisegnava 60 volte al secondo (respiro, nuvole, foglie, polvere)
+   e sopra c'era un filtro "grana" calcolato ogni volta. Sui telefoni economici questo rubava il tempo
+   a tutto il resto (scorrere, toccare, cambiare scheda).
+   La soluzione:
+   1) la grana diventa una piccola immagine fissa, disegnata una volta sola;
+   2) le animazioni d'ambiente (respiro, nuvole, stelle...) vanno a 24 immagini al secondo: per movimenti
+      lenti e morbidi l'occhio non vede differenze, ma il telefono lavora meno della meta';
+   3) mentre tocchi, scorri o cambi scheda, l'ambiente si ferma un attimo: la priorita' e' sempre tua;
+   4) app in secondo piano o scena fuori dallo schermo: l'ambiente si ferma del tutto. */
+/* telefoni con poca memoria o pochi processori: ambiente ancora piu' leggero */
+const AMB_FPS = (navigator.deviceMemory && navigator.deviceMemory <= 3) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ? 16 : 24;
+let ambTL = null, ambLast = 0, ambRaf = 0, ambQuietUntil = 0, ambVisible = true, ambObs = null;
+
+function ambDrive(ts) {
+  ambRaf = 0; if (!ambTL) return;
+  if (document.visibilityState !== "visible" || !ambVisible) { ambLast = 0; return; }
+  ambRaf = requestAnimationFrame(ambDrive);
+  if (!ambLast) { ambLast = ts; return; }
+  const dt = ts - ambLast; if (dt < 1000 / AMB_FPS - 2) return;
+  ambLast = ts;
+  if (ts < ambQuietUntil) return; /* mentre l'utente interagisce, l'ambiente aspetta (il tempo non avanza: niente salti) */
+  ambTL.totalTime(ambTL.totalTime() + Math.min(dt, 120) / 1000);
+}
+function ambStart() { if (!ambRaf && ambTL) { ambLast = 0; ambRaf = requestAnimationFrame(ambDrive); } }
+function ambQuiet(ms) { ambQuietUntil = Math.max(ambQuietUntil, performance.now() + ms); }
+
+/* Dopo ogni disegno della scena: grana come immagine e animazioni d'ambiente sul "motore lento" */
+function roomTune() {
+  const room = document.getElementById("room"); if (!room) return;
+  let had = roomGrain;
+  room.querySelectorAll(":scope > svg > rect[filter]").forEach((r) => { if (/url\(#gr/.test(r.getAttribute("filter") || "")) { r.remove(); had = true; } });
+  const cur = room.querySelector(":scope > .rgrain");
+  if (had && !cur) { const g = document.createElement("div"); g.className = "rgrain"; g.setAttribute("aria-hidden", "true"); g.setAttribute("data-keep", "1"); const sv = room.querySelector(":scope > svg"); if (sv) sv.after(g); }
+  else if (!had && cur) cur.remove();
+  if (ambObs) ambObs.disconnect();
+  if ("IntersectionObserver" in window) { ambObs = new IntersectionObserver((es) => { ambVisible = es.some((e) => e.isIntersecting); if (ambVisible) ambStart(); }); ambObs.observe(room); }
+}
+function ambAdopt() {
+  if (!anim || !ambient.length) return;
+  if (ambTL) ambTL.kill();
+  ambTL = G.timeline({ paused: true });
+  ambient.forEach((a) => { if (a && a.kill && !(a.data === "keep")) { try { ambTL.add(a, 0); } catch (e) { /* niente */ } } });
+  ambStart();
+}
+const _startAmbientV15 = startAmbient;
+/* La priorita' e' di chi tocca: durante tocchi, scorrimenti e cambi di scheda l'ambiente si mette in pausa */
+document.addEventListener("pointerdown", () => ambQuiet(450), { passive: true, capture: true });
+document.addEventListener("scroll", () => ambQuiet(250), { passive: true, capture: true });
+document.addEventListener("touchmove", () => ambQuiet(250), { passive: true, capture: true });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") ambStart(); });
+
+/* Entrata della pagina al cambio scheda: anima solo cio' che si vede (massimo 12 elementi).
+   Gli altri sono gia' al loro posto: niente lavoro sprecato per cose fuori dallo schermo. */
+function viewEnterItems(items) {
+  /* i primi elementi della pagina (quelli in alto, che si vedono): niente misure, niente attese */
+  const out = []; for (const el of items) { if (out.length >= 12) break; if (!el.closest(".room")) out.push(el); }
+  return out;
+}
+/* Entrata morbida fatta dal browser stesso (scorre fluida anche se il telefono e' occupato) */
+function viewEnter(items, dx) {
+  items.forEach((el, i) => {
+    el.style.setProperty("--vi", i); el.style.setProperty("--vdx", dx * 0.6 + "px"); el.style.setProperty("--vdy", (dx ? 4 : 12) + "px");
+    el.classList.remove("venter"); el.classList.add("venter");
+    el.addEventListener("animationend", function done(ev) { if (ev.target !== el) return; el.classList.remove("venter"); el.style.removeProperty("--vi"); el.style.removeProperty("--vdx"); el.style.removeProperty("--vdy"); el.removeEventListener("animationend", done); });
+  });
+}
+
+/* Le animazioni d'ambiente partono un attimo dopo, a pagina gia' comparsa: il cambio scheda e' istantaneo */
+let ambTimer = 0;
+startAmbient = function () {
+  clearTimeout(ambTimer); if (ambTL) { ambTL.kill(); ambTL = null; }
+  roomTune();
+  if (!anim) return;
+  const room = document.getElementById("room"); if (!room) return;
+  ambTimer = setTimeout(() => {
+    const go = () => { ambTimer = 0; if (document.getElementById("room") !== room) return; _startAmbientV15(); ambAdopt(); };
+    if (window.requestIdleCallback) requestIdleCallback(go, { timeout: 400 }); else go();
+  }, 380);
+};
+
+/* Barra delle schede: non si ricostruisce a ogni tocco, si aggiornano solo la scheda attiva e i pallini */
+let tabsSig = "";
+const _renderTabsV15 = renderTabs;
+renderTabs = function () {
+  const nav = document.getElementById("tabsIn"); const t = L();
+  const sig = S.lang + "|" + !!S.pet + "|" + ["today", "trips", "home", "diary", "more"].map((k) => t.tabs[k]).join(",");
+  const btns = nav ? nav.querySelectorAll("button.tab") : [];
+  if (!nav || sig !== tabsSig || btns.length !== 5) { tabsSig = sig; return _renderTabsV15(); }
+  document.getElementById("tabs").hidden = !S.pet;
+  const si = S.pet ? seasonState() : null;
+  const dots = { trips: S.energy >= 100 && !S.away && !story, today: (S.giftDay !== S.day && !!S.pet) || (!!si && S.season.n >= EVENT_GOAL && !S.season.claimed) };
+  btns.forEach((b) => {
+    const k = b.dataset.tab; const on = tab === k;
+    if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+    const want = dots[k] && !on; const d = b.querySelector("i.dot");
+    if (want && !d) { const i = document.createElement("i"); i.className = "dot"; i.setAttribute("aria-hidden", "true"); b.appendChild(i); } else if (!want && d) d.remove();
+  });
+  requestAnimationFrame(() => moveTabPill(false));
+};
+/* L'indicatore della scheda scivola solo in orizzontale (movimento leggero), la larghezza si imposta subito */
+moveTabPill = function (instant) {
+  const nav = document.getElementById("tabsIn"); if (!nav) return;
+  let pill = nav.querySelector(".tabpill"); const cur = nav.querySelector('.tab[aria-current="page"] .ic'); if (!cur) return;
+  if (!pill) { pill = document.createElement("span"); pill.className = "tabpill"; nav.prepend(pill); }
+  const nr = nav.getBoundingClientRect(), cr = cur.getBoundingClientRect();
+  const x = cr.left - nr.left, y = cr.top - nr.top;
+  pill.style.width = cr.width + "px";
+  if (anim && !instant && pill.dataset.x && G) G.fromTo(pill, { x: +pill.dataset.x, y }, { x, y, duration: 0.38, ease: "power3.out", force3D: true, overwrite: true });
+  else if (G) G.set(pill, { x, y }); else pill.style.transform = `translate(${x}px, ${y}px)`;
+  pill.dataset.x = x;
+};
+
+/* Ridisegno mirato: sulla stessa pagina si cambia solo cio' che e' davvero cambiato (niente pagina rifatta da zero).
+   Cambiando scheda, invece, la pagina nuova si costruisce intera (con la sua animazione d'entrata). */
+const viewTpl = document.createElement("template");
+const GRAIN_RX = /<rect [^>]*filter="url\(#gra?\d+\)"\s*\/>/g;
+let roomGrain = false;
+function viewPut(html, same) {
+  const h2 = html.replace(GRAIN_RX, ""); roomGrain = h2.length !== html.length; html = h2;
+  if (!same || !app.firstChild || !viewMorphOn || viewFresh) { viewFresh = false; app.innerHTML = html; return; }
+  viewTpl.innerHTML = html;
+  morphKids(app, viewTpl.content);
+}
+let viewMorphOn = true, viewFresh = false;
+/* Entrare/uscire dallo schermo intero cambia tutta la pagina: si ricostruisce da zero (piu' veloce del confronto) */
+openFull = function () {
+  if (S.away) return;
+  full = true; petDX = 0; petFlip = false; playMode = null; document.body.classList.add("isfull");
+  try { const el = document.documentElement; if (el.requestFullscreen && !document.fullscreenElement && window.top === window.self) el.requestFullscreen().catch(() => {}); } catch (e) { /* niente */ }
+  SND.play("sparkle"); viewFresh = true; render(); window.scrollTo(0, 0); trackOnce("schermo-intero");
+  /* entrata fatta dal browser (niente misure forzate della pagina) */
+  const w = document.getElementById("fullwrap"); if (anim && w) { w.classList.add("fullin"); w.addEventListener("animationend", () => w.classList.remove("fullin"), { once: true }); }
+};
+const _closeFullV15 = closeFull; closeFull = function (x) { viewFresh = true; return _closeFullV15(x); };
+function morphKids(a, b) {
+  let x = a.firstChild, y = b.firstChild;
+  while (y) {
+    const ny = y.nextSibling;
+    if (x && x.nodeType === 1 && x.hasAttribute("data-keep") && !(y.nodeType === 1 && y.hasAttribute("data-keep"))) { x = x.nextSibling; continue; }
+    if (!x) { a.appendChild(y); y = ny; continue; }
+    const nx = x.nextSibling;
+    if (sameKind(x, y)) morphNode(x, y); else a.replaceChild(y, x);
+    x = nx; y = ny;
+  }
+  while (x) { const nx = x.nextSibling; if (!(x.nodeType === 1 && x.hasAttribute("data-keep"))) a.removeChild(x); x = nx; }
+}
+function sameKind(x, y) {
+  if (x.nodeType !== y.nodeType) return false;
+  if (x.nodeType !== 1) return true;
+  return x.nodeName === y.nodeName && (x.id || "") === (y.id || "") && (x.nodeName !== "INPUT" || x.type === y.type);
+}
+function morphNode(x, y) {
+  if (x.nodeType !== 1) { if (x.nodeValue !== y.nodeValue) x.nodeValue = y.nodeValue; return; }
+  if (x.isEqualNode(y)) return;
+  const ya = y.attributes;
+  for (let i = x.attributes.length - 1; i >= 0; i--) { const n = x.attributes[i].name; if (!y.hasAttribute(n)) x.removeAttribute(n); }
+  for (let i = 0; i < ya.length; i++) { const at = ya[i]; if (x.getAttribute(at.name) !== at.value) x.setAttribute(at.name, at.value); }
+  const tag = x.nodeName;
+  if (tag === "TEXTAREA") { if (document.activeElement !== x && x.value !== y.value) x.value = y.value; return; }
+  morphKids(x, y);
+  if (tag === "INPUT" && document.activeElement !== x) {
+    if (x.type === "checkbox" || x.type === "radio") x.checked = y.hasAttribute("checked");
+    else if (x.value !== (y.getAttribute("value") || "")) x.value = y.getAttribute("value") || "";
+  }
+  if (tag === "SELECT" && document.activeElement !== x) { const o = x.querySelector("option[selected]"); if (o) x.value = o.value; }
+}
+
+/* Effetti (cuori, stelline, note): disegnati come piccole figure invece che come caratteri speciali.
+   I caratteri come ♥ ✦ ♪ costringevano il telefono a cercare ogni volta il font giusto (fino a 20-30 ms a effetto). */
+const FX_G = {
+  "♥": '<path d="M12 21s-7.4-4.5-9.5-9.1C1 8.4 3.1 4.6 6.9 4.6c2.2 0 3.6 1.2 5.1 3 1.5-1.8 2.9-3 5.1-3 3.8 0 5.9 3.8 4.4 7.3C19.4 16.5 12 21 12 21z"/>',
+  "✦": '<path d="M12 1.5c.9 6.6 3 8.9 10.5 10.5-7.5 1.6-9.6 3.9-10.5 10.5-.9-6.6-3-8.9-10.5-10.5C9 10.4 11.1 8.1 12 1.5z"/>',
+  "★": '<path d="M12 2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 16.8 6.1 20.1l1.3-6.6L2.5 8.9l6.6-.8z"/>',
+  "●": '<circle cx="12" cy="12" r="7"/>',
+  "♪": '<path d="M14.5 2.5c.3 2.6 2.4 3.9 4.5 5.3l-1 1.7c-1.3-.8-2.4-1.5-3.1-2.4v9.4a3.6 3.6 0 1 1-2-3.2V2.5h1.6z"/>',
+  "♫": '<path d="M8.5 5.2 20 2.6v12.9a3.3 3.3 0 1 1-2-3V7.1l-7.5 1.7v8.9a3.3 3.3 0 1 1-2-3V5.2z"/>',
+  "♩": '<path d="M15 2.5v13.3a3.6 3.6 0 1 1-2-3.2V2.5h2z"/>',
+};
+function fxGlyph(ch) { const p = FX_G[ch]; return p ? `<svg class="fxg" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">${p}</svg>` : esc(ch); }
+const _fxAtV15 = fxAt;
+fxAt = function (el, html, cls, life, dy) { return _fxAtV15(el, FX_G[html] ? fxGlyph(html) : html, cls, life, dy); };
+let tabPending = 0;
+
+/* =================== v15: accesso per i revisori di Google Play =================== */
+/* Google deve poter provare anche Tanetto Plus senza pagare. Esiste UN solo account speciale, creato dallo
+   sviluppatore nella console di Firebase (documento reviewers/{uid} con plus: true): chi entra con quello
+   vede Plus attivo. Il documento non si puo' creare ne' modificare dall'app (regole di Firestore). */
+async function reviewCheck() {
+  if (!A.uid) { if (A.rev) { A.rev = false; saveA(); } return; }
+  try {
+    await fbLoad(); if (!A.uid || !window.TanFB.perks) return;
+    const p = await window.TanFB.perks(); const rev = !!(p && p.plus === true);
+    if (rev !== !!A.rev) { A.rev = rev; saveA(); if (S.pet && (tab === "more" || tab === "today")) { const y = window.scrollY; render(); window.scrollTo(0, y); } }
+  } catch (e) { /* senza internet resta com'era */ }
+}
+plusOk = function () { return isNativeApp() && (!!S.plusOn || !!(A.uid && A.rev)); };
+const _afterLoginV15 = afterLogin;
+afterLogin = async function (...a) { const r = await _afterLoginV15(...a); reviewCheck(); return r; };
+const _checkSessionV15 = checkSession;
+checkSession = function (u) { _checkSessionV15(u); if (!A.uid && A.rev) { A.rev = false; saveA(); } };
+setTimeout(() => { if (A.uid) reviewCheck(); }, 4000);
 
 window.__tlevel = SND.level;
 window.__v8 = { spot: () => hideSpot, dims: () => dims(), mode: () => playMode, full: () => full, scene: () => sceneId };
