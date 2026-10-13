@@ -31,6 +31,10 @@ public class TanettoWidget extends AppWidgetProvider {
         SharedPreferences p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         String name = p.getString("name", null);
         String line = p.getString("line", null);
+        /* I dati sono di un altro giorno (l'app non e' ancora stata aperta oggi): niente numeri vecchi, solo "Apri Tanetto" */
+        String day = p.getString("day", "");
+        String today = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(new java.util.Date());
+        if (!today.equals(day)) line = context.getString(R.string.widget_open);
         if (name != null && !name.isEmpty()) v.setTextViewText(R.id.widget_name, name);
         if (line != null && !line.isEmpty()) v.setTextViewText(R.id.widget_line, line);
         File f = new File(context.getFilesDir(), IMG);

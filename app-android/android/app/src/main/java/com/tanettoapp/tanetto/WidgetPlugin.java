@@ -22,6 +22,14 @@ public class WidgetPlugin extends Plugin {
         Context c = getContext();
         try {
             String img = call.getString("image");
+            if (Boolean.TRUE.equals(call.getBoolean("reset", false))) {
+                /* uscita dall'account o "Ricomincia da capo": il widget torna quello iniziale */
+                new File(c.getFilesDir(), TanettoWidget.IMG).delete();
+                c.getSharedPreferences(TanettoWidget.PREFS, Context.MODE_PRIVATE).edit().clear().apply();
+                TanettoWidget.refreshAll(c);
+                call.resolve();
+                return;
+            }
             if (img != null && img.startsWith("data:image/png;base64,")) {
                 byte[] bytes = Base64.decode(img.substring(22), Base64.DEFAULT);
                 File tmp = new File(c.getFilesDir(), TanettoWidget.IMG + ".tmp");
@@ -32,6 +40,7 @@ public class WidgetPlugin extends Plugin {
             c.getSharedPreferences(TanettoWidget.PREFS, Context.MODE_PRIVATE).edit()
                 .putString("name", call.getString("name", ""))
                 .putString("line", call.getString("line", ""))
+                .putString("day", call.getString("day", ""))
                 .apply();
             TanettoWidget.refreshAll(c);
             call.resolve();
