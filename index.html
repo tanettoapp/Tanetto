@@ -1186,6 +1186,42 @@ html.calm .goal:active, html.calm .chip:active, html.calm .item:active, html.cal
 .sticky .row .spacer { display: none; }
 .pmore > .card:nth-of-type(n+3) { content-visibility: auto; contain-intrinsic-size: auto 240px; }
 .entries > li:nth-child(n+4) { content-visibility: auto; contain-intrinsic-size: auto 96px; }
+.legend i.lgsome { background: color-mix(in srgb, var(--accent) 40%, var(--paper-2)); }
+
+/* === RISERVA COLOR-MIX (generato da gen_cm_fallback.py, non modificare a mano) === */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  body::before { background: radial-gradient(120% 100% at 50% 0%, transparent, transparent 70%); }
+  .btn { box-shadow: 0 3px 0 rgba(0, 0, 0, .28); }
+  .btn:active { box-shadow: 0 1px 0 rgba(0, 0, 0, .28); }
+  .meter .bdg.xp { background: radial-gradient(circle at 35% 30%, #fff, var(--accent) 75%); }
+  .bar.xp .fill { background: linear-gradient(180deg, var(--accent), var(--accent)); }
+  .bar.ev .fill { background: linear-gradient(180deg, var(--evc), var(--evc)); }
+  .event .evi { background: var(--paper); }
+  .goal[aria-pressed="true"] .txt b { text-decoration-color: var(--accent); }
+  .cal .d.l1 { background: var(--accent-soft); }
+  .cal .d.l2 { background: var(--accent); }
+  .weekrow i.l1 { background: var(--accent-soft); }
+  .weekrow i.l2 { background: var(--accent); }
+  .overlay { background: var(--bg); }
+  .breath .ring { background: radial-gradient(circle, var(--accent-soft) 0%, var(--accent-soft) 100%); }
+  .tabs { background: var(--paper); }
+  .rays { background: repeating-conic-gradient(transparent 0 10deg, transparent 10deg 20deg); }
+  body::after { background: radial-gradient(40% 50% at 20% 30%, transparent, transparent 70%), radial-gradient(35% 45% at 80% 20%, transparent, transparent 70%); }
+  .btn { background: linear-gradient(180deg, var(--accent), var(--accent) 60%); }
+  .mrow .bdg.xp { background: radial-gradient(circle at 35% 30%, #fff, var(--accent) 75%); }
+  .trybar .in { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .35), 0 0 0 1px transparent; }
+  .goal:not([aria-pressed="true"]) { background: linear-gradient(90deg, var(--paper), var(--paper) 55%); }
+  .seabar.g i { background: linear-gradient(90deg, var(--accent), var(--accent)); }
+  .svdots i.cur { background: var(--accent); }
+  html.lite .overlay { background: var(--bg); }
+  .tabs { background: var(--paper) !important; }
+  .chic.acc { background: var(--accent-soft); }
+  .overlay { background: var(--bg); }
+  .tabs { background: var(--paper); }
+  html.firstgoal .goal .tick::after { box-shadow: 0 0 0 6px transparent; }
+  .legend i.lgsome { background: var(--accent-soft); }
+}
+/* === FINE RISERVA COLOR-MIX === */
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -21984,7 +22020,7 @@ function calendar() {
     cells += `<span class="d ${cls} ${k === S.day ? "today" : ""}">${d}</span>`;
   }
   return `<div class="card stack-s"><div class="sec"><h3 style="flex:1">${t.calT}</h3><span class="small muted" style="text-transform:capitalize">${mname}</span></div><div class="cal">${cells}</div>
-  <div class="legend"><span><i style="background:var(--paper-2)"></i>${t.legNone}</span><span><i style="background:color-mix(in srgb, var(--accent) 40%, var(--paper-2))"></i>${t.legSome}</span><span><i style="background:var(--accent)"></i>${t.legAll}</span><span><i style="box-shadow:inset 0 0 0 2px var(--line)"></i>${t.legRest}</span></div></div>`;
+  <div class="legend"><span><i style="background:var(--paper-2)"></i>${t.legNone}</span><span><i class="lgsome"></i>${t.legSome}</span><span><i style="background:var(--accent)"></i>${t.legAll}</span><span><i style="box-shadow:inset 0 0 0 2px var(--line)"></i>${t.legRest}</span></div></div>`;
 }
 function weekData() {
   const out = []; const now = new Date();
