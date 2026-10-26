@@ -1444,6 +1444,10 @@ html.lite .trrays { animation: none; }
 .mgrp { font-size: 15px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 14px 4px -4px; font-family: var(--font-body, inherit); scroll-margin-top: 12px; }
 :lang(ja) .mgrp, :lang(ko) .mgrp, :lang(zh) .mgrp { letter-spacing: 0; text-transform: none; }
 .pmore.mjumping > .card { content-visibility: visible !important; }
+/* v18b: cambio scheda piu' fluido. Le parti lontane dalla cima della pagina (mondo, album, negozio, schede basse del Diario)
+   il telefono le disegna solo quando ci si avvicina scorrendo: al cambio scheda c'e' molto meno lavoro. */
+#app .stack > .worldsec, #app .stack > .album, #app .stack > .shopgrp, #app .stack > .stack-s ~ .stack-s,
+#app .stack > .card:nth-child(n+4):not(.trshelf):not(.namecard) { content-visibility: auto; contain-intrinsic-size: auto 360px; }
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -27529,6 +27533,26 @@ ambDrive = function (ts) {
   if (ts < ambQuietUntil) return;
   ambTL.totalTime(ambTL.totalTime() + Math.min(dt, 120) / 1000);
 };
+/* 6) Cambio scheda piu' veloce: ogni scheda gia' visitata resta pronta in memoria. Se tornandoci la pagina sarebbe
+      identica (stessi dati), si rimette quella pronta invece di ricostruirla da zero: niente lettura di tutto l'HTML,
+      il telefono fa molto meno lavoro e il passaggio resta fluido. Se qualcosa e' cambiato, si ricostruisce come sempre. */
+const PAGE_CACHE = {};
+let pageCur = null, pageHtml = "";
+const _viewPutV18 = viewPut;
+viewPut = function (html, same) {
+  const view = !S.pet ? "onb" + S.onboard : tab;
+  if (!same && pageCur && pageCur !== view && S.pet && app.firstChild) PAGE_CACHE[pageCur] = { html: pageHtml, nodes: [...app.childNodes] };
+  const c = PAGE_CACHE[view];
+  if (!same && c && c.html === html && S.pet && !viewFresh) {
+    const h2 = html.replace(GRAIN_RX, ""); roomGrain = h2.length !== html.length;
+    app.replaceChildren(...c.nodes);
+    app.querySelectorAll(".venter").forEach((el) => el.classList.remove("venter"));
+  } else _viewPutV18(html, same);
+  pageCur = view; pageHtml = html;
+};
+/* uscendo dall'account, ricominciando o cambiando lingua le pagine pronte non valgono piu' */
+const _applyRootV18p = applyRoot;
+applyRoot = function () { const k = S.lang + "|" + S.theme + "|" + !!S.pet; if (applyRoot.k !== k) { applyRoot.k = k; Object.keys(PAGE_CACHE).forEach((x) => delete PAGE_CACHE[x]); } _applyRootV18p(); };
 
 /* =================== v18 (1.0.4): tasto "indietro" del telefono =================== */
 /* Nell'app Android il tasto indietro ora lo decide Tanetto:
@@ -27883,9 +27907,9 @@ function trPlant(i) {
     default: { let s = `<path d="M48 105 C52 94 53 84 54 70 C52 64 46 60 40 58 L44 54 C49 57 54 60 57 62 L58 50 L62 50 L63 62 C66 59 72 55 77 53 L80 57 C74 60 68 64 66 70 C67 84 68 94 72 105 Z" fill="${TR2}"/><path d="M55 98 C56 90 57 82 57 74 M63 96 C63 88 64 80 64 74" stroke="#5B3A1A" stroke-width="1.4" fill="none" opacity=".5"/><path d="M48 105 C42 104 38 105 35 108 M72 105 C78 104 82 105 85 108 M58 105 C58 107 57 109 55 110" stroke="${TR2}" stroke-width="3.2" fill="none" stroke-linecap="round"/>${crown([[60, 24, 22], [36, 32, 19], [84, 32, 19], [24, 46, 15], [96, 46, 15], [44, 48, 19], [76, 48, 19], [60, 40, 20]], "#4E9A4A", "#5FA35C")}`; [[40, 34], [78, 26], [58, 44], [90, 44], [30, 46], [66, 30]].forEach(([x, y]) => { s += `<ellipse cx="${x}" cy="${y + 2}" rx="2.6" ry="3.4" fill="#B07A45"/><path d="M${x - 3} ${y} q3 -3 6 0 Z" fill="#7A5232"/>`; }); return s + `<circle cx="48" cy="16" r="9" fill="#fff" opacity=".12"/>`; }
   }
 }
-let trUid = 0;
+
 function trophySVG(i, perfect, locked) {
-  const id = "tr" + (++trUid); const n = TROPHY_DAYS[i];
+  const id = nid("tr"); const n = TROPHY_DAYS[i]; /* id stabili tra un disegno e l'altro: la pagina pronta si puo' riusare */
   const base = perfect ? [`url(#${id}g)`, "#C98424", "#FFF3C4"] : ["#C9925A", "#A8733F", "#E6BE8C"];
   let s = `<svg viewBox="0 0 120 140" class="trsvg${perfect ? " perf" : ""}${locked ? " lock" : ""}" aria-hidden="true"><defs>`;
   if (perfect) s += `<linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A0"/><stop offset=".55" stop-color="#F2C063"/><stop offset="1" stop-color="#D9952F"/></linearGradient><radialGradient id="${id}h" cx="50%" cy="45%" r="50%"><stop offset="0" stop-color="#FFF3C4" stop-opacity=".95"/><stop offset="1" stop-color="#FFF3C4" stop-opacity="0"/></radialGradient>`;
@@ -28529,8 +28553,9 @@ function moreKind(el) {
 }
 const MORE_GROUPS = [["pet", "rename", "uname", "goals", "rem", "shields"], ["lang", "sound", "theme", "access"], ["account", "data", "privacy"], ["guide", "help", "feedback", "invite"]];
 const _viewMoreV18s = viewMore;
+let moreMemo = ["", ""], diaryMemo = ["", ""]; /* se la pagina di partenza e' la stessa, il riordino non si rifa' */
 viewMore = function () {
-  const h = _viewMoreV18s(); const tpl = document.createElement("template"); tpl.innerHTML = h;
+  const h = _viewMoreV18s(); if (moreMemo[0] === h) return moreMemo[1]; const tpl = document.createElement("template"); tpl.innerHTML = h;
   const st = tpl.content.querySelector(".stack.pmore") || tpl.content.querySelector(".stack"); if (!st) return h;
   const t = v18s(); const kids = [...st.children]; const by = {}; const other = [];
   kids.forEach((el) => { const k = moreKind(el); if (k === "other") other.push(el); else (by[k] = by[k] || []).push(el); });
@@ -28549,7 +28574,7 @@ viewMore = function () {
   const reset = take("reset"), note = take("note");
   out.push(...other, ...Object.values(by).flat(), ...reset, ...note);
   st.replaceChildren(...out.filter(Boolean));
-  return tpl.innerHTML;
+  moreMemo = [h, tpl.innerHTML]; return moreMemo[1];
 };
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest("button[data-mjump]"); if (!b) return;
@@ -28576,13 +28601,13 @@ function diaryKind(el) {
 const _viewDiaryV18s = typeof viewDiary === "function" ? viewDiary : null;
 if (_viewDiaryV18s) {
   viewDiary = function () {
-    const h = _viewDiaryV18s(); const tpl = document.createElement("template"); tpl.innerHTML = h;
+    const h = _viewDiaryV18s(); if (diaryMemo[0] === h) return diaryMemo[1]; const tpl = document.createElement("template"); tpl.innerHTML = h;
     const st = tpl.content.querySelector(".stack"); if (!st) return h;
     const by = { title: [], question: [], week: [], month: [], cal: [], capsule: [], rest: [] };
     [...st.children].forEach((el) => by[diaryKind(el)].push(el));
     by.cal.forEach((el) => { const h3 = el.querySelector("h3"); if (h3) h3.textContent = v18s().cal; });
     st.replaceChildren(...by.title, ...by.question, ...by.week, ...by.month, ...by.cal, ...by.capsule, ...by.rest);
-    return tpl.innerHTML;
+    diaryMemo = [h, tpl.innerHTML]; return diaryMemo[1];
   };
 }
 
