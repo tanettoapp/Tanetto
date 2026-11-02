@@ -12,6 +12,7 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(WidgetPlugin.class);
         registerPlugin(SharePlugin.class);
         registerPlugin(BackPlugin.class);
+        registerPlugin(AdsPlugin.class);
         super.onCreate(savedInstanceState);
         // Suono del logo e musica partono subito all'apertura, senza aspettare un tocco
         if (getBridge() != null && getBridge().getWebView() != null) {

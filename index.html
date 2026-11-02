@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
-<meta name="description" content="Tanetto is a free, gentle self-care habit app: pick a few small goals a day and they keep a cute illustrated pet happy. No ads, account optional, works in the browser, 14 languages.">
+<meta name="description" content="Tanetto is a free, gentle self-care habit app: pick a few small goals a day and they keep a cute illustrated pet happy. Optional reward videos only, account optional, works in the browser, 14 languages.">
 <link rel="canonical" href="https://tanettoapp.github.io/Tanetto/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tanetto","url":"https://tanettoapp.github.io/Tanetto/","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","description":"A free, gentle self-care habit app where small daily goals keep a cute illustrated pet happy.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"inLanguage":["en","it","de","es","fr","pt","ja","ko","zh","ru","pl","nl","tr"]}</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tanetto">
 <meta property="og:title" content="Tanetto — a tiny friend for your self-care">
-<meta property="og:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no ads, in 14 languages.">
+<meta property="og:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no forced ads, in 14 languages.">
 <meta property="og:url" content="https://tanettoapp.github.io/Tanetto/">
 <meta property="og:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="Tanetto: seven cute illustrated companions in a cozy room">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tanetto — a tiny friend for your self-care">
-<meta name="twitter:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no ads, in 14 languages.">
+<meta name="twitter:description" content="Small daily habits keep a cozy illustrated companion happy. Free, no forced ads, in 14 languages.">
 <meta name="twitter:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -1550,6 +1550,12 @@ html { touch-action: pan-x pan-y; }
 .aplocked .album { opacity: .55; }
 .nwrow { flex-direction: column; align-items: stretch; gap: 8px; }
 .overlay .box p, .overlay .sheet p, .overlay .box h2 { hyphens: manual; -webkit-hyphens: manual; }
+
+/* v19b 1.0.7: pulsanti dei video con premio — icona staccata dal testo, stile "tonale" che li distingue dagli acquisti */
+.adbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.adbtn svg{flex-shrink:0;margin-right:0}
+.tshop .adshop{margin-top:14px}
+.btn.adshop,#adTrip{background:var(--accent-soft)}
 </style>
 
 <div id="boot" aria-hidden="true"><svg viewBox="0 0 120 120" width="96" height="96"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#3A2510" opacity=".12"/><path d="M60 40 C84 40 98 58 98 76 C98 96 82 104 60 104 C38 104 22 96 22 76 C22 58 36 40 60 40 Z" fill="#A8DBA1"/><ellipse cx="60" cy="86" rx="23" ry="15" fill="#DCF1D6"/><path d="M60 42 C60 34 61 29 62 24" stroke="#5A985A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 26 C53 14 40 16 36 23 C44 31 56 32 62 26 Z" fill="#76BF72"/><path d="M62 25 C70 13 84 15 88 22 C80 30 68 31 62 25 Z" fill="#8ED08A"/><circle cx="48" cy="70" r="4.5" fill="#33302E"/><circle cx="72" cy="70" r="4.5" fill="#33302E"/><path d="M53 80 Q60 86 67 80" stroke="#33302E" stroke-width="3" fill="none" stroke-linecap="round"/></svg><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
@@ -6051,7 +6057,7 @@ T.ko = {
     "보관 기간: 기기의 데이터는 사용자가 삭제할 때까지 남아 있어요. ‘처음부터 다시’를 누르거나 브라우저 데이터를 삭제해서 언제든 지울 수 있어요. 통계는 집계된 숫자일 뿐이에요.",
     "사용자의 권리: 위 연락처로 문의해서 정보 제공, 열람, 정정, 삭제, 처리 제한을 요청하고 처리에 반대할 수 있어요. 또한 개인정보 보호 감독기관(영국의 경우 ICO)에 민원을 제기할 수 있어요.",
     "나이: Tanetto는 만 16세 이상을 위한 앱이에요.",
-    "변경: 이 방침이 바뀌면 최신 버전은 항상 이 페이지에 있어요. 최종 업데이트: {date}."
+    "변경: 이 방침이 바뀌면 최신 버전은 항상 이 페이지에 있어요. 최종 업데이트: {date}"
   ],
   terms: [
     "Tanetto는 무료 미리보기 버전으로, 있는 그대로 제공되며 지속적인 작동을 보장하지 않아요. 언제든 변경되거나 중단될 수 있어요.",
@@ -20429,6 +20435,113 @@ const V18P = {
 };
 Object.keys(V18P).forEach((k) => { const d = T[k] && T[k].privDoc; if (Array.isArray(d) && d.length > 2 && !d.includes(V18P[k])) d.splice(2, 0, V18P[k]); });
 
+/* v19 (1.0.7): informativa privacy, video con premio facoltativi (Google AdMob + consenso Google UMP), solo nell'app Android.
+   1) Il paragrafo "Cookie: ... né pubblicità" diventa accurato (niente cookie di profilazione propri, pubblicità solo se la scegli tu).
+   2) Subito dopo si aggiunge il paragrafo "Video con premio (solo app Android)".
+   Se il paragrafo dei cookie non si trova, il nuovo paragrafo va prima di "I tuoi diritti". Si può rieseguire senza duplicare nulla.
+   Sta in un file "3..." perché lo usa anche la pagina pubblica privacy.html (legal_page.js). */
+const V19P = {
+  it: {
+    ck: "Cookie:", rt: "I tuoi diritti:",
+    c: "Cookie: Tanetto non usa cookie di profilazione propri. L'archiviazione locale serve solo a far funzionare l'app ed è strettamente necessaria. Nell'app Android puoi scegliere di guardare brevi pubblicità per ricevere un piccolo premio: non compaiono mai da sole, solo quando scegli tu di guardarne una.",
+    a: "Video con premio (solo app Android): le pubblicità sono fornite da Google AdMob (Google Ireland Ltd. e Google LLC; i dati possono essere trattati anche negli Stati Uniti). Google tratta questi dati come titolare autonomo secondo la propria informativa (https://policies.google.com/privacy); i trasferimenti verso gli Stati Uniti si basano sull'EU-US Data Privacy Framework. Tanetto non riceve mai il tuo ID pubblicità. Dove la legge lo richiede (Spazio economico europeo, Regno Unito e Svizzera), prima che venga mostrata qualsiasi pubblicità ti chiediamo il consenso con lo strumento di Google per la gestione del consenso (UMP); puoi cambiarlo quando vuoi in Altro › Scelte sulla pubblicità. Per preparare e riprodurre i video, Google può raccogliere l'ID pubblicità del dispositivo, l'indirizzo IP e informazioni sulla tua interazione con gli annunci, per mostrarli, misurarli e prevenire le frodi e, solo con il tuo consenso, per personalizzarli. Base giuridica: il tuo consenso, dove richiesto (art. 6, par. 1, lett. a del GDPR), e il legittimo interesse a offrire premi facoltativi e a prevenire le frodi (art. 6, par. 1, lett. f del GDPR). Puoi reimpostare o eliminare l'ID pubblicità nelle impostazioni di Android. Come Google usa questi dati: https://policies.google.com/technologies/partner-sites. Puoi guardare al massimo 5 video al giorno e con Tanetto Plus non vedi nessuna pubblicità."
+  },
+  en: {
+    ck: "Cookies:", rt: "Your rights:",
+    c: "Cookies: Tanetto itself uses no tracking cookies. Local storage is used only to make the app work and is strictly necessary. In the Android app you can choose to watch short ads to get a small reward: they never appear on their own, only when you choose to watch one.",
+    a: "Rewarded videos (Android app only): ads are provided by Google AdMob (Google Ireland Ltd. and Google LLC; data may also be processed in the United States). Google acts as an independent controller of this data under its own privacy policy (https://policies.google.com/privacy); transfers to the US rely on the EU–US Data Privacy Framework. Tanetto itself never receives your advertising ID. Where the law requires it (European Economic Area, United Kingdom and Switzerland), we ask for your consent with Google's consent management tool (UMP) before any ad is shown; you can change it anytime in More › Ad choices. To load and play the videos, Google may collect your device's advertising ID, your IP address and information about your interaction with the ads, to serve and measure them and prevent fraud and, only with your consent, to personalise them. Legal basis: your consent, where required (Art. 6(1)(a) GDPR / UK GDPR), and legitimate interest in offering optional rewards and preventing fraud (Art. 6(1)(f) GDPR / UK GDPR). You can reset or delete the advertising ID in your Android settings. How Google uses this data: https://policies.google.com/technologies/partner-sites. You can watch up to 5 videos a day, and with Tanetto Plus you see no ads at all."
+  },
+  de: {
+    ck: "Cookies:", rt: "Deine Rechte:",
+    c: "Cookies: Tanetto selbst verwendet keine Tracking-Cookies. Der lokale Speicher dient nur dem Funktionieren der App und ist unbedingt erforderlich. In der Android-App kannst du dir freiwillig kurze Werbevideos ansehen, um eine kleine Belohnung zu bekommen: Sie erscheinen nie von selbst, sondern nur, wenn du dich dafür entscheidest.",
+    a: "Videos mit Belohnung (nur Android-App): Die Werbung stellt Google AdMob bereit (Google Ireland Ltd. und Google LLC; Daten können auch in den USA verarbeitet werden). Google verarbeitet diese Daten als eigenständig Verantwortlicher nach seiner eigenen Datenschutzerklärung (https://policies.google.com/privacy); Übermittlungen in die USA stützen sich auf das EU-US Data Privacy Framework. Tanetto selbst erhält deine Werbe-ID nie. Wo es gesetzlich vorgeschrieben ist (Europäischer Wirtschaftsraum, Vereinigtes Königreich und Schweiz), bitten wir dich mit dem Einwilligungstool von Google (UMP) um deine Einwilligung, bevor überhaupt Werbung angezeigt wird; du kannst sie jederzeit unter Mehr › Werbe-Einstellungen ändern. Um die Videos vorzubereiten und anzuzeigen, kann Google die Werbe-ID deines Geräts, deine IP-Adresse und Informationen über deine Interaktion mit der Werbung erheben, um Werbung auszuliefern, zu messen und Betrug zu verhindern und, nur mit deiner Einwilligung, um sie zu personalisieren. Rechtsgrundlage: deine Einwilligung, wo sie erforderlich ist (Art. 6 Abs. 1 lit. a DSGVO), und das berechtigte Interesse, freiwillige Belohnungen anzubieten und Betrug zu verhindern (Art. 6 Abs. 1 lit. f DSGVO). Die Werbe-ID kannst du in den Android-Einstellungen zurücksetzen oder löschen. Wie Google diese Daten nutzt: https://policies.google.com/technologies/partner-sites. Du kannst höchstens 5 Videos am Tag ansehen, und mit Tanetto Plus siehst du gar keine Werbung."
+  },
+  es: {
+    ck: "Cookies:", rt: "Tus derechos:",
+    c: "Cookies: Tanetto no usa cookies de seguimiento propias. El almacenamiento local solo sirve para que la app funcione y es estrictamente necesario. En la app de Android puedes elegir ver anuncios cortos para conseguir una pequeña recompensa: nunca aparecen solos, solo cuando tú decides ver uno.",
+    a: "Vídeos con recompensa (solo app de Android): los anuncios los proporciona Google AdMob (Google Ireland Ltd. y Google LLC; los datos también pueden tratarse en Estados Unidos). Google trata estos datos como responsable independiente según su propia política de privacidad (https://policies.google.com/privacy); las transferencias a Estados Unidos se basan en el Marco de Privacidad de Datos UE-EE. UU. Tanetto nunca recibe tu ID de publicidad. Donde la ley lo exige (Espacio Económico Europeo, Reino Unido y Suiza), te pedimos el consentimiento con la herramienta de gestión del consentimiento de Google (UMP) antes de mostrar cualquier anuncio; puedes cambiarlo cuando quieras en Más › Opciones de publicidad. Para preparar y mostrar los vídeos, Google puede recoger el ID de publicidad del dispositivo, la dirección IP e información sobre tu interacción con los anuncios, para mostrarlos, medirlos y prevenir el fraude y, solo con tu consentimiento, para personalizarlos. Base jurídica: tu consentimiento, cuando es necesario (art. 6.1.a del RGPD), y el interés legítimo en ofrecer recompensas opcionales y prevenir el fraude (art. 6.1.f del RGPD). Puedes restablecer o eliminar el ID de publicidad en los ajustes de Android. Cómo usa Google estos datos: https://policies.google.com/technologies/partner-sites. Puedes ver como máximo 5 vídeos al día y, con Tanetto Plus, no ves ningún anuncio."
+  },
+  fr: {
+    ck: "Cookies :", rt: "Tes droits :",
+    c: "Cookies : Tanetto n'utilise lui-même aucun cookie de suivi. Le stockage local sert uniquement au fonctionnement de l'app et est strictement nécessaire. Dans l'app Android, tu peux choisir de regarder de courtes publicités pour recevoir une petite récompense : elles n'apparaissent jamais d'elles-mêmes, seulement quand tu choisis d'en regarder une.",
+    a: "Vidéos récompensées (app Android uniquement) : les publicités sont fournies par Google AdMob (Google Ireland Ltd. et Google LLC ; les données peuvent aussi être traitées aux États-Unis). Google traite ces données en tant que responsable de traitement indépendant, selon sa propre politique de confidentialité (https://policies.google.com/privacy) ; les transferts vers les États-Unis reposent sur le cadre de protection des données UE–États-Unis (Data Privacy Framework). Tanetto ne reçoit jamais ton identifiant publicitaire. Là où la loi l'exige (Espace économique européen, Royaume-Uni et Suisse), nous te demandons ton consentement avec l'outil de gestion du consentement de Google (UMP) avant toute publicité ; tu peux le modifier à tout moment dans Plus › Choix publicitaires. Pour préparer et afficher les vidéos, Google peut collecter l'identifiant publicitaire de l'appareil, l'adresse IP et des informations sur ton interaction avec les annonces, afin de les diffuser, de les mesurer et de prévenir la fraude et, uniquement avec ton consentement, de les personnaliser. Base légale : ton consentement, lorsqu'il est requis (art. 6, par. 1, point a du RGPD), et l'intérêt légitime à proposer des récompenses facultatives et à prévenir la fraude (art. 6, par. 1, point f du RGPD). Tu peux réinitialiser ou supprimer l'identifiant publicitaire dans les paramètres d'Android. Comment Google utilise ces données : https://policies.google.com/technologies/partner-sites. Tu peux regarder au maximum 5 vidéos par jour, et avec Tanetto Plus tu ne vois aucune publicité."
+  },
+  pt: {
+    ck: "Cookies:", rt: "Seus direitos:",
+    c: "Cookies: o Tanetto não usa cookies de rastreamento próprios. O armazenamento local serve só para o app funcionar e é estritamente necessário. No app para Android, você pode escolher assistir a anúncios curtos para ganhar uma pequena recompensa: eles nunca aparecem sozinhos, só quando você decide assistir a um.",
+    a: "Vídeos com recompensa (só no app para Android): os anúncios são fornecidos pelo Google AdMob (Google Ireland Ltd. e Google LLC; os dados também podem ser tratados nos Estados Unidos). O Google trata esses dados como controlador independente, de acordo com a própria política de privacidade (https://policies.google.com/privacy); as transferências para os Estados Unidos se baseiam no EU-US Data Privacy Framework. O Tanetto nunca recebe o seu ID de publicidade. Onde a lei exige (Espaço Econômico Europeu, Reino Unido e Suíça), pedimos seu consentimento com a ferramenta de gestão de consentimento do Google (UMP) antes de qualquer anúncio; você pode mudá-lo quando quiser em Mais › Escolhas de publicidade. Para preparar e exibir os vídeos, o Google pode coletar o ID de publicidade do aparelho, o endereço IP e informações sobre sua interação com os anúncios, para exibi-los, medi-los e evitar fraudes e, só com seu consentimento, para personalizá-los. Base legal: seu consentimento, quando necessário (art. 7º, I da LGPD e art. 6º, 1, a do GDPR europeu), e o legítimo interesse em oferecer recompensas opcionais e evitar fraudes (art. 7º, IX da LGPD e art. 6º, 1, f do GDPR europeu). Você pode redefinir ou excluir o ID de publicidade nas configurações do Android. Como o Google usa esses dados: https://policies.google.com/technologies/partner-sites. Você pode assistir a no máximo 5 vídeos por dia e, com o Tanetto Plus, não vê nenhum anúncio."
+  },
+  ja: {
+    ck: "Cookie：", rt: "あなたの権利：",
+    c: "Cookie：Tanetto自体はトラッキング用のCookieを使いません。ローカルストレージはアプリを動かすためだけに使われ、厳密に必要なものです。Androidアプリでは、ちょっとしたごほうびをもらうために短い広告を見るかどうかを、自分で選べます。広告が勝手に表示されることはなく、あなたが選んだときだけ再生されます。",
+    a: "ごほうび付き動画（Androidアプリのみ）：広告はGoogle AdMob（Google Ireland Ltd.およびGoogle LLC）が提供しており、データは米国で処理されることもあります。Googleは、これらのデータを独立した管理者として、自社のプライバシーポリシー（https://policies.google.com/privacy）に基づいて取り扱います。米国への移転はEU-US Data Privacy Frameworkに基づいています。Tanetto自体があなたの広告IDを受け取ることはありません。法律で必要とされる地域（欧州経済領域、英国、スイス）では、広告を表示する前に、Googleの同意管理ツール（UMP）であなたの同意を求めます。同意は「その他 › 広告の設定」からいつでも変更できます。動画を準備して表示するために、Googleは端末の広告ID、IPアドレス、広告とのやり取りに関する情報を収集することがあります。目的は、広告の配信・効果測定・不正防止と、あなたの同意がある場合に限り広告のパーソナライズです。法的根拠：必要な場合はあなたの同意（GDPR第6条1項a）、および任意のごほうびの提供と不正防止のための正当な利益（GDPR第6条1項f）。広告IDはAndroidの設定でリセットまたは削除できます。Googleによるデータの使い方は、Googleの説明ページ（https://policies.google.com/technologies/partner-sites）で確認できます。動画は1日5本まで見られます。Tanetto Plusでは広告は一切表示されません。"
+  },
+  ko: {
+    ck: "쿠키:", rt: "사용자의 권리:",
+    c: "쿠키: Tanetto 자체는 추적용 쿠키를 사용하지 않아요. 로컬 스토리지는 앱 작동을 위해서만 쓰이며 반드시 필요한 것이에요. Android 앱에서는 작은 보상을 받기 위해 짧은 광고를 볼지 직접 선택할 수 있어요. 광고가 저절로 나타나는 일은 없고, 사용자가 선택할 때만 재생돼요.",
+    a: "보상형 동영상(Android 앱 전용): 광고는 Google AdMob(Google Ireland Ltd. 및 Google LLC)이 제공하며, 데이터는 미국에서 처리될 수도 있어요. Google은 자체 개인정보처리방침(https://policies.google.com/privacy)에 따라 이 데이터를 독립적인 컨트롤러로서 처리해요. 미국으로의 이전은 EU-미국 데이터 프라이버시 프레임워크에 근거해요. Tanetto는 광고 ID를 절대 받지 않아요. 법에서 요구하는 지역(유럽경제지역, 영국, 스위스)에서는 광고를 보여 주기 전에 Google의 동의 관리 도구(UMP)로 동의를 요청해요. 동의는 언제든 더 보기 › 광고 선택에서 바꿀 수 있어요. 동영상을 준비하고 보여 주기 위해 Google은 기기의 광고 ID, IP 주소, 광고와의 상호작용에 관한 정보를 수집할 수 있어요. 목적은 광고 게재, 성과 측정, 부정 행위 방지이며, 사용자가 동의한 경우에만 광고 맞춤화에도 쓰여요. 법적 근거: 필요한 경우 사용자의 동의(GDPR 제6조 1항 a), 그리고 선택형 보상 제공과 부정 행위 방지에 대한 정당한 이익(GDPR 제6조 1항 f). 광고 ID는 Android 설정에서 재설정하거나 삭제할 수 있어요. Google이 이 데이터를 사용하는 방법은 Google 안내 페이지(https://policies.google.com/technologies/partner-sites)에서 확인할 수 있어요. 동영상은 하루 최대 5개까지 볼 수 있고, Tanetto Plus에서는 광고가 전혀 표시되지 않아요."
+  },
+  zh: {
+    ck: "Cookie：", rt: "你的权利：",
+    c: "Cookie：Tanetto 本身不使用任何追踪类 Cookie。本地存储仅用于让应用正常运行，是严格必要的。在 Android 应用中，你可以自己选择观看简短的广告来获得小奖励：广告绝不会自行弹出，只有在你选择观看时才会播放。",
+    a: "奖励视频（仅限 Android 应用）：广告由 Google AdMob（Google Ireland Ltd. 和 Google LLC）提供，数据也可能在美国处理。Google 作为独立的数据控制者，按照其自身的隐私权政策（https://policies.google.com/privacy）处理这些数据；向美国的传输以《欧盟-美国数据隐私框架》为依据。Tanetto 本身绝不会收到你的广告 ID。在法律有要求的地区（欧洲经济区、英国和瑞士），在展示任何广告之前，我们会通过 Google 的同意管理工具（UMP）征求你的同意；你可以随时在“更多 › 广告选择”中更改。为了准备和播放视频，Google 可能会收集设备的广告 ID、IP 地址以及你与广告互动的信息，用于投放和衡量广告、防止欺诈，并且仅在你同意的情况下用于个性化广告。法律依据：在需要时为你的同意（GDPR 第 6 条第 1 款 a 项），以及提供可选奖励和防止欺诈的正当利益（GDPR 第 6 条第 1 款 f 项）。你可以在 Android 设置中重置或删除广告 ID。关于 Google 如何使用这些数据，请参阅 Google 的说明页面（https://policies.google.com/technologies/partner-sites）。你每天最多可以观看 5 个视频；使用 Tanetto Plus 则完全不会看到广告。"
+  },
+  zht: {
+    ck: "Cookie：", rt: "你的權利：",
+    c: "Cookie：Tanetto 本身不使用任何追蹤 Cookie。本機儲存空間僅用於讓 App 正常運作，屬於絕對必要的用途。在 Android App 中，你可以自己選擇觀看簡短的廣告來獲得小獎勵：廣告絕不會自行跳出，只有在你選擇觀看時才會播放。",
+    a: "獎勵影片（僅限 Android App）：廣告由 Google AdMob（Google Ireland Ltd. 和 Google LLC）提供，資料也可能在美國處理。Google 以獨立資料控管者的身分，依其自身的隱私權政策（https://policies.google.com/privacy）處理這些資料；傳輸至美國係以「歐盟－美國資料隱私框架」為依據。Tanetto 本身絕不會收到你的廣告 ID。在法律有要求的地區（歐洲經濟區、英國和瑞士），在顯示任何廣告之前，我們會透過 Google 的同意管理工具（UMP）徵求你的同意；你隨時可以在「更多 › 廣告選擇」中變更。為了準備和播放影片，Google 可能會收集裝置的廣告 ID、IP 位址，以及你與廣告互動的資訊，用於放送和評估廣告、防止詐欺，並且僅在你同意的情況下用於個人化廣告。法律依據：在需要時為你的同意（GDPR 第 6 條第 1 項 a 款），以及提供選用獎勵和防止詐欺的正當利益（GDPR 第 6 條第 1 項 f 款）。你可以在 Android 設定中重設或刪除廣告 ID。關於 Google 如何使用這些資料，請參閱 Google 的說明頁面（https://policies.google.com/technologies/partner-sites）。你每天最多可以觀看 5 部影片；使用 Tanetto Plus 則完全不會看到廣告。"
+  },
+  ru: {
+    ck: "Cookie:", rt: "Твои права:",
+    c: "Cookie: Tanetto само не использует cookie для отслеживания. Локальное хранилище используется только для работы приложения и является строго необходимым. В приложении для Android ты можешь по желанию посмотреть короткую рекламу и получить небольшую награду: реклама никогда не появляется сама, а только когда ты решишь её посмотреть.",
+    a: "Видео с наградой (только приложение для Android): рекламу предоставляет Google AdMob (Google Ireland Ltd. и Google LLC; данные могут обрабатываться и в США). Google обрабатывает эти данные как самостоятельный контролёр согласно собственной политике конфиденциальности (https://policies.google.com/privacy); передача данных в США основана на EU-US Data Privacy Framework. Само Tanetto твой рекламный идентификатор никогда не получает. Там, где этого требует закон (Европейская экономическая зона, Великобритания и Швейцария), прежде чем показать какую-либо рекламу, мы просим твоего согласия с помощью инструмента Google для управления согласием (UMP); изменить его можно в любой момент в «Ещё» › «Настройки рекламы». Чтобы подготовить и показать видео, Google может собирать рекламный идентификатор устройства, IP-адрес и сведения о твоём взаимодействии с рекламой — чтобы показывать её, оценивать её эффективность и предотвращать мошенничество, а только с твоего согласия — чтобы её персонализировать. Правовое основание: твоё согласие, когда оно требуется (ст. 6(1)(a) GDPR), и законный интерес в том, чтобы предлагать необязательные награды и предотвращать мошенничество (ст. 6(1)(f) GDPR). Рекламный идентификатор можно сбросить или удалить в настройках Android. Как Google использует эти данные: https://policies.google.com/technologies/partner-sites. В день можно посмотреть не больше 5 видео, а с Tanetto Plus реклама не показывается совсем."
+  },
+  pl: {
+    ck: "Pliki cookie:", rt: "Twoje prawa:",
+    c: "Pliki cookie: Tanetto samo nie używa śledzących plików cookie. Pamięć lokalna służy wyłącznie do działania aplikacji i jest ściśle niezbędna. W aplikacji na Androida możesz obejrzeć krótką reklamę, aby dostać małą nagrodę, ale tylko jeśli chcesz: reklamy nigdy nie pojawiają się same, tylko wtedy, gdy zdecydujesz się którąś obejrzeć.",
+    a: "Filmy z nagrodą (tylko aplikacja na Androida): reklamy dostarcza Google AdMob (Google Ireland Ltd. i Google LLC; dane mogą być przetwarzane także w Stanach Zjednoczonych). Google przetwarza te dane jako niezależny administrator, zgodnie z własną polityką prywatności (https://policies.google.com/privacy); przekazywanie danych do USA opiera się na ramach ochrony danych UE-USA (EU-US Data Privacy Framework). Tanetto nigdy nie otrzymuje twojego identyfikatora reklamowego. Tam, gdzie wymaga tego prawo (Europejski Obszar Gospodarczy, Wielka Brytania i Szwajcaria), zanim pojawi się jakakolwiek reklama, prosimy o twoją zgodę za pomocą narzędzia Google do zarządzania zgodami (UMP); możesz ją zmienić w każdej chwili w Więcej › Ustawienia reklam. Aby przygotować i wyświetlić filmy, Google może zbierać identyfikator reklamowy urządzenia, adres IP i informacje o twojej interakcji z reklamami, aby je wyświetlać, mierzyć ich skuteczność i zapobiegać oszustwom, a tylko za twoją zgodą — aby je personalizować. Podstawa prawna: twoja zgoda, gdy jest wymagana (art. 6 ust. 1 lit. a RODO), oraz prawnie uzasadniony interes polegający na oferowaniu dobrowolnych nagród i zapobieganiu oszustwom (art. 6 ust. 1 lit. f RODO). Identyfikator reklamowy możesz zresetować lub usunąć w ustawieniach Androida. Jak Google wykorzystuje te dane: https://policies.google.com/technologies/partner-sites. Możesz obejrzeć maksymalnie 5 filmów dziennie, a z Tanetto Plus nie widzisz żadnych reklam."
+  },
+  nl: {
+    ck: "Cookies:", rt: "Je rechten:",
+    c: "Cookies: Tanetto gebruikt zelf geen trackingcookies. Lokale opslag wordt alleen gebruikt om de app te laten werken en is strikt noodzakelijk. In de Android-app kun je ervoor kiezen korte advertenties te bekijken om een kleine beloning te krijgen: ze verschijnen nooit vanzelf, alleen als jij ervoor kiest er een te bekijken.",
+    a: "Video's met beloning (alleen Android-app): de advertenties worden geleverd door Google AdMob (Google Ireland Ltd. en Google LLC; gegevens kunnen ook in de Verenigde Staten worden verwerkt). Google verwerkt deze gegevens als zelfstandige verwerkingsverantwoordelijke volgens zijn eigen privacybeleid (https://policies.google.com/privacy); doorgifte naar de VS is gebaseerd op het EU-VS-gegevensprivacykader (Data Privacy Framework). Tanetto zelf ontvangt je advertentie-ID nooit. Waar de wet dat vereist (Europese Economische Ruimte, Verenigd Koninkrijk en Zwitserland), vragen we je toestemming met de toestemmingstool van Google (UMP) voordat er een advertentie wordt getoond; je kunt die altijd wijzigen via Meer › Advertentiekeuzes. Om de video's voor te bereiden en te tonen, kan Google de advertentie-ID van je apparaat, je IP-adres en informatie over je interactie met de advertenties verzamelen, om ze te tonen, te meten en fraude te voorkomen en, alleen met je toestemming, om ze te personaliseren. Rechtsgrond: je toestemming, waar die vereist is (art. 6 lid 1 sub a AVG), en het gerechtvaardigd belang bij het aanbieden van vrijwillige beloningen en het voorkomen van fraude (art. 6 lid 1 sub f AVG). Je kunt de advertentie-ID resetten of verwijderen in de instellingen van Android. Hoe Google deze gegevens gebruikt: https://policies.google.com/technologies/partner-sites. Je kunt maximaal 5 video's per dag bekijken, en met Tanetto Plus zie je helemaal geen advertenties."
+  },
+  tr: {
+    ck: "Çerezler:", rt: "Hakların:",
+    c: "Çerezler: Tanetto'nun kendisi takip çerezi kullanmaz. Yerel depolama yalnızca uygulamanın çalışması için kullanılır ve kesinlikle gereklidir. Android uygulamasında, küçük bir ödül kazanmak için istersen kısa reklamlar izleyebilirsin: reklamlar asla kendiliğinden çıkmaz, yalnızca sen izlemeyi seçtiğinde açılır.",
+    a: "Ödüllü videolar (yalnızca Android uygulaması): reklamlar Google AdMob (Google Ireland Ltd. ve Google LLC) tarafından sağlanır; veriler Amerika Birleşik Devletleri'nde de işlenebilir. Google bu verileri kendi gizlilik politikasına (https://policies.google.com/privacy) göre bağımsız veri sorumlusu olarak işler; ABD'ye aktarımlar AB-ABD Veri Gizliliği Çerçevesi'ne dayanır. Tanetto'nun kendisi reklam kimliğini asla almaz. Yasanın gerektirdiği yerlerde (Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre), herhangi bir reklam gösterilmeden önce Google'ın izin yönetimi aracıyla (UMP) iznini isteriz; bu izni istediğin zaman Diğer › Reklam tercihleri bölümünden değiştirebilirsin. Videoları hazırlamak ve göstermek için Google, cihazının reklam kimliğini, IP adresini ve reklamlarla etkileşimine ilişkin bilgileri toplayabilir; bunu reklamları sunmak, ölçmek ve dolandırıcılığı önlemek için, yalnızca iznin varsa da reklamları kişiselleştirmek için yapar. Hukuki dayanak: gerektiği durumlarda iznin (GDPR md. 6/1-a) ve isteğe bağlı ödüller sunma ile dolandırıcılığı önlemeye yönelik meşru menfaat (GDPR md. 6/1-f). Reklam kimliğini Android ayarlarından sıfırlayabilir veya silebilirsin. Google'ın bu verileri nasıl kullandığı: https://policies.google.com/technologies/partner-sites. Günde en fazla 5 video izleyebilirsin; Tanetto Plus ile hiç reklam görmezsin."
+  }
+};
+Object.keys(V19P).forEach((k) => {
+  const d = T[k] && T[k].privDoc, p = V19P[k];
+  if (!Array.isArray(d) || d.includes(p.a)) return;
+  let i = d.indexOf(p.c);
+  if (i < 0) { i = d.findIndex((x) => typeof x === "string" && x.indexOf(p.ck) === 0); if (i >= 0) d[i] = p.c; }
+  if (i < 0) { i = d.findIndex((x) => typeof x === "string" && x.indexOf(p.rt) === 0) - 1; if (i < -1) i = Math.max(d.length - 3, -1); }
+  d.splice(i + 1, 0, p.a);
+});
+/* Scheda "Privacy" in Altro: una frase sui video con premio (solo app Android, solo se li scegli) */
+const V19P_CARD = {
+  it: "Nell'app Android, solo se scegli di guardare un video con premio, Google AdMob tratta alcuni dati del dispositivo (come l'ID pubblicità): trovi tutto nell'informativa.",
+  en: "In the Android app, only if you choose to watch a reward video, Google AdMob processes some device data (such as the advertising ID): see the privacy policy for details.",
+  de: "In der Android-App verarbeitet Google AdMob nur dann, wenn du dich für ein Belohnungsvideo entscheidest, einige Gerätedaten (z. B. die Werbe-ID): Details findest du in der Datenschutzerklärung.",
+  es: "En la app de Android, solo si eliges ver un vídeo con premio, Google AdMob trata algunos datos del dispositivo (como el ID de publicidad): tienes todos los detalles en la política de privacidad.",
+  fr: "Dans l'app Android, seulement si tu choisis de regarder une vidéo récompensée, Google AdMob traite certaines données de l'appareil (comme l'identifiant publicitaire) : tous les détails sont dans la politique de confidentialité.",
+  pt: "No app Android, só se você escolher assistir a um vídeo com prêmio, o Google AdMob trata alguns dados do aparelho (como o ID de publicidade): os detalhes estão na política de privacidade.",
+  ja: "Androidアプリでごほうび動画を見ることを選んだときだけ、Google AdMobが端末の一部のデータ（広告IDなど）を取り扱います。詳しくはプライバシーポリシーをご覧ください。",
+  ko: "Android 앱에서 보상 영상을 보기로 선택했을 때만 Google AdMob이 광고 ID 같은 일부 기기 데이터를 처리해요. 자세한 내용은 개인정보 처리방침에 있어요.",
+  zh: "在 Android 应用中，只有当你选择观看奖励视频时，Google AdMob 才会处理部分设备数据（例如广告 ID）。详情请见隐私政策。",
+  zht: "在 Android App 中，只有當你選擇觀看獎勵影片時，Google AdMob 才會處理部分裝置資料（例如廣告 ID）。詳情請見隱私權政策。",
+  ru: "В приложении для Android, только если ты решишь посмотреть видео с наградой, Google AdMob обработает некоторые данные устройства (например, рекламный идентификатор): подробности — в политике конфиденциальности.",
+  pl: "W aplikacji na Androida, tylko jeśli zdecydujesz się obejrzeć film z nagrodą, Google AdMob przetwarza niektóre dane urządzenia (np. identyfikator reklamowy): szczegóły znajdziesz w polityce prywatności.",
+  nl: "In de Android-app verwerkt Google AdMob alleen enkele apparaatgegevens (zoals de advertentie-ID) als je ervoor kiest een beloningsvideo te bekijken: details vind je in het privacybeleid.",
+  tr: "Android uygulamasında yalnızca ödüllü video izlemeyi seçersen Google AdMob bazı cihaz verilerini (reklam kimliği gibi) işler: ayrıntılar gizlilik politikasında."
+};
+Object.keys(V19P_CARD).forEach((k) => {
+  const L0 = T[k], x = V19P_CARD[k]; if (!L0 || typeof L0.privP !== "string" || L0.privP.includes(x)) return;
+  L0.privP = L0.privP.replace(/\s*$/, "") + (/^(ja|zh|zht)$/.test(k) ? "" : " ") + x;
+});
+
 /* =================== DATI DI GIOCO =================== */
 const CATS = [
   ["body", "#F2A65A", ["water", "walk", "stretch", "fruit", "veggies", "sun", "move", "posture", "shower", "cook"]],
@@ -23192,7 +23305,7 @@ document.addEventListener("pointerdown", (ev) => {
 
 /* =================== VERSIONE 5: giochi di benessere, condivisione, informative =================== */
 const OWNER_NAME = "", OWNER_EMAIL = "tanettoapp@gmail.com";
-const PRIVACY_DATE = "2026-10-26";
+const PRIVACY_DATE = "2026-11-02";
 let pendingGoals = [], exprTimer = null;
 
 function fadeLayer() {
@@ -23558,7 +23671,7 @@ function openDoc(k) {
   if (k === "guide") body = t.guide.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join("");
   else {
     const rep = (s) => s.replace("{owner}", OWNER_NAME || t.ownerMissing).replace("{email}", OWNER_EMAIL || t.ownerMissing).replace("{date}", fmtDate(PRIVACY_DATE));
-    body = t[k].map((p) => `<p>${esc(rep(p))}</p>`).join("");
+    body = t[k].map((p) => `<p>${esc(rep(p)).replace(/(https:\/\/[^\s<>"）)，。、]+[^\s<>"）)，。、.,;:])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')}</p>`).join("");
     if (k === "health") body += `<div class="help">${t.helpLines.map((l) => `<p><strong>${l}</strong></p>`).join("")}</div>`;
   }
   layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="docT"><div class="box card docbox"><h2 id="docT">${title}</h2><div class="doc">${body}</div><button class="btn" id="closeLayer">${t.close}</button></div></div>`;
@@ -30339,14 +30452,14 @@ Object.assign(GOAL_ICON, {
   desk: '<path d="M3 10h18"/><path d="M5 10v10M19 10v10"/><path d="M5 15h6v5"/><path d="M14 10V6h4v4"/>'
 });
 
-/* ===== 1.0.6 — video con premio (AdMob), solo su scelta =====
+/* ===== 1.0.7 — video con premio (AdMob), solo su scelta =====
    Il vecchio pulsante "Raddoppia con un video" mostrava solo "arriveranno presto": ora sparisce finché i video
    non funzionano davvero (app Android con il modulo TanettoAds, codice dell'annuncio impostato, consenso ok, video pronto).
-   Dove: 1) regalo del giorno già aperto → una pubblicità per riceverlo di nuovo (una volta al giorno);
-         2) ritorno da un viaggio → una pubblicità per raddoppiare i Tanì del viaggio (una volta per viaggio).
+   Dove (sempre +10 Tanì, massimo 5 video al giorno in tutto): 1) regalo del giorno già aperto (una volta al giorno);
+         2) ritorno da un viaggio (una volta per viaggio); 3) negozio dei Tanì; 4) scheda "ti mancano X Tanì".
    Mai all'avvio, mai sugli obiettivi, mai per "salvare la serie". Chi ha Plus non vede pubblicità.
    In Altro, se richiesto dalla legge (Europa), c'è "Scelte sulla pubblicità" per cambiare il consenso. */
-const ADS_UNIT = ""; /* codice del video con premio di AdMob (ca-app-pub-…/…): si imposta quando l'app è registrata su AdMob */
+const ADS_UNIT = "ca-app-pub-9863338163927008/7126980197"; /* codice del video con premio di AdMob (ca-app-pub-…/…): si imposta quando l'app è registrata su AdMob */
 const V19AD = {
   it: { gift: (n) => `Guarda una pubblicità: +${n} Tanì`, trip: (n) => `Guarda una pubblicità: +${n} Tanì`, thanks: (n) => `+${n} Tanì, grazie!`, none: "Nessun video disponibile ora. Riprova più tardi.", privT: "Scelte sulla pubblicità", privP: "Cambia il consenso per gli annunci personalizzati." },
   en: { gift: (n) => `Watch an ad: +${n} Tanì`, trip: (n) => `Watch an ad: +${n} Tanì`, thanks: (n) => `+${n} Tanì, thank you!`, none: "No video available right now. Please try later.", privT: "Ad choices", privP: "Change your consent for personalised ads." },
@@ -30369,37 +30482,53 @@ let adsSt = { canRequestAds: false, privacyRequired: false, loaded: false }, ads
 const adsOn = () => !!(ADS_UNIT && isNativeApp() && adsPlugin() && !plusActive());
 function adsInit() {
   if (!adsOn()) return Promise.resolve(adsSt); if (adsInitP) return adsInitP;
-  adsInitP = adsPlugin().init().then((s) => { adsSt = s || adsSt; return adsLoad(); }).catch(() => adsSt);
+  adsInitAt = Date.now(); adsBack = false;
+  adsInitP = adsPlugin().init().then((s) => { adsSt = s || adsSt; if (!adsSt.canRequestAds) adsInitP = null; return adsLoad(); }).catch(() => { adsInitP = null; return adsSt; });
   return adsInitP;
 }
-let adsLoadP = null;
+/* Se all'avvio non si potevano chiedere video (es. senza internet), si riprova al rientro nell'app, al massimo ogni 30 minuti */
+let adsInitAt = 0, adsBack = false;
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") adsBack = true; });
+/* Il video si prepara in anticipo (all'avvio e subito dopo ogni visione): così quando serve è già pronto.
+   Se Google non ne ha uno, si riprova da soli dopo 1, 2, 4… minuti (al massimo ogni 30), senza disturbare. */
+let adsLoadP = null, adsRetryMs = 60000, adsRetryT = null, adsRetryOn = false, adsLoadedAt = 0;
+const AD_MAX_AGE = 55 * 60000;
 function adsLoad() {
-  if (!adsOn() || !adsSt.canRequestAds || adsSt.loaded) return Promise.resolve(adsSt);
+  if (!adsOn() || !adsSt.canRequestAds || adsSt.loaded || adsLeftToday() <= 0) return Promise.resolve(adsSt);
   if (adsLoadP) return adsLoadP;
-  adsLoadP = adsPlugin().load({ unitId: ADS_UNIT }).then((s) => { adsSt = s || adsSt; const y = window.scrollY; if (!layer.innerHTML) { render(); window.scrollTo(0, y); } return adsSt; }).catch(() => adsSt).finally(() => { adsLoadP = null; });
+  clearTimeout(adsRetryT); adsRetryOn = false;
+  adsLoadP = adsPlugin().load({ unitId: ADS_UNIT }).then((s) => { adsSt = s || adsSt; adsRetryMs = 60000; if (adsSt.loaded) adsLoadedAt = Date.now(); const y = window.scrollY; if (!layer.innerHTML) { render(); window.scrollTo(0, y); } return adsSt; })
+    .catch(() => { adsRetryOn = true; adsRetryT = setTimeout(() => { adsRetryOn = false; adsLoad(); }, adsRetryMs); adsRetryMs = Math.min(adsRetryMs * 2, 1800000); return adsSt; }).finally(() => { adsLoadP = null; });
   return adsLoadP;
 }
-const adReady = () => adsOn() && adsSt.canRequestAds && adsSt.loaded;
+/* Limite giornaliero (conta ogni video mostrato, anche se chiuso prima della fine): niente abbuffate, i premi restano preziosi */
+const ADS_DAY_MAX = 5, AD_TANI = 10; /* massimo 5 video al giorno, 10 Tanì ciascuno (al massimo +50 al giorno, circa +30% di quello che si guadagna con gli obiettivi) */
+function adsLeftToday() { const d = dkey(); const a = S.adsDay && S.adsDay.d === d ? S.adsDay.n : 0; return ADS_DAY_MAX - a; }
+function adsCount() { const d = dkey(); S.adsDay = { d, n: (S.adsDay && S.adsDay.d === d ? S.adsDay.n : 0) + 1 }; save(); }
+const adFresh = () => adsSt.loaded && Date.now() - adsLoadedAt < AD_MAX_AGE;
+const adReady = () => adsOn() && adsSt.canRequestAds && adFresh() && adsLeftToday() > 0;
 async function adShow(onReward, src) {
   if (adsBusy) return; if (!adReady()) { toast(v19ad().none); adsLoad(); return; }
   adsBusy = true; trackOnce("video-premio-" + src);
-  try { const r = await adsPlugin().show(); adsSt.loaded = false; if (r && r.rewarded) onReward(); }
+  let r = null;
+  try { r = await adsPlugin().show(); adsSt.loaded = false; adsCount(); }
   catch (e) { toast(v19ad().none); adsSt.loaded = false; }
   finally { adsBusy = false; adsLoad(); }
+  if (r && r.rewarded) { try { onReward(); } catch (e) { /* il premio è già stato dato: un errore di disegno non deve mostrare "nessun video" */ } }
 }
 /* 1) Regalo del giorno: il vecchio pulsante segnaposto sparisce; quello vero c'è solo se c'è un video pronto */
 const _teaserV19 = teaserCard;
 teaserCard = function () {
   let h = _teaserV19().replace(/<button class="btn ghost small" id="videoGift">[\s\S]*?<\/button>/, "");
-  if (adReady() && S.adGift !== S.day && S.giftDay === S.day) { const n = giftValue(S.visit.n); h = h.replace(/<\/div>$/, `<button class="btn ghost small" id="adGift">${icon("p_play")}${esc(v19ad().gift(n))}</button></div>`); }
+  if (adReady() && S.adGift !== S.day && S.giftDay === S.day) { const n = AD_TANI; h = h.replace(/<\/div>$/, `<button class="btn ghost small adbtn" id="adGift">${icon("p_play")}${esc(v19ad().gift(n))}</button></div>`); }
   return h;
 };
 /* 2) Ritorno dal viaggio */
 const _storyCardV19ad = storyCard;
 storyCard = function () {
   let h = _storyCardV19ad(); if (!story || story.adDone || !adReady()) return h;
-  const n = story.tani || SEEDS_TRIP;
-  return h.replace('<button class="btn" id="storyOk">', `<button class="btn ghost" id="adTrip">${icon("p_play")}${esc(v19ad().trip(n))}</button><button class="btn" id="storyOk">`);
+  const n = AD_TANI;
+  return h.replace(/(<button class="btn" id="storyOk">[\s\S]*?<\/button>)/, `$1<button class="btn ghost adbtn" id="adTrip">${icon("p_play")}${esc(v19ad().trip(n))}</button>`);
 };
 /* Altro: scelte sulla pubblicità (solo se servono per legge) */
 const _viewMoreV19ad = viewMore;
@@ -30411,12 +30540,78 @@ viewMore = function () {
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
   if (b.id === "videoGift") { ev.stopImmediatePropagation(); return; }
-  if (b.id === "adGift") { ev.stopImmediatePropagation(); adShow(() => { const n = giftValue(S.visit.n); S.seeds += n; S.adGift = S.day; save(); toast(v19ad().thanks(n)); SND.play("coin"); burst("star", 10); render(); }, "regalo"); return; }
-  if (b.id === "adTrip") { ev.stopImmediatePropagation(); adShow(() => { if (!story || story.adDone) return; const n = story.tani || SEEDS_TRIP; S.seeds += n; story.adDone = true; save(); toast(v19ad().thanks(n)); SND.play("coin"); burst("star", 10); render(); }, "viaggio"); return; }
-  if (b.id === "adPrivacy") { ev.stopImmediatePropagation(); const p = adsPlugin(); if (p) p.privacy().then((s) => { adsSt = s || adsSt; render(); }).catch(() => {}); return; }
+  if (b.id === "adGift") { ev.stopImmediatePropagation(); adShow(() => { const n = AD_TANI; S.seeds += n; S.adGift = S.day; save(); toast(v19ad().thanks(n)); SND.play("coin"); burst("star", 10); render(); }, "regalo"); return; }
+  if (b.id === "adTrip") { ev.stopImmediatePropagation(); adShow(() => { if (!story || story.adDone) return; const n = AD_TANI; S.seeds += n; story.adDone = true; save(); toast(v19ad().thanks(n)); SND.play("coin"); burst("star", 10); render(); }, "viaggio"); return; }
+  if (b.id === "adPrivacy") { ev.stopImmediatePropagation(); const p = adsPlugin(); if (p) p.privacy().then((s) => { adsSt = s || adsSt; if (!adsSt.loaded) adsLoadedAt = 0; render(); (adsLoadP || Promise.resolve()).finally(() => adsLoad()); }).catch(() => {}); return; }
 }, true);
 /* Si parte solo con un compagno già scelto (mai durante la prima configurazione) e dopo il controllo degli acquisti (Plus = niente pubblicità) */
-setInterval(() => { if (!adsInitP && S.pet && !layer.innerHTML && adsOn() && typeof billSyncAt !== "undefined" && billSyncAt) adsInit(); }, 5000);
+let billSynced = false;
+const _syncPurchasesV19ad = syncPurchases;
+/* Se Google Play non risponde (es. si sta aggiornando) si riprova ogni minuto; dopo 3 tentativi falliti si va avanti lo stesso (telefoni senza Play) */
+let billFails = 0, billSyncP = null;
+syncPurchases = function (show) {
+  const ran = isNativeApp() && !!billPlugin() && !!S.pet; const r = _syncPurchasesV19ad(show);
+  if (ran) billSyncP = Promise.resolve(r).then((x) => { if (x !== null || ++billFails >= 3) billSynced = true; }, () => { if (++billFails >= 3) billSynced = true; }).finally(() => { billSyncP = null; });
+  return r;
+};
+setInterval(() => {
+  if (!S.pet || !adsOn()) return;
+  /* Dopo la prima configurazione (compagno appena scelto) il controllo degli acquisti non era ancora partito: lo si fa ora */
+  if (!billSynced && !billPlugin()) billSynced = true; /* senza modulo acquisti non c'è Plus da controllare */
+  if (!billSynced) { if (!billSyncP && (!billSyncAt || Date.now() - billSyncAt > 60e3)) syncPurchases(false); return; }
+  if (!adsInitP && !adsSt.canRequestAds) { if (!layer.innerHTML && (!adsInitAt || (adsBack && Date.now() - adsInitAt > 1800e3))) adsInit(); return; }
+  /* Video scaduto (più di 55 minuti) o nuovo giorno dopo il limite: se ne prepara uno nuovo */
+  if (adsSt.loaded && !adFresh()) adsSt.loaded = false;
+  if (adsSt.canRequestAds && !adsSt.loaded && !adsLoadP && !adsRetryOn && !adsBusy && adsLeftToday() > 0) adsLoad();
+}, 5000);
+
+/* 3) e 4) Negozio dei Tanì e scheda "ti mancano X Tanì": un video per 10 Tanì (dentro lo stesso limite di 5 al giorno) */
+function adShopBtn() { return adReady() ? `<button class="btn ghost block adshop adbtn" id="adShop">${icon("p_play")}${esc(v19ad().gift(AD_TANI))}</button>` : ""; }
+const _openTaniShopV19ad = openTaniShop;
+openTaniShop = function (src) { _openTaniShopV19ad(src); const box = document.querySelector(".tshop"), b = adShopBtn(); if (!box || !b) return; const c = box.querySelector("#closeLayer"); if (c) c.insertAdjacentHTML("beforebegin", b); else box.insertAdjacentHTML("beforeend", b); };
+const _needSheetV19ad = needSheet;
+let adNeedS = null;
+needSheet = function (s) { adNeedS = s; _needSheetV19ad(s); const miss = s.price - S.seeds; if (miss <= 0 || miss > adsLeftToday() * AD_TANI) return; const k = document.getElementById("ndKeep"); const b = adShopBtn(); if (k && b) k.insertAdjacentHTML("afterend", b); };
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b || b.id !== "adShop") return;
+  ev.stopImmediatePropagation(); const box = b.closest(".sheet");
+  adShow(() => { S.seeds += AD_TANI; save(); toast(v19ad().thanks(AD_TANI)); SND.play("coin"); burst("star", 10); const n = document.getElementById("seedN"); if (n) n.textContent = S.seeds;
+    if (box && box.classList.contains("ndsheet") && adNeedS) { if (S.seeds >= adNeedS.price) { closeLayer(); render(); } else needSheet(adNeedS); return; }
+    if (!adReady() && box) { const x = box.querySelector("#adShop"); if (x) x.remove(); } }, "negozio");
+}, true);
+
+/* ===== 1.0.7 — animazioni di entrata che restavano a metà =====
+   Alcuni elementi (pacchetti di Tanì, oggetti, mete, piani...) hanno in CSS "transition: transform" per l'effetto
+   alla pressione. Durante le animazioni di GSAP quella transizione "insegue" i valori e GSAP legge valori a metà:
+   i pacchetti del negozio restavano rimpiccioliti al 70%. Soluzione: durante l'animazione la transizione CSS si
+   spegne solo su quegli elementi, e alla fine torna com'era. */
+(() => {
+  if (!G || !G.from || !G.utils) return;
+  const MOVE = ["scale", "scaleX", "scaleY", "x", "y", "xPercent", "yPercent", "rotation", "rotate", "transform"];
+  /* Conta le animazioni attive per elemento: la transizione torna solo quando finisce l'ultima.
+     Le animazioni dentro una timeline (tl.from) non passano di qui: nessuna oggi tocca elementi con transizione. */
+  const cnt = new WeakMap(), keep = new WeakMap();
+  const hasTr = (el) => { const cs = getComputedStyle(el); return /(^|,\s*)(all|transform)(\s|,|$)/.test(cs.transitionProperty) && cs.transitionDuration.split(",").some((d) => parseFloat(d) > 0); };
+  const moves = (v) => v && typeof v === "object" && ("keyframes" in v || MOVE.some((k) => k in v));
+  const guard = (fn) => function (targets, a, b) {
+    const args = [...arguments], vi = fn === "fromTo" ? 2 : 1, vars = args[vi];
+    try {
+      if (vars && typeof vars === "object" && (moves(vars) || (fn === "fromTo" && moves(a)))) {
+        const els = G.utils.toArray(targets).filter((el) => el && el.nodeType === 1 && (cnt.get(el) || hasTr(el)));
+        if (els.length) {
+          let open = true;
+          const done = () => { if (!open) return; open = false; els.forEach((el) => { const n = (cnt.get(el) || 1) - 1; if (n > 0) cnt.set(el, n); else { cnt.delete(el); el.style.transition = keep.get(el) || ""; keep.delete(el); } }); };
+          const oc = vars.onComplete, oi = vars.onInterrupt;
+          args[vi] = Object.assign({}, vars, { onComplete() { done(); if (oc) return oc.apply(this, arguments); }, onInterrupt() { done(); if (oi) return oi.apply(this, arguments); } });
+          els.forEach((el) => { const n = cnt.get(el) || 0; if (!n) { keep.set(el, el.style.transition); el.style.transition = "none"; } cnt.set(el, n + 1); });
+        }
+      }
+    } catch (e) { /* in caso di dubbio si anima come prima */ }
+    return orig[fn].apply(G, args);
+  };
+  const orig = { from: G.from.bind(G), fromTo: G.fromTo.bind(G) };
+  G.from = guard("from"); G.fromTo = guard("fromTo");
+})();
 
 /* 1.0.6: traduzioni dei testi nuovi (de, es, fr, pt) */
 (() => {
