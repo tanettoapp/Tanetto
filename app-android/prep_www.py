@@ -4,6 +4,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")); W = "www"
 shutil.rmtree(W, ignore_errors=True); os.makedirs(W + "/fonts")
 for f in os.listdir(SITE):
+    if f in ("og.png", "icon-512.png", "icon-maskable-512.png"): continue  # solo per il sito (anteprime social, installazione web): nell'app non servono
     if f.endswith((".png", ".webmanifest")) or f == "fb.js": shutil.copy(f"{SITE}/{f}", W)
 shutil.copy("node_modules/gsap/dist/gsap.min.js", W)
 css = ""
