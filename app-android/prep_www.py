@@ -23,5 +23,9 @@ h = re.sub(r'<link rel="preconnect" href="https://fonts\.gstatic\.com"[^>]*>\s*'
 h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">', '<link rel="stylesheet" href="fonts.css">', h)
 assert "gsap.min.js\"" in h and "fonts.css" in h and "googleapis" not in h and "cdnjs" not in h, "riscrittura incompleta"
 assert os.path.exists(f"{W}/fb.js"), "manca fb.js (account)"
+# 1.0.8: nell'app per Android niente agganci di prova (eval da console): servono solo ai test sul sito
+dbg = "window.__v10 = { ev: (code) => eval(code) };"
+assert h.count(dbg) == 1, "aggancio di prova non trovato"
+h = h.replace(dbg, "")
 open(f"{W}/index.html", "w").write(h)
 print("www pronta:", len(os.listdir(W + "/fonts")), "font,", len(h), "byte")
