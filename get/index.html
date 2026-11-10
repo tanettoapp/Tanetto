@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cut">
+<title>Tanetto is out on Google Play</title>
+<meta name="description" content="Tanetto, the cozy self-care app with a little pet, is out on Google Play. Free, in 14 languages.">
+<meta property="og:title" content="Tanetto is out on Google Play">
+<meta property="og:description" content="Small daily goals keep a tiny pet happy. Free on Google Play, in 14 languages.">
+<meta property="og:image" content="https://tanettoapp.github.io/Tanetto/og.png">
+<meta name="theme-color" content="#F6EFE4">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon-32.png">
+<link rel="canonical" href="https://tanettoapp.github.io/Tanetto/">
+<style>
+:root{--bg:#F6EFE4;--ink:#3A3128;--muted:#7A6E62;--accent:#3E7A3A}
+@media (prefers-color-scheme:dark){:root{--bg:#1E1B17;--ink:#F3EBDD;--muted:#B9AD9C;--accent:#79B873}}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:center}
+main{padding:24px 16px;max-width:420px}
+img{width:88px;height:88px;border-radius:22px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+h1{font-size:1.5rem;margin:14px 0 6px}
+p{color:var(--muted);margin:0 0 20px}
+a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px}
+a.sub{display:block;margin-top:14px;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+<img src="../icon-192.png" alt="Tanetto icon" width="88" height="88">
+<h1>Tanetto</h1>
+<p>Free on Google Play, in 14 languages.</p>
+<a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.tanettoapp.tanetto">Get it on Google Play</a>
+<a class="sub" id="web" href="../">On iPhone? Open the web version</a>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var src = (q.get("src") || "test").replace(/[^a-z0-9_-]/gi, "").slice(0, 40) || "test";
+  var play = "https://play.google.com/store/apps/details?id=com.tanettoapp.tanetto&referrer=" +
+    encodeURIComponent("utm_source=" + src + "&utm_medium=social&utm_campaign=bio");
+  var web = "../?src=" + encodeURIComponent(src);
+  document.getElementById("play").href = play;
+  document.getElementById("web").href = web;
+  var ua = navigator.userAgent || "";
+  if (/Android/i.test(ua)) location.replace(play);
+  else if (/iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) location.replace(web);
+})();
+</script>
+</body>
+</html>
