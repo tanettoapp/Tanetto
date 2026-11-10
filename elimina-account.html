@@ -62,7 +62,7 @@ const S = {"it":{"lang":"Italiano","locale":"it-IT","t":"Elimina il tuo account 
 const CFG = { apiKey: "AIzaSyDt7-JxuuK0-Q0rXchYpivOkKE5-5Y4m2A", authDomain: "tanettoapp-pet.firebaseapp.com", projectId: "tanettoapp-pet", storageBucket: "tanettoapp-pet.firebasestorage.app", messagingSenderId: "223551726724", appId: "1:223551726724:web:449dffc7c8b48a155eced1" };
 const $ = (id) => document.getElementById(id);
 const pickLang = () => { const n = (navigator.language || "en").toLowerCase(); if (/^zh-(tw|hk|mo)|hant/.test(n)) return "zht"; const l = n.slice(0, 2); return S[l] ? l : "en"; };
-let lang = (/[?&]lang=([a-z]+)/.exec(location.search) || [])[1]; if (!S[lang]) lang = pickLang();
+let lang = (/[?&]lang=([a-z]+)/.exec(location.search) || [])[1]; if (!lang || !Object.prototype.hasOwnProperty.call(S, lang)) lang = pickLang(); /* 1.0.8: ?lang=constructor non rompe la pagina */
 const L = () => S[lang];
 const fbl = () => /^(zh|pt)/.test(L().locale) ? L().locale : L().locale.slice(0, 2);
 $("lang").innerHTML = Object.keys(S).map((k) => '<option value="' + k + '">' + S[k].lang + "</option>").join(""); $("lang").value = lang;

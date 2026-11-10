@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Rqn1/QTiHSeRDQsaJkMTGUqARtFibkESvaeQB4J14Yg=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -35,7 +36,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="gsap.min.js"></script>
 <style>
 /* Layout: una colonna da telefono (max 480px). In alto la stanza illustrata del compagno, sotto le schede di lavoro, barra delle sezioni in basso. */
 :root {
@@ -2359,6 +2360,182 @@ html.calm .day:active { transform: none; }
 .sheet.gr20fs h2 { margin: 2px 0 0; }
 .sheet.gr20fs p { margin: 0; color: var(--muted); line-height: 1.5; }
 .gr20fsart { width: 100%; max-width: 340px; height: auto; align-self: center; display: block; border-radius: 20px; }
+
+/* ==========================================================================
+   v20 (1.0.8) 11y_v20_devices: Tanetto su ogni schermo
+   telefoni piccoli e in orizzontale, pieghevoli, tablet, Chromebook/desktop,
+   caratteri grandi, notch e barre di sistema, WebView vecchie (Chrome 90-110).
+   Il segno html[data-dvl] lo mette 98y_v20_devices.js:
+     "room"  = la pagina comincia con la stanza (Casa, Negozio)
+     "list"  = le altre pagine (Viaggi, Diario, Profilo, accoglienza)
+   ========================================================================== */
+
+/* ---------- 1. Area di tocco di almeno 44 px (senza cambiare il disegno) ---------- */
+.fulltop .fullbtn { position: relative; }
+.fullbtn::before { content: ""; position: absolute; inset: -3px; border-radius: 50%; }
+.scn { position: relative; }
+.scn::before { content: ""; position: absolute; inset: -2px 0; }
+.switch::before { content: ""; position: absolute; inset: -7px -4px; border-radius: 999px; }
+.top .lvpill::before { inset: -7px -3px; }
+.plusbox > #closeLayer::before, .tshop > #closeLayer::before { content: ""; position: absolute; inset: -3px -2px; }
+
+/* ---------- 2. Notch, foro della fotocamera, barra dei gesti e dei 3 tasti ---------- */
+.app { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+.hasbar .app { padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px)); }
+.tabs { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.departbar { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.fulltop { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); }
+.facts { padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); scroll-padding-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px)); }
+.roomwrap.full .arrbar { left: max(14px, env(safe-area-inset-left, 0px)); }
+
+/* ---------- 3. Schermo intero: sempre la scena intera (anche sugli schermi bassi) ---------- */
+/* con altezza <= 700 px una regola vecchia riduceva il disegno a 36vh anche nello schermo intero */
+#app .roomwrap.full .room > svg { height: 100%; }
+/* ai lati della scena (tablet in orizzontale, desktop) un fondo caldo e morbido invece del nero */
+.roomwrap.full { background: radial-gradient(120% 90% at 50% 45%, #3A3129 0%, #221D19 60%, #171310 100%); }
+.roomwrap.full .room { box-shadow: 0 0 60px -10px rgba(0, 0, 0, .55); }
+
+/* ---------- 3b. Schermo intero: le azioni centrate sotto la scena quando ci stanno tutte ----------
+   (margini automatici: se la fila è più lunga dello schermo valgono 0 e la fila scorre come prima) */
+.roomwrap.full .facts > .fact:first-child { margin-left: auto; }
+.roomwrap.full .facts > .fact:last-child { margin-right: auto; }
+/* caratteri grandi: il pulsante si allarga quanto la parola più lunga, invece di farla uscire */
+.fact { width: min-content; min-width: 72px; padding-inline: 4px; }
+
+/* ---------- 4. Telefono in orizzontale e schermi bassi ---------- */
+@media (orientation: landscape) and (max-height: 560px) {
+  .arena { height: max(190px, calc(100vh - 128px)); }
+  .gamebox { gap: 6px; }
+  .roomwrap.full .bubble { max-width: min(60%, 400px); }
+  /* il fumetto sale subito sotto i pulsanti in alto, così non copre il compagno (non mentre si spostano gli oggetti) */
+  .roomwrap.full:not([data-arr]) .bubble { top: calc(58px + env(safe-area-inset-top, 0px)) !important; }
+  /* barra in basso più bassa: icona e nome affiancati (resta alta 50 px, sopra i 44 richiesti) */
+  .tab { min-height: 50px; flex-direction: row; gap: 6px; }
+  .tab .ic { flex: none; }
+  /* barra più larga: con icona e nome affiancati ogni pulsante ha bisogno di più spazio */
+  .tabs .in { max-width: min(100%, 640px); }
+  /* nello schermo intero i pulsanti restano larghi almeno 72 px: "Nascondino" e "Abbraccio" ci stanno */
+  .fact { width: min-content; min-width: 72px; }
+}
+/* telefono in orizzontale (schermo basso e largo): nello schermo intero ai lati della scena resta spazio libero.
+   I pulsanti delle azioni vanno in una colonna a destra, fuori dalla scena, così non coprono più il compagno */
+@media (orientation: landscape) and (max-height: 560px) and (min-aspect-ratio: 7/4) {
+  .roomwrap.full .fullbar { left: auto; right: 0; top: calc(60px + env(safe-area-inset-top, 0px)); bottom: 0; width: max(92px, calc((100vw - 120vh) / 2)); padding: 0 max(4px, env(safe-area-inset-right, 0px)) 0 4px; background: none; }
+  .roomwrap.full .facts { height: 100%; box-sizing: border-box; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 8px; overflow-x: hidden; overflow-y: auto; padding: 4px 4px calc(12px + env(safe-area-inset-bottom, 0px)); scroll-snap-type: y proximity; overscroll-behavior: contain;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 8px, #000 calc(100% - 16px), transparent); mask-image: linear-gradient(180deg, transparent, #000 8px, #000 calc(100% - 16px), transparent); }
+  .roomwrap.full .facts > .fact:nth-child(n) { margin: 0; scroll-snap-align: start; }
+}
+
+/* ---------- 5. Tablet e pieghevoli in verticale: colonna centrata più larga ---------- */
+@media (min-width: 600px) {
+  .app { max-width: 600px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  .tabs .in { max-width: 600px; }
+  .departbar .in { max-width: 520px; }
+  .tab { font-size: 12.5px; }
+}
+@media (min-width: 768px) {
+  .app { max-width: 700px; }
+  .tabs .in { max-width: 640px; }
+}
+
+/* giochi sui tablet alti: area di gioco più grande (i giochi leggono le misure dell'area da soli) */
+@media (min-width: 700px) and (min-height: 900px) {
+  .gamebox { max-width: 580px; }
+  .arena { height: min(56vh, 660px); }
+}
+
+/* ---------- 6. Orizzontale largo (tablet, Chromebook, desktop, telefono girato) ---------- */
+@media (orientation: landscape) and (min-width: 560px) {
+  /* pagine a elenco: colonna centrata di larghezza comoda */
+  html[data-dvl="list"] .app { max-width: 760px; }
+  /* pagine con la stanza: stanza a sinistra (ferma mentre si scorre), il resto a destra */
+  html[data-dvl="room"] .app { max-width: 1180px; padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px)); }
+  html[data-dvl="room"] #app > .stack { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); grid-template-rows: repeat(var(--dvn, 14), auto) 1fr; column-gap: clamp(20px, 3vw, 40px); row-gap: 16px; align-items: start; }
+  html[data-dvl="room"] #app > .stack > * { grid-column: 2; min-width: 0; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { grid-column: 1; grid-row: 1 / -1; position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); width: 100%; justify-self: center; }
+  /* la stanza resta intera (niente versione schiacciata degli schermi bassi) */
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .room, html[data-dvl="room"] #app > .stack > #room { max-height: none; aspect-ratio: 360 / 300; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .room > svg, html[data-dvl="room"] #app > .stack > #room > svg { height: 100%; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .bubble { max-width: min(92%, 460px); }
+  /* il carrello "Prova / Compra" del Negozio resta centrato, largo come una scheda */
+  html[data-dvl="room"] .departbar .in { max-width: 480px; }
+  .tabs .in { max-width: 640px; }
+}
+/* orizzontale basso (telefono girato, finestre basse): la stanza non deve superare l'altezza dello schermo */
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 620px) {
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { position: relative; top: 0; max-width: min(calc((100vh - 96px) * 1.2), var(--dvroomw, 100vw)); }
+}
+@media (orientation: landscape) and (min-width: 560px) and (min-height: 621px) {
+  /* tablet e desktop: stanza, fumetto e pulsanti si vedono tutti insieme senza scorrere */
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { max-width: min(calc((100vh - 250px) * 1.2), var(--dvroomw, 100vw)); }
+}
+
+/* con i caratteri molto grandi la colonna della stanza (stanza, fumetto, azioni) può non starci in altezza
+   neanche rimpicciolita: allora scorre con la pagina invece di restare ferma (98y_v20_devices.js mette data-dvns) */
+@media (orientation: landscape) and (min-width: 560px) {
+  html[data-dvns][data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvns][data-dvl="room"] #app > .stack > #room { position: relative; top: 0; }
+}
+
+/* ---------- 7. Caratteri di sistema molto grandi (130-200%) ---------- */
+/* le parole lunghe vanno a capo con il trattino (Android ha i dizionari) invece di uscire dalle schede.
+   Le etichette corte di umori, azioni e schermo intero restano come prima (a grandezza normale ci stanno);
+   nella barra in basso, solo se la parola proprio non ci sta, si va a capo */
+.hubcard, .item, .chip, .btn, .goal .txt, .dest .meta { -webkit-hyphens: auto; hyphens: auto; }
+.tabsx button { overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
+/* barra in basso: se un nome non ci sta, 98y_v20_devices.js rimpicciolisce un po' solo i nomi (--dvtabf);
+   solo se non basta nemmeno così la parola va a capo */
+.tab { overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+.tab > span:not(.ic) { font-size: calc(var(--dvtabf, 1) * 1em); }
+html[data-dvtm] .tab > span:not(.ic) { display: inline-block; width: min-content; font-size: 1em; overflow-wrap: normal; word-break: keep-all; -webkit-hyphens: manual; hyphens: manual; }
+/* orizzontale basso con caratteri grandi: icona sopra e nome sotto, così il nome ha tutta la larghezza */
+html[data-dvtcol] .tab { flex-direction: column; gap: 2px; }
+/* azioni sotto la stanza: stessa cosa (--dvactf); con parole molto lunghe su schermi stretti, 3 per fila */
+.actions > .act > span:not(.aci) { font-size: calc(var(--dvactf, 1) * 1em); max-width: 100%; overflow-wrap: anywhere; }
+html[data-dvam] .actions > .act > span:not(.aci) { display: inline-block; width: min-content; max-width: none; font-size: 1em; overflow-wrap: normal; word-break: keep-all; -webkit-hyphens: manual; hyphens: manual; }
+html[data-dvact3] .actions { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+html[data-dvact3] .actions > .act { grid-column: span 2; }
+html[data-dvact3] .actions > .act:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; } /* 3 + 2, la seconda fila centrata */
+.tab { line-height: 1.1; padding-inline: 2px; }
+.tabsx button { min-width: 0; padding-inline: 6px; line-height: 1.15; }
+/* umori e azioni: le colonne dipendono dalla grandezza del testo (em). Con i caratteri normali
+   restano 5 in fila anche a 320 px; con i caratteri grandi diventano 4 o 3, così le parole ci stanno */
+.moods { font-size: 12px; grid-template-columns: repeat(auto-fit, minmax(max(44px, 3.8em), 1fr)); }
+.actions { font-size: 12px; grid-template-columns: repeat(auto-fit, minmax(max(48px, 4.3em), 1fr)); }
+
+/* nome della stagione: se non ci sta (colonna stretta, caratteri grandi, lingue lunghe) va a capo invece dei puntini */
+.nvptx b { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: break-word; line-height: 1.2; }
+
+/* ---------- 8. Movimento ridotto: niente animazioni decorative continue ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #fullwrap.fullin { animation: none; }
+}
+
+/* === 11y_v20_devices: riserva WebView vecchie === */
+/* Android 7-9 con WebView non aggiornata (Chrome 90-110): niente color-mix (Chrome 111), :has() (105),
+   dvh (108), proprietà translate (104). Qui i colori pieni per le regole 1.0.8 che non ne avevano. */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  :root[data-xmas] body::before { background: none; }
+  .xmcard { background: var(--paper); }
+  .xmart { background: var(--paper-2); }
+  .xmbar i.on { background: var(--xm-gold); }
+  .xmprice { background: rgba(255, 255, 255, .18); }
+  .xmplus { background: rgba(242, 179, 61, .18); }
+  .xmlist li.next { background: var(--paper); box-shadow: inset 0 0 0 2px var(--xm-gold); }
+  .xmrays { background: radial-gradient(closest-side, rgba(242, 179, 61, .3), transparent); }
+  .xmkeep { background: var(--paper-2); }
+  .nvfb .nvfbsv { background: var(--accent-soft); }
+  /* !important: le varianti scure di queste regole hanno un selettore più forte */
+  .w20feed .snack.isfav { background: var(--paper-2) !important; }
+  .cal .d.l1, .cal .d.l2, .legend i.lgsome { background: var(--accent-soft) !important; }
+  .gr20wait { border: 3px solid rgba(0, 0, 0, .12); border-top-color: var(--accent); }
+}
+@supports not (height: 1dvh) {
+  .sheet.w20feed { max-height: calc(100vh - 16px); }
+}
+@supports not (translate: 0) {
+  .petpeek { left: 0; right: 0; margin-inline: auto; width: max-content; }
+}
+/* === fine riserva 11y === */
 
 /* v20 (1.0.8) controllo finale UX (09/11/2026)
    1) Viaggi: la barra "Parti per ..." galleggia sopra la lista; senza fondo le schede e i link sotto si leggevano
@@ -22324,6 +22501,183 @@ function trackDaily() {
 function intlDT(l, o) { const c = intlDT.c || (intlDT.c = new Map()); const k = l + JSON.stringify(o || {}); let f = c.get(k); if (!f) { f = new Intl.DateTimeFormat(l, o); c.set(k, f); } return f; }
 function intlNF(l, o) { const c = intlNF.c || (intlNF.c = new Map()); const k = l + JSON.stringify(o || {}); let f = c.get(k); if (!f) { f = new Intl.NumberFormat(l, o); c.set(k, f); } return f; }
 
+/* ===== 1.0.8 — Sicurezza, parte 1 (avvio): salvataggio sano e orologio che non torna indietro =====
+   Questo file parte subito dopo 45_state.js, PRIMA di tutti gli altri moduli: cosi' nessuno legge un salvataggio
+   rotto o manomesso, e tutta l'app vede gia' l'ora giusta. Il resto della sicurezza e' in 98x_v20_secure.js.
+
+   1) Salvataggio illeggibile: prima, se il testo salvato non era JSON valido, l'app ripartiva da zero e al primo
+      salvataggio lo cancellava per sempre. Ora il testo originale viene messo da parte (chiave KEY + "-rotto").
+   2) Salvataggio con tipi sbagliati (numeri come testo, null al posto di liste, "__proto__", ...): i campi
+      principali vengono riportati a valori validi. Con un salvataggio normale non cambia niente (si tocca solo cio'
+      che ha il tipo sbagliato). Prima alcuni casi bloccavano l'app all'avvio, ogni volta.
+   3) Orologio: l'ora dell'app non torna mai indietro (oltre 10 minuti di tolleranza). Se la data del telefono viene
+      spostata indietro, l'app resta al momento piu' avanti gia' visto: niente giorni "rigiocati", niente limiti
+      giornalieri azzerati facendo avanti e indietro, niente viaggi o feste rifatti. Il fuso orario non c'entra
+      (l'ora "assoluta" non cambia viaggiando). Il momento piu' avanti visto sta in una chiave a parte
+      (SEC_CLK_KEY), non nelle copie: una copia presa da un altro telefono non sposta l'ora di questo.
+      Nell'app Android, 98x_v20_secure.js controlla anche l'ora della rete e il tempo dall'accensione (date
+      spostate AVANTI). Nei test automatici (navigator.webdriver) l'orologio non si tocca, a meno che il test lo
+      chieda con window.__secClockTest: i test vecchi spostano l'ora apposta. */
+const SEC_CLK_KEY = "tanetto-clock";
+const SEC_BROKEN_KEY = KEY + "-rotto";
+const SEC_TOL = 10 * 60e3;
+const SEC_R = Date; /* il Date "vero" del browser (nei test: quello dei test) */
+let secOff = 0;
+const secIsObj = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+const secDateRe = /^\d{4}-\d\d-\d\d$/;
+
+/* --- 1) testo salvato illeggibile: si conserva --- */
+(() => {
+  try {
+    const raw = localStorage.getItem(KEY); if (!raw) return;
+    try { JSON.parse(raw); } catch (e) { if (!localStorage.getItem(SEC_BROKEN_KEY)) localStorage.setItem(SEC_BROKEN_KEY, raw); }
+  } catch (e) { /* senza memoria non c'e' niente da salvare */ }
+})();
+
+/* --- 2) copia profonda senza chiavi pericolose (__proto__, constructor, prototype), con limiti di dimensione --- */
+const SEC_BAD_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+function secClean(v, depth = 0) {
+  if (v === null || typeof v === "boolean") return v;
+  if (typeof v === "number") return isFinite(v) ? v : 0;
+  if (typeof v === "string") return v.length > 20000 ? v.slice(0, 20000) : v;
+  if (depth > 14 || typeof v !== "object") return null;
+  if (Array.isArray(v)) return v.slice(0, 6000).map((x) => secClean(x, depth + 1));
+  const o = {};
+  Object.keys(v).slice(0, 6000).forEach((k) => { if (!SEC_BAD_KEYS.has(k)) o[k] = secClean(v[k], depth + 1); });
+  return o;
+}
+
+/* --- tipi dei campi principali: si corregge solo cio' che e' sbagliato --- */
+function secFixTypes(o) {
+  if (!secIsObj(o)) return { fixed: true };
+  let fixed = false;
+  const F = (k, v) => { o[k] = v; fixed = true; };
+  const num = (k, def, lo, hi, int) => {
+    let v = o[k]; if (v === undefined) return;
+    if (typeof v !== "number" || !isFinite(v)) { const n = Number(v); v = typeof v === "string" && v.trim() !== "" && isFinite(n) ? n : def; }
+    if (lo != null && v < lo) v = lo; if (hi != null && v > hi) v = hi; if (int) v = Math.round(v);
+    if (v !== o[k]) F(k, v);
+  };
+  const str = (k, def, re) => { const v = o[k]; if (v === undefined) return; if (typeof v !== "string" || (re && !re.test(v))) F(k, def); };
+  const strN = (k, re) => { const v = o[k]; if (v === undefined || v === null) return; if (typeof v !== "string" || (re && !re.test(v))) F(k, null); };
+  const arr = (k, keep) => { const v = o[k]; if (v === undefined) return; if (!Array.isArray(v)) { F(k, []); return; } const a = v.filter(keep); if (a.length !== v.length) F(k, a); };
+  const obj = (k, def) => { const v = o[k]; if (v === undefined) return; if (!secIsObj(v)) F(k, def()); };
+  const isStr = (x) => typeof x === "string";
+  num("v", 3); num("seeds", 0, 0, 1e9, true); num("xp", 0, 0, 1e8, true); num("level", 1, 1, 1000, true); num("energy", 0, 0, 100);
+  num("joy", 40, 0, 100); num("joyAt", Date.now()); num("onboard", 0, 0, 20, true); num("tut", 0); num("letterN", 0, 0, 1e6, true); num("track", 0);
+  num("shields", 0, 0, 1000, true);
+  str("lang", "en"); str("theme", "system"); str("petName", ""); str("day", "1970-01-01", secDateRe); /* un giorno non valido = "giorno passato": l'app passa a oggi da sola, come sempre */ str("wall", "w_cream");
+  strN("pet"); strN("hat"); strN("giftDay"); strN("firstDay", secDateRe); strN("letterDay"); strN("uname");
+  if (o.uname === null) delete o.uname;
+  arr("done", isStr); arr("owned", isStr); arr("furn", isStr); arr("cards", isStr);
+  arr("goals", (g) => secIsObj(g) && isStr(g.id) && g.id.length > 0);
+  (o.goals || []).forEach((g) => { if (!Array.isArray(g.days)) { g.days = [0, 1, 2, 3, 4, 5, 6]; fixed = true; } else { const d = g.days.filter((x) => Number.isInteger(x) && x >= 0 && x <= 6); if (d.length !== g.days.length) { g.days = d; fixed = true; } } });
+  arr("diary", (x) => secIsObj(x) && isStr(x.day));
+  (o.diary || []).forEach((x) => { if (x.text != null && !isStr(x.text)) { x.text = String(x.text); fixed = true; } if (x.q != null && !isStr(x.q)) { x.q = ""; fixed = true; } });
+  arr("garden", (x) => secIsObj(x) && isStr(x.t));
+  arr("capsules", (x) => secIsObj(x) && isStr(x.text) && isStr(x.open));
+  arr("log", (x) => secIsObj(x) && isStr(x.d) && isStr(x.g));
+  obj("days", () => ({}));
+  if (secIsObj(o.days)) Object.keys(o.days).forEach((k) => { const r = o.days[k]; if (!secDateRe.test(k) || !secIsObj(r)) { delete o.days[k]; fixed = true; return; } ["done", "total"].forEach((f) => { if (r[f] != null && (typeof r[f] !== "number" || !isFinite(r[f]))) { r[f] = 0; fixed = true; } }); });
+  /* (revisione 1.0.8) oggetti con un campo sbagliato o mancante: si corregge solo quel campo (prima si azzerava tutto
+     l'oggetto, per esempio il record dei giochi "best" di un salvataggio vecchio senza "seeds") */
+  const sub = (k, def, nums) => {
+    const v = o[k]; if (v === undefined) return; if (!secIsObj(v)) { F(k, def()); return; }
+    nums.forEach((f) => { const x = v[f]; if (typeof x !== "number" || !isFinite(x)) { const n = Number(x); v[f] = x != null && isStr(x) && x.trim() !== "" && isFinite(n) ? n : 0; fixed = true; } });
+  };
+  sub("season", () => ({ key: null, n: 0, claimed: false }), ["n"]); if (secIsObj(o.season) && o.season.key != null && !isStr(o.season.key)) { o.season.key = null; fixed = true; }
+  sub("fed", () => ({ day: null, n: 0 }), ["n"]); sub("game", () => ({ day: null, seeds: 0, best: 0 }), ["seeds"]); sub("visit", () => ({ last: null, n: 0 }), ["n"]);
+  if (secIsObj(o.game) && o.game.best != null && (typeof o.game.best !== "number" || !isFinite(o.game.best))) { o.game.best = Number(o.game.best) || 0; fixed = true; }
+  if (o.away != null && !(secIsObj(o.away) && isStr(o.away.dest) && typeof o.away.until === "number" && isFinite(o.away.until))) F("away", null);
+  if (o.adsDay != null && !(secIsObj(o.adsDay) && typeof o.adsDay.n === "number" && isFinite(o.adsDay.n))) { delete o.adsDay; fixed = true; }
+  ["tracked", "trophies", "pages", "wkc", "chap", "spc"].forEach((k) => { if (o[k] !== undefined && !secIsObj(o[k])) { delete o[k]; fixed = true; } });
+  /* stato dei moduli 1.0.8 (S.v20...): devono essere oggetti; se no, il modulo riparte dai suoi valori iniziali */
+  ["v20econ", "v20food", "v20fresh", "v20nav", "v20rev", "v20touch", "v20trip", "v20wear", "v20xmas"].forEach((k) => { if (o[k] != null && !secIsObj(o[k])) { delete o[k]; fixed = true; } });
+  if (o.v20scene != null && typeof o.v20scene !== "string") { delete o.v20scene; fixed = true; }
+  return { fixed };
+}
+
+/* --- applicazione all'avvio: S e' gia' stato letto da 45_state.js --- */
+(() => {
+  try {
+    let raw = null; try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
+    if (Object.getPrototypeOf(S) !== Object.prototype || (raw && /"(__proto__|constructor|prototype)"\s*:/.test(raw))) {
+      let o = {}; try { o = secClean(JSON.parse(raw || "{}")) || {}; } catch (e) { o = {}; }
+      S = Object.assign(fresh(), secIsObj(o) ? o : {});
+    }
+    const r = secFixTypes(S);
+    if (!T[S.lang]) S.lang = "en";
+    if (r.fixed) save();
+  } catch (e) { /* in ogni caso l'app deve partire */ }
+})();
+
+/* --- 3) orologio che non torna indietro ---
+   Ora dell'app = ora del telefono + secOff (correzione dall'ora vera, solo app Android), mai prima di secFloor
+   (il momento piu' avanti gia' visto, che poi avanza con il tempo vero: se il telefono va indietro, l'app riparte da
+   li' e va avanti normalmente; quando il telefono torna all'ora giusta, l'app usa di nuovo quella) e, nell'app Android, all'apertura mai oltre "l'ultima ora vera + il tempo da quando l'app e' aperta"
+   (secHoldAt, non piu' usato: vedi sotto). */
+let secFloor = 0, secFloorT0 = 0, secHoldAt = 0, secHoldT0 = 0;
+const secClockOn = () => { try { return !navigator.webdriver || !!window.__secClockTest; } catch (e) { return true; } };
+function secClkLoad() { try { const o = JSON.parse(localStorage.getItem(SEC_CLK_KEY) || "{}"); return secIsObj(o) ? o : {}; } catch (e) { return {}; } }
+function secClkSave(o) { try { localStorage.setItem(SEC_CLK_KEY, JSON.stringify(o)); } catch (e) { /* niente */ } }
+const secPerf = () => { try { return performance.now(); } catch (e) { return 0; } };
+function secAppNow() {
+  let t = SEC_R.now() + secOff;
+  if (secHoldAt) t = Math.min(t, secHoldAt + (secPerf() - secHoldT0));
+  /* il pavimento avanza con il tempo vero passato da quando e' stato messo (l'ora dell'app non si ferma mai) */
+  if (secFloor) { const f = secFloor + (secPerf() - secFloorT0); if (t < f) t = f; }
+  return t;
+}
+function secInstallDate() {
+  if (window.Date && window.Date.__sec) return;
+  const R = SEC_R;
+  function SD(...a) { if (!new.target) return new R(secAppNow()).toString(); return a.length ? new R(...a) : new R(secAppNow()); }
+  SD.prototype = R.prototype; SD.now = () => secAppNow(); SD.parse = R.parse; SD.UTC = R.UTC; SD.__sec = true;
+  try { window.Date = SD; } catch (e) { /* niente */ }
+}
+/* imposta correzione, pavimento e attesa; dice se l'ora dell'app e' cambiata di almeno un minuto */
+function secClockSet(off, floor, hold) {
+  const before = secAppNow();
+  off = Math.round(off) || 0; if (Math.abs(off) < SEC_TOL) off = 0;
+  secOff = off; const fl = floor > 0 ? floor : 0; if (fl !== secFloor) { secFloor = fl; secFloorT0 = secPerf(); } if (hold === 0) secHoldAt = 0;
+  if (secOff || secFloor || secHoldAt) secInstallDate();
+  return Math.abs(secAppNow() - before) >= 60e3;
+}
+/* il momento piu' avanti visto (ora dell'app); se il telefono e' tornato indietro mentre l'app era aperta, si ferma li' */
+/* Recupero per chi aveva la data del telefono sbagliata IN AVANTI per errore e poi l'ha corretta: il pavimento non
+   resta per sempre. Se il telefono e' indietro di oltre 30 giorni (un anno sbagliato, ...) si torna subito all'ora
+   del telefono; se e' indietro di meno, l'app resta avanti al massimo 48 ore (contate sull'ora del telefono), poi
+   torna all'ora del telefono. Chi sposta la data indietro apposta deve quindi aspettare 2 giorni ogni volta, e i
+   premi gia' presi restano segnati (98e). Nell'app Android 13+ l'ora della rete corregge tutto subito (98x). */
+const SEC_DROP_BIG = 30 * 86400e3, SEC_DROP_WAIT = 48 * 3600e3;
+const secNum = (v) => typeof v === "number" && isFinite(v);
+function secFloorFor(o, dev) {
+  const max = secNum(o.max) ? o.max : 0;
+  if (!(max - dev > SEC_TOL)) { if (o.bh !== undefined) delete o.bh; return 0; }
+  if (max - dev > SEC_DROP_BIG) { o.max = dev; delete o.bh; delete o.anc; return 0; }
+  if (!secNum(o.bh) || o.bh > dev) o.bh = dev; /* da quando (ora del telefono) il telefono e' indietro */
+  if (dev - o.bh > SEC_DROP_WAIT) { o.max = dev; delete o.bh; delete o.anc; return 0; }
+  return max;
+}
+function secClkTouch() {
+  if (!secClockOn()) return; const o = secClkLoad(); const dev = SEC_R.now() + secOff;
+  const fl = secFloorFor(o, dev);
+  if (fl && !secFloor) secClockSet(secOff, fl); else if (!fl && secFloor) secClockSet(secOff, 0);
+  const n = secAppNow();
+  if (!secNum(o.max) || n > o.max) o.max = n;
+  secClkSave(o);
+}
+(() => {
+  if (!secClockOn()) return;
+  const o = secClkLoad(); const now = SEC_R.now(); const m0 = o.max, b0 = o.bh;
+  const fl = secFloorFor(o, now); if (fl) secClockSet(0, fl);
+  if (o.max !== m0 || o.bh !== b0) secClkSave(o);
+  /* (revisione 1.0.8) Niente piu' "attesa" all'apertura (secHoldAt): con l'ora ferma all'ultima chiusura, tutto cio'
+     che si calcola all'avvio (giorno nuovo, "Bentornato" con il suo regalo, ...) vedeva l'ora vecchia a ogni
+     apertura. Ora l'avvio usa l'ora del telefono; TanettoClock la corregge pochi millisecondi dopo (98x), e un
+     viaggio che finirebbe proprio all'apertura aspetta quella risposta (al massimo 1,5 secondi). */
+})();
+
 /* =================== ILLUSTRAZIONI =================== */
 const INK = "#33302E";
 let uid = 0, SCENE_TOP = 0, nidScope = "";
@@ -38618,6 +38972,544 @@ document.addEventListener("click", (ev) => {
   /* scheda del ritorno chiusa: è il momento giusto per la recensione (se c'è) e per il "Nuovo inizio" rimasto in attesa */
   if (b.id === "storyOk") { setTimeout(() => { rev20Kick(900); fs20Check(); }, 50); }
 }, true);
+
+/* ===== 1.0.8 — Sicurezza, parte 2: trucchi, acquisti, copie, orologio, robustezza =====
+   Parte 1 (avvio: salvataggio sano, orologio che non torna indietro) in 45z_v20_secboot.js.
+   Prove: t38_secure.py. Ogni sezione dice che cosa chiude.
+
+   A) Agganci di prova (window.__v10.ev = eval, __v8, __tlevel, __FB_EMU, __TEST_*): solo nei test automatici
+      (navigator.webdriver). Per chi usa davvero l'app non esistono piu', e nessuna pagina puo' ricrearli (nemmeno con
+      elementi HTML che hanno quel nome). Nell'app Android prep_www.py toglieva gia' __v10.
+   B) Plus: vale solo nell'app Android vera (indirizzo locale dell'app, non il sito con un finto "Capacitor"), e solo
+      se Google Play l'ha confermato negli ultimi 30 giorni. Abbonamento annullato o rimborsato: al primo controllo
+      riuscito Plus si spegne; se Google Play non risponde per piu' di 30 giorni, Plus si spegne finche' non risponde.
+      Stesso limite per l'account dei revisori.
+   C) Pacchetti di Tanì: si consegnano e si "consumano" su Google Play solo se il salvataggio funziona davvero
+      (memoria piena = il pacchetto resta da consegnare e arriva alla prossima apertura, mai perso). Il salvataggio
+      con la memoria piena prima libera spazio (galleria dei disegni, poi i ricordi piu' vecchi del registro).
+   D) Copie, codici di trasferimento e backup online: struttura e tipi controllati, chiavi pericolose tolte,
+      "<", ">" e '"' neutralizzati nei campi che non sono testo scritto da te, testi lunghi accorciati, viaggio con
+      una meta che non esiste annullato. Prima un file con "remTime" o "seeds" scritti come codice HTML eseguiva quel
+      codice, e alcuni file bloccavano l'app all'avvio. In piu' le copie fatte da ora in poi sono FIRMATE: una copia
+      modificata a mano (o senza firma, cioe' fatta prima del 1.0.8) tiene tutto, ma Tanì + oggetti comprati + livello
+      restano entro il massimo guadagnabile dal giorno di uscita (prima bastavano 200 "pacchetti" inventati nel file per
+      avere milioni di Tanì). Poi i controlli dell'economia (98e).
+   E) Orologio, app Android: ora della rete (Android 13+) o tempo dall'accensione (TanettoClock, ClockPlugin.java).
+      Data spostata avanti: l'app resta all'ora vera (viaggi, feste e premi non arrivano prima). Indietro: vedi 45z.
+      TanettoClock assente, in errore o muto (1,5 s): l'app usa l'ora del telefono, l'avvio non aspetta mai.
+   F) "Annulla" di un obiettivo dopo aver gia' speso i Tanì: prima si annullava a 0 e lo si rispuntava per un
+      secondo premio. Ora, se i Tanì non bastano per restituirli tutti, l'obiettivo risulta gia' premiato oggi.
+   G) "Fallo tornare subito" (viaggio): bloccato sempre, qualunque testo abbia il pulsante.
+   H) Conteggio anonimo degli errori: dal messaggio si tolgono le parti tra virgolette (potevano contenere testo tuo).
+   I) Due schede aperte (sito): quando l'altra scheda salva, questa prende i dati nuovi invece di sovrascriverli.
+   K) L'avviso in basso (toast) non blocca piu' i tocchi sui pulsanti che copre.
+   (Doppi tocchi veloci su tutti i pulsanti che danno o spendono Tanì: provati uno per uno in t38_secure.py; ogni
+   gestore controlla e segna il premio nello stesso istante, quindi il secondo tocco non da' niente.) */
+
+/* ---------------- A) agganci di prova ---------------- */
+const secWebdriver = (() => { try { return !!navigator.webdriver; } catch (e) { return false; } })();
+(() => {
+  if (secWebdriver) return;
+  ["__v10", "__v8", "__tlevel"].forEach((k) => { try { delete window[k]; } catch (e) { /* niente */ } try { if (window[k]) window[k] = undefined; } catch (e) { /* niente */ } });
+  ["__v10", "__FB_EMU", "__TEST_NOLAUNCH", "__TEST_NOGIFT20", "__TEST_NOHINT20", "__secClockTest"].forEach((k) => {
+    try { Object.defineProperty(window, k, { value: undefined, writable: false, configurable: false }); } catch (e) { /* niente */ }
+  });
+})();
+
+/* ---------------- B) Plus ---------------- */
+/* (revisione 1.0.8) 30 giorni, non 7: chi paga e resta senza internet (o con Google Play che non risponde) per
+   piu' di una settimana non deve perdere Plus. Plus si spegne subito solo se Google Play risponde "nessun
+   abbonamento" (97o); senza risposta per oltre 30 giorni si spegne finche' Google Play non risponde, e torna da solo
+   (compagni, oggetti e scene di Plus non si perdono mai: restano tuoi, tornano usabili). Come il periodo di tolleranza
+   piu' lungo di Google Play. */
+const SEC_PLUS_STALE = 30 * 86400e3;
+const secHostOk = () => { try { const h = location.hostname; return h === "localhost" || h === "127.0.0.1" || location.protocol === "capacitor:" || (secWebdriver && location.protocol === "file:"); /* file: solo per i test automatici */ } catch (e) { return false; } };
+const secNative = () => { try { return isNativeApp() && secHostOk(); } catch (e) { return false; } };
+const secFresh = (t) => typeof t === "number" && isFinite(t) && t <= Date.now() + SEC_TOL && Date.now() - t < SEC_PLUS_STALE;
+/* data dell'ultima conferma "nel futuro" (l'ora del telefono era avanti ed e' stata corretta): vale come conferma di
+   adesso, una volta sola (prima Plus spariva finche' l'ora non la raggiungeva) */
+function secPlusClock() {
+  try {
+    const n = Date.now();
+    if (typeof S.plusCheck === "number" && isFinite(S.plusCheck) && S.plusCheck > n + SEC_TOL) { S.plusCheck = n; save(); }
+    if (A && typeof A.revAt === "number" && isFinite(A.revAt) && A.revAt > n + SEC_TOL) { A.revAt = n; saveA(); }
+  } catch (e) { /* niente */ }
+}
+plusOk = function () {
+  if (!secNative()) return false;
+  secPlusClock();
+  const sub = !!S.plusOn && secFresh(S.plusCheck);
+  const rev = !!(A && A.uid && A.rev && secFresh(A.revAt));
+  return sub || rev;
+};
+if (typeof reviewCheck === "function") {
+  const _reviewCheckSec = reviewCheck;
+  reviewCheck = async function (...a) {
+    let ok = false; try { if (A.uid) { await fbLoad(); ok = true; } } catch (e) { ok = false; }
+    const was = plusOk();
+    const r = await _reviewCheckSec.apply(this, a);
+    /* la data si rinnova solo se Firebase ha risposto davvero (senza internet il vecchio "si'" non vale per sempre) */
+    if (ok && A.uid && A.rev) { A.revAt = Date.now(); saveA(); }
+    /* revisori di Google Play: appena entrati Plus deve vedersi subito (97t ridisegna prima che qui ci sia la data) */
+    try { if (plusOk() !== was && S.pet && !layer.innerHTML) { const y = window.scrollY; render(); window.scrollTo(0, y); } } catch (e) { /* niente */ }
+    return r;
+  };
+}
+/* sul sito "Capacitor" non esiste: lo si blocca, cosi' non lo si puo' inventare dalla console per fingersi l'app */
+(() => {
+  if (secHostOk() || window.Capacitor) return;
+  try { Object.defineProperty(window, "Capacitor", { value: undefined, writable: false, configurable: false }); } catch (e) { /* niente */ }
+})();
+
+/* ---------------- C) salvataggio robusto e pacchetti di Tanì ---------------- */
+let secSaveOk = true;
+function secFreeSpace(step) {
+  try {
+    if (step === 0) { const g = JSON.parse(localStorage.getItem("tanetto-gallery") || "[]"); if (Array.isArray(g) && g.length) { g.splice(Math.ceil(g.length / 2)); if (g.length) localStorage.setItem("tanetto-gallery", JSON.stringify(g)); else localStorage.removeItem("tanetto-gallery"); return true; } }
+    if (step === 1) { localStorage.removeItem("tanetto-gallery"); localStorage.removeItem(SEC_BROKEN_KEY); return true; }
+    if (step === 2 && Array.isArray(S.log) && S.log.length > 1500) { S.log.splice(0, S.log.length - 1500); return true; }
+    if (step === 3 && S.tracked && Object.keys(S.tracked).length > 50) { const t = dkey(); Object.keys(S.tracked).forEach((k) => { if (S.tracked[k] !== t) delete S.tracked[k]; }); return true; }
+  } catch (e) { /* niente */ }
+  return false;
+}
+/* stesso lavoro di prima (un solo JSON.stringify), ma sa se il salvataggio e' riuscito e, se la memoria e' piena,
+   libera spazio e riprova (prima l'errore veniva ignorato e i progressi si perdevano alla chiusura) */
+save = function () {
+  const put = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); return true; } catch (e) { return false; } };
+  if (put()) { secSaveOk = true; return; }
+  for (let s = 0; s < 4; s++) { if (secFreeSpace(s) && put()) { secSaveOk = true; return; } }
+  secSaveOk = false;
+};
+if (typeof creditPack === "function") {
+  const _creditPackSec = creditPack;
+  creditPack = async function (x, celebrate) {
+    const tok = x && x.token;
+    if (!tok || typeof tok !== "string") return false;
+    if (!(S.paidTokens || []).includes(tok)) { save(); if (!secSaveOk) return false; } /* memoria non scrivibile: non si consegna e non si consuma */
+    return _creditPackSec(x, celebrate);
+  };
+}
+
+/* ---------------- D) copie, trasferimenti, backup online ---------------- */
+const SEC_TEXT_MAX = { petName: 40, uname: 40 };
+const secNeutral = (s) => s.replace(/</g, "\uFF1C").replace(/>/g, "\uFF1E").replace(/"/g, "\u201D").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
+/* testo scritto da te: si lascia com'e' (l'app lo mostra sempre "pulito"), solo accorciato */
+function secImportStrings(v, path, depth) {
+  if (typeof v === "string") {
+    /* obiettivi personali ("c:" + testo tuo) solo dove stanno davvero: altrove un "c:" non rende "libero" un campo */
+    const free = path === "petName" || path === "uname" || /^(diary\.\d+\.(text|q)|capsules\.\d+\.text|garden\.\d+\.t)$/.test(path) || (v.startsWith("c:") && /^(goals\.\d+\.id|done\.\d+|log\.\d+\.g)$/.test(path));
+    if (free) { const max = SEC_TEXT_MAX[path] || (v.startsWith("c:") ? 60 : 1000); return v.length > max ? v.slice(0, max) : v; }
+    return secNeutral(v.length > 2000 ? v.slice(0, 2000) : v);
+  }
+  if (!v || typeof v !== "object" || depth > 14) return v;
+  if (Array.isArray(v)) return v.map((x, i) => secImportStrings(x, path + "." + i, depth + 1));
+  const o = {};
+  Object.keys(v).forEach((k) => { const k2 = k.startsWith("c:") || secDateRe.test(k) ? k : secNeutral(k); o[k2] = secImportStrings(v[k], path ? path + "." + k : k, depth + 1); });
+  return o;
+}
+const secIdOk = (x) => typeof x === "string" && /^[A-Za-z0-9_:.-]{1,80}$/.test(x);
+function secDestOk(key) { try { if (typeof key !== "string") return false; const d = destByKey(key); return !!(d && Array.isArray(d.cards) && typeof d.h === "number" && isFinite(d.h)); } catch (e) { return false; } }
+/* stato di partenza ragionevole (dopo i tipi): cose che altrimenti bloccano l'app */
+function secFixMeaning(o) {
+  let fixed = false;
+  if (o.away && !secDestOk(o.away.dest)) { o.away = null; fixed = true; }
+  if (typeof o.theme === "string" && !["system", "light", "dark"].includes(o.theme)) { o.theme = "system"; fixed = true; }
+  if (o.remTime != null && !(typeof o.remTime === "string" && /^\d\d:\d\d(:\d\d)?$/.test(o.remTime))) { delete o.remTime; fixed = true; }
+  return fixed;
+}
+/* --- firma anti-modifica delle copie ---
+   Copie su file, codici di trasferimento e backup online fatti da 1.0.8 in poi portano una firma (S.__sig) calcolata
+   sul loro contenuto. Senza server non e' una protezione assoluta (chi studia il codice dell'app puo' rifarla), ma
+   chi apre il file e cambia "seeds" o aggiunge oggetti con un editor di testo viene scoperto: la copia vale lo stesso
+   (il compagno, i ricordi, gli obiettivi tornano tutti) ma Tanì, oggetti comprati e livello vengono riportati a cio'
+   che si puo' guadagnare davvero dal giorno di uscita di Tanetto (SEC_EPOCH) con il gioco piu' generoso possibile.
+   Le copie vecchie (senza firma) passano dallo stesso controllo, che con i numeri veri dei tester non tocca niente. */
+const SEC_SIG_K = "tanetto-1.0.8|7c1f4e3b-2d9a-4c6e-8f10-b9c0e415d7a2";
+const SEC_EPOCH = "2026-10-01";
+const SEC_PACK_NEW = 4000;
+function secHash(str, seed) {
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0; i < str.length; i++) { const ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+function secSig(st) { const j = JSON.stringify(st); return "s1." + secHash(SEC_SIG_K + j, 7) + "." + secHash(j + SEC_SIG_K, 1913); }
+function secVerify(st) {
+  if (!st || typeof st !== "object" || typeof st.__sig !== "string") return false;
+  try { const { __sig, ...rest } = st; return __sig === secSig(rest); } catch (e) { return false; }
+}
+/* firma messa solo mentre si prepara la copia (in modo sincrono), poi tolta: il salvataggio normale non la contiene */
+function secSigned(fn) { return function (...a) { try { delete S.__sig; S.__sig = secSig(S); } catch (e) { /* niente */ } try { return fn.apply(this, a); } finally { try { delete S.__sig; } catch (e) { /* niente */ } } }; }
+if (typeof packState === "function") packState = secSigned(packState);
+if (typeof saveBackup === "function") saveBackup = secSigned(saveBackup);
+let secLastTrust = null;
+/* segni interni messi solo dall'app (proprieta' non enumerabili): un file con "__secTrust": true scritto a mano non vale */
+const secTag = (o, k) => { try { const d = Object.getOwnPropertyDescriptor(o, k); return d && !d.enumerable ? d.value : undefined; } catch (e) { return undefined; } };
+/* copia senza firma valida: Tanì + valore degli oggetti comprati + livello entro il massimo guadagnabile */
+function secStrict(o) {
+  const today = dkey();
+  const fd = typeof o.firstDay === "string" && secDateRe.test(o.firstDay) && o.firstDay > SEC_EPOCH ? o.firstDay : SEC_EPOCH;
+  const span = Math.max(1, Math.round((ldate(today).getTime() - ldate(fd).getTime()) / 86400000) + 1);
+  const inR = (d) => typeof d === "string" && secDateRe.test(d) && d >= fd && d <= today;
+  const logDays = new Set((Array.isArray(o.log) ? o.log : []).map((x) => x && x.d).filter(inR)).size;
+  const recDays = Object.keys(secIsObj(o.days) ? o.days : {}).filter(inR).length;
+  const active = Math.max(1, Math.min(Math.max(logDays, recDays), span));
+  /* (revisione 1.0.8) pacchetti di Tanì comprati: quelli gia' consegnati su QUESTO telefono contano tutti; quelli che
+     arrivano solo dalla copia (telefono nuovo) fino a 10, ognuno come il pacchetto piu' grande (3.000) con margine.
+     Prima non contavano: chi aveva comprato Tanì e ripristinava una copia del 1.0.7 (o un backup online di prima)
+     poteva perderli. (Le copie fatte dal 1.0.8 in poi sono firmate e non passano di qui.) */
+  const here = new Set(Array.isArray(S.paidTokens) ? S.paidTokens : []);
+  const toks = [...new Set((Array.isArray(o.paidTokens) ? o.paidTokens : []).filter((x) => typeof x === "string" && x))];
+  const cap = EC.IMPORT_BASE + active * EC.IMPORT_PER_DAY + toks.filter((x) => here.has(x)).length * EC.IMPORT_PER_PACK + Math.min(10, toks.filter((x) => !here.has(x)).length) * SEC_PACK_NEW;
+  const price = (id) => { const x = SHOP.find((s) => s.id === id); return x && x.price > 0 && !x.reward && !x.special && !x.event && !x.found && !x.coll && !x.souvenir ? x.price : 0; };
+  let owned = Array.isArray(o.owned) ? o.owned.slice() : []; let val = owned.reduce((a, id) => a + price(id), 0);
+  /* (revisione 1.0.8) oggetti tolti solo se valgono piu' del DOPPIO del massimo (prezzi nuovi, a volte piu' alti di
+     quelli pagati davvero): perdere oggetti comprati sarebbe peggio di qualche oggetto in piu' */
+  if (val > cap * 2) {
+    const drop = owned.filter((id) => price(id) > 0).sort((a, b) => price(b) - price(a));
+    for (const id of drop) { if (val <= cap * 2) break; owned = owned.filter((x) => x !== id); val -= price(id); }
+    o.owned = owned;
+    if (Array.isArray(o.furn)) o.furn = o.furn.filter((x) => owned.includes(x) || !price(x));
+    if (o.hat && price(o.hat) && !owned.includes(o.hat)) o.hat = null;
+    if (o.wall && price(o.wall) && !owned.includes(o.wall)) o.wall = "w_cream";
+  }
+  const seeds = typeof o.seeds === "number" && isFinite(o.seeds) ? o.seeds : 0;
+  o.seeds = Math.max(0, Math.min(seeds, cap - val));
+  if (typeof o.level === "number") o.level = Math.max(1, Math.min(o.level, 5 + active));
+  return o;
+}
+/* pulizia completa di uno stato che arriva da fuori (file, codice, backup online) */
+function secSanitizeImport(st, trustHint) {
+  if (!st || typeof st !== "object" || Array.isArray(st)) return st;
+  const tag = secTag(st, "__secTrust");
+  const trusted = typeof tag === "boolean" ? tag : typeof trustHint === "boolean" ? trustHint : secVerify(st);
+  let o = secClean(st); if (!secIsObj(o)) return st;
+  ["__sig", "__secTrust", "__sec"].forEach((k) => { delete o[k]; });
+  o = secImportStrings(o, "", 0);
+  secFixTypes(o);
+  /* codici di oggetti, mete, cartoline: solo lettere, numeri e _ : . - (nessun oggetto vero ha altro) */
+  ["owned", "furn", "cards"].forEach((k) => { if (Array.isArray(o[k])) o[k] = [...new Set(o[k].filter(secIdOk))]; });
+  if (o.hat != null && !secIdOk(o.hat)) o.hat = null;
+  if (o.pet != null && !secIdOk(o.pet)) o.pet = "germo";
+  if (typeof o.wall === "string" && !secIdOk(o.wall)) o.wall = "w_cream";
+  if (typeof o.lang === "string" && !T[o.lang]) o.lang = "en";
+  if (Array.isArray(o.goals)) { const seen = new Set(); o.goals = o.goals.filter((g) => !seen.has(g.id) && seen.add(g.id)); }
+  secFixMeaning(o);
+  ["plusOn", "plusCheck", "plusSince", "dev"].forEach((k) => { delete o[k]; });
+  if (!trusted) { try { secStrict(o); } catch (e) { /* niente */ } }
+  try { Object.defineProperty(o, "__secTrust", { value: trusted, enumerable: false, configurable: true }); } catch (e) { /* niente */ }
+  secLastTrust = trusted;
+  return o;
+}
+if (typeof unpackState === "function") { const _unpackStateSec = unpackState; unpackState = async function (code) { const st = await _unpackStateSec(code); return st ? secSanitizeImport(st) : st; }; }
+if (typeof restoreFrom === "function") { const _restoreFromSec = restoreFrom; restoreFrom = function (state) { return _restoreFromSec(secSanitizeImport(state)); }; }
+if (typeof applyCloud === "function") { const _applyCloudSec = applyCloud; applyCloud = function (st, at) { return _applyCloudSec(secSanitizeImport(st), at); }; }
+/* copia su file: la firma si controlla sul file cosi' com'e' (prima che 98e la riordini), poi "Si, ripristina" la pulisce */
+if (typeof readBackup === "function") {
+  const _readBackupSec = readBackup;
+  readBackup = function (file) {
+    secLastTrust = null;
+    try { file.text().then((t) => { try { const o = JSON.parse(t); secLastTrust = !!(o && o.state && secVerify(o.state)); } catch (e) { secLastTrust = false; } }).catch(() => { secLastTrust = false; }); } catch (e) { secLastTrust = false; }
+    return _readBackupSec.apply(this, arguments);
+  };
+}
+window.addEventListener("click", (ev) => {
+  const b = ev.target && ev.target.closest && ev.target.closest("button"); if (!b || b.id !== "rsYes" || !pendingRestore || secTag(pendingRestore, "__sec") === true) return;
+  pendingRestore = secSanitizeImport(pendingRestore, secLastTrust === true); try { Object.defineProperty(pendingRestore, "__sec", { value: true, enumerable: false }); } catch (e) { /* niente */ }
+}, true);
+/* (revisione 1.0.8) Plus e' di questo telefono (lo conferma Google Play qui), non della copia: ripristinando una copia
+   o un backup online chi ha Plus lo tiene (prima restava spento fino alla verifica successiva con Google Play) */
+let secPlusKeep = null;
+const secPlusTake = () => { try { return S && S.plusOn ? { plusOn: true, plusCheck: S.plusCheck, plusSince: S.plusSince } : null; } catch (e) { return null; } };
+function secPlusPut(k, s0) { try { if (!k || S === s0 || S.plusOn) return; Object.assign(S, k); save(); const y = window.scrollY; render(); window.scrollTo(0, y); } catch (e) { /* niente */ } }
+if (typeof restoreFrom === "function") { const _restoreFromP = restoreFrom; restoreFrom = function (state) { const k = secPlusTake(), s0 = S; const r = _restoreFromP(state); secPlusPut(k, s0); return r; }; }
+if (typeof applyCloud === "function") { const _applyCloudP = applyCloud; applyCloud = function (st, at) { const k = secPlusTake(), s0 = S; const r = _applyCloudP(st, at); secPlusPut(k, s0); return r; }; }
+/* "Si', ripristina": il ripristino lo fa il gestore su document; questo (su window, dopo) rimette Plus */
+window.addEventListener("click", (ev) => { const b = ev.target && ev.target.closest && ev.target.closest("button"); if (b && b.id === "rsYes") { secPlusKeep = { k: secPlusTake(), s0: S }; setTimeout(() => { const x = secPlusKeep; secPlusKeep = null; if (x) secPlusPut(x.k, x.s0); }, 0); } }, true);
+/* anche il salvataggio di questo telefono: una meta di viaggio che non esiste piu', un tema sconosciuto... */
+try { if (S && secFixMeaning(S)) save(); } catch (e) { /* niente */ }
+
+/* ---------------- E) orologio (app Android) ---------------- */
+const secClockPlugin = () => { try { const C = window.Capacitor; return (C && C.Plugins && C.Plugins.TanettoClock) || null; } catch (e) { return null; } };
+const secUsePlugin = () => secNative() && !!secClockPlugin();
+let secClkBusy = false, secClkAt = 0, secClkDone = false, secTripWait = false;
+const secT0 = secPerf();
+function secClockRedraw(changed) { if (changed && S.pet && !layer.innerHTML) { const y = window.scrollY; render(); window.scrollTo(0, y); } }
+async function secClockCheck() {
+  if (!secClockOn() || secClkBusy) return; const p = secUsePlugin() ? secClockPlugin() : null; if (!p || !p.now) return;
+  secClkBusy = true;
+  try {
+    const r = await Promise.race([Promise.resolve().then(() => p.now()), new Promise((res) => setTimeout(() => res(null), 1500))]);
+    if (!r || typeof r.wall !== "number" || !isFinite(r.wall) || typeof r.el !== "number" || !isFinite(r.el)) return;
+    const o = secClkLoad(); const a = secIsObj(o.anc) ? o.anc : null; let trusted = null;
+    const net = typeof r.net === "number" && isFinite(r.net) && r.net > 1.7e12;
+    if (net) { trusted = r.net; delete o.bh; }
+    else if (a && a.b === r.boot && r.boot !== -1 && r.el >= a.e && typeof a.w === "number" && isFinite(a.w)) {
+      trusted = a.w + (r.el - a.e);
+      /* telefono indietro rispetto all'ancora: stesso recupero del pavimento (45z), cosi' un'ora sbagliata in avanti
+         quando l'ancora e' nata non resta finche' non si riavvia il telefono */
+      if (trusted - r.wall > SEC_TOL) { const t2 = { max: trusted, bh: o.bh }; if (!secFloorFor(t2, r.wall)) { trusted = null; o.max = r.wall; delete o.bh; } else o.bh = t2.bh; }
+      else if (o.bh !== undefined) delete o.bh;
+    }
+    const max = typeof o.max === "number" && isFinite(o.max) ? o.max : 0;
+    let changed;
+    if (trusted != null) {
+      /* ora vera nota: l'app usa quella (data del telefono avanti o indietro non contano) */
+      changed = secClockSet(trusted - r.wall, 0, 0);
+      o.max = net ? trusted : Math.max(max, trusted);
+    } else {
+      /* dopo un riavvio, senza ora della rete: si accetta il telefono, ma mai prima del momento piu' avanti gia' visto
+         (con il recupero di 45z per chi aveva la data avanti per errore) */
+      const fl = secFloorFor(o, r.wall);
+      changed = secClockSet(0, fl, 0);
+      o.max = Math.max(secNum(o.max) ? o.max : 0, secAppNow());
+    }
+    const now = secAppNow();
+    o.anc = { w: now - (SEC_R.now() - r.wall), e: r.el, b: r.boot }; o.at = now; secClkSave(o); secClkAt = Date.now();
+    if (secTripWait) { secTripWait = false; changed = true; }
+    secClockRedraw(changed);
+  } catch (e) { /* senza risposta resta l'ora di prima */ } finally {
+    secClkBusy = false; secClkDone = true;
+    if (secTripWait) { secTripWait = false; try { secClockRedraw(true); } catch (e) { /* niente */ } }
+  }
+}
+/* Viaggio che finirebbe proprio all'apertura (app Android): aspetta la prima risposta di TanettoClock (di solito pochi
+   millisecondi, al massimo 1,5 secondi), cosi' una data spostata avanti non lo fa finire prima. Senza risposta
+   (modulo assente, errore, nessuna risposta) il viaggio finisce normalmente. */
+if (typeof finishTrip === "function") {
+  const _finishTripSec = finishTrip;
+  finishTrip = function (...a) {
+    try { if (!secClkDone && secPerf() - secT0 < 1500 && secClockOn() && secUsePlugin()) { secTripWait = true; return; } } catch (e) { /* niente */ }
+    return _finishTripSec.apply(this, a);
+  };
+}
+setTimeout(() => { if (secTripWait) { secTripWait = false; try { secClockRedraw(true); } catch (e) { /* niente */ } } }, 1600);
+setTimeout(secClockCheck, 0);
+/* sul sito (e senza il modulo dell'orologio) il momento piu' avanti si ricorda ogni 30 secondi e quando si esce;
+   nell'app Android lo aggiorna solo secClockCheck, dopo aver confrontato l'ora con quella vera */
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") secClockCheck(); else if (!secUsePlugin()) secClkTouch(); });
+window.addEventListener("pagehide", () => { if (!secUsePlugin()) secClkTouch(); });
+setInterval(() => { if (document.visibilityState !== "visible") return; if (secUsePlugin()) secClockCheck(); else secClkTouch(); }, 30000);
+setTimeout(() => { if (!secUsePlugin()) secClkTouch(); }, 5000);
+
+/* ---------------- F) "Annulla" dopo aver speso ---------------- */
+if (typeof nav20undo === "function") {
+  const _nav20undoSec = nav20undo;
+  nav20undo = function (g) {
+    let short = false;
+    /* nav20undoTake si ferma ai Tanì che hai: qui serve il totale vero da restituire */
+    try { const r = nav20undoInfo(g); const s0 = S.seeds; let full = 0; try { S.seeds = 1e12; full = nav20undoTake(r); } finally { S.seeds = s0; } short = full > 0 && s0 < full && S.done.includes(g) && S.day === dkey(); } catch (e) { short = false; }
+    const res = _nav20undoSec.apply(this, arguments);
+    if (short && !S.done.includes(g)) { try { const e = econ(); const d = S.day; e.rw[d] = e.rw[d] || []; if (!e.rw[d].includes(g)) e.rw[d].push(g); save(); } catch (e) { /* niente */ } }
+    return res;
+  };
+}
+
+/* ---------------- G) "Fallo tornare subito" ---------------- */
+window.addEventListener("click", (ev) => { const b = ev.target && ev.target.closest && ev.target.closest("#comeBack"); if (b) { ev.stopImmediatePropagation(); ev.preventDefault(); b.remove(); } }, true);
+
+/* ---------------- H) errori anonimi senza testo personale ---------------- */
+if (typeof reportErr === "function") {
+  const _reportErrSec = reportErr;
+  reportErr = function (msg, line) { const m = String(msg || "").replace(/"[^"]*"|'[^']*'|“[^”]*”|«[^»]*»/g, "").replace(/\d{3,}/g, "N"); return _reportErrSec(m, line); };
+}
+
+/* ---------------- I) due schede aperte ---------------- */
+/* mentre si ridisegna con i dati dell'altra scheda non si salva (altrimenti le due schede si rimbalzerebbero i
+   salvataggi all'infinito); si adotta al massimo 5 volte al secondo */
+let secAdopt = false, secAdoptAt = 0, secAdoptT = null;
+{ const _saveTabs = save; save = function () { if (secAdopt) return; return _saveTabs.apply(this, arguments); }; }
+function secAdoptNow() {
+  secAdoptT = null; secAdoptAt = Date.now();
+  let raw = null; try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+  if (!raw) return;
+  try {
+    const o = JSON.parse(raw); if (!secIsObj(o)) return;
+    const c = secClean(o); secFixTypes(c); secFixMeaning(c);
+    secAdopt = true;
+    try { S = Object.assign(fresh(), c); if (layer.innerHTML) closeLayer(); const y = window.scrollY; render(); window.scrollTo(0, y); } finally { secAdopt = false; }
+  } catch (e) { secAdopt = false; }
+}
+window.addEventListener("storage", (ev) => {
+  if (ev.key !== KEY || ev.newValue == null || ev.storageArea !== localStorage) return;
+  if (secAdoptT) return;
+  const wait = Math.max(0, 200 - (Date.now() - secAdoptAt)); secAdoptT = setTimeout(secAdoptNow, wait);
+});
+
+/* ---------------- K) l'avviso in basso non blocca i tocchi ----------------
+   Trovato provando i doppi tocchi: per 2,4 secondi l'avviso ("+40 Tanì", ...) stava sopra i pulsanti in basso
+   (per esempio "Ritira il premio" di una pagina dell'album subito dopo un altro premio) e il tocco non arrivava.
+   L'avviso e' solo testo: i tocchi ora passano attraverso. */
+(() => { try { const t = document.getElementById("toast"); if (t) t.style.pointerEvents = "none"; } catch (e) { /* niente */ } })();
+
+/* ==========================================================================
+   v20 (1.0.8) 98y_v20_devices: segni per l'impaginazione su schermi diversi.
+   Non cambia nulla del contenuto: dice solo al CSS (11y_v20_devices.css) che tipo
+   di pagina è aperta, perché le WebView vecchie (Chrome < 105) non hanno :has().
+     html[data-dvl="room"]  la pagina comincia con la stanza (Casa, Negozio)
+     html[data-dvl="list"]  le altre pagine
+     html[data-dvl="full"]  schermo intero
+     --dvn                  quante righe servono alla colonna di destra
+   Niente attributi sugli elementi della pagina: il confronto di render() (97s_perf) li toglierebbe;
+   il CSS trova la stanza da solo (#app > .stack > .roomwrap / #room).
+   Nessun timer, nessuna animazione: un MutationObserver su #app (solo i figli diretti),
+   uno sulla pila della pagina e uno sulla barra in basso; un ResizeObserver sulla stanza
+   solo quando è affiancata (orizzontale largo). Le correzioni per i caratteri grandi:
+     --dvtabf   i nomi della barra in basso un po' più piccoli se non ci stanno
+     --dvroomw  la stanza affiancata più stretta, così stanza + fumetto + azioni stanno nello schermo
+     data-dvns  se nemmeno così ci stanno, la stanza scorre con la pagina invece di restare ferma
+   ========================================================================== */
+(function dvInit() {
+  const app = document.getElementById("app"); if (!app || !window.MutationObserver) return;
+  const root = document.documentElement;
+  let stackObs = null, lastStack = null, dvPending = 0, dvReady = false;
+  function dvMark() {
+    try {
+      const st = app.querySelector(":scope > .stack");
+      if (st !== lastStack) {
+        if (stackObs) stackObs.disconnect();
+        lastStack = st;
+        if (st) { stackObs = stackObs || new MutationObserver(dvMark); stackObs.observe(st, { childList: true }); }
+      }
+      const isFull = typeof full !== "undefined" && full && !!document.getElementById("fullwrap");
+      let room = null;
+      if (st && !isFull) {
+        for (const c of st.children) {
+          if ((c.classList.contains("roomwrap") && !c.classList.contains("full")) || (c.id === "room" && c.classList.contains("room"))) { room = c; break; }
+        }
+      }
+      const kind = isFull ? "full" : room ? "room" : "list";
+      if (root.getAttribute("data-dvl") !== kind) root.setAttribute("data-dvl", kind);
+      const n = st ? String(st.children.length + 1) : "14";
+      if (root.style.getPropertyValue("--dvn") !== n) root.style.setProperty("--dvn", n);
+    } catch (e) { /* mai bloccare l'app per l'impaginazione */ }
+    if (dvReady) dvQueue();
+  }
+  new MutationObserver(dvMark).observe(app, { childList: true });
+  dvMark();
+
+  /* --- Caratteri di sistema grandi: la barra in basso e la colonna della stanza si adattano da sole ---
+     Si misura sempre la versione "naturale" e si corregge nello stesso momento (niente sfarfallio,
+     niente cicli): prima si tolgono le correzioni, si legge, poi si rimettono. */
+  const wide = window.matchMedia ? window.matchMedia("(orientation: landscape) and (min-width: 560px)") : null;
+  /* un nome è "a posto" se non va a capo a metà parola (anche in giapponese, coreano e cinese) e non esce dal suo pulsante */
+  function dvBad(labels) {
+    for (const s of labels) {
+      const txt = (s.textContent || "").trim(); if (!txt || !s.parentElement) continue;
+      const b = s.parentElement.getBoundingClientRect(); if (!b.width) continue;
+      const rg = document.createRange(); rg.selectNodeContents(s);
+      const tops = new Set(); let l = Infinity, r = -Infinity;
+      for (const q of rg.getClientRects()) if (q.width > 1) { tops.add(Math.round(q.top)); l = Math.min(l, q.left); r = Math.max(r, q.right); }
+      if (tops.size > txt.split(/\s+/).length) return true;
+      if (l < b.left - 1 || r > b.right + 1) return true;
+    }
+    return false;
+  }
+  /* rimpicciolisce un po' i nomi di un gruppo di pulsanti finché la parola più lunga ci sta.
+     Mai sotto 10 px (con i caratteri di sistema grandi resta comunque più grande del normale) */
+  function dvFit(labels, cssVar, measureAttr, rowOf) {
+    root.style.removeProperty(cssVar);
+    const fs = parseFloat(getComputedStyle(labels[0]).fontSize) || 12;
+    const fmin = Math.min(1, Math.max(0.5, 10 / fs));
+    root.setAttribute(measureAttr, "1");
+    let f = 1;
+    for (const s of labels) {
+      const bt = s.parentElement; const cs = getComputedStyle(bt); if (!bt.clientWidth) continue;
+      let avail = bt.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0) - 2;
+      if (rowOf && cs.flexDirection === "row") { const ic = rowOf(bt); avail -= (ic ? ic.getBoundingClientRect().width : 0) + (parseFloat(cs.columnGap) || 0); }
+      const need = s.getBoundingClientRect().width;
+      if (need > avail && avail > 0) f = Math.min(f, avail / need);
+    }
+    root.removeAttribute(measureAttr);
+    f = f < 0.995 ? Math.max(fmin, Math.floor(f * 50) / 50) : 1;
+    if (f < 1) root.style.setProperty(cssVar, String(f));
+    /* verifica nella disposizione vera e, se serve, ancora un po' più piccolo */
+    for (let i = 0; i < 12 && f > fmin && dvBad(labels); i++) { f = Math.max(fmin, Math.round((f - 0.04) * 100) / 100); root.style.setProperty(cssVar, String(f)); }
+    return { f, ok: !dvBad(labels) };
+  }
+  let tabKey = "", actKey = "";
+  function dvFitTabs() {
+    const nav = document.getElementById("tabsIn"); if (!nav) return;
+    const labels = [...nav.querySelectorAll(".tab > span:not(.ic)")]; if (!labels.length) return;
+    const key = innerWidth + "x" + innerHeight + "|" + nav.textContent + "|" + getComputedStyle(nav).fontSize + "|" + getComputedStyle(labels[0].parentElement).fontSize;
+    if (key === tabKey) return; tabKey = key;
+    root.removeAttribute("data-dvtcol");
+    const r = dvFit(labels, "--dvtabf", "data-dvtm", (bt) => bt.querySelector(".ic"));
+    /* orizzontale basso (icona e nome affiancati): se i nomi non ci stanno bene, icona sopra e nome sotto */
+    if ((!r.ok || r.f < 0.8) && getComputedStyle(labels[0].parentElement).flexDirection === "row") {
+      root.setAttribute("data-dvtcol", "1"); dvFit(labels, "--dvtabf", "data-dvtm", null);
+    }
+  }
+  function dvFitActs() {
+    const box = app.querySelector(".actions");
+    const labels = box ? [...box.querySelectorAll(":scope > .act > span:not(.aci)")] : [];
+    if (!labels.length) { actKey = ""; return; }
+    const key = Math.round(box.getBoundingClientRect().width) + "|" + box.textContent + "|" + getComputedStyle(box).fontSize + "|" + (root.getAttribute("data-dvact3") || "");
+    if (key === actKey) return;
+    root.removeAttribute("data-dvact3");
+    let r = dvFit(labels, "--dvactf", "data-dvam", null);
+    /* parole lunghe (es. "Atıştırmalık") su schermi stretti: 3 per fila invece di 5 */
+    if (!r.ok) { root.setAttribute("data-dvact3", "1"); r = dvFit(labels, "--dvactf", "data-dvam", null); }
+    else if (labels.length === 5) {
+      /* caratteri grandi: la griglia da sola fa 3 + 2 o 4 + 1, allineate a sinistra; meglio 3 + 2 con la seconda fila centrata */
+      const cols = (getComputedStyle(box).gridTemplateColumns || "").split(" ").filter(Boolean).length;
+      if (cols === 3 || cols === 4) root.setAttribute("data-dvact3", "1");
+    }
+    actKey = Math.round(box.getBoundingClientRect().width) + "|" + box.textContent + "|" + getComputedStyle(box).fontSize + "|" + (root.getAttribute("data-dvact3") || "");
+  }
+  let roomRO = null, roomEl = null, roomMin = { key: "", w: 0 };
+  function dvFitRoom() {
+    const st = app.querySelector(":scope > .stack");
+    let rw = null;
+    if (st && wide && wide.matches && root.getAttribute("data-dvl") === "room") for (const c of st.children) { if (c.classList.contains("roomwrap") && !c.classList.contains("full")) { rw = c; break; } }
+    if (rw !== roomEl) { if (roomRO) roomRO.disconnect(); roomEl = rw; if (rw && window.ResizeObserver) { roomRO = roomRO || new ResizeObserver(() => dvQueue()); roomRO.observe(rw); } }
+    root.style.removeProperty("--dvroomw"); root.removeAttribute("data-dvns");
+    if (!rw) return;
+    const room = rw.querySelector(":scope > .room"); if (!room || !room.offsetHeight) return;
+    if (getComputedStyle(rw).position !== "sticky") return; // orizzontale basso: scorre già con la pagina
+    /* misure di impaginazione (offset*): non cambiano con le piccole animazioni della stanza */
+    const tabs = document.querySelector(".tabs");
+    const tabH = tabs && getComputedStyle(tabs).display !== "none" ? tabs.offsetHeight : 0;
+    const top = parseFloat(getComputedStyle(rw).top) || 0;
+    /* tutto visibile già a pagina ferma in cima (la stanza parte sotto la barra con nome e Tanì) */
+    const docTop = rw.parentElement.getBoundingClientRect().top + (window.scrollY || 0);
+    const avail = window.innerHeight - tabH - Math.max(top, docTop) - 8;
+    const colW = rw.parentElement.offsetWidth;
+    const key = innerWidth + "x" + innerHeight + "|" + getComputedStyle(rw).fontSize + "|" + (root.getAttribute("data-dvact3") || "");
+    if (roomMin.key !== key) roomMin = { key, w: 0 };
+    /* non ci sta nemmeno rimpicciolita: la colonna scorre con la pagina (larghezza come prima, niente salti) */
+    const dvNoStick = () => { if (roomMin.w) root.style.setProperty("--dvroomw", roomMin.w + "px"); else root.style.removeProperty("--dvroomw"); root.setAttribute("data-dvns", "1"); };
+    let w = 0;
+    for (let i = 0; i < 4; i++) {
+      const h = rw.offsetHeight, rh = room.offsetHeight;
+      if (h <= avail + 1) break;
+      w = Math.floor((rh - (h - avail)) * (room.offsetWidth / rh));
+      if (w < Math.max(300, colW * 0.22)) { dvNoStick(); return; }
+      root.style.setProperty("--dvroomw", w + "px");
+    }
+    if (rw.offsetHeight > avail + 1) { dvNoStick(); return; }
+    /* stabile: quando il fumetto cambia (frase più corta o più lunga) la stanza non cambia grandezza ogni volta,
+       resta la più piccola già servita con questa finestra e questi caratteri */
+    if (w) roomMin.w = roomMin.w ? Math.min(roomMin.w, w) : w;
+    if (roomMin.w && roomMin.w < rw.offsetWidth - 1) root.style.setProperty("--dvroomw", roomMin.w + "px");
+  }
+  function dvQueue() {
+    if (dvPending) return;
+    dvPending = requestAnimationFrame(() => { dvPending = 0; try { dvFitTabs(); dvFitActs(); dvFitRoom(); dvFitActs(); } catch (e) { /* mai bloccare l'app */ } });
+  }
+  const nav = document.getElementById("tabsIn");
+  if (nav) new MutationObserver(dvQueue).observe(nav, { childList: true });
+  /* la barra cambia altezza se cambia la grandezza dei caratteri: si ricontrolla */
+  if (nav && window.ResizeObserver) new ResizeObserver(() => dvQueue()).observe(nav);
+  dvReady = true;
+  window.addEventListener("resize", dvQueue);
+  window.addEventListener("orientationchange", dvQueue);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(dvQueue, () => {});
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", dvQueue);
+  window.__dvFit = dvQueue;
+  dvQueue();
+})();
 
 /* ===== 1.0.8 — ritocchi finali dopo il controllo critico =====
    Saluto in alto: la fascia "day" parte alle 11 (serve alle scene), ma alle 11-12 si dice ancora "buongiorno".

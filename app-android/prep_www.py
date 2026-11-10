@@ -21,6 +21,10 @@ h = h.replace('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/g
 h = re.sub(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">\s*', "", h)
 h = re.sub(r'<link rel="preconnect" href="https://fonts\.gstatic\.com"[^>]*>\s*', "", h)
 h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">', '<link rel="stylesheet" href="fonts.css">', h)
+# 1.0.8: la Content-Security-Policy serve al sito (script di terzi, Firebase sul web); nell'app tutto e' locale,
+# lo script dell'app cambia qui sotto (impronta diversa) e Capacitor aggiunge un suo script: la si toglie.
+h, ncsp = re.subn(r'<meta http-equiv="Content-Security-Policy"[^>]*>\s*', "", h)
+assert ncsp <= 1 and "Content-Security-Policy" not in h, "CSP non tolta"
 assert "gsap.min.js\"" in h and "fonts.css" in h and "googleapis" not in h and "cdnjs" not in h, "riscrittura incompleta"
 assert os.path.exists(f"{W}/fb.js"), "manca fb.js (account)"
 # 1.0.8: nell'app per Android niente agganci di prova (eval da console): servono solo ai test sul sito

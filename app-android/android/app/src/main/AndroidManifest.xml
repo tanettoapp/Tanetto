@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 1.0.8 (sicurezza), allowBackup="true" lasciato apposta: il backup automatico di Google e il passaggio a un
+         telefono nuovo salvano il compagno anche a chi non usa l'account. Con targetSdk 31+ "adb backup" non copia
+         piu' i dati dell'app sui telefoni Android 12+ (fino ad Android 11 si', ma serve un computer e modificare il
+         database del WebView: come avere i permessi di root). Un salvataggio rimesso sul telefono passa comunque dai
+         controlli dell'avvio (45z_v20_secboot.js) e Plus viene riconfermato da Google Play.
+         Niente usesCleartextTraffic (vietato per default), nessun deep link, una sola attivita' esportata. -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- 1.0.8: nessun blocco dell'orientamento (si gira come vuole chi la usa, rispettando il blocco
+             rotazione del telefono) e finestra ridimensionabile: schermo diviso, finestre libere su
+             Chromebook e tablet, pieghevoli. configChanges completi: girando o piegando non si riavvia. -->
         <activity
+            android:resizeableActivity="true"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -42,6 +52,10 @@
         </provider>
         <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-9863338163927008~8129070671"/>
     </application>
+
+    <!-- 1.0.8: l'app si usa anche con mouse e tastiera (Chromebook senza schermo touch):
+         senza questa riga Google Play la nasconderebbe su quei dispositivi -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <!-- Permissions -->
 

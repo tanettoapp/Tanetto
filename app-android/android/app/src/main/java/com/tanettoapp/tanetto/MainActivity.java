@@ -13,6 +13,8 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(SharePlugin.class);
         registerPlugin(BackPlugin.class);
         registerPlugin(AdsPlugin.class);
+        // 1.0.8 (sicurezza): ora della rete / tempo dall'accensione, contro la data del telefono spostata avanti
+        registerPlugin(ClockPlugin.class);
         super.onCreate(savedInstanceState);
         // Suono del logo e musica partono subito all'apertura, senza aspettare un tocco
         if (getBridge() != null && getBridge().getWebView() != null) {

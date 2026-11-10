@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 1.0.8 (sicurezza): il FileProvider condivide SOLO la cartella cache/condivisi, dove SharePlugin scrive
+     l'immagine o la copia da condividere. Prima c'erano anche tutta la memoria esterna (external-path ".")
+     e tutta la cache: troppo. -->
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-path name="my_images" path="." />
-    <cache-path name="my_cache_images" path="." />
+    <cache-path name="condivisi" path="condivisi/" />
 </paths>
