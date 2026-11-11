@@ -19,6 +19,9 @@ public class MainActivity extends BridgeActivity {
         // Suono del logo e musica partono subito all'apertura, senza aspettare un tocco
         if (getBridge() != null && getBridge().getWebView() != null) {
             getBridge().getWebView().getSettings().setMediaPlaybackRequiresUserGesture(false);
+            // 1.0.9 (accessibilita'): zoom con due dita permesso, senza i pulsanti +/- sullo schermo
+            getBridge().getWebView().getSettings().setBuiltInZoomControls(true);
+            getBridge().getWebView().getSettings().setDisplayZoomControls(false);
         }
     }
 }
