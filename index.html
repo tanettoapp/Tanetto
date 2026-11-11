@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-g8GeslMoH6a/OX/DxlxWSioGnC1mO8KuGKOy316hi1s=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-KbYYOfCLny2JCzq7ySlUqCMnkTFLqtnMmMaMxNr41VY=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -539,7 +539,7 @@ body::after { content: ""; position: fixed; inset: -20% -20% auto; height: 70vh;
 
 /* ===== v7: negozio con prova ===== */
 .shopgrp { display: flex; flex-direction: column; gap: 8px; }
-.shopgrp h3 { margin: 6px 2px 0; font-size: 15px; color: var(--muted); font-weight: 700; letter-spacing: .02em; }
+.shopgrp h3, .shopgrp h2 { margin: 6px 2px 0; font-size: 15px; color: var(--muted); font-weight: 700; letter-spacing: .02em; }
 .item .nm { overflow-wrap: anywhere; }
 .item.locked .art { filter: saturate(.55); opacity: .75; }
 .item.trying { background: var(--paper); box-shadow: inset 0 0 0 3px var(--sun), var(--shadow); }
@@ -2592,6 +2592,10 @@ h1.greet { margin: 0 0 -4px; font-size: inherit; font-weight: inherit; line-heig
 /* 1.0.9: schermi bassi (es. 320x640): la parte con prezzi e pulsante non resta fissa in basso, cosi' prima si vede
    cosa offre Plus (prima a 640 px di altezza si vedeva solo un vantaggio e mezzo) */
 @media (max-height: 700px) { .plussticky { position: static; box-shadow: none; margin-bottom: 0; } }
+/* 1.0.9: finestra "Riporta qui il tuo cucciolo": Incolla e Riporta riempiono la riga (e vanno a capo larghi sugli schermi stretti) */
+.iospaste > .row { flex-wrap: wrap; gap: 10px; }
+.iospaste > .row > .spacer { display: none; }
+.iospaste > .row > .btn { flex: 1 1 auto; justify-content: center; }
 
 </style>
 
@@ -20335,8 +20339,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Copia ${n}`, copied: (n) => `${n} è copiato! Ora aggiungi Tanetto alla schermata Home.`, later: "Più tardi",
     onbT: "Su iPhone? Installa prima l'app", onbP: "Così il tuo cucciolo resta sempre al sicuro: Safari può cancellare i dati dei siti che non apri per qualche giorno.",
     onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Benvenuto nell'app!", appP: "Avevi già un cucciolo in Safari? Riportalo qui in un attimo.",
-    have: "Ho già un cucciolo", pasteT: "Riporta qui il tuo cucciolo", pasteP: "Incolla il codice che hai copiato in Safari, oppure apri un file di copia.",
-    ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il cucciolo", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo da Safari e riprova.",
+    have: "Ho già un cucciolo", pasteT: "Riporta qui il tuo cucciolo", pasteP: "Incolla il codice di Tanetto, oppure apri un file di copia.",
+    ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il cucciolo", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo e riprova.",
     manual: "Tieni premuto sul codice, scegli «Seleziona tutto» e poi «Copia».", close: "Chiudi"
   }],
   ["en", "Share", "Add to Home Screen", {
@@ -20348,8 +20352,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Copy ${n}`, copied: (n) => `${n} is copied! Now add Tanetto to your Home Screen.`, later: "Later",
     onbT: "On iPhone? Install the app first", onbP: "That way your pet is always safe: Safari can delete the data of websites you don't open for a few days.",
     onb3: "Then open Tanetto from your Home Screen.", appT: "Welcome to the app!", appP: "Already had a pet in Safari? Bring it here in a moment.",
-    have: "I already have a pet", pasteT: "Bring your pet here", pasteP: "Paste the code you copied in Safari, or open a backup file.",
-    ph: "Tanetto code", paste: "Paste", go: "Bring my pet", file: "Open a backup file", bad: "This code doesn't work. Copy it again from Safari and try once more.",
+    have: "I already have a pet", pasteT: "Bring your pet here", pasteP: "Paste your Tanetto code, or open a backup file.",
+    ph: "Tanetto code", paste: "Paste", go: "Bring my pet", file: "Open a backup file", bad: "This code doesn't work. Copy it again and try once more.",
     manual: "Press and hold the code, choose “Select All”, then “Copy”.", close: "Close"
   }],
   ["de", "Teilen", "Zum Home-Bildschirm", {
@@ -20361,8 +20365,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `${n} kopieren`, copied: (n) => `${n} ist kopiert! Füge Tanetto jetzt zum Home-Bildschirm hinzu.`, later: "Später",
     onbT: "Auf dem iPhone? Installiere zuerst die App", onbP: "So ist dein Haustier immer sicher: Safari kann die Daten von Websites löschen, die du ein paar Tage nicht öffnest.",
     onb3: "Öffne Tanetto dann vom Home-Bildschirm.", appT: "Willkommen in der App!", appP: "Hattest du schon ein Haustier in Safari? Hol es mit einem Fingertipp hierher.",
-    have: "Ich habe schon ein Haustier", pasteT: "Hol dein Haustier hierher", pasteP: "Füge den Code ein, den du in Safari kopiert hast, oder öffne eine Sicherungsdatei.",
-    ph: "Tanetto-Code", paste: "Einfügen", go: "Haustier holen", file: "Sicherungsdatei öffnen", bad: "Dieser Code funktioniert nicht. Kopiere ihn noch einmal in Safari und versuch es erneut.",
+    have: "Ich habe schon ein Haustier", pasteT: "Hol dein Haustier hierher", pasteP: "Füge deinen Tanetto-Code ein oder öffne eine Sicherungsdatei.",
+    ph: "Tanetto-Code", paste: "Einfügen", go: "Haustier holen", file: "Sicherungsdatei öffnen", bad: "Dieser Code funktioniert nicht. Kopiere ihn noch einmal und versuch es erneut.",
     manual: "Halte den Code gedrückt, wähle „Alles auswählen“ und dann „Kopieren“.", close: "Schließen"
   }],
   ["es", "Compartir", "Añadir a pantalla de inicio", {
@@ -20374,8 +20378,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Copiar a ${n}`, copied: (n) => `¡${n} está copiado! Ahora añade Tanetto a la pantalla de inicio.`, later: "Más tarde",
     onbT: "¿Usas iPhone? Instala primero la app", onbP: "Así tu compañero estará siempre a salvo: Safari puede borrar los datos de las webs que no abres durante unos días.",
     onb3: "Luego abre Tanetto desde la pantalla de inicio.", appT: "¡Bienvenido a la app!", appP: "¿Ya tenías un compañero en Safari? Tráelo aquí en un momento.",
-    have: "Ya tengo un compañero", pasteT: "Trae aquí a tu compañero", pasteP: "Pega el código que copiaste en Safari o abre un archivo de copia.",
-    ph: "Código de Tanetto", paste: "Pegar", go: "Traer a mi compañero", file: "Abrir un archivo de copia", bad: "Este código no funciona. Cópialo otra vez desde Safari e inténtalo de nuevo.",
+    have: "Ya tengo un compañero", pasteT: "Trae aquí a tu compañero", pasteP: "Pega tu código de Tanetto o abre un archivo de copia.",
+    ph: "Código de Tanetto", paste: "Pegar", go: "Traer a mi compañero", file: "Abrir un archivo de copia", bad: "Este código no funciona. Cópialo otra vez e inténtalo de nuevo.",
     manual: "Mantén pulsado el código, elige «Seleccionar todo» y luego «Copiar».", close: "Cerrar"
   }],
   ["fr", "Partager", "Sur l'écran d'accueil", {
@@ -20387,8 +20391,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Copier ${n}`, copied: (n) => `${n} est copié ! Ajoute maintenant Tanetto à l'écran d'accueil.`, later: "Plus tard",
     onbT: "Sur iPhone ? Installe d'abord l'app", onbP: "Comme ça, ton compagnon est toujours à l'abri : Safari peut effacer les données des sites que tu n'ouvres pas pendant quelques jours.",
     onb3: "Puis ouvre Tanetto depuis l'écran d'accueil.", appT: "Bienvenue dans l'app !", appP: "Tu avais déjà un compagnon dans Safari ? Ramène-le ici en un instant.",
-    have: "J'ai déjà un compagnon", pasteT: "Ramène ton compagnon ici", pasteP: "Colle le code copié dans Safari, ou ouvre un fichier de sauvegarde.",
-    ph: "Code Tanetto", paste: "Coller", go: "Ramener mon compagnon", file: "Ouvrir un fichier de sauvegarde", bad: "Ce code ne marche pas. Copie-le à nouveau dans Safari et réessaie.",
+    have: "J'ai déjà un compagnon", pasteT: "Ramène ton compagnon ici", pasteP: "Colle ton code Tanetto, ou ouvre un fichier de sauvegarde.",
+    ph: "Code Tanetto", paste: "Coller", go: "Ramener mon compagnon", file: "Ouvrir un fichier de sauvegarde", bad: "Ce code ne marche pas. Copie-le à nouveau et réessaie.",
     manual: "Appuie longuement sur le code, choisis « Tout sélectionner » puis « Copier ».", close: "Fermer"
   }],
   ["pt", "Compartilhar", "Adicionar à Tela de Início", {
@@ -20400,8 +20404,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Copiar ${n}`, copied: (n) => `${n} foi copiado! Agora adicione o Tanetto à Tela de Início.`, later: "Mais tarde",
     onbT: "Está no iPhone? Instale o app primeiro", onbP: "Assim seu companheiro fica sempre em segurança: o Safari pode apagar os dados de sites que você não abre por alguns dias.",
     onb3: "Depois abra o Tanetto pela Tela de Início.", appT: "Boas-vindas ao app!", appP: "Você já tinha um companheiro no Safari? Traga ele para cá num instante.",
-    have: "Já tenho um companheiro", pasteT: "Traga seu companheiro para cá", pasteP: "Cole o código que você copiou no Safari ou abra um arquivo de cópia.",
-    ph: "Código do Tanetto", paste: "Colar", go: "Trazer meu companheiro", file: "Abrir um arquivo de cópia", bad: "Este código não funciona. Copie de novo no Safari e tente outra vez.",
+    have: "Já tenho um companheiro", pasteT: "Traga seu companheiro para cá", pasteP: "Cole o seu código do Tanetto ou abra um arquivo de cópia.",
+    ph: "Código do Tanetto", paste: "Colar", go: "Trazer meu companheiro", file: "Abrir um arquivo de cópia", bad: "Este código não funciona. Copie de novo e tente outra vez.",
     manual: "Toque e segure o código, escolha “Selecionar Tudo” e depois “Copiar”.", close: "Fechar"
   }],
   ["ja", "共有", "ホーム画面に追加", {
@@ -20413,8 +20417,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `${n}をコピー`, copied: (n) => `${n}をコピーしました！次にTanettoをホーム画面に追加してね。`, later: "あとで",
     onbT: "iPhoneの方は、先にアプリを追加しよう", onbP: "そうすれば相棒はいつも安心。Safariは、数日開いていないサイトのデータを消すことがあります。",
     onb3: "あとはホーム画面からTanettoを開くだけ。", appT: "アプリへようこそ！", appP: "Safariで相棒を育てていた？すぐにここへ連れてこられます。",
-    have: "もう相棒がいる", pasteT: "相棒をここへ連れてこよう", pasteP: "Safariでコピーしたコードを貼り付けるか、バックアップファイルを開いてね。",
-    ph: "Tanettoのコード", paste: "貼り付け", go: "相棒を連れてくる", file: "バックアップファイルを開く", bad: "このコードは使えません。Safariでもう一度コピーして試してね。",
+    have: "もう相棒がいる", pasteT: "相棒をここへ連れてこよう", pasteP: "Tanettoのコードを貼り付けるか、バックアップファイルを開いてね。",
+    ph: "Tanettoのコード", paste: "貼り付け", go: "相棒を連れてくる", file: "バックアップファイルを開く", bad: "このコードは使えません。もう一度コピーして試してね。",
     manual: "コードを長押しして「すべてを選択」、それから「コピー」を選んでね。", close: "閉じる"
   }],
   ["ko", "공유", "홈 화면에 추가", {
@@ -20426,8 +20430,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `${n} 복사`, copied: (n) => `${n} 복사 완료! 이제 Tanetto를 홈 화면에 추가해요.`, later: "나중에",
     onbT: "iPhone이라면 먼저 앱을 설치해요", onbP: "그러면 친구가 언제나 안전해요. Safari는 며칠 동안 열지 않은 사이트의 데이터를 지울 수 있어요.",
     onb3: "그다음 홈 화면에서 Tanetto를 열어요.", appT: "앱에 오신 걸 환영해요!", appP: "Safari에서 이미 친구를 키우고 있었나요? 금방 여기로 데려올 수 있어요.",
-    have: "이미 친구가 있어요", pasteT: "친구를 여기로 데려와요", pasteP: "Safari에서 복사한 코드를 붙여넣거나 백업 파일을 열어요.",
-    ph: "Tanetto 코드", paste: "붙여넣기", go: "친구 데려오기", file: "백업 파일 열기", bad: "이 코드는 사용할 수 없어요. Safari에서 다시 복사해서 시도해 주세요.",
+    have: "이미 친구가 있어요", pasteT: "친구를 여기로 데려와요", pasteP: "Tanetto 코드를 붙여넣거나 백업 파일을 열어요.",
+    ph: "Tanetto 코드", paste: "붙여넣기", go: "친구 데려오기", file: "백업 파일 열기", bad: "이 코드는 사용할 수 없어요. 다시 복사해서 시도해 주세요.",
     manual: "코드를 길게 누르고 「전체 선택」을 고른 다음 「복사」를 눌러요.", close: "닫기"
   }],
   ["zh", "分享", "添加到主屏幕", {
@@ -20439,8 +20443,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `复制${n}`, copied: (n) => `${n}已复制！现在把 Tanetto 添加到主屏幕吧。`, later: "稍后",
     onbT: "用 iPhone？先安装应用吧", onbP: "这样你的伙伴会一直很安全：Safari 可能会删除几天没打开的网站数据。",
     onb3: "然后从主屏幕打开 Tanetto。", appT: "欢迎来到应用！", appP: "之前在 Safari 里养过伙伴吗？马上就能把它带过来。",
-    have: "我已经有伙伴了", pasteT: "把伙伴带过来", pasteP: "粘贴你在 Safari 中复制的代码，或打开备份文件。",
-    ph: "Tanetto 代码", paste: "粘贴", go: "带回我的伙伴", file: "打开备份文件", bad: "这个代码不能用。请在 Safari 中重新复制后再试。",
+    have: "我已经有伙伴了", pasteT: "把伙伴带过来", pasteP: "粘贴你的 Tanetto 代码，或打开备份文件。",
+    ph: "Tanetto 代码", paste: "粘贴", go: "带回我的伙伴", file: "打开备份文件", bad: "这个代码不能用。请重新复制后再试。",
     manual: "长按代码，选择“全选”，然后点“拷贝”。", close: "关闭"
   }],
   ["zht", "分享", "加入主畫面", {
@@ -20452,8 +20456,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `拷貝${n}`, copied: (n) => `${n}已拷貝！現在把 Tanetto 加入主畫面吧。`, later: "稍後",
     onbT: "用 iPhone？先安裝 App 吧", onbP: "這樣你的夥伴會一直很安全：Safari 可能會刪除幾天沒打開的網站資料。",
     onb3: "然後從主畫面打開 Tanetto。", appT: "歡迎來到 App！", appP: "之前在 Safari 裡養過夥伴嗎？馬上就能把牠帶過來。",
-    have: "我已經有夥伴了", pasteT: "把夥伴帶過來", pasteP: "貼上你在 Safari 中拷貝的代碼，或打開備份檔案。",
-    ph: "Tanetto 代碼", paste: "貼上", go: "帶回我的夥伴", file: "打開備份檔案", bad: "這個代碼不能用。請在 Safari 中重新拷貝後再試一次。",
+    have: "我已經有夥伴了", pasteT: "把夥伴帶過來", pasteP: "貼上你的 Tanetto 代碼，或打開備份檔案。",
+    ph: "Tanetto 代碼", paste: "貼上", go: "帶回我的夥伴", file: "打開備份檔案", bad: "這個代碼不能用。請重新拷貝後再試一次。",
     manual: "長按代碼，選擇「全選」，然後點「拷貝」。", close: "關閉"
   }],
   ["ru", "Поделиться", "На экран «Домой»", {
@@ -20465,8 +20469,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Скопировать ${n}`, copied: (n) => `${n} скопирован! Теперь добавь Tanetto на экран «Домой».`, later: "Позже",
     onbT: "У тебя iPhone? Сначала установи приложение", onbP: "Так твой питомец всегда будет в безопасности: Safari может удалять данные сайтов, которые ты не открываешь несколько дней.",
     onb3: "Потом открой Tanetto с экрана «Домой».", appT: "Добро пожаловать в приложение!", appP: "У тебя уже был питомец в Safari? Перенеси его сюда за минуту.",
-    have: "У меня уже есть питомец", pasteT: "Перенеси питомца сюда", pasteP: "Вставь код, который ты скопировал в Safari, или открой файл копии.",
-    ph: "Код Tanetto", paste: "Вставить", go: "Перенести питомца", file: "Открыть файл копии", bad: "Этот код не подходит. Скопируй его ещё раз в Safari и попробуй снова.",
+    have: "У меня уже есть питомец", pasteT: "Перенеси питомца сюда", pasteP: "Вставь код Tanetto или открой файл копии.",
+    ph: "Код Tanetto", paste: "Вставить", go: "Перенести питомца", file: "Открыть файл копии", bad: "Этот код не подходит. Скопируй его ещё раз и попробуй снова.",
     manual: "Нажми и удерживай код, выбери «Выбрать все», затем «Скопировать».", close: "Закрыть"
   }],
   ["pl", "Udostępnij", "Do ekranu początkowego", {
@@ -20478,8 +20482,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Skopiuj: ${n}`, copied: (n) => `Skopiowano: ${n}! Teraz dodaj Tanetto do ekranu początkowego.`, later: "Później",
     onbT: "Masz iPhone'a? Najpierw zainstaluj aplikację", onbP: "Wtedy twój pupil zawsze będzie bezpieczny: Safari może usuwać dane stron, których nie otwierasz przez kilka dni.",
     onb3: "Potem otwórz Tanetto z ekranu początkowego.", appT: "Witaj w aplikacji!", appP: "Masz już pupila w Safari? Przenieś go tutaj w chwilę.",
-    have: "Mam już pupila", pasteT: "Przenieś tu swojego pupila", pasteP: "Wklej kod skopiowany w Safari albo otwórz plik kopii.",
-    ph: "Kod Tanetto", paste: "Wklej", go: "Przenieś pupila", file: "Otwórz plik kopii", bad: "Ten kod nie działa. Skopiuj go ponownie w Safari i spróbuj jeszcze raz.",
+    have: "Mam już pupila", pasteT: "Przenieś tu swojego pupila", pasteP: "Wklej kod Tanetto albo otwórz plik kopii.",
+    ph: "Kod Tanetto", paste: "Wklej", go: "Przenieś pupila", file: "Otwórz plik kopii", bad: "Ten kod nie działa. Skopiuj go ponownie i spróbuj jeszcze raz.",
     manual: "Przytrzymaj kod, wybierz „Zaznacz wszystko”, a potem „Kopiuj”.", close: "Zamknij"
   }],
   ["nl", "Deel", "Zet op beginscherm", {
@@ -20491,8 +20495,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `Kopieer ${n}`, copied: (n) => `${n} is gekopieerd! Zet Tanetto nu op je beginscherm.`, later: "Later",
     onbT: "Op een iPhone? Installeer eerst de app", onbP: "Zo is je maatje altijd veilig: Safari kan de gegevens wissen van websites die je een paar dagen niet opent.",
     onb3: "Open Tanetto daarna vanaf je beginscherm.", appT: "Welkom in de app!", appP: "Had je al een maatje in Safari? Haal het hier in een handomdraai naartoe.",
-    have: "Ik heb al een maatje", pasteT: "Haal je maatje hierheen", pasteP: "Plak de code die je in Safari hebt gekopieerd, of open een back-upbestand.",
-    ph: "Tanetto-code", paste: "Plakken", go: "Haal mijn maatje", file: "Back-upbestand openen", bad: "Deze code werkt niet. Kopieer hem opnieuw in Safari en probeer het nog eens.",
+    have: "Ik heb al een maatje", pasteT: "Haal je maatje hierheen", pasteP: "Plak je Tanetto-code, of open een back-upbestand.",
+    ph: "Tanetto-code", paste: "Plakken", go: "Haal mijn maatje", file: "Back-upbestand openen", bad: "Deze code werkt niet. Kopieer hem opnieuw en probeer het nog eens.",
     manual: "Houd de code ingedrukt, kies ‘Selecteer alles’ en daarna ‘Kopieer’.", close: "Sluiten"
   }],
   ["tr", "Paylaş", "Ana Ekrana Ekle", {
@@ -20504,8 +20508,8 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     copy: (n) => `${n} kopyala`, copied: (n) => `${n} kopyalandı! Şimdi Tanetto'yu ana ekrana ekle.`, later: "Sonra",
     onbT: "iPhone mu kullanıyorsun? Önce uygulamayı yükle", onbP: "Böylece dostun hep güvende olur: Safari, birkaç gün açmadığın sitelerin verilerini silebilir.",
     onb3: "Sonra Tanetto'yu ana ekrandan aç.", appT: "Uygulamaya hoş geldin!", appP: "Safari'de zaten bir dostun var mıydı? Onu hemen buraya getir.",
-    have: "Zaten bir dostum var", pasteT: "Dostunu buraya getir", pasteP: "Safari'de kopyaladığın kodu yapıştır ya da bir yedek dosyası aç.",
-    ph: "Tanetto kodu", paste: "Yapıştır", go: "Dostumu getir", file: "Yedek dosyası aç", bad: "Bu kod çalışmıyor. Safari'de yeniden kopyalayıp tekrar dene.",
+    have: "Zaten bir dostum var", pasteT: "Dostunu buraya getir", pasteP: "Tanetto kodunu yapıştır ya da bir yedek dosyası aç.",
+    ph: "Tanetto kodu", paste: "Yapıştır", go: "Dostumu getir", file: "Yedek dosyası aç", bad: "Bu kod çalışmıyor. Yeniden kopyalayıp tekrar dene.",
     manual: "Kodun üzerine basılı tut, “Tümünü Seç”i ve ardından “Kopyala”yı seç.", close: "Kapat"
   }]
 ].forEach(([l, sh, add, o]) => { if (T[l]) { T[l].v13 = T[l].v13 || {}; T[l].v13.ios = Object.assign({ share: sh, add }, o); } });
@@ -21591,7 +21595,7 @@ const V21_TXT = {
       "Ogni volta che spunti un obiettivo, la stella di carta brilla un po' di più. {n} giura che ieri sera gli ha fatto l'occhiolino.",
       "{n} sta disegnando una mappa del cielo: ogni stella è un giorno in cui hai avuto cura di te. La mappa si sta riempiendo, ed è bellissima.",
       "Alla fine la stella di carta ha svelato il suo segreto a {n}: non era mai stata lontana. Era lì ogni volta che hai scelto un piccolo gesto gentile per te. Grazie per tutta questa luce."],
-    annT: "Comincia una nuova stagione", annP: (n) => `È la Stagione delle Stelle: ${n} ha un nuovo sentiero per te, con premi nuovi lungo la strada.`, annGo: "Vedi il sentiero", annLater: "Più tardi",
+    annT: "Comincia una nuova stagione", annP: (n) => `È la Stagione delle Stelle: ${n} ha un nuovo sentiero per te, con premi nuovi lungo la strada.`, annRT: "Torna la Stagione delle Stelle", annRP: (n) => `${n} ha un sentiero tutto nuovo per te. Se un premio delle stelle ce l'hai già, al suo posto ricevi dei Tanì.`, annGo: "Vedi il sentiero", annLater: "Più tardi",
     grace: (k) => k === 1 ? "La stagione è finita: un premio che non avevi ritirato ora è tuo." : `La stagione è finita: ${k} premi che non avevi ritirato ora sono tuoi.`,
     items: { rug_comet: "Tappeto cometa", w_constel: "Costellazioni", h_starband: "Cerchietto stellato", h_mooncrown: "Corona della luna" },
     recT: "C'è stato un problema con il salvataggio",
@@ -21611,7 +21615,7 @@ const V21_TXT = {
       "Every time you tick a goal, the paper star shines a little brighter. {n} swears it winked last night.",
       "{n} is drawing a map of the sky: each star is a day you took care of yourself. The map is filling up, and it looks wonderful.",
       "In the end the paper star told {n} its secret: it was never far away. It was there every time you chose one small, kind thing for yourself. Thank you for all this light."],
-    annT: "A new season begins", annP: (n) => `It's the Season of Stars: ${n} has a new path for you, with new rewards along the way.`, annGo: "See the path", annLater: "Later",
+    annT: "A new season begins", annP: (n) => `It's the Season of Stars: ${n} has a new path for you, with new rewards along the way.`, annRT: "The Season of Stars is back", annRP: (n) => `${n} has a fresh path for you. If you already have one of the star rewards, you get Tanì instead.`, annGo: "See the path", annLater: "Later",
     grace: (k) => k === 1 ? "The season is over: 1 reward you hadn't claimed is now yours." : `The season is over: ${k} rewards you hadn't claimed are now yours.`,
     items: { rug_comet: "Comet rug", w_constel: "Constellations", h_starband: "Star headband", h_mooncrown: "Moon crown" },
     recT: "There was a problem with your save",
@@ -21631,7 +21635,7 @@ const V21_TXT = {
       "Jedes Mal, wenn du ein Ziel abhakst, leuchtet der Papierstern ein bisschen heller. {n} schwört, dass er gestern Abend gezwinkert hat.",
       "{n} zeichnet eine Karte des Himmels: Jeder Stern ist ein Tag, an dem du gut für dich gesorgt hast. Die Karte füllt sich, und sie sieht wunderschön aus.",
       "Am Ende hat der Papierstern {n} sein Geheimnis verraten: Er war nie weit weg. Er war immer da, wenn du dir selbst etwas Kleines, Liebes gegönnt hast. Danke für all dieses Licht."],
-    annT: "Eine neue Saison beginnt", annP: (n) => `Es ist Sternensaison: ${n} hat einen neuen Pfad für dich, mit neuen Belohnungen unterwegs.`, annGo: "Zum Pfad", annLater: "Später",
+    annT: "Eine neue Saison beginnt", annP: (n) => `Es ist Sternensaison: ${n} hat einen neuen Pfad für dich, mit neuen Belohnungen unterwegs.`, annRT: "Die Sternensaison ist zurück", annRP: (n) => `${n} hat einen frischen Pfad für dich. Hast du eine Sternen-Belohnung schon, bekommst du stattdessen Tanì.`, annGo: "Zum Pfad", annLater: "Später",
     grace: (k) => k === 1 ? "Die Saison ist vorbei: 1 Belohnung, die du noch nicht abgeholt hattest, gehört jetzt dir." : `Die Saison ist vorbei: ${k} Belohnungen, die du noch nicht abgeholt hattest, gehören jetzt dir.`,
     items: { rug_comet: "Kometenteppich", w_constel: "Sternbilder", h_starband: "Sternen-Haarreif", h_mooncrown: "Mondkrone" },
     recT: "Mit deinem gespeicherten Fortschritt gab es ein Problem",
@@ -21651,7 +21655,7 @@ const V21_TXT = {
       "Cada vez que marcas un objetivo, la estrella de papel brilla un poco más. {n} jura que anoche le guiñó un ojo.",
       "{n} está dibujando un mapa del cielo: cada estrella es un día en que te cuidaste. El mapa se está llenando y es precioso.",
       "Al final, la estrella de papel le contó su secreto a {n}: nunca estuvo lejos. Estaba ahí cada vez que elegiste un pequeño gesto amable contigo. Gracias por toda esta luz."],
-    annT: "Empieza una nueva temporada", annP: (n) => `Es la Temporada de las Estrellas: ${n} tiene un sendero nuevo para ti, con premios nuevos por el camino.`, annGo: "Ver el sendero", annLater: "Más tarde",
+    annT: "Empieza una nueva temporada", annP: (n) => `Es la Temporada de las Estrellas: ${n} tiene un sendero nuevo para ti, con premios nuevos por el camino.`, annRT: "Vuelve la Temporada de las Estrellas", annRP: (n) => `${n} tiene un sendero nuevo para ti. Si ya tienes alguno de los premios de las estrellas, recibes Tanì en su lugar.`, annGo: "Ver el sendero", annLater: "Más tarde",
     grace: (k) => k === 1 ? "La temporada ha terminado: 1 premio que no habías recogido ya es tuyo." : `La temporada ha terminado: ${k} premios que no habías recogido ya son tuyos.`,
     items: { rug_comet: "Alfombra cometa", w_constel: "Constelaciones", h_starband: "Diadema de estrellas", h_mooncrown: "Corona de la luna" },
     recT: "Ha habido un problema con tu progreso guardado",
@@ -21671,7 +21675,7 @@ const V21_TXT = {
       "Chaque fois que tu coches un objectif, l'étoile en papier brille un peu plus. {n} jure qu'elle lui a fait un clin d'œil hier soir.",
       "{n} dessine une carte du ciel : chaque étoile est un jour où tu as pris soin de toi. La carte se remplit, et elle est magnifique.",
       "Finalement, l'étoile en papier a confié son secret à {n} : elle n'a jamais été loin. Elle était là chaque fois que tu as choisi un petit geste gentil pour toi. Merci pour toute cette lumière."],
-    annT: "Une nouvelle saison commence", annP: (n) => `C'est la Saison des Étoiles : ${n} a un nouveau sentier pour toi, avec de nouvelles récompenses en chemin.`, annGo: "Voir le sentier", annLater: "Plus tard",
+    annT: "Une nouvelle saison commence", annP: (n) => `C'est la Saison des Étoiles : ${n} a un nouveau sentier pour toi, avec de nouvelles récompenses en chemin.`, annRT: "La Saison des Étoiles est de retour", annRP: (n) => `${n} a un sentier tout neuf pour toi. Si tu as déjà une récompense des étoiles, tu reçois des Tanì à la place.`, annGo: "Voir le sentier", annLater: "Plus tard",
     grace: (k) => k === 1 ? "La saison est terminée : 1 récompense que tu n'avais pas récupérée est maintenant à toi." : `La saison est terminée : ${k} récompenses que tu n'avais pas récupérées sont maintenant à toi.`,
     items: { rug_comet: "Tapis comète", w_constel: "Constellations", h_starband: "Serre-tête étoilé", h_mooncrown: "Couronne de lune" },
     recT: "Un problème est survenu avec ta sauvegarde",
@@ -21691,7 +21695,7 @@ const V21_TXT = {
       "Cada vez que você marca uma meta, a estrela de papel brilha um pouco mais. {n} jura que ontem à noite ela piscou.",
       "{n} está desenhando um mapa do céu: cada estrela é um dia em que você se cuidou. O mapa está ficando cheio, e está lindo.",
       "No fim, a estrela de papel contou seu segredo para {n}: ela nunca esteve longe. Estava ali toda vez que você escolheu um pequeno gesto de carinho por si. Obrigado por toda essa luz."],
-    annT: "Começa uma nova temporada", annP: (n) => `É a Temporada das Estrelas: ${n} tem uma trilha nova para você, com prêmios novos pelo caminho.`, annGo: "Ver a trilha", annLater: "Mais tarde",
+    annT: "Começa uma nova temporada", annP: (n) => `É a Temporada das Estrelas: ${n} tem uma trilha nova para você, com prêmios novos pelo caminho.`, annRT: "A Temporada das Estrelas está de volta", annRP: (n) => `${n} tem uma trilha nova para você. Se você já tiver um dos prêmios das estrelas, recebe Tanì no lugar.`, annGo: "Ver a trilha", annLater: "Mais tarde",
     grace: (k) => k === 1 ? "A temporada acabou: 1 prêmio que você não tinha pegado agora é seu." : `A temporada acabou: ${k} prêmios que você não tinha pegado agora são seus.`,
     items: { rug_comet: "Tapete cometa", w_constel: "Constelações", h_starband: "Tiara de estrelas", h_mooncrown: "Coroa da lua" },
     recT: "Houve um problema com o seu progresso salvo",
@@ -21711,7 +21715,7 @@ const V21_TXT = {
       "あなたが目標をひとつ達成するたびに、紙の星は少しずつ明るくなります。{n}は、ゆうべ星がウインクしたと言いはっています。",
       "{n}は空の地図をかいています。星のひとつひとつは、あなたが自分を大切にした日。地図はどんどんにぎやかになって、とてもきれいです。",
       "さいごに、紙の星は{n}に秘密を教えてくれました。星はずっと遠くになんかいなかったのです。あなたが自分にやさしい小さなことを選ぶたび、そこにいました。たくさんの光をありがとう。"],
-    annT: "新しいシーズンのはじまり", annP: (n) => `星のシーズンがやってきました。${n}があなたのために新しい小道を用意しています。道の途中には新しいごほうびも。`, annGo: "小道を見る", annLater: "あとで",
+    annT: "新しいシーズンのはじまり", annP: (n) => `星のシーズンがやってきました。${n}があなたのために新しい小道を用意しています。道の途中には新しいごほうびも。`, annRT: "星のシーズンがまたやってきました", annRP: (n) => `${n}があなたのために新しい小道を用意しています。もう持っている星のごほうびは、かわりにTanìになります。`, annGo: "小道を見る", annLater: "あとで",
     grace: (k) => `シーズンが終わりました。受け取っていなかったごほうび${k}個が、あなたのものになりました。`,
     items: { rug_comet: "ほうき星のラグ", w_constel: "星座の壁紙", h_starband: "星のカチューシャ", h_mooncrown: "月の王冠" },
     recT: "保存データに問題がありました",
@@ -21731,7 +21735,7 @@ const V21_TXT = {
       "당신이 목표를 체크할 때마다 종이별이 조금씩 더 반짝여요. {n}은(는) 어젯밤 별이 윙크했다고 우겨요.",
       "{n}이(가) 하늘 지도를 그리고 있어요. 별 하나하나가 당신이 스스로를 돌본 날이에요. 지도가 점점 채워지고, 정말 아름다워요.",
       "마침내 종이별이 {n}에게 비밀을 알려 줬어요. 별은 한 번도 멀리 있지 않았대요. 당신이 스스로에게 작은 친절을 고를 때마다 늘 거기 있었대요. 이 모든 빛, 고마워요."],
-    annT: "새로운 시즌이 시작돼요", annP: (n) => `별의 시즌이에요. ${n}이(가) 당신을 위해 새 오솔길을 준비했어요. 길 곳곳에 새로운 보상도 있어요.`, annGo: "오솔길 보기", annLater: "나중에",
+    annT: "새로운 시즌이 시작돼요", annP: (n) => `별의 시즌이에요. ${n}이(가) 당신을 위해 새 오솔길을 준비했어요. 길 곳곳에 새로운 보상도 있어요.`, annRT: "별의 시즌이 돌아왔어요", annRP: (n) => `${n}이(가) 새 오솔길을 준비했어요. 이미 가진 별의 보상은 대신 Tanì로 받아요.`, annGo: "오솔길 보기", annLater: "나중에",
     grace: (k) => `시즌이 끝났어요. 받지 않았던 보상 ${k}개가 이제 당신 거예요.`,
     items: { rug_comet: "혜성 러그", w_constel: "별자리 벽지", h_starband: "별 머리띠", h_mooncrown: "달 왕관" },
     recT: "저장 데이터에 문제가 있었어요",
@@ -21751,7 +21755,7 @@ const V21_TXT = {
       "你每完成一个目标，纸星星就会更亮一点。{n}坚持说，昨晚它眨了眨眼。",
       "{n}正在画一张星空地图：每颗星星都是你好好照顾自己的一天。地图越来越满，真的好美。",
       "最后，纸星星把秘密告诉了{n}：它从来没有走远。每当你为自己选择一件温柔的小事，它就在那里。谢谢你带来的这么多光。"],
-    annT: "新的季节开始了", annP: (n) => `星星季来啦：${n}为你准备了一条新的小路，沿途还有新的奖励。`, annGo: "看看小路", annLater: "稍后",
+    annT: "新的季节开始了", annP: (n) => `星星季来啦：${n}为你准备了一条新的小路，沿途还有新的奖励。`, annRT: "星星季又来啦", annRP: (n) => `${n}为你准备了一条新的小路。已经拥有的星星奖励会换成 Tanì。`, annGo: "看看小路", annLater: "稍后",
     grace: (k) => `这一季结束了：你还没领取的 ${k} 个奖励，现在已经是你的了。`,
     items: { rug_comet: "彗星地毯", w_constel: "星座墙纸", h_starband: "星星发箍", h_mooncrown: "月亮王冠" },
     recT: "你的存档出了点问题",
@@ -21771,7 +21775,7 @@ const V21_TXT = {
       "你每完成一個目標，紙星星就會更亮一點。{n}堅持說，昨晚它眨了眨眼。",
       "{n}正在畫一張星空地圖：每顆星星都是你好好照顧自己的一天。地圖越來越滿，真的好美。",
       "最後，紙星星把秘密告訴了{n}：它從來沒有走遠。每當你為自己選擇一件溫柔的小事，它就在那裡。謝謝你帶來的這麼多光。"],
-    annT: "新的季節開始了", annP: (n) => `星星季來囉：${n}為你準備了一條新的小路，沿途還有新的獎勵。`, annGo: "看看小路", annLater: "稍後",
+    annT: "新的季節開始了", annP: (n) => `星星季來囉：${n}為你準備了一條新的小路，沿途還有新的獎勵。`, annRT: "星星季又來囉", annRP: (n) => `${n}為你準備了一條新的小路。已經擁有的星星獎勵會換成 Tanì。`, annGo: "看看小路", annLater: "稍後",
     grace: (k) => `這一季結束了：你還沒領取的 ${k} 個獎勵，現在已經是你的了。`,
     items: { rug_comet: "彗星地毯", w_constel: "星座壁紙", h_starband: "星星髮箍", h_mooncrown: "月亮王冠" },
     recT: "你的存檔出了點問題",
@@ -21791,7 +21795,7 @@ const V21_TXT = {
       "Каждый раз, когда ты отмечаешь цель, бумажная звезда светит чуть ярче. {n} уверяет, что вчера вечером она подмигнула.",
       "{n} рисует карту неба: каждая звезда на ней означает день заботы о себе. Карта заполняется, и она очень красивая.",
       "В конце концов бумажная звезда открыла {n} свой секрет: она никогда не была далеко. Она рядом каждый раз, когда ты выбираешь для себя маленькое доброе дело. Спасибо за весь этот свет."],
-    annT: "Начинается новый сезон", annP: (n) => `Наступил Звёздный сезон: ${n} приготовил для тебя новую тропу с новыми наградами по пути.`, annGo: "Открыть тропу", annLater: "Позже",
+    annT: "Начинается новый сезон", annP: (n) => `Наступил Звёздный сезон: у ${n} для тебя новая тропа с новыми наградами по пути.`, annRT: "Звёздный сезон вернулся", annRP: (n) => `У ${n} для тебя новая тропа. Если какая-то звёздная награда у тебя уже есть, вместо неё получишь Tanì.`, annGo: "Открыть тропу", annLater: "Позже",
     grace: (k) => { const m = k % 10, h = k % 100; const w = m === 1 && h !== 11 ? "неполученная награда теперь твоя" : m >= 2 && m <= 4 && (h < 12 || h > 14) ? "неполученные награды теперь твои" : "неполученных наград теперь твои"; return `Сезон закончился: ${k} ${w}.`; },
     items: { rug_comet: "Коврик-комета", w_constel: "Созвездия", h_starband: "Ободок со звёздами", h_mooncrown: "Лунная корона" },
     recT: "С твоим сохранением возникла проблема",
@@ -21811,7 +21815,7 @@ const V21_TXT = {
       "Za każdym razem, gdy odhaczasz cel, papierowa gwiazdka świeci trochę jaśniej. {n} przysięga, że wczoraj wieczorem mrugnęła.",
       "{n} rysuje mapę nieba: każda gwiazda to dzień troski o siebie. Mapa się zapełnia i wygląda przepięknie.",
       "W końcu papierowa gwiazdka zdradza swój sekret: nigdy nie była daleko. Jest przy tobie za każdym razem, gdy wybierasz dla siebie mały, dobry gest. {n} kiwa głową z uśmiechem. Dziękuję za całe to światło."],
-    annT: "Zaczyna się nowy sezon", annP: (n) => `Nadszedł Sezon Gwiazd: ${n} ma dla ciebie nową ścieżkę z nowymi nagrodami po drodze.`, annGo: "Zobacz ścieżkę", annLater: "Później",
+    annT: "Zaczyna się nowy sezon", annP: (n) => `Nadszedł Sezon Gwiazd: ${n} ma dla ciebie nową ścieżkę z nowymi nagrodami po drodze.`, annRT: "Sezon Gwiazd wraca", annRP: (n) => `${n} ma dla ciebie nową ścieżkę. Jeśli masz już którąś gwiezdną nagrodę, w zamian dostaniesz Tanì.`, annGo: "Zobacz ścieżkę", annLater: "Później",
     grace: (k) => k === 1 ? "Sezon się skończył: 1 nieodebrana nagroda jest teraz twoja." : `Sezon się skończył: nieodebrane nagrody (${k}) są teraz twoje.`,
     items: { rug_comet: "Dywan kometa", w_constel: "Gwiazdozbiory", h_starband: "Opaska z gwiazdką", h_mooncrown: "Korona księżyca" },
     recT: "Wystąpił problem z twoim zapisem",
@@ -21831,7 +21835,7 @@ const V21_TXT = {
       "Elke keer dat je een doel afvinkt, straalt de papieren ster een beetje feller. {n} zweert dat hij gisteravond knipoogde.",
       "{n} tekent een kaart van de hemel: elke ster is een dag waarop je goed voor jezelf zorgde. De kaart raakt vol, en hij is prachtig.",
       "Uiteindelijk vertelde de papieren ster {n} zijn geheim: hij was nooit ver weg. Hij was er elke keer dat je iets kleins en liefs voor jezelf koos. Dank je voor al dat licht."],
-    annT: "Een nieuw seizoen begint", annP: (n) => `Het is Sterrenseizoen: ${n} heeft een nieuw pad voor je, met nieuwe beloningen onderweg.`, annGo: "Bekijk het pad", annLater: "Later",
+    annT: "Een nieuw seizoen begint", annP: (n) => `Het is Sterrenseizoen: ${n} heeft een nieuw pad voor je, met nieuwe beloningen onderweg.`, annRT: "Het Sterrenseizoen is terug", annRP: (n) => `${n} heeft een nieuw pad voor je. Heb je een sterrenbeloning al, dan krijg je in plaats daarvan Tanì.`, annGo: "Bekijk het pad", annLater: "Later",
     grace: (k) => k === 1 ? "Het seizoen is voorbij: 1 beloning die je nog niet had opgehaald, is nu van jou." : `Het seizoen is voorbij: ${k} beloningen die je nog niet had opgehaald, zijn nu van jou.`,
     items: { rug_comet: "Kometenkleed", w_constel: "Sterrenbeelden", h_starband: "Sterrendiadeem", h_mooncrown: "Maankroon" },
     recT: "Er was een probleem met je opgeslagen voortgang",
@@ -21851,7 +21855,7 @@ const V21_TXT = {
       "Her hedef işaretleyişinde kâğıt yıldız biraz daha parlıyor. {n}, dün akşam yıldızın göz kırptığına yemin ediyor.",
       "{n} gökyüzünün haritasını çiziyor: her yıldız, kendine iyi baktığın bir gün. Harita doluyor ve çok güzel görünüyor.",
       "Sonunda kâğıt yıldız sırrını {n} ile paylaştı: Hiç uzakta değilmiş. Kendin için küçük ve nazik bir şey seçtiğin her an oradaymış. Bütün bu ışık için teşekkürler."],
-    annT: "Yeni bir sezon başlıyor", annP: (n) => `Yıldızlar Sezonu geldi: ${n} senin için yeni bir yol hazırladı, yol boyunca yeni ödüller de var.`, annGo: "Yolu gör", annLater: "Sonra",
+    annT: "Yeni bir sezon başlıyor", annP: (n) => `Yıldızlar Sezonu geldi: ${n} senin için yeni bir yol hazırladı, yol boyunca yeni ödüller de var.`, annRT: "Yıldızlar Sezonu geri döndü", annRP: (n) => `${n} senin için yeni bir yol hazırladı. Zaten sahip olduğun yıldız ödüllerinin yerine Tanì alırsın.`, annGo: "Yolu gör", annLater: "Sonra",
     grace: (k) => `Sezon bitti: almadığın ${k} ödül artık senin.`,
     items: { rug_comet: "Kuyruklu yıldız halısı", w_constel: "Takımyıldızlar", h_starband: "Yıldızlı taç bandı", h_mooncrown: "Ay tacı" },
     recT: "Kaydında bir sorun oluştu",
@@ -25938,7 +25942,7 @@ function lookWith(id) {
   return o;
 }
 const rank = (s) => (s.found || s.event || s.special || s.reward ? 100000 : 0) + (s.coll ? -200000 : 0) + s.price;
-function shopList(kind) { return SHOP.filter((s) => s.kind === kind && (!s.sea || ownsItem(s) || seaKind(curSeason()) === s.sea && !!curSeason())).map((s, i) => [s, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]); }
+function shopList(kind) { return SHOP.filter((s) => s.kind === kind && seaShopOk(s)).map((s, i) => [s, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]); }
 
 /* --- Anteprime nel negozio --- */
 function curtainPair(c1, c2, dots) {
@@ -25964,7 +25968,7 @@ function shopItem(s) {
   let state;
   if (trying) state = `<span class="state try">${t.tryOn}</span>`;
   else if (own) state = `<span class="state">${use ? t.using : t.use}</span>`;
-  else if (s.event) state = `<span class="tag">${t.eventOnly}</span>`;
+  else if (s.event) state = `<span class="tag">${seaItemNow(s.id) ? t.season.fromPath : t.eventOnly}</span>`;
   else if (s.special) state = `<span class="tag">${t.specialOnly}</span>`;
   else if (s.found) state = `<span class="tag">${t.foundOnly}</span>`;
   else if (s.reward) state = `<span class="tag">${t.season.fromPath}</span>`;
@@ -25977,7 +25981,7 @@ function shopItem(s) {
 function tryBar() {
   const t = L(); const s = tryId && SHOP.find((x) => x.id === tryId); if (!s) return "";
   let act;
-  if (s.event) act = `<span class="tag">${t.eventOnly}</span>`;
+  if (s.event) act = `<span class="tag">${seaItemNow(s.id) ? t.season.fromPath : t.eventOnly}</span>`;
   else if (s.special) act = `<span class="tag">${t.specialOnly}</span>`;
   else if (s.found) act = `<span class="tag">${t.foundOnly}</span>`;
   else if (s.reward) act = `<span class="tag">${t.season.fromPath}</span>`;
@@ -25992,7 +25996,7 @@ viewHome = function () {
   const room = roomSVG({ ph: phase(), pet: S.pet, e: tryId ? "felice" : "normale", hat: look.hat, st: stage(), furn: look.furn, wall: look.wall, away: !!S.away, label: S.petName, season: season().id });
   const list = shopList(homeTab);
   let grid;
-  if (homeTab === "furn") grid = GROUP_ORDER.map((g) => `<div class="shopgrp"><h3>${t.groups[g]}</h3><div class="grid3">${list.filter((s) => GROUP[s.id] === g).map(shopItem).join("")}</div></div>`).join("");
+  if (homeTab === "furn") grid = GROUP_ORDER.map((g) => `<div class="shopgrp"><h2>${t.groups[g]}</h2><div class="grid3">${list.filter((s) => GROUP[s.id] === g).map(shopItem).join("")}</div></div>`).join("");
   else grid = `<div class="grid3">${homeTab === "wear" ? `<button class="item" aria-pressed="${!S.hat}" data-wear=""><span class="art"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M7 17L17 7"/></svg></span><span class="nm">${t.none}</span><span class="state">${!S.hat ? t.using : t.use}</span></button>` : ""}${list.map(shopItem).join("")}</div>`;
   return `${topBar()}<div class="stack"><div class="room ${tryId ? "trying" : ""}" id="room">${room}<div class="fx" id="fx"></div>${tryId ? `<span class="trytag">${t.tryOn}</span>` : ""}</div>
   <h1>${t.homeT}</h1><p class="muted">${t.homeP}</p>
@@ -26989,9 +26993,10 @@ const SGOLD = { 1: { tani: 150 }, 5: { shield: 1 }, 10: { item: "h_acorn" }, 15:
 const SEA_REW = {
   lanterns: { tiers: 50, f: SFREE, g: SGOLD },
   stars: { tiers: 35,
-    f: { 5: { item: "rug_comet" }, 10: { item: "s_winter" }, 15: { shield: 1 }, 20: { tani: 80 }, 25: { item: "w_constel" }, 30: { shield: 1 }, 35: { tani: 130 } },
-    g: { 1: { tani: 50 }, 5: { shield: 1 }, 10: { item: "h_starband" }, 15: { tani: 100 }, 20: { shield: 1 }, 25: { tani: 200 }, 30: { shield: 2 }, 35: { item: "h_mooncrown" } } }
+    f: { 5: { item: "rug_comet" }, 10: { item: "s_winter" }, 15: { shield: 1 }, 20: { tani: 60 }, 25: { item: "w_constel" }, 30: { shield: 1 }, 35: { tani: 100 } },
+    g: { 1: { tani: 40 }, 5: { shield: 1 }, 10: { item: "h_starband" }, 15: { tani: 80 }, 20: { shield: 1 }, 25: { tani: 150 }, 30: { shield: 2 }, 35: { item: "h_mooncrown" } } }
 };
+/* def = premio delle tappe normali di quel tipo di stagione, own = Tanì al posto di un oggetto gia' tuo (f, g); li regola l'economia (98e) */
 const SEA_DEF = { f: 30, g: 60 };
 function seaTable(se, track) {
   const R = SEA_REW[seaKind(se)] || SEA_REW.lanterns; const n = seaTiers(se); if (n === R.tiers) return R[track];
@@ -26999,9 +27004,19 @@ function seaTable(se, track) {
   const o = {}; Object.keys(R[track]).forEach((k) => { o[Math.max(1, Math.min(n, Math.round((+k * n) / R.tiers)))] = R[track][k]; }); return (se._rw[track] = o);
 }
 function sReward(track, n, se) {
-  se = se || curSeason(); const r = (se && seaTable(se, track)[n]) || { tani: SEA_DEF[track === "f" ? "f" : "g"] };
-  if (se && se.rerun && r.item && S.owned.includes(r.item) && !sClaims(se)[track].includes(n)) return { tani: track === "f" ? 100 : 150 };
+  se = se || curSeason(); const R = SEA_REW[seaKind(se)] || {}; const tr = track === "f" ? "f" : "g";
+  const r = (se && seaTable(se, track)[n]) || { tani: (R.def || SEA_DEF)[tr] };
+  if (se && se.rerun && r.item && S.owned.includes(r.item) && !sClaims(se)[track].includes(n)) return { tani: (R.own || [100, 150])[tr === "f" ? 0 : 1] };
   return r;
+}
+/* 1.0.9: nel negozio un oggetto di stagione (cappelli delle feste di una volta, premi dei sentieri) si vede solo se e' tuo
+   o se si puo' vincere adesso, nel sentiero della stagione in corso. Cosi' non si promette mai un oggetto che non si puo' avere. */
+function seaItemNow(id, se) { se = se || curSeason(); return !!se && ["f", "g"].some((tr) => Object.values(seaTable(se, tr)).some((r) => r && r.item === id)); }
+let seaItemsAll = null;
+function seaShopOk(s) {
+  if (ownsItem(s)) return true;
+  if (!seaItemsAll) { seaItemsAll = new Set(SEASON_ITEMS); Object.values(SEA_REW).forEach((R) => ["f", "g"].forEach((tr) => Object.values(R[tr]).forEach((r) => { if (r && r.item) seaItemsAll.add(r.item); }))); }
+  return !(seaItemsAll.has(s.id) || s.sea) || seaItemNow(s.id);
 }
 const seaBig = (se, n) => !!(seaTable(se, "f")[n] || seaTable(se, "g")[n]);
 function isFesta(day) { return +day.slice(8, 10) <= 7; }
@@ -27313,7 +27328,7 @@ function seaGrace() {
 function seaAnnounce() {
   const se = curSeason(); if (!se || !S.pet || seaKind(se) !== "stars" || isFirstDay()) return;
   const v = seaState(); if (v.ann[se.id]) return; v.ann[se.id] = 1; save(); const t = L().v21;
-  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="saT"><div class="box card seaann"><div class="seaannart">${seasonBanner(se, true)}</div><div class="seaannin"><h2 id="saT">${esc(t.annT)}</h2><p>${esc(t.annP(S.petName))}</p><button class="btn block" id="seaAnnGo" type="button">${esc(t.annGo)}</button><button class="link" id="closeLayer" type="button">${esc(t.annLater)}</button></div></div></div>`;
+  layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="saT"><div class="box card seaann"><div class="seaannart">${seasonBanner(se, true)}</div><div class="seaannin"><h2 id="saT">${esc(se.rerun ? t.annRT : t.annT)}</h2><p>${esc((se.rerun ? t.annRP : t.annP)(S.petName))}</p><button class="btn block" id="seaAnnGo" type="button">${esc(t.annGo)}</button><button class="link" id="closeLayer" type="button">${esc(t.annLater)}</button></div></div></div>`;
   SND.play("chime"); trackOnce("stagione-annuncio-" + se.id);
   if (anim) G.from(".seaann", { y: 30, opacity: 0, duration: 0.4, ease: "back.out(1.4)" });
 }
@@ -36811,15 +36826,21 @@ document.addEventListener("click", (ev) => {
    ================================================================================================================ */
 const EC = {
   GOAL: 5, ALL: 10, LEVEL: 15,
-  TRIP: 10, WORLD_TANI: [10, 10, 12, 12, 14, 14, 16, 16, 18],
+  /* 1.0.9: tutti i viaggi danno 10 Tanì (prima i mondi lontani 12-18). I mondi lontani danno piu' punti, cartoline e pagine
+     d'album nuove. Insieme al sentiero sempre attivo, il guadagno tipico a regime torna nella fascia 70-90 (t38_econ). */
+  TRIP: 10, WORLD_TANI: [10, 10, 10, 10, 10, 10, 10, 10, 10],
   GIFT_BASE: 4, GIFT_STEP: 2, GIFT_DAYS: 7,              /* regalo = 4 + 2 × min(giorni di fila, 7): 6, 8, … 18 */
   GAME_CAP: 10, GAME_MULT: 0.5,                          /* tetto giornaliero dei giochi; Tanì = punti × 0,5 (almeno 1) */
   WEEK: 50,
   TROPHY: [15, 25, 50, 80, 120, 160, 200, 320, 480],
   STAMPS: [[5, 10], [10, 20], [20, 35]],
-  PAGE_BASE: 40, PAGE_STEP: 10, PAGE_REAL: 60, PAGE_WORLD: 120, ALBUM: 400,
+  PAGE_BASE: 40, PAGE_STEP: 5,                           /* 1.0.9: pagine dei mondi 40, 45, 50… (prima +10 a pagina) */
+  PAGE_REAL: 60, PAGE_WORLD: 120, ALBUM: 400,
   PASS_FREE_DEF: 10, PASS_FREE: { 25: 80, 40: 130, 45: 100 },
   PASS_GOLD_DEF: 20, PASS_GOLD: { 1: 50, 15: 100, 30: 200, 35: 130, 45: 170 },
+  /* 1.0.9: Stagione delle Stelle e i suoi ritorni (il sentiero che c'e' sempre): tappe normali 5 / 10 Tanì,
+     oggetto gia' tuo in una stagione che ritorna = 60 / 100 Tanì. Le tappe speciali sono in SEA_REW (97c). */
+  PASS_STARS: { f: 5, g: 10, own: [60, 100] },
   SP_GOAL: 7, SP_DAY: 12, SP_WEEK: 60, SP_FESTA: 2,      /* Scintille; SP_FESTA = 2 perché i testi dicono "il doppio" */
   PLUS_MONTH: 150, PLUS_PCT: 0.30,
   BACK: 10, WELCOME: 50, SURVEY: 30, EVENT_AGAIN: 20,
@@ -36863,7 +36884,7 @@ const ECT = {
     restWeek: "Hai un giorno di riposo a settimana.", restUsed: "Il riposo di questa settimana l'hai già preso. Il prossimo da lunedì.",
     how: (g, f, w) => `Guadagni Scintille solo prendendoti cura di te: ${g} per ogni obiettivo, ${f} per ogni giornata completa, ${w} per ogni sfida della settimana. Nella settimana di festa (dal 1° al 7 di ogni mese) obiettivi e giornate complete valgono il doppio.`,
     festaP: "Settimana di festa: obiettivi e giornate complete danno Scintille doppie!",
-    perkColl: "Collezioni esclusive di vestiti e arredi", collP: "Oggetti esclusivi di Tanetto Plus: con Plus li prendi gratis e restano tuoi.",
+    perkColl: "Una collezione esclusiva di vestiti e arredi", collP: "Oggetti esclusivi di Tanetto Plus: con Plus li prendi gratis e restano tuoi.",
     guidePath: "Durante la stagione c'è il sentiero: prenditi cura di te, raccogli Scintille e vinci oggetti speciali, anche un cappello per il tuo compagno.",
     enough: { b: "Basta per qualsiasi oggetto base", c: "Basta per qualsiasi oggetto comune", r: "Basta per qualsiasi oggetto raro", e: "Basta per qualsiasi oggetto epico", l: "Basta per qualsiasi oggetto leggendario" },
     importFixed: "Alcuni numeri della copia sembravano strani: li abbiamo sistemati.",
@@ -36872,7 +36893,7 @@ const ECT = {
     restWeek: "You get one rest day each week.", restUsed: "You've had this week's rest day. The next one comes on Monday.",
     how: (g, f, w) => `You earn Sparks only by taking care of yourself: ${g} for each goal, ${f} for each complete day, ${w} for each weekly challenge. During festival week (the 1st to the 7th of each month), goals and complete days count double.`,
     festaP: "Festival week: goals and complete days give double Sparks!",
-    perkColl: "Exclusive collections of outfits and decor", collP: "Exclusive Tanetto Plus items: free with Plus, and yours to keep.",
+    perkColl: "An exclusive collection of outfits and decor", collP: "Exclusive Tanetto Plus items: free with Plus, and yours to keep.",
     guidePath: "During the season there's the path: take care of yourself, collect Sparks and win special items, including a hat for your companion.",
     enough: { b: "Enough for any basic item", c: "Enough for any common item", r: "Enough for any rare item", e: "Enough for any epic item", l: "Enough for any legendary item" },
     importFixed: "Some numbers in the backup looked odd, so they've been tidied up.",
@@ -36881,7 +36902,7 @@ const ECT = {
     restWeek: "Du hast einen Ruhetag pro Woche.", restUsed: "Den Ruhetag dieser Woche hast du schon genommen. Der nächste kommt am Montag.",
     how: (g, f, w) => `Fünkchen sammelst du nur, indem du gut für dich sorgst: ${g} für jedes Ziel, ${f} für jeden vollen Tag, ${w} für jede Wochenaufgabe. In der Festwoche (vom 1. bis 7. jedes Monats) zählen Ziele und volle Tage doppelt.`,
     festaP: "Festwoche: Ziele und volle Tage bringen doppelte Fünkchen!",
-    perkColl: "Exklusive Kollektionen mit Outfits und Deko", collP: "Exklusive Objekte von Tanetto Plus: mit Plus gratis, und sie bleiben deine.",
+    perkColl: "Eine exklusive Kollektion mit Kleidung und Deko", collP: "Exklusive Objekte von Tanetto Plus: mit Plus gratis, und sie bleiben deine.",
     guidePath: "In der Saison gibt es den Pfad: Sorg gut für dich, sammle Fünkchen und gewinne besondere Objekte, auch eine Mütze für deinen Begleiter.",
     enough: { b: "Reicht für jedes Basis-Objekt", c: "Reicht für jedes gewöhnliche Objekt", r: "Reicht für jedes seltene Objekt", e: "Reicht für jedes epische Objekt", l: "Reicht für jedes legendäre Objekt" },
     importFixed: "Einige Zahlen in der Sicherung sahen seltsam aus, deshalb wurden sie angepasst.",
@@ -36890,7 +36911,7 @@ const ECT = {
     restWeek: "Tienes un día de descanso por semana.", restUsed: "Ya tomaste el descanso de esta semana. El próximo llega el lunes.",
     how: (g, f, w) => `Ganas Chispas solo cuidándote: ${g} por cada objetivo, ${f} por cada día completo y ${w} por cada reto semanal. En la semana de fiesta (del 1 al 7 de cada mes), los objetivos y los días completos valen el doble.`,
     festaP: "Semana de fiesta: ¡los objetivos y los días completos dan Chispas dobles!",
-    perkColl: "Colecciones exclusivas de ropa y decoración", collP: "Objetos exclusivos de Tanetto Plus: gratis con Plus y tuyos para siempre.",
+    perkColl: "Una colección exclusiva de ropa y decoración", collP: "Objetos exclusivos de Tanetto Plus: gratis con Plus y tuyos para siempre.",
     guidePath: "Durante la temporada está el sendero: cuídate, reúne Chispas y gana objetos especiales, también un gorro para tu compañero.",
     enough: { b: "Suficiente para cualquier objeto básico", c: "Suficiente para cualquier objeto común", r: "Suficiente para cualquier objeto raro", e: "Suficiente para cualquier objeto épico", l: "Suficiente para cualquier objeto legendario" },
     importFixed: "Algunos números de la copia parecían raros, así que se han ajustado.",
@@ -36899,7 +36920,7 @@ const ECT = {
     restWeek: "Tu as droit à un jour de repos par semaine.", restUsed: "Tu as déjà pris le repos de cette semaine. Le prochain arrive lundi.",
     how: (g, f, w) => `Tu gagnes des Étincelles uniquement en prenant soin de toi : ${g} par objectif, ${f} par journée complète, ${w} par défi de la semaine. Pendant la semaine de fête (du 1er au 7 de chaque mois), les objectifs et les journées complètes comptent double.`,
     festaP: "Semaine de fête : les objectifs et les journées complètes donnent des Étincelles doubles !",
-    perkColl: "Des collections exclusives de tenues et de déco", collP: "Objets exclusifs Tanetto Plus : gratuits avec Plus, et ils restent à toi.",
+    perkColl: "Une collection exclusive de tenues et de déco", collP: "Objets exclusifs Tanetto Plus : gratuits avec Plus, et ils restent à toi.",
     guidePath: "Pendant la saison, il y a le sentier : prends soin de toi, gagne des Étincelles et remporte des objets spéciaux, dont un bonnet pour ton compagnon.",
     enough: { b: "Assez pour n'importe quel objet basique", c: "Assez pour n'importe quel objet commun", r: "Assez pour n'importe quel objet rare", e: "Assez pour n'importe quel objet épique", l: "Assez pour n'importe quel objet légendaire" },
     importFixed: "Certains chiffres de la sauvegarde semblaient bizarres : ils ont été corrigés.",
@@ -36908,7 +36929,7 @@ const ECT = {
     restWeek: "Você tem um dia de descanso por semana.", restUsed: "Você já usou o descanso desta semana. O próximo chega na segunda-feira.",
     how: (g, f, w) => `Você ganha Faíscas só cuidando de si: ${g} por meta, ${f} por dia completo, ${w} por desafio da semana. Na semana de festa (do dia 1 ao 7 de cada mês), metas e dias completos valem o dobro.`,
     festaP: "Semana de festa: metas e dias completos dão Faíscas em dobro!",
-    perkColl: "Coleções exclusivas de roupas e decoração", collP: "Itens exclusivos do Tanetto Plus: grátis com o Plus e seus para sempre.",
+    perkColl: "Uma coleção exclusiva de roupas e decoração", collP: "Itens exclusivos do Tanetto Plus: grátis com o Plus e seus para sempre.",
     guidePath: "Durante a temporada tem o caminho: cuide de si, junte Faíscas e ganhe itens especiais, inclusive um gorro para o seu companheiro.",
     enough: { b: "Dá para qualquer item básico", c: "Dá para qualquer item comum", r: "Dá para qualquer item raro", e: "Dá para qualquer item épico", l: "Dá para qualquer item lendário" },
     importFixed: "Alguns números da cópia pareciam estranhos, então foram ajustados.",
@@ -36953,7 +36974,7 @@ const ECT = {
     restWeek: "Один день отдыха в неделю — твой.", restUsed: "День отдыха на этой неделе уже был. Следующий — с понедельника.",
     how: (g, f, w) => `Искорки можно получить, только заботясь о себе: ${g} за каждую цель, ${f} за каждый полностью выполненный день, ${w} за каждое испытание недели. В праздничную неделю (с 1 по 7 число каждого месяца) цели и полные дни приносят вдвое больше.`,
     festaP: "Праздничная неделя: цели и полные дни приносят вдвое больше искорок!",
-    perkColl: "Эксклюзивные коллекции одежды и декора", collP: "Эксклюзивные предметы Tanetto Plus: с Plus бесплатно, и они останутся у тебя.",
+    perkColl: "Эксклюзивная коллекция одежды и декора", collP: "Эксклюзивные предметы Tanetto Plus: с Plus бесплатно, и они останутся у тебя.",
     guidePath: "Во время сезона есть тропинка: заботься о себе, собирай искорки и получай особые предметы, в том числе шапочку для питомца.",
     enough: { b: "Хватит на любой базовый предмет", c: "Хватит на любой обычный предмет", r: "Хватит на любой редкий предмет", e: "Хватит на любой эпический предмет", l: "Хватит на любой легендарный предмет" },
     importFixed: "Некоторые числа в копии выглядели странно, поэтому их поправили.",
@@ -36962,7 +36983,7 @@ const ECT = {
     restWeek: "Masz jeden dzień odpoczynku w tygodniu.", restUsed: "Dzień odpoczynku w tym tygodniu już był. Kolejny od poniedziałku.",
     how: (g, f, w) => `Iskierki zdobywasz tylko wtedy, gdy dbasz o siebie: ${g} za każdy cel, ${f} za każdy pełny dzień, ${w} za każde wyzwanie tygodnia. W tygodniu święta (od 1. do 7. dnia każdego miesiąca) cele i pełne dni liczą się podwójnie.`,
     festaP: "Tydzień święta: cele i pełne dni dają podwójne Iskierki!",
-    perkColl: "Wyjątkowe kolekcje ubranek i dekoracji", collP: "Wyjątkowe przedmioty Tanetto Plus: z Plus za darmo i zostają z tobą na zawsze.",
+    perkColl: "Wyjątkowa kolekcja ubranek i dekoracji", collP: "Wyjątkowe przedmioty Tanetto Plus: z Plus za darmo i zostają z tobą na zawsze.",
     guidePath: "W trakcie sezonu jest ścieżka: dbaj o siebie, zbieraj Iskierki i zdobywaj wyjątkowe przedmioty, także czapkę dla towarzysza.",
     enough: { b: "Wystarczy na dowolny podstawowy przedmiot", c: "Wystarczy na dowolny zwykły przedmiot", r: "Wystarczy na dowolny rzadki przedmiot", e: "Wystarczy na dowolny epicki przedmiot", l: "Wystarczy na dowolny legendarny przedmiot" },
     importFixed: "Niektóre liczby w kopii wyglądały dziwnie, więc zostały poprawione.",
@@ -36971,7 +36992,7 @@ const ECT = {
     restWeek: "Je hebt één rustdag per week.", restUsed: "De rustdag van deze week heb je al gehad. De volgende komt maandag.",
     how: (g, f, w) => `Je verdient Vonkjes alleen door goed voor jezelf te zorgen: ${g} per doel, ${f} per volledige dag, ${w} per weekuitdaging. In de feestweek (van de 1e tot de 7e van elke maand) tellen doelen en volledige dagen dubbel.`,
     festaP: "Feestweek: doelen en volledige dagen geven dubbele Vonkjes!",
-    perkColl: "Exclusieve collecties met outfits en decoratie", collP: "Exclusieve Tanetto Plus-spulletjes: gratis met Plus, en ze blijven van jou.",
+    perkColl: "Een exclusieve collectie met outfits en decoratie", collP: "Exclusieve Tanetto Plus-spulletjes: gratis met Plus, en ze blijven van jou.",
     guidePath: "Tijdens het seizoen is er het pad: zorg goed voor jezelf, verzamel Vonkjes en win speciale spulletjes, ook een muts voor je maatje.",
     enough: { b: "Genoeg voor elk basisvoorwerp", c: "Genoeg voor elk gewoon voorwerp", r: "Genoeg voor elk zeldzaam voorwerp", e: "Genoeg voor elk episch voorwerp", l: "Genoeg voor elk legendarisch voorwerp" },
     importFixed: "Sommige getallen in de back-up zagen er vreemd uit, dus die zijn aangepast.",
@@ -36980,7 +37001,7 @@ const ECT = {
     restWeek: "Her hafta bir dinlenme günün var.", restUsed: "Bu haftanın dinlenme gününü kullandın. Bir sonraki pazartesi geliyor.",
     how: (g, f, w) => `Kıvılcımları sadece kendine bakarak kazanırsın: her hedef için ${g}, her tam gün için ${f}, her haftalık görev için ${w}. Şenlik haftasında (her ayın 1'i ile 7'si arası) hedefler ve tam günler iki kat değerlidir.`,
     festaP: "Şenlik haftası: hedefler ve tam günler iki kat Kıvılcım getirir!",
-    perkColl: "Özel kıyafet ve dekor koleksiyonları", collP: "Tanetto Plus'a özel eşyalar: Plus ile ücretsiz, hep senin kalır.",
+    perkColl: "Özel bir kıyafet ve dekor koleksiyonu", collP: "Tanetto Plus'a özel eşyalar: Plus ile ücretsiz, hep senin kalır.",
     guidePath: "Sezon boyunca bir patika var: kendine iyi bak, Kıvılcım topla ve arkadaşın için bir şapka dahil özel eşyalar kazan.",
     enough: { b: "Herhangi bir temel eşyaya yeter", c: "Herhangi bir sıradan eşyaya yeter", r: "Herhangi bir nadir eşyaya yeter", e: "Herhangi bir epik eşyaya yeter", l: "Herhangi bir efsanevi eşyaya yeter" },
     importFixed: "Yedekteki bazı sayılar tuhaf görünüyordu, bu yüzden düzeltildi.",
@@ -37039,7 +37060,8 @@ STAMPS.splice(0, STAMPS.length, ...EC.STAMPS.map((x) => x.slice()));
 TROPHY_TANI.splice(0, TROPHY_TANI.length, ...EC.TROPHY);
 Object.keys(SFREE).forEach((k) => { if (SFREE[k].tani) SFREE[k].tani = EC.PASS_FREE[k] || EC.PASS_FREE_DEF; });
 Object.keys(SGOLD).forEach((k) => { if (SGOLD[k].tani) SGOLD[k].tani = EC.PASS_GOLD[k] || EC.PASS_GOLD_DEF; });
-SEA_DEF.f = EC.PASS_FREE_DEF; SEA_DEF.g = EC.PASS_GOLD_DEF; /* 1.0.9: i premi speciali sono per tipo di stagione (SEA_REW, 97c) */
+SEA_DEF.f = EC.PASS_FREE_DEF; SEA_DEF.g = EC.PASS_GOLD_DEF;
+SEA_REW.stars.def = { f: EC.PASS_STARS.f, g: EC.PASS_STARS.g }; SEA_REW.stars.own = EC.PASS_STARS.own.slice(); /* 1.0.9: i premi speciali sono per tipo di stagione (SEA_REW, 97c) */
 
 /* 4b) Livelli: 15 Tanì per livello, per tutti */
 const _addXpE = addXp;
@@ -37291,6 +37313,14 @@ dailyTaniGuess = function () {
   V19W.forEach((w, i) => { if (w.lvl <= lvl) trip = Math.max(trip, EC.WORLD_TANI[i] || 0); });
   let d = g * EC.GOAL + EC.ALL + econGift(((S.visit && S.visit.n) || 0) + 1) + trip + EC.WEEK / 7;
   if (plusActive()) d += (g * EC.GOAL + EC.ALL) * EC.PLUS_PCT;
+  /* 1.0.9: anche il sentiero della stagione (Tanì medi per tappa x tappe al giorno), finché non è finito */
+  try {
+    const se = curSeason(); const n = seaTiers(se);
+    if (se && sTier(passi(se), se) < n) {
+      let tot = 0; for (let k = 1; k <= n; k++) { tot += sReward("f", k, se).tani || 0; if (plusActive()) tot += sReward("g", k, se).tani || 0; }
+      d += (tot / n) * ((g * EC.SP_GOAL + EC.SP_DAY + EC.SP_WEEK / 7) / 100);
+    }
+  } catch (e) { /* la stima resta quella base */ }
   return Math.max(1, Math.round(d));
 };
 
@@ -37560,7 +37590,7 @@ const NAV20_T = {
     stop: "Ferma", lvShort: "Liv.",
     webT: "Si attiva nell'app per Android", webP: (n) => `Tanetto Plus e i pacchetti di Tanì si comprano dall'app per Android, su Google Play. Con un account gratuito ritrovi ${n} e tutti i tuoi progressi anche lì.`,
     webSoon: "L'app arriva presto su Google Play.", webFree: "Intanto i Tanì si guadagnano gratis: obiettivi, viaggi, giochi e regalo del giorno.",
-    plusT: "Ti va di provare Tanetto Plus?", plusP: (n) => `Ti piace stare con ${n}? Con Plus avete gite in tutto il mondo, 4\u00a0compagni esclusivi e un regalo ogni mese.`,
+    plusT: "Ti va di provare Tanetto Plus?", plusP: (n, c) => `Ti piace stare con ${n}? Con Plus avete gite in tutto il mondo, ${c} e un regalo ogni mese.`,
     plusTrial: (d) => `${d} giorni gratis`, plusThen: (p) => `poi ${p} · disdici quando vuoi`, plusFrom: (p) => `${p} · disdici quando vuoi`,
     plusGo: (d) => `Prova ${d} giorni gratis`, plusSub: "Scopri Plus", plusLater: "Non ora",
     daysAct: ["giorno attivo", "giorni attivi"], goalsDone: ["obiettivo completato", "obiettivi completati"],
@@ -37590,7 +37620,7 @@ const NAV20_T = {
     stop: "Stop", lvShort: "Lv.",
     webT: "Unlocks in the Android app", webP: (n) => `Tanetto Plus and Tanì packs are bought in the Android app, on Google Play. With a free account you'll find ${n} and all your progress there too.`,
     webSoon: "The app is coming to Google Play soon.", webFree: "Meanwhile, you earn Tanì for free: goals, trips, games and the daily gift.",
-    plusT: "Fancy trying Tanetto Plus?", plusP: (n) => `Enjoying your time with ${n}? With Plus you get trips around the world, 4\u00a0exclusive companions and a gift every month.`,
+    plusT: "Fancy trying Tanetto Plus?", plusP: (n, c) => `Enjoying your time with ${n}? With Plus you get trips around the world, ${c} and a gift every month.`,
     plusTrial: (d) => `${d} days free`, plusThen: (p) => `then ${p} · cancel anytime`, plusFrom: (p) => `${p} · cancel anytime`,
     plusGo: (d) => `Try ${d} days free`, plusSub: "Discover Plus", plusLater: "Not now",
     daysAct: ["active day", "active days"], goalsDone: ["goal completed", "goals completed"],
@@ -37620,7 +37650,7 @@ const NAV20_T = {
     stop: "Stopp", lvShort: "Lv.",
     webT: "Gibt es in der Android-App", webP: (n) => `Tanetto Plus und Tanì-Pakete kaufst du in der Android-App bei Google Play. Mit einem kostenlosen Konto findest du ${n} und deinen ganzen Fortschritt auch dort.`,
     webSoon: "Die App kommt bald zu Google Play.", webFree: "Bis dahin verdienst du Tanì kostenlos: mit Zielen, Reisen, Spielen und dem Tagesgeschenk.",
-    plusT: "Lust, Tanetto Plus zu testen?", plusP: (n) => `Magst du die Zeit mit ${n}? Mit Plus gibt es Reisen um die Welt, 4\u00a0exklusive Begleiter und jeden Monat ein Geschenk.`,
+    plusT: "Lust, Tanetto Plus zu testen?", plusP: (n, c) => `Magst du die Zeit mit ${n}? Mit Plus gibt es Reisen um die Welt, ${c} und jeden Monat ein Geschenk.`,
     plusTrial: (d) => `${d} Tage kostenlos`, plusThen: (p) => `danach ${p} · jederzeit kündbar`, plusFrom: (p) => `${p} · jederzeit kündbar`,
     plusGo: (d) => `${d} Tage kostenlos testen`, plusSub: "Plus entdecken", plusLater: "Nicht jetzt",
     daysAct: ["aktiver Tag", "aktive Tage"], goalsDone: ["Ziel geschafft", "Ziele geschafft"],
@@ -37650,7 +37680,7 @@ const NAV20_T = {
     stop: "Parar", lvShort: "Nv.",
     webT: "Se activa en la app para Android", webP: (n) => `Tanetto Plus y los packs de Tanì se compran en la app para Android, en Google Play. Con una cuenta gratis encontrarás allí a ${n} y todo tu progreso.`,
     webSoon: "La app llega pronto a Google Play.", webFree: "Mientras tanto, los Tanì se ganan gratis: objetivos, viajes, juegos y el regalo del día.",
-    plusT: "¿Te apetece probar Tanetto Plus?", plusP: (n) => `¿Te gusta pasar tiempo con ${n}? Con Plus tenéis viajes por todo el mundo, 4\u00a0compañeros exclusivos y un regalo cada mes.`,
+    plusT: "¿Te apetece probar Tanetto Plus?", plusP: (n, c) => `¿Te gusta pasar tiempo con ${n}? Con Plus tenéis viajes por todo el mundo, ${c} y un regalo cada mes.`,
     plusTrial: (d) => `${d} días gratis`, plusThen: (p) => `luego ${p} · cancela cuando quieras`, plusFrom: (p) => `${p} · cancela cuando quieras`,
     plusGo: (d) => `Probar ${d} días gratis`, plusSub: "Descubrir Plus", plusLater: "Ahora no",
     daysAct: ["día activo", "días activos"], goalsDone: ["objetivo completado", "objetivos completados"],
@@ -37680,7 +37710,7 @@ const NAV20_T = {
     stop: "Arrêter", lvShort: "Niv.",
     webT: "S'active dans l'app Android", webP: (n) => `Tanetto Plus et les packs de Tanì s'achètent dans l'app Android, sur Google Play. Avec un compte gratuit, tu y retrouves ${n} et toute ta progression.`,
     webSoon: "L'app arrive bientôt sur Google Play.", webFree: "En attendant, les Tanì se gagnent gratuitement : objectifs, voyages, jeux et cadeau du jour.",
-    plusT: "Envie d'essayer Tanetto Plus ?", plusP: (n) => `Tu aimes passer du temps avec ${n} ? Avec Plus, vous avez des voyages dans le monde entier, 4\u00a0compagnons exclusifs et un cadeau chaque mois.`,
+    plusT: "Envie d'essayer Tanetto Plus ?", plusP: (n, c) => `Tu aimes passer du temps avec ${n} ? Avec Plus, vous avez des voyages dans le monde entier, ${c} et un cadeau chaque mois.`,
     plusTrial: (d) => `${d} jours gratuits`, plusThen: (p) => `puis ${p} · résiliable à tout moment`, plusFrom: (p) => `${p} · résiliable à tout moment`,
     plusGo: (d) => `Essayer ${d} jours gratuits`, plusSub: "Découvrir Plus", plusLater: "Pas maintenant",
     daysAct: ["jour actif", "jours actifs"], goalsDone: ["objectif atteint", "objectifs atteints"],
@@ -37710,7 +37740,7 @@ const NAV20_T = {
     stop: "Parar", lvShort: "Nv.",
     webT: "Ativa no app para Android", webP: (n) => `Tanetto Plus e os pacotes de Tanì são comprados no app para Android, no Google Play. Com uma conta grátis você encontra ${n} e todo o seu progresso lá também.`,
     webSoon: "O app chega em breve ao Google Play.", webFree: "Enquanto isso, você ganha Tanì de graça: metas, viagens, jogos e o presente do dia.",
-    plusT: "Que tal experimentar o Tanetto Plus?", plusP: (n) => `Curtindo o tempo com ${n}? Com o Plus vocês têm viagens pelo mundo todo, 4\u00a0companheiros exclusivos e um presente todo mês.`,
+    plusT: "Que tal experimentar o Tanetto Plus?", plusP: (n, c) => `Curtindo o tempo com ${n}? Com o Plus vocês têm viagens pelo mundo todo, ${c} e um presente todo mês.`,
     plusTrial: (d) => `${d} dias grátis`, plusThen: (p) => `depois ${p} · cancele quando quiser`, plusFrom: (p) => `${p} · cancele quando quiser`,
     plusGo: (d) => `Testar ${d} dias grátis`, plusSub: "Conhecer o Plus", plusLater: "Agora não",
     daysAct: ["dia ativo", "dias ativos"], goalsDone: ["meta concluída", "metas concluídas"],
@@ -37740,7 +37770,7 @@ const NAV20_T = {
     stop: "やめる", lvShort: "Lv.",
     webT: "Android アプリで使えます", webP: (n) => `Tanetto Plus と Tanì パックは、Google Play の Android アプリで購入できます。無料アカウントがあれば、アプリでも${n}とこれまでの記録にまた会えます。`,
     webSoon: "アプリはもうすぐ Google Play に登場します。", webFree: "それまでは Tanì を無料でためられます：目標、おでかけ、ゲーム、毎日のプレゼント。",
-    plusT: "Tanetto Plus をためしてみませんか？", plusP: (n) => `${n}との毎日、楽しんでいますか？Plus なら世界中へのおでかけ、限定パートナー4匹、毎月のプレゼントが楽しめます。`,
+    plusT: "Tanetto Plus をためしてみませんか？", plusP: (n, c) => `${n}との毎日、楽しんでいますか？Plus なら世界中へのおでかけ、${c}、毎月のプレゼントが楽しめます。`,
     plusTrial: (d) => `${d}日間無料`, plusThen: (p) => `その後 ${p}・いつでも解約できます`, plusFrom: (p) => `${p}・いつでも解約できます`,
     plusGo: (d) => `${d}日間無料でためす`, plusSub: "Plus を見てみる", plusLater: "あとで",
     daysAct: ["がんばった日", "がんばった日"], goalsDone: ["達成した目標", "達成した目標"],
@@ -37770,7 +37800,7 @@ const NAV20_T = {
     stop: "멈추기", lvShort: "Lv.",
     webT: "Android 앱에서 이용할 수 있어요", webP: (n) => `Tanetto Plus와 Tanì 팩은 Google Play의 Android 앱에서 살 수 있어요. 무료 계정이 있으면 앱에서도 ${n}와(과) 모든 기록을 그대로 만날 수 있어요.`,
     webSoon: "앱이 곧 Google Play에 나와요.", webFree: "그동안 Tanì는 무료로 모을 수 있어요: 목표, 여행, 게임, 오늘의 선물.",
-    plusT: "Tanetto Plus를 체험해 볼래요?", plusP: (n) => `${n}와(과) 함께하는 시간, 즐거운가요? Plus에서는 세계 곳곳으로 여행하고, 전용 친구 4명을 만나고, 매달 선물도 받아요.`,
+    plusT: "Tanetto Plus를 체험해 볼래요?", plusP: (n, c) => `${n}와(과) 함께하는 시간, 즐거운가요? Plus에서는 세계 곳곳으로 여행하고, ${c}을 만나고, 매달 선물도 받아요.`,
     plusTrial: (d) => `${d}일 무료`, plusThen: (p) => `이후 ${p} · 언제든 해지 가능`, plusFrom: (p) => `${p} · 언제든 해지 가능`,
     plusGo: (d) => `${d}일 무료 체험`, plusSub: "Plus 알아보기", plusLater: "나중에",
     daysAct: ["활동한 날", "활동한 날"], goalsDone: ["달성한 목표", "달성한 목표"],
@@ -37800,7 +37830,7 @@ const NAV20_T = {
     stop: "停止", lvShort: "Lv.",
     webT: "在 Android 应用中开通", webP: (n) => `Tanetto Plus 和 Tanì 礼包需要在 Google Play 的 Android 应用里购买。有了免费账号，在应用里也能找回 ${n} 和你的全部进度。`,
     webSoon: "应用很快就会上架 Google Play。", webFree: "在那之前，Tanì 可以免费赚：目标、旅行、游戏和每日礼物。",
-    plusT: "想试试 Tanetto Plus 吗？", plusP: (n) => `喜欢和 ${n} 在一起吗？有了 Plus，你们可以环游世界，还有 4 个专属小伙伴，每个月还有礼物。`,
+    plusT: "想试试 Tanetto Plus 吗？", plusP: (n, c) => `喜欢和 ${n} 在一起吗？有了 Plus，你们可以环游世界，还有 ${c}，每个月还有礼物。`,
     plusTrial: (d) => `免费 ${d} 天`, plusThen: (p) => `之后 ${p} · 随时可取消`, plusFrom: (p) => `${p} · 随时可取消`,
     plusGo: (d) => `免费试用 ${d} 天`, plusSub: "了解 Plus", plusLater: "以后再说",
     daysAct: ["活跃天数", "活跃天数"], goalsDone: ["完成的目标", "完成的目标"],
@@ -37830,7 +37860,7 @@ const NAV20_T = {
     stop: "停止", lvShort: "Lv.",
     webT: "在 Android App 中開通", webP: (n) => `Tanetto Plus 和 Tanì 禮包要在 Google Play 的 Android App 裡購買。有了免費帳號，在 App 裡也能找回 ${n} 和你的所有進度。`,
     webSoon: "App 很快就會上架 Google Play。", webFree: "在那之前，Tanì 可以免費賺：目標、旅行、遊戲和每日禮物。",
-    plusT: "想試試 Tanetto Plus 嗎？", plusP: (n) => `喜歡和 ${n} 在一起嗎？有了 Plus，你們可以環遊世界，還有 4 個專屬小夥伴，每個月還有禮物。`,
+    plusT: "想試試 Tanetto Plus 嗎？", plusP: (n, c) => `喜歡和 ${n} 在一起嗎？有了 Plus，你們可以環遊世界，還有 ${c}，每個月還有禮物。`,
     plusTrial: (d) => `免費 ${d} 天`, plusThen: (p) => `之後 ${p} · 隨時可取消`, plusFrom: (p) => `${p} · 隨時可取消`,
     plusGo: (d) => `免費試用 ${d} 天`, plusSub: "了解 Plus", plusLater: "以後再說",
     daysAct: ["活躍天數", "活躍天數"], goalsDone: ["完成的目標", "完成的目標"],
@@ -37860,7 +37890,7 @@ const NAV20_T = {
     stop: "Стоп", lvShort: "Ур.",
     webT: "Доступно в приложении для Android", webP: (n) => `Tanetto Plus и наборы Tanì покупаются в приложении для Android в Google Play. С бесплатным аккаунтом там будут и ${n}, и весь твой прогресс.`,
     webSoon: "Приложение скоро появится в Google Play.", webFree: "А пока Tanì можно зарабатывать бесплатно: цели, поездки, игры и подарок дня.",
-    plusT: "Хочешь попробовать Tanetto Plus?", plusP: (n) => `${n} всегда рядом. С Plus — поездки по всему миру, 4\u00a0эксклюзивных питомца и подарок каждый месяц.`,
+    plusT: "Хочешь попробовать Tanetto Plus?", plusP: (n, c) => `${n} всегда рядом. С Plus — поездки по всему миру, ${c} и подарок каждый месяц.`,
     plusTrial: (d) => `${d} ${d % 10 === 1 && d % 100 !== 11 ? "день" : d % 10 >= 2 && d % 10 <= 4 && (d % 100 < 12 || d % 100 > 14) ? "дня" : "дней"} бесплатно`, plusThen: (p) => `затем ${p} · отмена в любой момент`, plusFrom: (p) => `${p} · отмена в любой момент`,
     plusGo: (d) => `Попробовать бесплатно`, plusSub: "Узнать о Plus", plusLater: "Не сейчас",
     daysAct: ["активный день", "активных дня", "активных дней"], goalsDone: ["выполненная цель", "выполненные цели", "выполненных целей"],
@@ -37890,7 +37920,7 @@ const NAV20_T = {
     stop: "Zatrzymaj", lvShort: "Poz.",
     webT: "Dostępne w aplikacji na Androida", webP: (n) => `Tanetto Plus i pakiety Tanì kupisz w aplikacji na Androida w Google Play. Z darmowym kontem czekają tam na ciebie ${n} i wszystkie twoje postępy.`,
     webSoon: "Aplikacja wkrótce pojawi się w Google Play.", webFree: "Na razie Tanì zdobywasz za darmo: cele, podróże, gry i prezent dnia.",
-    plusT: "Chcesz wypróbować Tanetto Plus?", plusP: (n) => `Lubisz wspólne chwile? Z Plus czekają na was podróże po całym świecie, 4\u00a0wyjątkowych towarzyszy i prezent co miesiąc.`,
+    plusT: "Chcesz wypróbować Tanetto Plus?", plusP: (n, c) => `Lubisz wspólne chwile? Z Plus czekają na was podróże po całym świecie, ${c} i prezent co miesiąc.`,
     plusTrial: (d) => `${d} dni za darmo`, plusThen: (p) => `potem ${p} · anulujesz w każdej chwili`, plusFrom: (p) => `${p} · anulujesz w każdej chwili`,
     plusGo: (d) => `Wypróbuj ${d} dni za darmo`, plusSub: "Poznaj Plus", plusLater: "Nie teraz",
     daysAct: ["aktywny dzień", "aktywne dni", "aktywnych dni"], goalsDone: ["ukończony cel", "ukończone cele", "ukończonych celów"],
@@ -37920,7 +37950,7 @@ const NAV20_T = {
     stop: "Stop", lvShort: "Nv.",
     webT: "Werkt in de Android-app", webP: (n) => `Tanetto Plus en Tanì-pakketten koop je in de Android-app via Google Play. Met een gratis account vind je ${n} en al je voortgang daar ook terug.`,
     webSoon: "De app komt binnenkort naar Google Play.", webFree: "Tot die tijd verdien je Tanì gratis: doelen, reizen, spelletjes en het cadeau van de dag.",
-    plusT: "Zin om Tanetto Plus te proberen?", plusP: (n) => `Geniet je van je tijd met ${n}? Met Plus krijgen jullie reizen over de hele wereld, 4\u00a0exclusieve maatjes en elke maand een cadeau.`,
+    plusT: "Zin om Tanetto Plus te proberen?", plusP: (n, c) => `Geniet je van je tijd met ${n}? Met Plus krijgen jullie reizen over de hele wereld, ${c} en elke maand een cadeau.`,
     plusTrial: (d) => `${d} dagen gratis`, plusThen: (p) => `daarna ${p} · altijd opzegbaar`, plusFrom: (p) => `${p} · altijd opzegbaar`,
     plusGo: (d) => `${d} dagen gratis proberen`, plusSub: "Ontdek Plus", plusLater: "Niet nu",
     daysAct: ["actieve dag", "actieve dagen"], goalsDone: ["doel gehaald", "doelen gehaald"],
@@ -37950,7 +37980,7 @@ const NAV20_T = {
     stop: "Durdur", lvShort: "Sv.",
     webT: "Android uygulamasında açılır", webP: (n) => `Tanetto Plus ve Tanì paketleri Google Play'deki Android uygulamasından alınır. Ücretsiz bir hesapla ${n} ve tüm ilerlemen orada da seni bekler.`,
     webSoon: "Uygulama yakında Google Play'de.", webFree: "Bu arada Tanì'yi ücretsiz kazanırsın: hedefler, geziler, oyunlar ve günün hediyesi.",
-    plusT: "Tanetto Plus'ı denemek ister misin?", plusP: (n) => `${n} ile vakit geçirmek hoşuna gidiyor mu? Plus ile dünyanın her yerine geziler, 4\u00a0özel arkadaş ve her ay bir hediye var.`,
+    plusT: "Tanetto Plus'ı denemek ister misin?", plusP: (n, c) => `${n} ile vakit geçirmek hoşuna gidiyor mu? Plus ile dünyanın her yerine geziler, ${c} ve her ay bir hediye var.`,
     plusTrial: (d) => `${d} gün ücretsiz`, plusThen: (p) => `sonra ${p} · istediğin zaman iptal et`, plusFrom: (p) => `${p} · istediğin zaman iptal et`,
     plusGo: (d) => `${d} gün ücretsiz dene`, plusSub: "Plus'ı keşfet", plusLater: "Şimdi değil",
     daysAct: ["aktif gün", "aktif gün"], goalsDone: ["tamamlanan hedef", "tamamlanan hedef"],
@@ -38543,7 +38573,7 @@ function nav20plusOffer(why) {
   const trial = plan.trialToken && plan.trialDays ? plan.trialDays : 0;
   const st = nav20st().plus; st.n++; st.last = dkey(); st.off = dkey(); save(); trackOnce("plus-offerta-" + st.n);
   layer.innerHTML = `<div class="overlay sheetwrap" role="dialog" aria-modal="true" aria-labelledby="nvPT"><div class="sheet nvplus"><div class="grab"></div>
-    <div class="nvplpet" aria-hidden="true">${petSVG(S.pet, "felice", "h_crown", stage(), "")}</div><h2 id="nvPT">${esc(t.plusT)}</h2><p>${esc(t.plusP(S.petName || ""))}</p>
+    <div class="nvplpet" aria-hidden="true">${petSVG(S.pet, "felice", "h_crown", stage(), "")}</div><h2 id="nvPT">${esc(t.plusT)}</h2><p>${esc(t.plusP(S.petName || "", L().v12.perk(PLUS_PETS.length).replace(/(\d) /, "$1\u00a0")))}</p>
     <div class="nvprice">${trial ? `<b>${esc(t.plusTrial(trial))}</b><span>${esc(t.plusThen(per))}</span>` : `<b>${esc(per)}</b><span>${esc(t.plusFrom("").replace(/^\s*·\s*/, ""))}</span>`}</div>${trial ? `<p class="small muted nvtrialwhen">${esc(BT().trialWhen(trialEnd(trial)))}</p>` : ""}
     <button class="btn gold block" id="nvPlusGo">${icon("p_crown")}${esc(trial ? t.plusGo(trial) : t.plusSub)}</button><button class="link" id="closeLayer">${esc(t.plusLater)}</button></div></div>`;
   if (anim) G.from(".nvplus", { y: 80, opacity: 0, duration: 0.45, ease: "power3.out" });
@@ -40365,6 +40395,10 @@ window.addEventListener("storage", (ev) => {
     try { return _greet.apply(this, arguments); } finally { phase = _ph; }
   };
 })();
+/* 1.0.9 (accessibilita'): nel Diario i titoli delle sezioni (h3) stanno subito sotto il titolo della pagina (h1):
+   per i lettori di schermo sono di secondo livello, l'aspetto resta lo stesso */
+const _viewDiaryA11y = viewDiary;
+viewDiary = function () { const h = _viewDiaryA11y(); return S.pet ? h.replace(/<h3(?=[\s>])(?![^>]*aria-level)/g, '<h3 aria-level="2"') : h; };
 
 splash();
 render();
