@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-qH4ab6ugyGr/IBB/bTERN4knfq+14Bclkimd7w/22Jw=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-g8GeslMoH6a/OX/DxlxWSioGnC1mO8KuGKOy316hi1s=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -23006,12 +23006,20 @@ function brokenKeys() { try { return Object.keys(localStorage).filter((k) => k.s
 function brokenKeep(raw) {
   try { const ks = brokenKeys(); if (ks.some((k) => localStorage.getItem(k) === raw)) return; while (ks.length >= 2) localStorage.removeItem(ks.shift()); localStorage.setItem(BROKEN_PFX + Date.now(), raw); } catch (e) { /* memoria piena: il testo resta almeno nella chiave principale fino al prossimo salvataggio */ }
 }
+/* la rotazione si fa una volta al giorno, 2,5 s dopo la prima richiesta (a riposo: non rallenta l'avvio); la copia e' il
+   testo della prima richiesta del giorno (all'avvio: quello appena riletto dalla memoria, quindi sicuramente leggibile) */
+let snapT = null;
 function snapTick(json) {
-  if (!json || !S || !S.pet) return; const d = dkey(); if (lsGet(SNAP_DAY) === d) return;
+  if (!json || !S || !S.pet || snapT || lsGet(SNAP_DAY) === dkey()) return;
+  snapT = setTimeout(() => { snapT = null; snapRotate(json); }, 2500);
+}
+function snapRotate(json) {
+  const d = dkey(); if (lsGet(SNAP_DAY) === d) return;
   try { for (let i = SNAP_N; i > 1; i--) { const p = localStorage.getItem(SNAP_KEY(i - 1)); if (p) localStorage.setItem(SNAP_KEY(i), p); } localStorage.setItem(SNAP_KEY(1), json); localStorage.setItem(SNAP_DAY, d); }
   catch (e) { try { for (let i = SNAP_N; i > 1; i--) localStorage.removeItem(SNAP_KEY(i)); } catch (x) { /* niente */ } }
 }
 function snapClear() {
+  clearTimeout(snapT); snapT = null;
   try { for (let i = 1; i <= SNAP_N; i++) localStorage.removeItem(SNAP_KEY(i)); localStorage.removeItem(SNAP_DAY); brokenKeys().forEach((k) => localStorage.removeItem(k)); localStorage.removeItem(KEY + "-rotto"); } catch (e) { /* niente */ }
 }
 let S = null, S_RAW = null;
