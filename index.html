@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-eIExMCc7CsAZq0NON3keBJ2vhav3RYXTJ4Ed+WdDn1w=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-TkLLY/hvKSfTpXlIiQKdJX52zroeBci/zs3F2GrqiMo=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2772,6 +2772,17 @@ html.calm .xa .xsh, html.lite .xa .xsh, html.xvstill .xa .xsh { display: none; }
 .xvwishon svg { width: 18px; height: 18px; }
 .trybar .tinfo .xvback { display: block; font-size: 12px; color: var(--muted); font-weight: 600; }
 .trybar .tinfo .xvtx { display: flex; flex-direction: column; min-width: 0; }
+
+/* --- 1.0.9 (fase 2): schermata neutra dell'eta' (98zf) --- */
+.agebox { text-align: center; }
+.agebox .agepet { width: 96px; height: 96px; margin: 0 auto 4px; }
+.agebox .agepet svg { width: 100%; height: 100%; }
+.agerow { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin: 12px 0 14px; text-align: left; }
+.agefld { display: flex; flex-direction: column; gap: 4px; font-weight: 700; font-size: 14px; }
+.agefld select { min-height: 48px; border-radius: 14px; border: 2px solid var(--card-edge, #E3D5BF); background: var(--paper); color: var(--ink); font: inherit; font-weight: 600; padding: 0 10px; }
+.agebox .link { min-height: 44px; margin-top: 4px; }
+.agemoney, .ageadult { color: var(--ink); background: var(--paper-2); border-radius: 12px; padding: 8px 10px; margin: 8px 0; }
+.chsafe { font-weight: 600; }
 
 </style>
 
@@ -21628,7 +21639,7 @@ const PRIV_V21 = {
   "Conservazione: i dati sul dispositivo restano finché non li cancelli. Puoi farlo in qualsiasi momento con «Ricomincia da capo» o cancellando i dati del browser. Le statistiche sono solo numeri aggregati.",
   "I tuoi diritti: puoi chiedere informazioni, accesso, rettifica, cancellazione e limitazione, e opporti al trattamento, scrivendo al contatto qui sopra. Puoi anche presentare reclamo all'autorità di controllo: in Italia è il Garante per la protezione dei dati personali. Puoi anche chiedere una copia dei tuoi dati in un formato portabile e ritirare il consenso in qualsiasi momento, senza effetti su quanto fatto prima.",
   "Diritti privacy negli stati USA: se vivi in uno stato degli USA con una legge sulla privacy dei consumatori, come la California, ti informiamo che non vendiamo i tuoi dati personali in cambio di denaro. Mostrare video con premio tramite Google AdMob può valere come «condivisione» per la pubblicità mirata secondo quelle leggi. Puoi opporti eliminando o reimpostando l'ID pubblicità nelle impostazioni di Android, oppure in Profilo › Scelte sulla pubblicità quando l'app la mostra, e puoi esercitare i diritti descritti sopra scrivendoci. Esercitare questi diritti non cambierà mai il modo in cui ti trattiamo.",
-  "Età: Tanetto è pensato per persone dai 16 anni in su.",
+  "Bambini e ragazzi: Tanetto è per tutte le età. La prima volta chiediamo mese e anno di nascita, che restano solo sul tuo dispositivo. Sotto i 13 anni, o se preferisci non dirlo, i video con premio sono solo quelli adatti ai bambini, mai personalizzati, e l'ID pubblicità non viene inviato. Sotto l'età del consenso digitale del tuo Paese (in Italia 14 anni) la pubblicità non è mai personalizzata e il backup online con un account non è disponibile: i dati restano solo sul dispositivo e puoi salvarne una copia in un file. La chat con il compagno ha solo risposte già scritte e non invia nulla a nessuno. I Tanì sono monete del gioco, non soldi veri; Tanetto Plus e i pacchetti di Tanì si pagano solo con Google Play.",
   "Modifiche: se questa informativa cambia, la versione aggiornata sarà sempre in questa pagina. Ultimo aggiornamento: {date}."
  ],
  "de": [
@@ -21645,7 +21656,7 @@ const PRIV_V21 = {
   "Speicherdauer: Die Daten auf dem Gerät bleiben, bis du sie löschst. Das geht jederzeit mit „Von vorne beginnen“ oder durch Löschen der Browserdaten. Die Statistik besteht nur aus zusammengefassten Zahlen.",
   "Deine Rechte: Du kannst Auskunft, Berichtigung, Löschung und Einschränkung verlangen und der Verarbeitung widersprechen, indem du an den Kontakt oben schreibst. Außerdem kannst du dich bei der zuständigen Datenschutzaufsichtsbehörde beschweren. Du kannst außerdem eine Kopie deiner Daten in einem übertragbaren Format verlangen und deine Einwilligung jederzeit widerrufen; was vorher geschehen ist, bleibt davon unberührt.",
   "Datenschutzrechte in US-Bundesstaaten: Wenn du in einem US-Bundesstaat mit einem Verbraucherdatenschutzgesetz lebst, zum Beispiel in Kalifornien: Wir verkaufen deine personenbezogenen Daten nicht gegen Geld. Das Anzeigen von Belohnungsvideos über Google AdMob kann nach diesen Gesetzen als „Weitergabe“ (Sharing) für zielgerichtete Werbung gelten. Du kannst widersprechen, indem du deine Werbe-ID in den Android-Einstellungen löschst oder zurücksetzt, oder unter Profil › Werbe-Einstellungen, wenn die App diesen Punkt anzeigt. Die oben beschriebenen Rechte übst du aus, indem du uns schreibst. Dadurch wirst du nie anders behandelt.",
-  "Alter: Tanetto ist für Menschen ab 16 Jahren gedacht.",
+  "Kinder und Jugendliche: Tanetto ist für alle Altersgruppen. Beim ersten Mal fragen wir nach Geburtsmonat und -jahr; die Angabe bleibt nur auf deinem Gerät. Unter 13 Jahren, oder wenn du es lieber nicht sagst, gibt es nur kindgerechte Belohnungsvideos, nie personalisiert, und die Werbe-ID wird nicht gesendet. Unter dem Alter der digitalen Einwilligung in deinem Land (in Deutschland 16 Jahre) ist Werbung nie personalisiert und das Online-Backup mit Konto ist nicht verfügbar: Die Daten bleiben nur auf dem Gerät, und du kannst eine Kopie als Datei speichern. Der Chat mit dem Begleiter hat nur vorgefertigte Antworten und sendet nichts an andere. Tanì sind Spielmünzen, kein echtes Geld; Tanetto Plus und Tanì-Pakete werden nur über Google Play bezahlt.",
   "Änderungen: Wenn sich diese Erklärung ändert, findest du die aktuelle Fassung immer hier. Letzte Aktualisierung: {date}."
  ],
  "es": [
@@ -21662,7 +21673,7 @@ const PRIV_V21 = {
   "Conservación: los datos del dispositivo se quedan hasta que los borres. Puedes hacerlo cuando quieras con «Empezar de nuevo» o borrando los datos del navegador. Las estadísticas son solo números agregados.",
   "Tus derechos: puedes solicitar información, acceso, rectificación, supresión y limitación, y oponerte al tratamiento escribiendo al contacto indicado arriba. También puedes reclamar ante la autoridad de control: en España, la Agencia Española de Protección de Datos. También puedes pedir una copia de tus datos en un formato portable y retirar tu consentimiento en cualquier momento, sin que afecte a lo realizado antes.",
   "Derechos de privacidad en estados de EE. UU.: si vives en un estado de EE. UU. con una ley de privacidad del consumidor, como California, te informamos de que no vendemos tus datos personales a cambio de dinero. Mostrar vídeos con recompensa mediante Google AdMob puede considerarse «compartir» datos para publicidad dirigida según esas leyes. Puedes oponerte borrando o restableciendo tu ID de publicidad en los ajustes de Android, o en Perfil › Opciones de publicidad cuando la app lo muestre, y puedes ejercer los derechos descritos arriba escribiéndonos. Ejercer estos derechos nunca cambiará el trato que recibes.",
-  "Edad: Tanetto está pensada para personas a partir de 16 años.",
+  "Niñas, niños y adolescentes: Tanetto es para todas las edades. La primera vez preguntamos el mes y el año de nacimiento, que se quedan solo en tu dispositivo. Por debajo de los 13 años, o si prefieres no decirlo, los vídeos con premio son solo los adecuados para niños, nunca personalizados, y no se envía el ID de publicidad. Por debajo de la edad de consentimiento digital de tu país (en España, 14 años) la publicidad nunca es personalizada y la copia en línea con cuenta no está disponible: los datos se quedan solo en el dispositivo y puedes guardar una copia en un archivo. El chat con el compañero solo tiene respuestas ya escritas y no envía nada a nadie. Los Tanì son monedas del juego, no dinero real; Tanetto Plus y los paquetes de Tanì solo se pagan con Google Play.",
   "Cambios: si esta política cambia, la versión actualizada estará siempre en esta página. Última actualización: {date}."
  ],
  "en": [
@@ -21679,7 +21690,7 @@ const PRIV_V21 = {
   "Retention: data on the device stays until you delete it. You can do so at any time with “Start over” or by clearing your browser data. Statistics are only aggregate numbers.",
   "Your rights: you can request information, access, correction, deletion and restriction, and object to processing, by writing to the contact above. You can also complain to your data protection authority (in the UK, the ICO). You can also ask for a copy of your data in a portable format, and you can withdraw your consent at any time; this does not affect what was done before.",
   "US state privacy rights: if you live in a US state with a consumer privacy law, such as California, note that we do not sell your personal information for money. Showing reward videos through Google AdMob may count as “sharing” for targeted advertising under those laws. You can opt out by deleting or resetting your advertising ID in your Android settings, or in Profile › Ad choices when the app shows it, and you can use the rights described above by writing to us. Using these rights will never change how we treat you.",
-  "Age: Tanetto is meant for people aged 16 and over.",
+  "Children and teens: Tanetto is for all ages. The first time, we ask for your month and year of birth, which stay only on your device. Under 13, or if you'd rather not say, reward videos are only child-appropriate ones, never personalised, and the advertising ID is not sent. Under the age of digital consent in your country (13 in the UK, 16 where the law sets no lower age), ads are never personalised and the online backup with an account isn't available: your data stays only on the device, and you can save a copy to a file. The chat with your companion only has pre-written replies and sends nothing to anyone. Tanì are game coins, not real money; Tanetto Plus and Tanì packs are paid only through Google Play.",
   "Changes: if this policy changes, the updated version will always be on this page. Last updated: {date}."
  ],
  "fr": [
@@ -21696,7 +21707,7 @@ const PRIV_V21 = {
   "Conservation : les données de l'appareil restent jusqu'à ce que tu les effaces. Tu peux le faire à tout moment avec « Tout recommencer » ou en effaçant les données du navigateur. Les statistiques ne sont que des chiffres agrégés.",
   "Tes droits : tu peux demander l'information, l'accès, la rectification, l'effacement et la limitation, et t'opposer au traitement en écrivant au contact ci-dessus. Tu peux aussi déposer une plainte auprès de la CNIL. Tu peux aussi demander une copie de tes données dans un format portable et retirer ton consentement à tout moment, sans effet sur ce qui a été fait avant.",
   "Droits à la vie privée dans les États américains : si tu vis dans un État américain doté d'une loi sur la vie privée des consommateurs, comme la Californie, sache que nous ne vendons pas tes données personnelles contre de l'argent. L'affichage de vidéos avec récompense via Google AdMob peut être considéré comme un « partage » à des fins de publicité ciblée au sens de ces lois. Tu peux t'y opposer en supprimant ou en réinitialisant ton identifiant publicitaire dans les réglages Android, ou dans Profil › Choix publicitaires lorsque l'app l'affiche, et tu peux exercer les droits décrits ci-dessus en nous écrivant. Exercer ces droits ne changera jamais la façon dont nous te traitons.",
-  "Âge : Tanetto s'adresse aux personnes de 16 ans et plus.",
+  "Enfants et ados : Tanetto est pour tous les âges. La première fois, nous demandons le mois et l'année de naissance, qui restent seulement sur ton appareil. Avant 13 ans, ou si tu préfères ne pas le dire, les vidéos récompensées sont uniquement adaptées aux enfants, jamais personnalisées, et l'identifiant publicitaire n'est pas envoyé. Sous l'âge du consentement numérique de ton pays (en France, 15 ans), la publicité n'est jamais personnalisée et la sauvegarde en ligne avec un compte n'est pas disponible : les données restent seulement sur l'appareil, et tu peux en enregistrer une copie dans un fichier. Le chat avec ton compagnon n'a que des réponses déjà écrites et n'envoie rien à personne. Les Tanì sont des pièces du jeu, pas de l'argent réel ; Tanetto Plus et les packs de Tanì se paient uniquement via Google Play.",
   "Modifications : si cette politique change, la version à jour sera toujours sur cette page. Dernière mise à jour : {date}."
  ],
  "pt": [
@@ -21713,7 +21724,7 @@ const PRIV_V21 = {
   "Retenção: os dados no aparelho ficam até você apagá-los. Você pode fazer isso quando quiser com “Começar de novo” ou apagando os dados do navegador. As estatísticas são apenas números agregados.",
   "Seus direitos: você pode pedir informações, acesso, correção, eliminação e limitação, e se opor ao tratamento, escrevendo para o contato acima. Também pode fazer uma reclamação à autoridade de proteção de dados: no Brasil, a ANPD. Você também pode pedir uma cópia dos seus dados em formato portável e retirar seu consentimento a qualquer momento, sem afetar o que foi feito antes.",
   "Direitos de privacidade em estados dos EUA: se você mora em um estado dos EUA com uma lei de privacidade do consumidor, como a Califórnia, saiba que não vendemos seus dados pessoais em troca de dinheiro. Exibir vídeos com recompensa pelo Google AdMob pode contar como “compartilhamento” para publicidade direcionada segundo essas leis. Você pode recusar excluindo ou redefinindo seu ID de publicidade nas configurações do Android, ou em Perfil › Escolhas de publicidade quando o app mostrar essa opção, e pode exercer os direitos descritos acima escrevendo para nós. Exercer esses direitos nunca vai mudar a forma como tratamos você.",
-  "Idade: o Tanetto é pensado para pessoas a partir de 16 anos.",
+  "Crianças e adolescentes: o Tanetto é para todas as idades. Na primeira vez perguntamos o mês e o ano de nascimento, que ficam só no seu dispositivo. Abaixo dos 13 anos, ou se você preferir não dizer, os vídeos com prêmio são só os adequados para crianças, nunca personalizados, e o ID de publicidade não é enviado. Abaixo da idade de consentimento digital do seu país (16 anos onde a lei não define uma idade menor), a publicidade nunca é personalizada e o backup on-line com conta não está disponível: os dados ficam só no dispositivo, e você pode salvar uma cópia em um arquivo. O chat com o companheiro só tem respostas já escritas e não envia nada a ninguém. Os Tanì são moedas do jogo, não dinheiro de verdade; o Tanetto Plus e os pacotes de Tanì são pagos só pelo Google Play.",
   "Alterações: se esta política mudar, a versão atualizada estará sempre nesta página. Última atualização: {date}."
  ],
  "ja": [
@@ -21730,7 +21741,7 @@ const PRIV_V21 = {
   "保存期間：端末上のデータは、あなたが削除するまで残ります。「最初からやり直す」やブラウザのデータ消去で、いつでも削除できます。統計は集計された数値のみです。",
   "あなたの権利：上記の連絡先に連絡することで、情報の提供、アクセス、訂正、削除、利用の制限を求めたり、取り扱いに異議を申し立てたりできます。また、データ保護の監督機関（日本では個人情報保護委員会）に苦情を申し立てることもできます。また、データを持ち運び可能な形式で受け取ることを求めたり、同意をいつでも撤回したりできます（撤回前の取り扱いには影響しません）。",
   "米国の州のプライバシー権：カリフォルニア州など、消費者プライバシー法のある米国の州にお住まいの場合、私たちはあなたの個人情報を金銭と引き換えに販売していません。ただし、Google AdMob を通じて報酬動画を表示することは、これらの法律上、ターゲティング広告のための「共有」にあたる場合があります。Android の設定で広告 ID を削除またはリセットするか、アプリに表示される場合は「マイページ › 広告の設定」から、これを拒否できます。上記の権利は、私たちに連絡することで行使できます。権利を行使しても、あなたの扱いが変わることはありません。",
-  "年齢：Tanettoは16歳以上の方を対象としています。",
+  "子どもと10代の方へ：Tanettoはすべての年齢の人のためのアプリです。最初に生まれた年と月をたずねますが、この情報はお使いの端末にだけ保存されます。13歳未満の方、または答えなかった方には、子ども向けのごほうび動画だけが表示され、パーソナライズされることはなく、広告IDも送信されません。お住まいの国のデジタル同意年齢（法律で低い年齢が定められていない場合は16歳）未満の方には、パーソナライズ広告は表示されず、アカウントによるオンラインバックアップも使えません。データは端末にだけ残り、ファイルにコピーを保存できます。パートナーとのチャットは用意された返事だけで、だれにも何も送信しません。Tanìはゲームのコインで、本物のお金ではありません。Tanetto PlusとTanìパックの支払いはGoogle Playのみです。",
   "変更：このポリシーが変更された場合、最新版は常にこのページに掲載されます。最終更新日：{date}。"
  ],
  "ko": [
@@ -21747,7 +21758,7 @@ const PRIV_V21 = {
   "보관 기간: 기기의 데이터는 사용자가 삭제할 때까지 남아 있어요. ‘처음부터 다시’를 누르거나 브라우저 데이터를 삭제해서 언제든 지울 수 있어요. 통계는 집계된 숫자일 뿐이에요.",
   "사용자의 권리: 위 연락처로 문의해서 정보 제공, 열람, 정정, 삭제, 처리 제한을 요청하고 처리에 반대할 수 있어요. 또한 개인정보 보호 감독기관(영국의 경우 ICO)에 민원을 제기할 수 있어요. 또한 데이터를 옮길 수 있는 형식으로 받아 보도록 요청하고, 언제든 동의를 철회할 수 있어요. 철회 전에 이루어진 처리에는 영향이 없어요.",
   "미국 주별 개인정보 보호 권리: 캘리포니아처럼 소비자 개인정보 보호법이 있는 미국 주에 살고 있다면, 저희는 개인정보를 돈을 받고 판매하지 않아요. 다만 Google AdMob으로 보상형 동영상을 보여 주는 것은 해당 법에 따라 맞춤 광고를 위한 '공유'로 볼 수 있어요. Android 설정에서 광고 ID를 삭제하거나 재설정하거나, 앱에 표시되는 경우 프로필 › 광고 선택에서 거부할 수 있어요. 위에 설명한 권리는 저희에게 연락해서 행사할 수 있어요. 권리를 행사해도 불이익은 전혀 없어요.",
-  "나이: Tanetto는 만 16세 이상을 위한 앱이에요.",
+  "어린이와 청소년: Tanetto는 모든 나이를 위한 앱이에요. 처음에 태어난 연도와 월을 물어보며, 이 정보는 기기에만 남아요. 만 13세 미만이거나 말하고 싶지 않다고 하면 어린이에게 맞는 보상 영상만 보이고, 맞춤 광고는 없으며 광고 ID도 보내지 않아요. 살고 있는 나라의 디지털 동의 연령(법에 더 낮은 나이가 없으면 16세) 미만이면 광고는 절대 맞춤이 아니고, 계정을 쓰는 온라인 백업도 쓸 수 없어요. 데이터는 기기에만 남고, 파일로 사본을 저장할 수 있어요. 친구와의 채팅은 미리 써 둔 답만 있고 누구에게도 아무것도 보내지 않아요. Tanì는 게임 속 동전이고 진짜 돈이 아니에요. Tanetto Plus와 Tanì 패키지는 Google Play로만 결제해요.",
   "변경: 이 방침이 바뀌면 최신 버전은 항상 이 페이지에 있어요. 최종 업데이트: {date}"
  ],
  "zh": [
@@ -21764,7 +21775,7 @@ const PRIV_V21 = {
   "保存期限：设备上的数据会一直保留，直到你删除为止。你可以随时通过“重新开始”或清除浏览器数据来删除。统计数据只是汇总后的数字。",
   "你的权利：你可以通过上述联系方式提出请求，要求获取信息、访问、更正、删除和限制处理你的数据，也可以反对数据处理。你还可以向你所在地的数据保护机构投诉（在英国为 ICO）。你也可以要求以可携带的格式获取你的数据副本，并可随时撤回同意，但这不影响撤回之前的处理。",
   "美国各州隐私权利：如果你居住在设有消费者隐私法的美国州（例如加利福尼亚州），我们不会为换取金钱而出售你的个人信息。不过，根据这些法律，通过 Google AdMob 展示奖励视频可能被视为出于定向广告目的的“共享”。你可以在 Android 设置中删除或重置广告 ID，或在应用显示该选项时前往“我的 › 广告选择”拒绝这种共享；也可以写信给我们，行使上文所述的权利。行使这些权利不会让你受到任何不同对待。",
-  "年龄：Tanetto 适合 16 岁及以上的人使用。",
+  "儿童和青少年：Tanetto 适合所有年龄的人。第一次使用时，我们会询问你出生的年份和月份，这些信息只保存在你的设备上。未满 13 岁，或你选择不告诉我们时，只会显示适合儿童的奖励视频，绝不个性化，也不会发送广告 ID。未满你所在国家的数字同意年龄（法律未规定更低年龄时为 16 岁）时，广告绝不个性化，也不能使用账号在线备份：数据只保存在设备上，你可以把副本保存成文件。和小伙伴的聊天只有预先写好的回复，不会向任何人发送任何内容。Tanì 是游戏里的金币，不是真钱；Tanetto Plus 和 Tanì 礼包只能通过 Google Play 付款。",
   "变更：如果本政策有变更，更新后的版本将始终发布在本页面。最后更新：{date}。"
  ],
  "zht": [
@@ -21781,7 +21792,7 @@ const PRIV_V21 = {
   "保存期限：裝置上的資料會一直保留，直到你刪除為止。你隨時可以透過「重新開始」或清除瀏覽器資料來刪除。統計資料僅為彙總數字。",
   "你的權利：你可以寫信至上述聯絡方式，要求取得資訊、查閱、更正、刪除及限制處理你的資料，並可反對資料處理。你也可以向資料保護主管機關提出申訴（在英國為 ICO）。你也可以要求以可攜的格式取得你的資料副本，並可隨時撤回同意，但這不影響撤回之前的處理。",
   "美國各州隱私權利：如果你居住在設有消費者隱私法的美國州（例如加州），我們不會為換取金錢而出售你的個人資料。不過，依照這些法律，透過 Google AdMob 顯示獎勵影片可能被視為基於目標式廣告目的的「分享」。你可以在 Android 設定中刪除或重設廣告 ID，或在應用程式顯示該選項時前往「我的 › 廣告選擇」拒絕這種分享；也可以寫信給我們，行使上文所述的權利。行使這些權利不會讓你受到任何差別待遇。",
-  "年齡：Tanetto 適用於 16 歲以上的使用者。",
+  "兒童與青少年：Tanetto 適合所有年齡的人。第一次使用時，我們會詢問你出生的年份和月份，這些資訊只保存在你的裝置上。未滿 13 歲，或你選擇不告訴我們時，只會顯示適合兒童的獎勵影片，絕不個人化，也不會傳送廣告 ID。未滿你所在國家的數位同意年齡（法律未規定更低年齡時為 16 歲）時，廣告絕不個人化，也不能使用帳號線上備份：資料只保存在裝置上，你可以把副本存成檔案。和小夥伴的聊天只有預先寫好的回覆，不會傳送任何內容給任何人。Tanì 是遊戲裡的金幣，不是真的錢；Tanetto Plus 和 Tanì 禮包只能透過 Google Play 付款。",
   "變更：如果本政策有所變更，更新後的版本將一律公布在此頁面。最後更新日期：{date}。"
  ],
  "ru": [
@@ -21798,7 +21809,7 @@ const PRIV_V21 = {
   "Срок хранения: данные на устройстве хранятся, пока ты их не удалишь. Это можно сделать в любой момент через «Начать заново» или очистив данные браузера. Статистика — это только обобщённые числа.",
   "Твои права: ты можешь запросить информацию, доступ, исправление, удаление и ограничение обработки, а также возразить против обработки, написав по указанному выше контакту. Также можно подать жалобу в свой надзорный орган по защите данных (в Великобритании — ICO). Также можно запросить копию своих данных в переносимом формате и в любой момент отозвать согласие; это не влияет на обработку, которая была до отзыва.",
   "Права на конфиденциальность в штатах США: если ты живёшь в штате США, где действует закон о защите данных потребителей (например, в Калифорнии), мы не продаём твои персональные данные за деньги. Однако показ видео с наградой через Google AdMob по этим законам может считаться «передачей» данных для таргетированной рекламы. Ты можешь отказаться от этого, удалив или сбросив рекламный идентификатор в настройках Android или в «Профиль» › «Настройки рекламы», если приложение показывает этот пункт. Права, описанные выше, можно осуществить, написав нам. Это никак не изменит наше отношение к тебе.",
-  "Возраст: Tanetto предназначено для людей от 16 лет.",
+  "Дети и подростки: Tanetto подходит для любого возраста. В первый раз мы спрашиваем месяц и год рождения, и эти данные остаются только на твоём устройстве. До 13 лет, или если ты не хочешь говорить, показываются только подходящие детям видео с наградой, никогда не персонализированные, и рекламный идентификатор не передаётся. До возраста цифрового согласия в твоей стране (16 лет, если закон не устанавливает меньший) реклама никогда не персонализируется, а онлайн-копия с аккаунтом недоступна: данные остаются только на устройстве, и копию можно сохранить в файл. В чате с питомцем только заранее написанные ответы, и он никому ничего не отправляет. Tanì: это игровые монетки, а не настоящие деньги; Tanetto Plus и наборы Tanì оплачиваются только через Google Play.",
   "Изменения: если эта политика изменится, актуальная версия всегда будет на этой странице. Последнее обновление: {date}."
  ],
  "pl": [
@@ -21815,7 +21826,7 @@ const PRIV_V21 = {
   "Przechowywanie: dane na urządzeniu pozostają tam, dopóki ich nie usuniesz. Możesz to zrobić w każdej chwili przez „Zacznij od nowa” lub czyszcząc dane przeglądarki. Statystyki to wyłącznie liczby zbiorcze.",
   "Twoje prawa: możesz żądać informacji, dostępu do danych, ich sprostowania, usunięcia i ograniczenia przetwarzania, a także wnieść sprzeciw wobec przetwarzania, pisząc na powyższy adres kontaktowy. Możesz też złożyć skargę do organu ochrony danych (w Polsce: Prezes Urzędu Ochrony Danych Osobowych). Możesz też poprosić o kopię swoich danych w formacie umożliwiającym ich przeniesienie oraz w każdej chwili wycofać zgodę, bez wpływu na wcześniejsze przetwarzanie.",
   "Prawa do prywatności w stanach USA: jeśli mieszkasz w stanie USA, w którym obowiązuje ustawa o ochronie prywatności konsumentów, np. w Kalifornii, informujemy, że nie sprzedajemy twoich danych osobowych za pieniądze. Wyświetlanie filmów z nagrodą przez Google AdMob może jednak według tych przepisów być uznane za „udostępnianie” danych na potrzeby reklamy ukierunkowanej. Możesz się temu sprzeciwić, usuwając lub resetując identyfikator reklamowy w ustawieniach Androida albo w Profil › Ustawienia reklam, jeśli aplikacja pokazuje tę opcję. Opisane wyżej prawa wykonasz, pisząc do nas. Korzystanie z tych praw nigdy nie zmieni tego, jak cię traktujemy.",
-  "Wiek: Tanetto jest przeznaczone dla osób, które ukończyły 16 lat.",
+  "Dzieci i nastolatki: Tanetto jest dla osób w każdym wieku. Za pierwszym razem pytamy o miesiąc i rok urodzenia; te dane zostają tylko na twoim urządzeniu. Poniżej 13 lat, albo jeśli wolisz nie mówić, filmiki z nagrodą są tylko odpowiednie dla dzieci, nigdy spersonalizowane, a identyfikator reklamowy nie jest wysyłany. Poniżej wieku zgody cyfrowej w twoim kraju (w Polsce 16 lat) reklamy nigdy nie są spersonalizowane, a kopia online z kontem jest niedostępna: dane zostają tylko na urządzeniu, a kopię możesz zapisać w pliku. Czat z towarzyszem ma tylko gotowe odpowiedzi i nikomu niczego nie wysyła. Tanì to monety z gry, a nie prawdziwe pieniądze; za Tanetto Plus i pakiety Tanì płaci się tylko przez Google Play.",
   "Zmiany: jeśli ta polityka się zmieni, aktualna wersja zawsze będzie dostępna na tej stronie. Ostatnia aktualizacja: {date}."
  ],
  "nl": [
@@ -21832,7 +21843,7 @@ const PRIV_V21 = {
   "Bewaartermijn: gegevens op het apparaat blijven bewaard tot je ze verwijdert. Dat kan op elk moment met “Opnieuw beginnen” of door je browsergegevens te wissen. Statistieken zijn alleen geaggregeerde getallen.",
   "Je rechten: je kunt om informatie, inzage, rectificatie, verwijdering en beperking vragen en bezwaar maken tegen de verwerking, door te schrijven naar het contactadres hierboven. Je kunt ook een klacht indienen bij je toezichthouder voor gegevensbescherming (in Nederland de Autoriteit Persoonsgegevens). Je kunt ook een kopie van je gegevens in een overdraagbaar formaat vragen en je toestemming op elk moment intrekken; dat heeft geen gevolgen voor wat daarvoor is gebeurd.",
   "Privacyrechten in Amerikaanse staten: als je in een Amerikaanse staat woont met een privacywet voor consumenten, zoals Californië, dan verkopen wij je persoonsgegevens niet voor geld. Het tonen van video's met beloning via Google AdMob kan volgens die wetten wel gelden als ‘delen’ voor gerichte advertenties. Je kunt daar bezwaar tegen maken door je advertentie-ID te verwijderen of te resetten in de Android-instellingen, of via Profiel › Advertentiekeuzes als de app die optie toont. De rechten hierboven oefen je uit door ons te schrijven. Dat verandert nooit hoe we je behandelen.",
-  "Leeftijd: Tanetto is bedoeld voor mensen van 16 jaar en ouder.",
+  "Kinderen en tieners: Tanetto is voor alle leeftijden. De eerste keer vragen we je geboortemaand en -jaar; die blijven alleen op je apparaat. Onder de 13 jaar, of als je het liever niet zegt, zie je alleen beloningsvideo's die geschikt zijn voor kinderen, nooit gepersonaliseerd, en wordt de advertentie-ID niet verstuurd. Onder de leeftijd voor digitale toestemming in jouw land (in Nederland 16 jaar) zijn advertenties nooit gepersonaliseerd en is de online back-up met een account niet beschikbaar: je gegevens blijven alleen op het apparaat, en je kunt een kopie in een bestand bewaren. De chat met je maatje heeft alleen vooraf geschreven antwoorden en verstuurt niets naar iemand. Tanì zijn munten uit het spel, geen echt geld; Tanetto Plus en Tanì-pakketten betaal je alleen via Google Play.",
   "Wijzigingen: als dit beleid verandert, staat de bijgewerkte versie altijd op deze pagina. Laatst bijgewerkt: {date}."
  ],
  "tr": [
@@ -21849,7 +21860,7 @@ const PRIV_V21 = {
   "Saklama süresi: cihazdaki veriler sen silene kadar kalır. Bunu istediğin zaman “Baştan başla” ile ya da tarayıcı verilerini silerek yapabilirsin. İstatistikler yalnızca toplu sayılardan oluşur.",
   "Hakların: yukarıdaki iletişim adresine yazarak bilgi, erişim, düzeltme, silme ve kısıtlama talep edebilir, işlemeye itiraz edebilirsin. Ayrıca veri koruma otoritesine şikâyette bulunabilirsin: Türkiye'de bu, Kişisel Verileri Koruma Kurumu'dur (KVKK). Ayrıca verilerinin taşınabilir bir biçimde bir kopyasını isteyebilir ve onayını istediğin zaman geri çekebilirsin; bu, geri çekmeden önceki işlemleri etkilemez.",
   "ABD eyaletlerinde gizlilik hakları: Kaliforniya gibi tüketici gizliliği yasası olan bir ABD eyaletinde yaşıyorsan, kişisel verilerini para karşılığında satmadığımızı bilmeni isteriz. Ancak Google AdMob aracılığıyla ödüllü videolar göstermek, bu yasalara göre hedefli reklam amacıyla “paylaşım” sayılabilir. Android ayarlarında reklam kimliğini silerek veya sıfırlayarak ya da uygulama gösterdiğinde Profil › Reklam tercihleri bölümünden buna itiraz edebilirsin. Yukarıda anlatılan hakları bize yazarak kullanabilirsin. Bu hakları kullanman sana nasıl davrandığımızı asla değiştirmez.",
-  "Yaş: Tanetto 16 yaş ve üzeri kişiler içindir.",
+  "Çocuklar ve gençler: Tanetto her yaş içindir. İlk seferde doğum ayını ve yılını sorarız; bu bilgi yalnızca cihazında kalır. 13 yaşın altındaysan ya da söylememeyi tercih edersen yalnızca çocuklara uygun ödüllü videolar gösterilir, hiçbir zaman kişiselleştirilmez ve reklam kimliği gönderilmez. Ülkendeki dijital rıza yaşının altındaysan (kanun daha düşük bir yaş belirlemiyorsa 16) reklamlar asla kişiselleştirilmez ve hesapla çevrimiçi yedekleme kullanılamaz: veriler yalnızca cihazda kalır ve bir kopyasını dosyaya kaydedebilirsin. Arkadaşınla sohbette yalnızca önceden yazılmış cevaplar vardır ve kimseye hiçbir şey gönderilmez. Tanì oyun parasıdır, gerçek para değildir; Tanetto Plus ve Tanì paketleri yalnızca Google Play ile ödenir.",
   "Değişiklikler: bu politika değişirse güncel sürüm her zaman bu sayfada olacaktır. Son güncelleme: {date}."
  ]
 };
@@ -27278,7 +27289,7 @@ const _eventCardV10 = eventCard;
 eventCard = function () { return curSeason() ? "" : _eventCardV10(); };
 const _viewDiaryV10 = viewDiary;
 viewDiary = function () { const h = _viewDiaryV10(); if (!S.pet) return h; const key = `</form>`; const i = h.indexOf(key); if (i < 0) return h; return h.slice(0, i + key.length) + reportCard() + h.slice(i + key.length); };
-/* 1.0.9 (fase 2): tolto il vecchio pulsante segnaposto 'Raddoppia con un video' (i video veri sono in 97zn) */
+/* 1.0.9 (fase 2): tolto il vecchio pulsante segnaposto del video (i video veri sono in 97zn) */
 const _viewMoreV10 = viewMore;
 viewMore = function () {
   const t = L(); const h = _viewMoreV10(); const sh = `<div class="card stack-s shcard"><div class="chhd"><span class="chic sh">${icon("p_shield")}</span><div><h3>${t.shield.T}</h3><p class="small muted">${t.shield.P}</p></div></div><p><b>${t.shield.have(S.shields || 0)}</b></p></div>`;
@@ -32488,11 +32499,13 @@ let adsSt = { canRequestAds: false, privacyRequired: false, loaded: false }, ads
 /* chi aveva gia' un compagno con la 1.0.8 ha gia' visto la richiesta di consenso all'avvio: per loro si continua ad
    aggiornare il consenso a ogni apertura (cosi' "Scelte sulla pubblicità" resta sempre in Profilo) */
 if (S.v109 === undefined) { S.v109 = 1; if (S.pet && !S.adsOk) S.adsOk = 1; save(); }
+/* 1.0.9 (fase 2): pubblico misto (98zf): l'eta' decide come Google tratta la richiesta (bambini: TFCD + G, niente ID pubblicita') */
+const adAgeOpts = () => ({ age: typeof ageAds === "function" ? ageAds() : "child" });
 const adsOn = () => !!(ADS_UNIT && isNativeApp() && adsPlugin() && !plusActive());
 function adsInit() {
   if (!adsOn()) return Promise.resolve(adsSt); if (adsInitP) return adsInitP;
   adsInitAt = Date.now(); adsBack = false;
-  adsInitP = adsPlugin().init().then((s) => { adsSt = s || adsSt; if (adsSt.canRequestAds && !S.adsOk) { S.adsOk = 1; save(); } if (!adsSt.canRequestAds) adsInitP = null; return adsLoad(); }).catch(() => { adsInitP = null; return adsSt; });
+  adsInitP = adsPlugin().init(adAgeOpts()).then((s) => { adsSt = s || adsSt; if (adsSt.canRequestAds && !S.adsOk) { S.adsOk = 1; save(); } if (!adsSt.canRequestAds) adsInitP = null; return adsLoad(); }).catch(() => { adsInitP = null; return adsSt; });
   return adsInitP;
 }
 /* Se all'avvio non si potevano chiedere video (es. senza internet), si riprova al rientro nell'app, al massimo ogni 30 minuti */
@@ -32506,7 +32519,7 @@ function adsLoad() {
   if (!adsOn() || !adsSt.canRequestAds || adsSt.loaded || adsLeftToday() <= 0) return Promise.resolve(adsSt);
   if (adsLoadP) return adsLoadP;
   clearTimeout(adsRetryT); adsRetryOn = false;
-  adsLoadP = adsPlugin().load({ unitId: ADS_UNIT }).then((s) => { adsSt = s || adsSt; adsRetryMs = 60000; if (adsSt.loaded) adsLoadedAt = Date.now(); const y = window.scrollY; if (!layer.innerHTML) { render(); window.scrollTo(0, y); } return adsSt; })
+  adsLoadP = adsPlugin().load(Object.assign({ unitId: ADS_UNIT }, adAgeOpts())).then((s) => { adsSt = s || adsSt; adsRetryMs = 60000; if (adsSt.loaded) adsLoadedAt = Date.now(); const y = window.scrollY; if (!layer.innerHTML) { render(); window.scrollTo(0, y); } return adsSt; })
     .catch(() => { adsRetryOn = true; adsRetryT = setTimeout(() => { adsRetryOn = false; adsLoad(); }, adsRetryMs); adsRetryMs = Math.min(adsRetryMs * 2, 1800000); return adsSt; }).finally(() => { adsLoadP = null; });
   return adsLoadP;
 }
@@ -39392,7 +39405,8 @@ if (typeof chatReply === "function") {
   };
 }
 /* Un accessorio che non risulta più tuo (ripristino, altro dispositivo) non resta addosso */
-(() => { try { const w = w20(); ["neck", "face"].forEach((k) => { if (w[k] && (!W20_ART[w[k]] || !S.owned.includes(w[k]))) w[k] = null; }); } catch (e) { /* niente */ } })();
+/* 1.0.9 (fase 2): il controllo aspetta che tutti i file siano caricati (il mantello degli Introvabili arriva in 98ze) */
+setTimeout(() => { try { const w = w20(); let ch = false; ["neck", "face"].forEach((k) => { if (w[k] && (!W20_ART[w[k]] || !S.owned.includes(w[k]))) { w[k] = null; ch = true; } }); if (ch) { save(); render(); } } catch (e) { /* niente */ } }, 0);
 
 /* ===== 1.0.8 (v20) — Crescita gentile: cartoline da condividere, recensione nei momenti felici, "Nuovo inizio" =====
    1) CARTOLINE DA CONDIVIDERE
@@ -40701,38 +40715,39 @@ Object.keys(COIN1).forEach((l) => {
   const x = ECT[l]; if (x) { x.how = c.how; x.festaP = c.festaP; x.guidePath = c.guidePath; }
 });
 
-/* =================== 1.0.9 (fase 2): progressione piu' lenta, prezzi nuovi (decisione di Riccardo, 11-12/11/2026) ===================
-   "Decisamente piu' lungo di ora" per ogni fascia. Prezzi oggetto per oggetto della critica dell'economia
-   (scratchpad/app10/ECON_CRITIC.md, econ_sim/prices_rec.json), verificati con l'app vera giorno per giorno
-   (scratchpad/p2b/tools/econrun.py + econtab.py). Per chi gioca tipico (tutti gli obiettivi, regalo, un viaggio, ~2 video):
-     iniziali 100 (giorno 1) · base 100-250 · comune 375-600 (3-5 giorni) · raro 1.300-2.100 (1,5-2,5 settimane) ·
-     epico 3.500-5.000 (4-6 settimane) · leggendario 7.000-10.000 (8-12 settimane) · mitico 20.000 / 24.000 (5-7 mesi,
-     il "ponte" verso gli Introvabili) · Introvabili 51.000-60.000 (XV_PRICE, ~14 mesi; con 5 video al giorno e la serie
-     piena il primo arriva dopo circa 9 mesi).
+/* =================== 1.0.9 (fase 2): progressione lenta, obiettivi APPROVATI da Riccardo (12/11/2026) ===================
+   Per chi gioca tipico (tutti gli obiettivi, regalo, un viaggio, ~2 video al giorno), misurato con l'app vera giorno per giorno
+   (scratchpad/p2b/tools/econrun.py + econtab.py):
+     iniziali 100 (giorno 1) · base 100-250 · comune 900-1.750 (1-2 settimane) · raro 4.700-5.500 (5-6 settimane) ·
+     epico 11.500-15.000 (3-4 mesi) · leggendario 30.000-33.500 (8-9 mesi) · mitico 40.500 / 44.500 (11-12 mesi, il "ponte") ·
+     Introvabili 68.000-80.000 (XV_PRICE): chi guarda 5 video al giorno con la serie piena ci mette almeno 12 mesi.
+   L'ordine dentro ogni fascia e' quello della critica dell'economia (ECON_CRITIC.md, prices_rec.json), riscalato.
+   Tra un acquisto e l'altro restano i premi gratis frequenti: tappe del sentiero, cartoline dei viaggi, pagine dell'album,
+   trofei e le feste del Desiderio al 25/50/75%.
    I guadagni senza video NON cambiano (t38_econ resta nella fascia 70-90 Tanì al giorno): cambiano solo i prezzi.
    Chi ha gia' un oggetto lo tiene, e tiene tutti i suoi Tanì: cambiano solo i prezzi di cio' che non ha ancora.
    TUTTO E' QUI: per ritoccare basta cambiare PR22_PRICE, XV_PRICE e PR22.PATH. */
 const PR22_PRICE = {
   n_bandana: 100, blue: 125, cushion_floor: 125, h_bucket: 125, lamp_candle: 100, plant: 100, red: 125, f_round: 150, garland_paper: 150, frame: 200,
-  w_sage: 200, curt_green: 250, rug: 250, green: 375, pink: 375, violet: 375, h_bow: 400, cactus: 425, curt_blue: 425, h_party: 425, n_scarf: 425,
-  shelf: 425, h_cap: 425, books: 450, h_flower: 450, lamp: 450, w_lilac: 450, w_mint: 450, w_peach: 450, w_rose: 450, w_sky: 450, f_heart: 450,
-  pouf: 450, sunflower: 450, w_dots: 450, yarn: 450, clock: 500, curt_lace: 500, w_hearts: 500, plant_lavender: 525, h_bear: 550, lights: 550,
-  rug_blue: 550, garland_flowers: 600, n_lei: 1300, bunting: 1350, monstera: 1350, h_tophat: 1400, f_star: 1450, h_chef: 1450, poster: 1450,
-  curt_night: 1550, h_frog: 1550, h_nightcap: 1550, lamp_lava: 1550, w_check: 1550, h_bunny: 1650, h_sailor: 1650, lanterns: 1650, rug_cloud: 1650,
-  w_flowers: 1650, h_mush: 1700, lamp_tulip: 1700, mirror: 1700, rug_rainbow: 1700, w_waves: 1700, h_strawberry: 1850, lamp_moon: 1850,
-  pillows: 1850, w_wood: 1850, art_dreamcatcher: 1900, h_phones: 1900, shelf_crystals: 1900, w_candy: 1900, guitar: 2050, h_cloud: 2050,
-  art_moons: 2100, rug_sheep: 2100, w_clouds: 2100, n_cape: 3500, h_unicorn: 3700, f_monocle: 3800, h_lantern: 3800, lamp_stone: 3900,
-  h_wizard: 4100, rug_star: 4100, w_honey: 4100, h_cupcake: 4200, w_mush: 4300, h_halo: 4500, lamp_jelly: 4500, w_books: 4600, shelf_potions: 4700,
-  h_crown: 4800, h_dragon: 4900, star_scope: 5000, n_starcape: 7000, f_mask: 7300, tree_lights: 8900, w_moon: 8900, plant_cherry: 9200,
-  w_aurora: 9500, h_tiara: 10000, h_starcrown: 20000, ceil_stars: 24000
+  w_sage: 200, curt_green: 250, rug: 250, green: 900, pink: 900, violet: 900, h_bow: 1000, cactus: 1100, curt_blue: 1100, h_party: 1100,
+  n_scarf: 1100, shelf: 1100, h_cap: 1100, books: 1200, h_flower: 1200, lamp: 1200, w_lilac: 1200, w_mint: 1200, w_peach: 1200, w_rose: 1200,
+  w_sky: 1200, f_heart: 1200, pouf: 1200, sunflower: 1200, w_dots: 1200, yarn: 1200, clock: 1350, curt_lace: 1350, w_hearts: 1350,
+  plant_lavender: 1450, h_bear: 1550, lights: 1550, rug_blue: 1550, garland_flowers: 1750, n_lei: 4700, bunting: 4750, monstera: 4750,
+  h_tophat: 4800, f_star: 4850, h_chef: 4850, poster: 4850, curt_night: 4950, h_frog: 4950, h_nightcap: 4950, lamp_lava: 4950, w_check: 4950,
+  h_bunny: 5000, h_sailor: 5000, lanterns: 5000, rug_cloud: 5000, w_flowers: 5000, h_mush: 5100, lamp_tulip: 5100, mirror: 5100, rug_rainbow: 5100,
+  w_waves: 5100, h_strawberry: 5200, lamp_moon: 5200, pillows: 5200, w_wood: 5200, art_dreamcatcher: 5300, h_phones: 5300, shelf_crystals: 5300,
+  w_candy: 5300, guitar: 5400, h_cloud: 5400, art_moons: 5500, rug_sheep: 5500, w_clouds: 5500, n_cape: 11500, h_unicorn: 12000, f_monocle: 12200,
+  h_lantern: 12200, lamp_stone: 12400, h_wizard: 12900, rug_star: 12900, w_honey: 12900, h_cupcake: 13100, w_mush: 13400, h_halo: 13800,
+  lamp_jelly: 13800, w_books: 14100, shelf_potions: 14300, h_crown: 14500, h_dragon: 14800, star_scope: 15000, n_starcape: 30000, f_mask: 30500,
+  tree_lights: 32000, w_moon: 32000, plant_cherry: 32500, w_aurora: 33000, h_tiara: 33500, h_starcrown: 40500, ceil_stars: 44500
 };
 const PR22 = {
   /* sentieri delle stagioni: rari ed epici piu' avanti in proporzione (~1,45x); la leggendaria resta all'ultima tappa */
   PATH: { kites: { f: { 7: 10 }, g: { 14: 21, 21: 14 } }, stars: { f: { 5: 8 }, g: { 10: 15, 15: 10 } } }
 };
 /* Introvabili (98ze): solo Tanì guadagnati (non quelli dei pacchetti), nessuno sconto Plus.
-   Il primo (51.000) arriva dopo ~9 mesi a chi guarda 5 video al giorno con la serie piena, dopo ~14 mesi a chi gioca tipico. */
-const XV_PRICE = { x_aura: 51000, x_crown: 51000, x_cloak: 53000, x_galaxy: 55000, x_fountain: 57000, x_tree: 60000 };
+   Il primo (68.000) arriva dopo ~12 mesi a chi guarda 5 video al giorno con la serie piena e gioca a tutti i giochi. */
+const XV_PRICE = { x_aura: 68000, x_crown: 68000, x_cloak: 70000, x_galaxy: 73000, x_fountain: 76000, x_tree: 80000 };
 
 const PR22_OLD = {};
 (() => {
@@ -40788,8 +40803,8 @@ Object.keys(T).forEach((l) => {
 
 /* =================== 1.0.9 (fase 2): INTROVABILI, la fascia sopra le leggendarie ===================
    Decisione di Riccardo (11-12/11/2026): le cose piu' belle di tutto il negozio. Si comprano SOLO con i Tanì (niente
-   attese a giorni, niente sentieri o forzieri), con un prezzo pari a circa 12 mesi di risparmio per chi gioca "tipico"
-   (tutti gli obiettivi, ~2 video al giorno) e non meno di ~8-9 mesi per chi guarda 5 video al giorno con la serie piena.
+   attese a giorni, niente sentieri o forzieri), con un prezzo pari ad almeno 12 mesi di risparmio per chi gioca "tipico"
+   (tutti gli obiettivi, ~2 video al giorno: circa 14 mesi) e non meno di ~9 mesi per chi guarda 5 video al giorno con la serie piena.
    Plus non le sconta e non le regala. Si vedono dal primo giorno, con il prezzo vero e "hai X di Y Tanì".
    Prezzi: XV_PRICE in 98zd_v22_prices.js (un posto solo, facili da ritoccare).
    I Tanì comprati con i pacchetti non valgono per gli Introvabili (critica dell'economia, 12/11/2026): utilizzabili =
@@ -41186,6 +41201,153 @@ openTaniShop = function (src) {
   const packs = box.querySelector(".pack"); const host = packs ? packs.parentElement : null;
   if (host && host.parentElement) host.parentElement.insertBefore(p, host.nextSibling); else box.appendChild(p);
 };
+
+/* =================== 1.0.9 (fase 2): pubblico misto (bambini, ragazzi e adulti), regole Google Play Families ===================
+   Fonti (verificate il 12/11/2026): Google Play "Families policy / mixed audience" (support.google.com/googleplay/android-developer
+   answer/9893335 e 9867159), AdMob "child-directed / under age of consent" (developers.google.com/admob/android/targeting,
+   support.google.com/admob/answer/11402075), Garante privacy (garanteprivacy.it/minori: in Italia 14 anni, art. 2-quinquies).
+   1) Schermata dell'eta' NEUTRA: mese e anno di nascita scritti liberamente (due menu senza nessun valore gia' scelto), nessun
+      testo che dica che serve una certa eta', "Preferisco non dirlo" sempre possibile. Si chiede una volta sola: subito dopo la
+      prima configurazione, oppure (chi ha gia' un compagno) una volta, con gentilezza, al primo avvio dopo l'aggiornamento.
+   2) Fasce: "child" sotto i 13 anni; "teen" dai 13 anni all'eta' del consenso digitale del Paese (art. 8 GDPR: Italia e Spagna 14,
+      Francia 15, Germania e Paesi Bassi 16, ...; 16 dove non si sa); "adult" dall'eta' del consenso; "unknown" se non risponde.
+      "unknown" vale come "child" per la pubblicita' (Families: "children or users of unknown age").
+   3) Pubblicita' (97zn -> AdsPlugin.java): child/unknown = trattamento per bambini (TFCD), contenuti G, nessun ID pubblicita',
+      nessuna personalizzazione; teen = sotto l'eta' del consenso (TFUA): mai personalizzata, contenuti PG; adult = come prima.
+   4) Account e backup online (Firebase): solo da "adult" in su. Chi non ha ancora detto l'eta' e tocca "Accedi" vede prima la
+      schermata dell'eta'. Chi era gia' collegato e risulta minore: il backup online si spegne su questo telefono, i dati restano.
+   5) Chat con il compagno (solo risposte gia' scritte, niente viene inviato): promemoria di sicurezza per tutti.
+   6) Pacchetti di Tanì: detto chiaro che i Tanì non sono soldi veri, che i pacchetti costano soldi veri e si pagano solo con
+      Google Play; per bambini e ragazzi anche "chiedi a un adulto". */
+const AGE_CONSENT = { IT: 14, AT: 14, ES: 14, LT: 14, BG: 14, CY: 14, FR: 15, CZ: 15, GR: 15, SI: 15, BE: 13, DK: 13, EE: 13, FI: 13, LV: 13, MT: 13, PT: 13, SE: 13, GB: 13, NO: 13, IS: 13, US: 13 };
+const AGE_LANG_REGION = { it: "IT", de: "DE", es: "ES", fr: "FR", pt: "PT", nl: "NL", pl: "PL", ru: "RU", tr: "TR", ja: "JP", ko: "KR", zh: "CN", zht: "TW", en: "" };
+function ageRegion() {
+  const tryReg = (l) => { const m = /[-_]([A-Za-z]{2})\b/.exec(l || ""); return m ? m[1].toUpperCase() : ""; };
+  let r = ""; try { r = tryReg(Intl.DateTimeFormat().resolvedOptions().locale); } catch (e) { /* niente */ }
+  if (!r) try { r = tryReg(navigator.language) || (navigator.languages || []).map(tryReg).find(Boolean) || ""; } catch (e) { /* niente */ }
+  return r || AGE_LANG_REGION[S.lang] || "";
+}
+const ageConsent = () => AGE_CONSENT[ageRegion()] || 16;
+function ageYears(a) {
+  if (!a || !a.y || !a.m) return null; const n = new Date(); const y = n.getFullYear(), m = n.getMonth() + 1;
+  return y - a.y - (m <= a.m ? 1 : 0); /* senza il giorno: nel mese del compleanno si conta l'anno prima (prudente) */
+}
+function ageBand() {
+  const a = S.age; if (!a || typeof a !== "object") return "unknown"; if (a.skip) return "unknown";
+  const n = ageYears(a); if (n == null) return "unknown";
+  return n < 13 ? "child" : n < ageConsent() ? "teen" : "adult";
+}
+/* per la pubblicita': chi non ha detto l'eta' e' trattato come un bambino */
+const ageAds = () => { const b = ageBand(); return b === "unknown" ? "child" : b; };
+const ageCloudOk = () => ageBand() === "adult";
+
+const AGE_T = {
+  it: { T: "La tua età", P: "Inserisci mese e anno di nascita: ci serve per mostrarti contenuti e pubblicità adatti alla tua età. Resta solo su questo telefono.", month: "Mese", year: "Anno", go: "Continua", skip: "Preferisco non dirlo", note: "Tanetto è per tutte le età. Te lo chiediamo una volta sola.", cloudNo: "Con la tua età il backup online non è disponibile: i tuoi progressi restano su questo telefono. Puoi comunque salvarne una copia in un file.", cloudOff: "Il backup online è stato spento su questo telefono. I tuoi progressi restano qui.", money: "I Tanì sono monete del gioco, non soldi veri. I pacchetti invece costano soldi veri (il prezzo è sul pulsante) e si pagano solo con Google Play.", adult: "Chiedi sempre a un adulto prima di comprare qualcosa.", chatSafe: "Ricorda: non scrivere mai qui o online il tuo nome completo, l'indirizzo, la scuola o il numero di telefono." },
+  en: { T: "Your age", P: "Enter your month and year of birth: we use it to show you content and ads that suit your age. It stays only on this phone.", month: "Month", year: "Year", go: "Continue", skip: "I'd rather not say", note: "Tanetto is for all ages. We only ask this once.", cloudNo: "Online backup isn't available for your age: your progress stays on this phone. You can still save a copy to a file.", cloudOff: "Online backup has been turned off on this phone. Your progress stays here.", money: "Tanì are game coins, not real money. Packs cost real money (the price is on the button) and are paid only through Google Play.", adult: "Always ask an adult before you buy anything.", chatSafe: "Remember: never write your full name, address, school or phone number here or anywhere online." },
+  de: { T: "Dein Alter", P: "Gib Monat und Jahr deiner Geburt ein: Damit zeigen wir dir Inhalte und Werbung, die zu deinem Alter passen. Die Angabe bleibt nur auf diesem Handy.", month: "Monat", year: "Jahr", go: "Weiter", skip: "Möchte ich nicht sagen", note: "Tanetto ist für alle Altersgruppen. Wir fragen nur einmal.", cloudNo: "Für dein Alter gibt es kein Online-Backup: Dein Fortschritt bleibt auf diesem Handy. Du kannst aber eine Kopie als Datei speichern.", cloudOff: "Das Online-Backup wurde auf diesem Handy ausgeschaltet. Dein Fortschritt bleibt hier.", money: "Tanì sind Spielmünzen, kein echtes Geld. Pakete kosten echtes Geld (der Preis steht auf dem Knopf) und werden nur über Google Play bezahlt.", adult: "Frag immer einen Erwachsenen, bevor du etwas kaufst.", chatSafe: "Denk dran: Schreib hier und im Internet nie deinen vollen Namen, deine Adresse, deine Schule oder deine Telefonnummer." },
+  es: { T: "Tu edad", P: "Escribe el mes y el año en que naciste: lo usamos para mostrarte contenido y anuncios adecuados para tu edad. Solo se guarda en este teléfono.", month: "Mes", year: "Año", go: "Continuar", skip: "Prefiero no decirlo", note: "Tanetto es para todas las edades. Solo te lo preguntamos una vez.", cloudNo: "La copia en línea no está disponible para tu edad: tu progreso se queda en este teléfono. Aun así, puedes guardar una copia en un archivo.", cloudOff: "La copia en línea se ha desactivado en este teléfono. Tu progreso se queda aquí.", money: "Los Tanì son monedas del juego, no dinero real. Los paquetes cuestan dinero real (el precio está en el botón) y solo se pagan con Google Play.", adult: "Pregunta siempre a una persona adulta antes de comprar algo.", chatSafe: "Recuerda: nunca escribas aquí ni en internet tu nombre completo, tu dirección, tu colegio ni tu teléfono." },
+  fr: { T: "Ton âge", P: "Indique ton mois et ton année de naissance : cela nous sert à te montrer des contenus et des pubs adaptés à ton âge. L'information reste seulement sur ce téléphone.", month: "Mois", year: "Année", go: "Continuer", skip: "Je préfère ne pas le dire", note: "Tanetto est pour tous les âges. On ne te le demande qu'une fois.", cloudNo: "La sauvegarde en ligne n'est pas disponible pour ton âge : ta progression reste sur ce téléphone. Tu peux quand même en enregistrer une copie dans un fichier.", cloudOff: "La sauvegarde en ligne a été désactivée sur ce téléphone. Ta progression reste ici.", money: "Les Tanì sont des pièces du jeu, pas de l'argent réel. Les packs coûtent de l'argent réel (le prix est sur le bouton) et se paient uniquement via Google Play.", adult: "Demande toujours à un adulte avant d'acheter quoi que ce soit.", chatSafe: "N'oublie pas : n'écris jamais ici ni en ligne ton nom complet, ton adresse, ton école ou ton numéro de téléphone." },
+  pt: { T: "Sua idade", P: "Informe o mês e o ano em que você nasceu: usamos isso para mostrar conteúdos e anúncios adequados à sua idade. Fica só neste celular.", month: "Mês", year: "Ano", go: "Continuar", skip: "Prefiro não dizer", note: "O Tanetto é para todas as idades. Só perguntamos isso uma vez.", cloudNo: "O backup on-line não está disponível para a sua idade: seu progresso fica neste celular. Mesmo assim, você pode salvar uma cópia em um arquivo.", cloudOff: "O backup on-line foi desligado neste celular. Seu progresso continua aqui.", money: "Os Tanì são moedas do jogo, não dinheiro de verdade. Os pacotes custam dinheiro de verdade (o preço está no botão) e são pagos só pelo Google Play.", adult: "Sempre peça para um adulto antes de comprar qualquer coisa.", chatSafe: "Lembre-se: nunca escreva aqui ou na internet seu nome completo, endereço, escola ou telefone." },
+  ja: { T: "あなたの年齢", P: "生まれた年と月を入力してください。年齢に合った内容と広告を表示するために使います。この情報はこのスマホにだけ保存されます。", month: "月", year: "年", go: "続ける", skip: "答えない", note: "Tanettoはすべての年齢の人のためのアプリです。この質問は一度だけです。", cloudNo: "あなたの年齢ではオンラインバックアップは使えません。進み具合はこのスマホに残ります。ファイルにコピーを保存することはできます。", cloudOff: "このスマホでオンラインバックアップをオフにしました。進み具合はここに残ります。", money: "Tanìはゲームのコインで、本物のお金ではありません。パックは本物のお金がかかり（値段はボタンに書いてあります）、Google Playでのみ支払います。", adult: "何かを買う前に、必ず大人に聞いてね。", chatSafe: "名前（フルネーム）、住所、学校、電話番号は、ここにもネットのどこにも書かないでね。" },
+  ko: { T: "나이", P: "태어난 연도와 월을 입력해 주세요. 나이에 맞는 콘텐츠와 광고를 보여 주는 데 써요. 이 정보는 이 휴대폰에만 남아요.", month: "월", year: "연도", go: "계속", skip: "말하고 싶지 않아요", note: "Tanetto는 모든 나이를 위한 앱이에요. 이 질문은 한 번만 해요.", cloudNo: "이 나이에서는 온라인 백업을 쓸 수 없어요. 진행 상황은 이 휴대폰에 남아요. 파일로 사본을 저장할 수는 있어요.", cloudOff: "이 휴대폰에서 온라인 백업을 껐어요. 진행 상황은 여기에 남아요.", money: "Tanì는 게임 속 동전이고 진짜 돈이 아니에요. 패키지는 진짜 돈이 들고(가격은 버튼에 있어요) Google Play로만 결제해요.", adult: "무언가를 사기 전에는 꼭 어른에게 물어보세요.", chatSafe: "기억하세요: 여기에도, 인터넷 어디에도 이름 전체, 주소, 학교, 전화번호를 쓰지 마세요." },
+  zh: { T: "你的年龄", P: "请填写你出生的年份和月份：我们用它来显示适合你年龄的内容和广告。这些信息只保存在这台手机上。", month: "月", year: "年", go: "继续", skip: "我不想说", note: "Tanetto 适合所有年龄的人。我们只问这一次。", cloudNo: "按你的年龄，不能使用在线备份：你的进度保存在这台手机上。你仍然可以把副本保存成文件。", cloudOff: "这台手机上的在线备份已关闭。你的进度仍保存在这里。", money: "Tanì 是游戏里的金币，不是真钱。礼包要花真钱（价格写在按钮上），并且只能通过 Google Play 付款。", adult: "买任何东西之前，一定要先问问大人。", chatSafe: "记住：不要在这里或网上的任何地方写下你的全名、住址、学校或电话号码。" },
+  zht: { T: "你的年齡", P: "請填寫你出生的年份和月份：我們用它來顯示適合你年齡的內容和廣告。這些資訊只保存在這支手機上。", month: "月", year: "年", go: "繼續", skip: "我不想說", note: "Tanetto 適合所有年齡的人。我們只問這一次。", cloudNo: "依你的年齡，不能使用線上備份：你的進度保存在這支手機上。你仍然可以把副本存成檔案。", cloudOff: "這支手機上的線上備份已關閉。你的進度仍保存在這裡。", money: "Tanì 是遊戲裡的金幣，不是真的錢。禮包要花真的錢（價格寫在按鈕上），而且只能透過 Google Play 付款。", adult: "買任何東西之前，一定要先問問大人。", chatSafe: "記住：不要在這裡或網路上的任何地方寫下你的全名、地址、學校或電話號碼。" },
+  ru: { T: "Твой возраст", P: "Укажи месяц и год рождения: так мы покажем материалы и рекламу, подходящие по возрасту. Это остаётся только на этом телефоне.", month: "Месяц", year: "Год", go: "Продолжить", skip: "Не хочу говорить", note: "Tanetto подходит для любого возраста. Мы спрашиваем об этом только один раз.", cloudNo: "Для твоего возраста онлайн-копия недоступна: прогресс остаётся на этом телефоне. Копию всё равно можно сохранить в файл.", cloudOff: "Онлайн-копия на этом телефоне выключена. Прогресс остаётся здесь.", money: "Tanì: это игровые монетки, а не настоящие деньги. Наборы стоят настоящих денег (цена указана на кнопке) и оплачиваются только через Google Play.", adult: "Всегда спрашивай взрослых, прежде чем что-то покупать.", chatSafe: "Помни: никогда не пиши здесь и в интернете своё полное имя, адрес, школу или номер телефона." },
+  pl: { T: "Twój wiek", P: "Wpisz miesiąc i rok urodzenia: dzięki temu pokażemy treści i reklamy odpowiednie do twojego wieku. Te dane zostają tylko na tym telefonie.", month: "Miesiąc", year: "Rok", go: "Dalej", skip: "Wolę nie mówić", note: "Tanetto jest dla osób w każdym wieku. Pytamy o to tylko raz.", cloudNo: "W twoim wieku kopia online nie jest dostępna: postępy zostają na tym telefonie. Nadal możesz zapisać kopię w pliku.", cloudOff: "Kopia online została wyłączona na tym telefonie. Postępy zostają tutaj.", money: "Tanì to monety z gry, a nie prawdziwe pieniądze. Pakiety kosztują prawdziwe pieniądze (cena jest na przycisku) i płaci się za nie tylko przez Google Play.", adult: "Zawsze zapytaj dorosłego, zanim coś kupisz.", chatSafe: "Pamiętaj: nigdy nie pisz tutaj ani w internecie swojego pełnego imienia i nazwiska, adresu, szkoły ani numeru telefonu." },
+  nl: { T: "Je leeftijd", P: "Vul je geboortemaand en -jaar in: zo laten we inhoud en advertenties zien die bij je leeftijd passen. Het blijft alleen op deze telefoon.", month: "Maand", year: "Jaar", go: "Verder", skip: "Zeg ik liever niet", note: "Tanetto is voor alle leeftijden. We vragen dit maar één keer.", cloudNo: "Voor jouw leeftijd is de online back-up niet beschikbaar: je voortgang blijft op deze telefoon. Je kunt wel een kopie in een bestand bewaren.", cloudOff: "De online back-up is op deze telefoon uitgezet. Je voortgang blijft hier.", money: "Tanì zijn munten uit het spel, geen echt geld. Pakketten kosten echt geld (de prijs staat op de knop) en betaal je alleen via Google Play.", adult: "Vraag altijd eerst een volwassene voordat je iets koopt.", chatSafe: "Onthoud: schrijf hier en ergens online nooit je volledige naam, adres, school of telefoonnummer." },
+  tr: { T: "Yaşın", P: "Doğduğun ayı ve yılı yaz: yaşına uygun içerik ve reklamları göstermek için kullanırız. Bu bilgi yalnızca bu telefonda kalır.", month: "Ay", year: "Yıl", go: "Devam", skip: "Söylememeyi tercih ederim", note: "Tanetto her yaş için. Bunu yalnızca bir kez soruyoruz.", cloudNo: "Yaşına göre çevrimiçi yedekleme kullanılamıyor: ilerlemen bu telefonda kalır. Yine de bir kopyasını dosyaya kaydedebilirsin.", cloudOff: "Bu telefonda çevrimiçi yedekleme kapatıldı. İlerlemen burada kalır.", money: "Tanì oyun parasıdır, gerçek para değildir. Paketler gerçek paraya mal olur (fiyat düğmenin üstünde yazar) ve yalnızca Google Play ile ödenir.", adult: "Bir şey satın almadan önce mutlaka bir yetişkine sor.", chatSafe: "Unutma: burada ya da internette hiçbir yere tam adını, adresini, okulunu veya telefon numaranı yazma." }
+};
+const ageT = () => AGE_T[S.lang] || AGE_T.en;
+
+/* ---------- la schermata neutra ---------- */
+let ageAfter = null;
+function openAge(after) {
+  ageAfter = typeof after === "function" ? after : null; const t = ageT();
+  let months = []; try { const f = new Intl.DateTimeFormat(loc(), { month: "long" }); months = Array.from({ length: 12 }, (_, i) => f.format(new Date(2001, i, 15))); } catch (e) { months = Array.from({ length: 12 }, (_, i) => String(i + 1)); }
+  const y0 = new Date().getFullYear(); const years = Array.from({ length: 101 }, (_, i) => y0 - i);
+  layer.innerHTML = `<div class="overlay agewrap" role="dialog" aria-modal="true" aria-labelledby="agT"><div class="box card agebox"><div class="agepet" aria-hidden="true">${petSVG(S.pet || "germo", "felice", S.hat, typeof stage === "function" && S.pet ? stage() : 0, "")}</div>
+    <h2 id="agT">${esc(t.T)}</h2><p>${esc(t.P)}</p>
+    <div class="agerow"><label class="agefld"><span>${esc(t.month)}</span><select id="ageM" required><option value="" selected></option>${months.map((m, i) => `<option value="${i + 1}">${esc(m)}</option>`).join("")}</select></label>
+    <label class="agefld"><span>${esc(t.year)}</span><select id="ageY" required><option value="" selected></option>${years.map((y) => `<option value="${y}">${y}</option>`).join("")}</select></label></div>
+    <button class="btn block" id="ageGo" type="button" disabled>${esc(t.go)}</button><button class="link" id="ageSkip" type="button">${esc(t.skip)}</button>
+    <p class="small muted">${esc(t.note)}</p></div></div>`;
+  trackOnce("eta-chiesta");
+}
+function ageSet(a) {
+  S.age = a; save();
+  const now = ageBand(); trackOnce("eta-" + now);
+  /* pubblicita': le impostazioni cambiano, il video gia' pronto non si usa */
+  try { if (typeof adsSt !== "undefined") { adsSt.loaded = false; adsInitP = null; if (S.adsOk && typeof adsInit === "function") adsInit(); } } catch (e) { /* niente */ }
+  if (!ageCloudOk()) ageCloudStop();
+  closeLayer(); render();
+  const f = ageAfter; ageAfter = null; if (f) setTimeout(f, 60);
+}
+document.addEventListener("change", (ev) => {
+  if (ev.target && (ev.target.id === "ageM" || ev.target.id === "ageY")) { const ok = document.getElementById("ageM").value && document.getElementById("ageY").value; const b = document.getElementById("ageGo"); if (b) b.disabled = !ok; }
+});
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.id === "ageGo") { ev.stopImmediatePropagation(); const m = +document.getElementById("ageM").value, y = +document.getElementById("ageY").value; if (!m || !y) return; ageSet({ y, m, at: dkey() }); return; }
+  if (b.id === "ageSkip") { ev.stopImmediatePropagation(); ageSet({ skip: true, at: dkey() }); return; }
+}, true);
+/* una volta sola: dopo la prima configurazione, o al primo avvio dopo l'aggiornamento (chi aveva gia' un compagno) */
+let ageT0 = Date.now();
+setInterval(() => {
+  try {
+    /* (window.__TEST_NOAGE: solo i test automatici vecchi, che non riguardano l'eta', la saltano) */
+    if (window.__TEST_NOAGE || S.age !== undefined || !S.pet || layer.innerHTML || (typeof tutOn !== "undefined" && tutOn) || Date.now() - ageT0 < 2500) return;
+    openAge();
+  } catch (e) { /* niente */ }
+}, 1200);
+
+/* ---------- account e backup online: solo per gli adulti ---------- */
+function ageCloudStop() {
+  try {
+    if (typeof signedIn === "function" && signedIn()) {
+      (typeof fbLoad === "function" ? fbLoad() : Promise.resolve()).then(() => window.TanFB && window.TanFB.out && window.TanFB.out()).catch(() => {});
+      const p = typeof gsi === "function" ? gsi() : null; if (p && p.signOut) p.signOut().catch(() => {});
+      A = { freq: A.freq || "week" }; saveA(); setTimeout(() => toast(ageT().cloudOff), 400);
+    }
+  } catch (e) { /* niente */ }
+}
+const AGE_SIGNIN = ["acGoogle", "acGoogle2", "acEmail", "acEmail2"];
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("button"); if (!b || !AGE_SIGNIN.includes(b.id)) return;
+  if (ageCloudOk()) return;
+  ev.stopImmediatePropagation(); ev.preventDefault();
+  if (S.age === undefined) { const id = b.id; openAge(() => { if (ageCloudOk()) { const x = document.getElementById(id); if (x) x.click(); else render(); } else toast(ageT().cloudNo); }); return; }
+  toast(ageT().cloudNo);
+}, true);
+if (typeof acctCard === "function") {
+  const _acctCardAge = acctCard;
+  acctCard = function () {
+    const h = _acctCardAge(); if (ageCloudOk() || S.age === undefined) return h;
+    /* niente inviti all'account (ne' "accedi di nuovo"): solo la riga chiara sui dati che restano sul telefono */
+    const i = h.indexOf("</h3>"); if (i < 0 || (typeof signedIn === "function" && signedIn())) return h;
+    return h.slice(0, i + 5) + `<p class="small">${esc(ageT().cloudNo)}</p></div>`;
+  };
+}
+if (typeof acctNudgeDue === "function") { const _acctNudgeDueAge = acctNudgeDue; acctNudgeDue = function () { return ageCloudOk() && _acctNudgeDueAge(); }; }
+/* gia' collegato e minore (per esempio dopo il ripristino): il backup online si spegne, i dati restano */
+setTimeout(() => { if (S.age !== undefined && !ageCloudOk()) ageCloudStop(); }, 1500);
+
+/* ---------- chat: promemoria di sicurezza ---------- */
+if (typeof openChat === "function") {
+  const _openChatAge = openChat;
+  openChat = function () { _openChatAge(); const n = document.querySelector(".chatbox .chnote"); if (n && !n.querySelector(".chsafe")) n.insertAdjacentHTML("afterend", `<p class="chnote chsafe">${esc(ageT().chatSafe)}</p>`); };
+}
+
+/* ---------- pacchetti: Tanì non sono soldi veri; per i minori anche "chiedi a un adulto" ---------- */
+const _openTaniShopAge = openTaniShop;
+openTaniShop = function (src) {
+  _openTaniShopAge(src); const box = document.querySelector(".tshop"); if (!box) return; const t = ageT();
+  const p = document.createElement("p"); p.className = "small agemoney"; p.textContent = t.money + (ageBand() !== "adult" ? " " + t.adult : "");
+  const h = box.querySelector(".packs"); if (h) h.insertAdjacentElement("beforebegin", p); else box.appendChild(p);
+};
+if (typeof openPlus === "function") {
+  const _openPlusAge = openPlus;
+  openPlus = function (...a) { const r = _openPlusAge.apply(this, a); try { if (ageBand() !== "adult") { const box = document.querySelector(".plusbox"); if (box && !box.querySelector(".ageadult")) box.insertAdjacentHTML("beforeend", `<p class="small ageadult">${esc(ageT().adult)}</p>`); } } catch (e) { /* niente */ } return r; };
+}
 
 splash();
 render();

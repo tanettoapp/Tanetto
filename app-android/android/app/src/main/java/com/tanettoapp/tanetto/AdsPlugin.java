@@ -27,6 +27,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 2) load: prepara un video; 3) show: lo mostra e dice se il premio va dato;
  * 4) privacy: riapre le scelte sulla privacy (pulsante in Altro).
  * Annunci solo adatti alla supervisione dei genitori (PG), come impostato anche su AdMob.
+ * 1.0.9 (pubblico misto, regole Google Play Families): l'app passa l'eta' ("age": child / teen / adult; chi non l'ha detta
+ * arriva come child). child = trattamento per bambini (TFCD: niente personalizzazione, niente ID pubblicita') e solo annunci G;
+ * teen = sotto l'eta' del consenso digitale (TFUA: niente personalizzazione, il modulo del consenso non serve); adult = come prima.
  */
 @CapacitorPlugin(name = "TanettoAds")
 public class AdsPlugin extends Plugin {
@@ -40,6 +43,33 @@ public class AdsPlugin extends Plugin {
     private final AtomicBoolean started = new AtomicBoolean(false);
     /* Cambia quando cambiano le scelte sulla privacy: un video chiesto prima non va più usato */
     private final AtomicInteger gen = new AtomicInteger(0);
+    /* Eta' dichiarata nella schermata neutra dell'app: senza risposta si tratta come un bambino */
+    private volatile String age = "child";
+    private static String ageOf(PluginCall call) { String a = call.getString("age", "child"); return "adult".equals(a) || "teen".equals(a) ? a : "child"; }
+    /* Impostazioni di Google per l'eta': valgono per tutte le richieste da qui in poi */
+    @SuppressWarnings("deprecation")
+    private void applyAge(String a) {
+        RequestConfiguration.Builder b = MobileAds.getRequestConfiguration().toBuilder();
+        if ("child".equals(a)) {
+            b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
+             .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_UNSPECIFIED)
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G);
+        } else if ("teen".equals(a)) {
+            b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+             .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_TRUE)
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG);
+        } else {
+            b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_UNSPECIFIED)
+             .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_FALSE)
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG);
+        }
+        MobileAds.setRequestConfiguration(b.build());
+    }
+    private void setAge(String a) {
+        if (a.equals(age)) return;
+        age = a; gen.incrementAndGet(); rewarded = null; /* un video preparato con l'eta' di prima non si usa */
+        applyAge(a);
+    }
 
     private JSObject state() {
         JSObject o = new JSObject();
@@ -51,17 +81,18 @@ public class AdsPlugin extends Plugin {
 
     private void startSdk() {
         if (!started.compareAndSet(false, true)) return;
-        RequestConfiguration rc = MobileAds.getRequestConfiguration().toBuilder()
-            .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG).build();
-        MobileAds.setRequestConfiguration(rc);
+        applyAge(age); /* prima dell'avvio dell'SDK, cosi' vale gia' per la prima richiesta */
         new Thread(() -> MobileAds.initialize(getContext(), s -> {})).start();
     }
 
     @PluginMethod
     public void init(PluginCall call) {
+        final String a = ageOf(call);
         getActivity().runOnUiThread(() -> {
+            setAge(a); applyAge(a);
             consent = UserMessagingPlatform.getConsentInformation(getContext());
-            ConsentRequestParameters params = new ConsentRequestParameters.Builder().setTagForUnderAgeOfConsent(false).build();
+            /* sotto l'eta' del consenso (bambini e ragazzi) Google non chiede il consenso agli annunci personalizzati: non ce ne sono */
+            ConsentRequestParameters params = new ConsentRequestParameters.Builder().setTagForUnderAgeOfConsent(!"adult".equals(a)).build();
             consent.requestConsentInfoUpdate(getActivity(), params, () -> {
                 UserMessagingPlatform.loadAndShowConsentFormIfRequired(getActivity(), err -> {
                     if (consent.canRequestAds()) startSdk();
@@ -81,6 +112,8 @@ public class AdsPlugin extends Plugin {
     @PluginMethod
     public void load(PluginCall call) {
         String unit = call.getString("unitId");
+        final String a = ageOf(call);
+        setAge(a); /* l'eta' detta nell'app vale anche per questo video */
         /* Nelle versioni di prova (debug) si usano sempre i video di prova di Google: mai annunci veri durante i test */
         if ((getContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) unit = "ca-app-pub-3940256099942544/5224354917";
         if (unit == null || consent == null || !consent.canRequestAds()) { call.reject("not_ready", "not_ready"); return; }
