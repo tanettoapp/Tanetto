@@ -50,7 +50,7 @@
             android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
-        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-9863338163927008~8129070671"/>
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-4252103380033748~4062639058"/>
     </application>
 
     <!-- 1.0.8: l'app si usa anche con mouse e tastiera (Chromebook senza schermo touch):
