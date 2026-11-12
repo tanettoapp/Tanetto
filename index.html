@@ -2930,11 +2930,12 @@ h2.h3like { font-size: 17px; }
 /* contrasto: pagine bloccate dell'album e "Ritira il premio" (prima 3,9:1 e 2,9:1) */
 .apchip.lk { opacity: 1; color: var(--muted); }
 .albumbtn .abdot { background: #A85A12; }
-/* campi di testo: bordo a riposo visibile (prima 1,4:1 sul foglio) */
-.field input, .nameinp, .inline input { border-color: #B3A691; }
-:root[data-theme="dark"] .field input, :root[data-theme="dark"] .nameinp, :root[data-theme="dark"] .inline input { border-color: #6A6157; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .field input, :root:not([data-theme="light"]) .nameinp, :root:not([data-theme="light"]) .inline input { border-color: #6A6157; } }
-.field input:focus, .nameinp:focus, .inline input:focus { border-color: var(--accent); }
+/* campi di testo: bordo a riposo visibile, almeno 3:1 (WCAG 1.4.11; prima 1,4:1 sul foglio) */
+:root { --inpline: #958874; }
+:root[data-theme="dark"] { --inpline: #82786C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --inpline: #82786C; } }
+.field input, .field select, .nameinp, .inline input, .gamebox .inline input, .capsule textarea, .chform input, .iospaste textarea, .agefld select { border-color: var(--inpline); }
+.field input:focus, .field select:focus, .nameinp:focus, .inline input:focus, .gamebox .inline input:focus, .capsule textarea:focus, .chform input:focus, .iospaste textarea:focus, .agefld select:focus { border-color: var(--accent); }
 /* bersagli di almeno 44 px */
 .lang { min-height: 44px; }
 .gr20pill { position: relative; }
