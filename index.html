@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-TKF6HqwWu7MHH1fUQGEhc1xrOwZQEGmU+Iy4cBkkUNk=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-HT4ESTvaeWqycauf3aDBLgfIhlNLt17wkn1Urqk78a8=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -34,8 +34,7 @@
 </head>
 <body>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="fonts.css">
 <script src="gsap.min.js"></script>
 <style>
 /* Layout: una colonna da telefono (max 480px). In alto la stanza illustrata del compagno, sotto le schede di lavoro, barra delle sezioni in basso. */
@@ -42725,6 +42724,14 @@ document.addEventListener("error", (ev) => {
     if (t.tagName === "IMG" && t.classList.contains("i3d")) t.style.visibility = "hidden";
   } catch (e) { /* niente */ }
 }, true);
+
+/* ---------- 12) benvenuto: il fuoco va sul titolo, non nel campo del nome ----------
+   Il nome e' facoltativo: col fuoco nel campo, su alcuni telefoni la tastiera si apriva subito sopra l'immagine di
+   benvenuto. Il lettore di schermo ora parte dal titolo; il campo si tocca quando si vuole. */
+nameFocus = function () {
+  const h = app.querySelector(".namestep h1"); if (!h) return;
+  h.setAttribute("tabindex", "-1"); try { h.focus({ preventScroll: true }); } catch (e) { /* niente */ }
+};
 
 splash();
 render();
