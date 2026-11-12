@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-cXhkXQtrmFvj4pvwhs6mxs1XLVvZiuFJeLsmZ/wHJLA=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-hv43/QYz4mXnUJSErIXFaF0A33jTv4gs+3psMjS50S4=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2836,7 +2836,14 @@ img.i3d { display: block; max-width: 100%; height: auto; -webkit-user-drag: none
 .choice .halo.h3d img { width: 112%; max-width: none; margin: -6% -6% -2%; transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
 .choice[aria-checked="true"] .halo.h3d img { transform: scale(1.06) translateY(-2px); }
 .choice .lk { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 2px; text-align: center; line-height: 1.25; }
-.choose.four .choice .lk { font-size: 10px; }
+.choose.four .choice .lk { font-size: 10.5px; }
+/* critica fase 3: sotto i 380 px i 4 compagni Plus in 4 colonne avevano testi di 10 px a capo ogni parola: 2 x 2 */
+@media (max-width: 379px) {
+  .choose.four { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .choose.four .choice .halo { max-width: 72px; }
+  .choose.four .choice .ds { font-size: 12px; }
+  .choose.four .choice .lk { font-size: 11.5px; }
+}
 .field.onbname { margin-top: 2px; }
 .field.onbname input { scroll-margin-bottom: 120px; } /* col tocco, il campo sale sopra il pulsante "Avanti" fisso in basso */
 .ppbig.pp3 { background: none !important; width: 220px; height: auto; }
@@ -2865,6 +2872,9 @@ svg.pc3 { display: block; background: #E8E0D2; }
 #diaryForm .m3read { position: absolute; right: 6px; top: -14px; width: 92px; pointer-events: none; }
 #diaryForm .m3read img { width: 100%; height: auto; }
 #diaryForm .m3read ~ .stack-s:first-of-type, #diaryForm .m3read + .stack-s { padding-right: 92px; }
+/* critica fase 3: l'album e' una colonna flessibile alta al massimo 92vh: con la scheda "album vuoto" le righe si
+   schiacciavano e i bottoni delle pagine (Bosco, Lago...) restavano alti 8 px, invisibili. Nessuna riga si schiaccia. */
+.albox > * { flex-shrink: 0; }
 .albox .alempty { display: grid; grid-template-columns: 104px 1fr; align-items: center; gap: 10px; background: var(--paper); border-radius: 18px; padding: 6px 12px 6px 4px; margin: 4px 0 10px; }
 .albox .alempty img { width: 104px; height: auto; }
 .albox .alempty p { margin: 0; font-size: 14px; }
@@ -2877,8 +2887,8 @@ svg.pc3 { display: block; background: #E8E0D2; }
 /* --- Natale e trofei --- */
 .xmannart.xm3 { width: 100%; height: auto; aspect-ratio: 2 / 1; border-radius: 18px; overflow: hidden; margin-bottom: 4px; }
 .xmannart.xm3 img { width: 100%; height: 100%; object-fit: cover; }
-.trparty .trpet { width: 112px; margin: -26px auto -8px; position: relative; }
-.trparty .trpet img { width: 100%; height: auto; }
+.trparty .trpet.trp3 { width: 118px; height: auto; margin: -6px auto -10px; position: relative; }
+.trparty .trpet.trp3 img { width: 100%; height: auto; }
 
 /* --- Introvabili: la versione 3D nella vetrina --- */
 .xvrow .item .art.xv3 { display: grid; place-items: center; }
@@ -2887,15 +2897,20 @@ svg.pc3 { display: block; background: #E8E0D2; }
 /* tema scuro: le scene 3D sono chiare, si abbassano appena per non abbagliare */
 [data-theme="dark"] .w3hero img, [data-theme="dark"] .plhero img, [data-theme="dark"] svg.pc3 image, [data-theme="dark"] .xm3 img { filter: brightness(.9) saturate(.95); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .w3hero img, :root:not([data-theme="light"]) .plhero img, :root:not([data-theme="light"]) svg.pc3 image, :root:not([data-theme="light"]) .xm3 img { filter: brightness(.9) saturate(.95); } }
+/* tema scuro: il bordo bianco del benvenuto diventa un filo appena visibile (non una cornice che abbaglia) */
+[data-theme="dark"] .w3hero { box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .7), 0 0 0 2px rgba(255, 255, 255, .12); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .w3hero { box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .7), 0 0 0 2px rgba(255, 255, 255, .12); } }
+/* giapponese: si va a capo tra le parole, non a meta' (prima "いっしょ / に") */
+:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ja) .plustag, :lang(ja) .w3p, :lang(ja) .plusbox p { word-break: auto-phrase; }
 @media (prefers-reduced-motion: reduce) { .choice .halo.h3d img { transition: none; } }
 
 /* ===== Profilo a pagine ===== */
 .pmenu.card { padding: 6px; display: flex; flex-direction: column; gap: 2px; }
-.prow { display: grid; grid-template-columns: 40px 1fr 18px; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 8px 10px; border: 0; background: transparent; border-radius: 16px; text-align: left; color: var(--ink); font: inherit; cursor: pointer; }
-.prow + .prow { box-shadow: 0 -1px 0 rgba(120, 100, 70, .12); }
-.prow:active { transform: scale(.98); background: rgba(78, 138, 74, .08); }
-@media (hover: hover) { .prow:hover { background: rgba(78, 138, 74, .07); } }
-.prow:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.pmenu .prow { display: grid; grid-template-columns: 40px 1fr 18px; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 8px 10px; border: 0; background: transparent; border-radius: 16px; text-align: left; color: var(--ink); font: inherit; cursor: pointer; }
+.pmenu .prow + .prow { box-shadow: 0 -1px 0 rgba(120, 100, 70, .12); }
+.pmenu .prow:active { transform: scale(.98); background: rgba(78, 138, 74, .08); }
+@media (hover: hover) { .pmenu .prow:hover { background: rgba(78, 138, 74, .07); } }
+.pmenu .prow:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .prico { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: #fff; }
 .prico svg { width: 22px; height: 22px; }
 .pi-prog { background: #E9A23B; } .pi-comp { background: #EE7FA0; } .pi-set { background: #7A82C9; } .pi-acct { background: #5E9BD6; }
@@ -2903,7 +2918,7 @@ svg.pc3 { display: block; background: #E8E0D2; }
 .prtx { display: flex; flex-direction: column; min-width: 0; }
 .prtx b { font-family: var(--font-display); font-weight: 600; font-size: 16.5px; line-height: 1.25; }
 .prtx small { color: var(--muted); font-size: 13px; line-height: 1.3; }
-.prow .pchev { color: var(--muted); font-size: 22px; line-height: 1; text-align: center; }
+.pmenu .prow .pchev { color: var(--muted); font-size: 22px; line-height: 1; text-align: center; }
 .psubhd { display: flex; align-items: center; gap: 6px; margin: 2px 0 2px -6px; }
 .psubhd .psback { width: 44px; height: 44px; flex: none; }
 .psubhd .psback svg { width: 22px; height: 22px; }
@@ -5837,10 +5852,10 @@ T.ja = {
   plus: {
     name: "Tanetto Plus",
     tag: "もっと冒険を、もっといっしょに、もっとあなたらしく。",
-    yearly: "年額",
-    monthly: "月額",
-    perYear: (p) => `年額${p}`,
-    perMonth: (p) => `月額${p}`,
+    yearly: "年間プラン",
+    monthly: "月間プラン",
+    perYear: (p) => `${p}／年`,
+    perMonth: (p) => `${p}／月`,
     yearNote: (p) => `月あたりたった${p}`,
     save: (n) => `${n}%おトク`,
     popular: "いちばん人気",
@@ -11866,8 +11881,8 @@ T.ru = {
   plus: {
     name: "Tanetto Plus",
     tag: "Больше приключений, больше общения, больше тебя.",
-    yearly: "На год",
-    monthly: "На месяц",
+    yearly: "Годовая",
+    monthly: "Месячная",
     perYear: (p) => `${p} в год`,
     perMonth: (p) => `${p} в месяц`,
     yearNote: (p) => `всего ${p} в месяц`,
@@ -13444,8 +13459,8 @@ T.pl = {
   plus: {
     name: "Tanetto Plus",
     tag: "Więcej przygód, więcej towarzystwa, więcej ciebie.",
-    yearly: "Rocznie",
-    monthly: "Miesięcznie",
+    yearly: "Na rok",
+    monthly: "Na miesiąc",
     perYear: (p) => `${p} rocznie`,
     perMonth: (p) => `${p} miesięcznie`,
     yearNote: (p) => `tylko ${p} miesięcznie`,
@@ -16666,8 +16681,8 @@ T.tr = {
     tag: "Daha çok macera, daha çok arkadaşlık, daha çok sen.",
     yearly: "Yıllık",
     monthly: "Aylık",
-    perYear: (p) => `Yıllık ${p}`,
-    perMonth: (p) => `Aylık ${p}`,
+    perYear: (p) => `yılda ${p}`,
+    perMonth: (p) => `ayda ${p}`,
     yearNote: (p) => `ayda sadece ${p}`,
     save: (n) => `%${n} tasarruf`,
     popular: "En popüler",
@@ -20320,12 +20335,12 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     P: (n) => `Su iPhone, Safari può cancellare i dati dei siti che non apri per qualche giorno. Installa Tanetto sulla schermata Home: lì ${n} è al sicuro.`,
     s1: (n) => `Tocca «Copia ${n}» qui sotto.`,
     s2: (sh, add) => `In Safari tocca ${sh}, poi «${add}».`,
-    s3: (n) => `Apri Tanetto dalla schermata Home e tocca «Ho già un cucciolo»: ritrovi ${n} com'era.`,
+    s3: (n) => `Apri Tanetto dalla schermata Home e tocca «Ho già un compagno»: ritrovi ${n} com'era.`,
     copy: (n) => `Copia ${n}`, copied: (n) => `${n} è copiato! Ora aggiungi Tanetto alla schermata Home.`, later: "Più tardi",
-    onbT: "Su iPhone? Installa prima l'app", onbP: "Così il tuo cucciolo resta sempre al sicuro: Safari può cancellare i dati dei siti che non apri per qualche giorno.",
-    onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Benvenuto nell'app!", appP: "Avevi già un cucciolo in Safari? Riportalo qui in un attimo.",
-    have: "Ho già un cucciolo", pasteT: "Riporta qui il tuo cucciolo", pasteP: "Incolla il codice di Tanetto, oppure apri un file di copia.",
-    ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il cucciolo", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo e riprova.",
+    onbT: "Su iPhone? Installa prima l'app", onbP: "Così il tuo compagno resta sempre al sicuro: Safari può cancellare i dati dei siti che non apri per qualche giorno.",
+    onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Benvenuto nell'app!", appP: "Avevi già un compagno in Safari? Riportalo qui in un attimo.",
+    have: "Ho già un compagno", pasteT: "Riporta qui il tuo compagno", pasteP: "Incolla il codice di Tanetto, oppure apri un file di copia.",
+    ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il compagno", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo e riprova.",
     manual: "Tieni premuto sul codice, scegli «Seleziona tutto» e poi «Copia».", close: "Chiudi"
   }],
   ["en", "Share", "Add to Home Screen", {
@@ -20333,12 +20348,12 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     P: (n) => `On iPhone, Safari can delete the data of websites you don't open for a few days. Add Tanetto to your Home Screen and ${n} stays safe there.`,
     s1: (n) => `Tap “Copy ${n}” below.`,
     s2: (sh, add) => `In Safari, tap ${sh}, then “${add}”.`,
-    s3: (n) => `Open Tanetto from your Home Screen and tap “I already have a pet”: ${n} will be just as you left them.`,
+    s3: (n) => `Open Tanetto from your Home Screen and tap “I already have a companion”: ${n} will be just as you left them.`,
     copy: (n) => `Copy ${n}`, copied: (n) => `${n} is copied! Now add Tanetto to your Home Screen.`, later: "Later",
-    onbT: "On iPhone? Install the app first", onbP: "That way your pet is always safe: Safari can delete the data of websites you don't open for a few days.",
-    onb3: "Then open Tanetto from your Home Screen.", appT: "Welcome to the app!", appP: "Already had a pet in Safari? Bring it here in a moment.",
-    have: "I already have a pet", pasteT: "Bring your pet here", pasteP: "Paste your Tanetto code, or open a backup file.",
-    ph: "Tanetto code", paste: "Paste", go: "Bring my pet", file: "Open a backup file", bad: "This code doesn't work. Copy it again and try once more.",
+    onbT: "On iPhone? Install the app first", onbP: "That way your companion is always safe: Safari can delete the data of websites you don't open for a few days.",
+    onb3: "Then open Tanetto from your Home Screen.", appT: "Welcome to the app!", appP: "Already had a companion in Safari? Bring it here in a moment.",
+    have: "I already have a companion", pasteT: "Bring your companion here", pasteP: "Paste your Tanetto code, or open a backup file.",
+    ph: "Tanetto code", paste: "Paste", go: "Bring my companion", file: "Open a backup file", bad: "This code doesn't work. Copy it again and try once more.",
     manual: "Press and hold the code, choose “Select All”, then “Copy”.", close: "Close"
   }],
   ["de", "Teilen", "Zum Home-Bildschirm", {
@@ -20346,12 +20361,12 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     P: (n) => `Auf dem iPhone kann Safari die Daten von Websites löschen, die du ein paar Tage nicht öffnest. Füge Tanetto zum Home-Bildschirm hinzu, dort ist ${n} sicher.`,
     s1: (n) => `Tippe unten auf „${n} kopieren“.`,
     s2: (sh, add) => `Tippe in Safari auf ${sh} und dann auf „${add}“.`,
-    s3: (n) => `Öffne Tanetto vom Home-Bildschirm und tippe auf „Ich habe schon ein Haustier“: ${n} ist genau wie vorher.`,
+    s3: (n) => `Öffne Tanetto vom Home-Bildschirm und tippe auf „Ich habe schon einen Begleiter“: ${n} ist genau wie vorher.`,
     copy: (n) => `${n} kopieren`, copied: (n) => `${n} ist kopiert! Füge Tanetto jetzt zum Home-Bildschirm hinzu.`, later: "Später",
-    onbT: "Auf dem iPhone? Installiere zuerst die App", onbP: "So ist dein Haustier immer sicher: Safari kann die Daten von Websites löschen, die du ein paar Tage nicht öffnest.",
-    onb3: "Öffne Tanetto dann vom Home-Bildschirm.", appT: "Willkommen in der App!", appP: "Hattest du schon ein Haustier in Safari? Hol es mit einem Fingertipp hierher.",
-    have: "Ich habe schon ein Haustier", pasteT: "Hol dein Haustier hierher", pasteP: "Füge deinen Tanetto-Code ein oder öffne eine Sicherungsdatei.",
-    ph: "Tanetto-Code", paste: "Einfügen", go: "Haustier holen", file: "Sicherungsdatei öffnen", bad: "Dieser Code funktioniert nicht. Kopiere ihn noch einmal und versuch es erneut.",
+    onbT: "Auf dem iPhone? Installiere zuerst die App", onbP: "So ist dein Begleiter immer sicher: Safari kann die Daten von Websites löschen, die du ein paar Tage nicht öffnest.",
+    onb3: "Öffne Tanetto dann vom Home-Bildschirm.", appT: "Willkommen in der App!", appP: "Hattest du schon einen Begleiter in Safari? Hol ihn mit einem Fingertipp hierher.",
+    have: "Ich habe schon einen Begleiter", pasteT: "Hol deinen Begleiter hierher", pasteP: "Füge deinen Tanetto-Code ein oder öffne eine Sicherungsdatei.",
+    ph: "Tanetto-Code", paste: "Einfügen", go: "Begleiter holen", file: "Sicherungsdatei öffnen", bad: "Dieser Code funktioniert nicht. Kopiere ihn noch einmal und versuch es erneut.",
     manual: "Halte den Code gedrückt, wähle „Alles auswählen“ und dann „Kopieren“.", close: "Schließen"
   }],
   ["es", "Compartir", "Añadir a pantalla de inicio", {
@@ -20398,12 +20413,12 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     P: (n) => `iPhoneのSafariは、数日開いていないサイトのデータを消すことがあります。Tanettoをホーム画面に追加すれば、${n}は安心です。`,
     s1: (n) => `下の「${n}をコピー」をタップ。`,
     s2: (sh, add) => `Safariで${sh}をタップして「${add}」を選ぶ。`,
-    s3: (n) => `ホーム画面からTanettoを開いて「もう相棒がいる」をタップ。${n}がそのまま戻ってきます。`,
+    s3: (n) => `ホーム画面からTanettoを開いて「もうパートナーがいる」をタップ。${n}がそのまま戻ってきます。`,
     copy: (n) => `${n}をコピー`, copied: (n) => `${n}をコピーしました！次にTanettoをホーム画面に追加してね。`, later: "あとで",
-    onbT: "iPhoneの方は、先にアプリを追加しよう", onbP: "そうすれば相棒はいつも安心。Safariは、数日開いていないサイトのデータを消すことがあります。",
-    onb3: "あとはホーム画面からTanettoを開くだけ。", appT: "アプリへようこそ！", appP: "Safariで相棒を育てていた？すぐにここへ連れてこられます。",
-    have: "もう相棒がいる", pasteT: "相棒をここへ連れてこよう", pasteP: "Tanettoのコードを貼り付けるか、バックアップファイルを開いてね。",
-    ph: "Tanettoのコード", paste: "貼り付け", go: "相棒を連れてくる", file: "バックアップファイルを開く", bad: "このコードは使えません。もう一度コピーして試してね。",
+    onbT: "iPhoneの方は、先にアプリを追加しよう", onbP: "そうすればパートナーはいつも安心。Safariは、数日開いていないサイトのデータを消すことがあります。",
+    onb3: "あとはホーム画面からTanettoを開くだけ。", appT: "アプリへようこそ！", appP: "Safariでパートナーを育てていた？すぐにここへ連れてこられます。",
+    have: "もうパートナーがいる", pasteT: "パートナーをここへ連れてこよう", pasteP: "Tanettoのコードを貼り付けるか、バックアップファイルを開いてね。",
+    ph: "Tanettoのコード", paste: "貼り付け", go: "パートナーを連れてくる", file: "バックアップファイルを開く", bad: "このコードは使えません。もう一度コピーして試してね。",
     manual: "コードを長押しして「すべてを選択」、それから「コピー」を選んでね。", close: "閉じる"
   }],
   ["ko", "공유", "홈 화면에 추가", {
@@ -20463,12 +20478,12 @@ Object.assign(T.tr.v13, { subscribe: "Abone ol", afterY: (p) => `7 gün ücretsi
     P: (n) => `Na iPhonie Safari może usuwać dane stron, których nie otwierasz przez kilka dni. Dodaj Tanetto do ekranu początkowego, a ${n} będzie bezpieczny.`,
     s1: (n) => `Stuknij poniżej „Skopiuj: ${n}”.`,
     s2: (sh, add) => `W Safari stuknij ${sh}, a potem „${add}”.`,
-    s3: (n) => `Otwórz Tanetto z ekranu początkowego i stuknij „Mam już pupila”: ${n} wróci dokładnie taki, jak był.`,
+    s3: (n) => `Otwórz Tanetto z ekranu początkowego i stuknij „Mam już towarzysza”: ${n} wróci dokładnie taki, jak był.`,
     copy: (n) => `Skopiuj: ${n}`, copied: (n) => `Skopiowano: ${n}! Teraz dodaj Tanetto do ekranu początkowego.`, later: "Później",
-    onbT: "Masz iPhone'a? Najpierw zainstaluj aplikację", onbP: "Wtedy twój pupil zawsze będzie bezpieczny: Safari może usuwać dane stron, których nie otwierasz przez kilka dni.",
-    onb3: "Potem otwórz Tanetto z ekranu początkowego.", appT: "Witaj w aplikacji!", appP: "Masz już pupila w Safari? Przenieś go tutaj w chwilę.",
-    have: "Mam już pupila", pasteT: "Przenieś tu swojego pupila", pasteP: "Wklej kod Tanetto albo otwórz plik kopii.",
-    ph: "Kod Tanetto", paste: "Wklej", go: "Przenieś pupila", file: "Otwórz plik kopii", bad: "Ten kod nie działa. Skopiuj go ponownie i spróbuj jeszcze raz.",
+    onbT: "Masz iPhone'a? Najpierw zainstaluj aplikację", onbP: "Wtedy twój towarzysz zawsze będzie bezpieczny: Safari może usuwać dane stron, których nie otwierasz przez kilka dni.",
+    onb3: "Potem otwórz Tanetto z ekranu początkowego.", appT: "Witaj w aplikacji!", appP: "Masz już towarzysza w Safari? Przenieś go tutaj w chwilę.",
+    have: "Mam już towarzysza", pasteT: "Przenieś tu swojego towarzysza", pasteP: "Wklej kod Tanetto albo otwórz plik kopii.",
+    ph: "Kod Tanetto", paste: "Wklej", go: "Przenieś towarzysza", file: "Otwórz plik kopii", bad: "Ten kod nie działa. Skopiuj go ponownie i spróbuj jeszcze raz.",
     manual: "Przytrzymaj kod, wybierz „Zaznacz wszystko”, a potem „Kopiuj”.", close: "Zamknij"
   }],
   ["nl", "Deel", "Zet op beginscherm", {
@@ -21212,7 +21227,7 @@ const BILL_TXT = {
     thanksPlus: (n) => `謝謝！Tanetto Plus 已啟用，${n}開心極了。`, thanksTani: (k) => `謝謝！+${k} Tanì`,
     active: "Tanetto Plus 已啟用", manage: "管理訂閱", manageP: "你隨時可以在 Google Play › 訂閱中取消。",
     trial: (d) => `免費試用 ${d} 天`,
-    afterTrial: (d, p) => `免費 ${d} 天，之後 ${p}。試用結束時會自動續訂：你隨時可以取消，試用期間也可以。`,
+    afterTrial: (d, p) => `免費 ${d} 天，之後${p}。試用結束時會自動續訂：你隨時可以取消，試用期間也可以。`,
     afterY: (p) => `${p}。每年自動續訂：你隨時可以取消。`, afterM: (p) => `${p}。每月自動續訂：你隨時可以取消。`,
     monthGift: "Tanetto Plus 禮物：+300 Tanì 和 2 個連續紀錄護盾", owned: "你已經啟用了 Tanetto Plus。",
     terms0: "Tanetto 依現狀提供，不保證不中斷運作，並可能隨時間改變。",
@@ -21473,7 +21488,7 @@ const V21_TXT = {
     recKeep: "Non abbiamo cancellato niente: i dati rovinati restano su questo telefono. Puoi salvarli in un file e mandarceli a tanettoapp@gmail.com, oppure ripristinare un backup dal tuo account o da un file in Profilo.",
     recSave: "Salva i dati rovinati", recOkB: "Ho capito",
     nudgeT: (n) => `Accedi per tenere al sicuro ${n}`, nudgeP: (n) => `Con un account gratuito ${n} ha una copia online e ti ritrova anche se cambi telefono.`, nudgeLater: "Non ora",
-    haveAcct: "Accedi per riavere il tuo cucciolo", haveOr: "oppure"
+    haveAcct: "Accedi per riavere il tuo compagno", haveOr: "oppure"
   },
   en: {
     starsName: "Season of Stars", lake: "Star Lake", lakeTap: "Tap the lake to wish on a falling star",
@@ -21493,7 +21508,7 @@ const V21_TXT = {
     recKeep: "Nothing has been deleted: the damaged data stays on this phone. You can save it as a file and send it to us at tanettoapp@gmail.com, or restore a backup from your account or from a file in Profile.",
     recSave: "Save the damaged data", recOkB: "Got it",
     nudgeT: (n) => `Sign in to keep ${n} safe`, nudgeP: (n) => `With a free account, ${n} has an online copy and comes back to you even if you change phones.`, nudgeLater: "Not now",
-    haveAcct: "Sign in to bring your pet back", haveOr: "or"
+    haveAcct: "Sign in to bring your companion back", haveOr: "or"
   },
   de: {
     starsName: "Sternensaison", lake: "Sternensee", lakeTap: "Tippe auf den See und wünsch dir etwas bei einer Sternschnuppe",
@@ -21513,7 +21528,7 @@ const V21_TXT = {
     recKeep: "Es wurde nichts gelöscht: Die beschädigten Daten bleiben auf diesem Handy. Du kannst sie als Datei speichern und uns an tanettoapp@gmail.com schicken oder ein Backup aus deinem Konto oder aus einer Datei in Profil wiederherstellen.",
     recSave: "Beschädigte Daten speichern", recOkB: "Verstanden",
     nudgeT: (n) => `Melde dich an, damit ${n} sicher ist`, nudgeP: (n) => `Mit einem kostenlosen Konto hat ${n} eine Kopie online und findet dich auch auf einem neuen Handy wieder.`, nudgeLater: "Nicht jetzt",
-    haveAcct: "Melde dich an, um dein Haustier zurückzuholen", haveOr: "oder"
+    haveAcct: "Melde dich an, um deinen Begleiter zurückzuholen", haveOr: "oder"
   },
   es: {
     starsName: "Temporada de las Estrellas", lake: "Lago de las Estrellas", lakeTap: "Toca el lago y pide un deseo a una estrella fugaz",
@@ -21533,7 +21548,7 @@ const V21_TXT = {
     recKeep: "No se ha borrado nada: los datos dañados se quedan en este teléfono. Puedes guardarlos en un archivo y enviárnoslos a tanettoapp@gmail.com, o recuperar una copia desde tu cuenta o desde un archivo en Perfil.",
     recSave: "Guardar los datos dañados", recOkB: "Entendido",
     nudgeT: (n) => `Inicia sesión para mantener a salvo a ${n}`, nudgeP: (n) => `Con una cuenta gratuita, ${n} tiene una copia en línea y te vuelve a encontrar aunque cambies de teléfono.`, nudgeLater: "Ahora no",
-    haveAcct: "Inicia sesión para recuperar a tu mascota", haveOr: "o"
+    haveAcct: "Inicia sesión para recuperar a tu compañero", haveOr: "o"
   },
   fr: {
     starsName: "Saison des Étoiles", lake: "Lac des Étoiles", lakeTap: "Touche le lac pour faire un vœu sur une étoile filante",
@@ -21573,7 +21588,7 @@ const V21_TXT = {
     recKeep: "Nada foi apagado: os dados danificados continuam neste celular. Você pode salvá-los em um arquivo e enviar para tanettoapp@gmail.com, ou restaurar um backup da sua conta ou de um arquivo em Perfil.",
     recSave: "Salvar os dados danificados", recOkB: "Entendi",
     nudgeT: (n) => `Entre para manter ${n} em segurança`, nudgeP: (n) => `Com uma conta grátis, ${n} tem uma cópia online e encontra você de novo mesmo se trocar de celular.`, nudgeLater: "Agora não",
-    haveAcct: "Entre para recuperar seu bichinho", haveOr: "ou"
+    haveAcct: "Entre para recuperar seu companheiro", haveOr: "ou"
   },
   ja: {
     starsName: "星のシーズン", lake: "星の湖", lakeTap: "湖をタップして、流れ星にお願いしよう",
@@ -21593,7 +21608,7 @@ const V21_TXT = {
     recKeep: "何も削除していません。こわれたデータはこの端末に残っています。ファイルとして保存して tanettoapp@gmail.com に送っていただくか、マイページからアカウントやファイルのバックアップを復元できます。",
     recSave: "こわれたデータを保存", recOkB: "わかった",
     nudgeT: (n) => `ログインして${n}を守ろう`, nudgeP: (n) => `無料のアカウントがあれば、${n}のデータをオンラインに保存して、スマホを替えてもまた会えます。`, nudgeLater: "あとで",
-    haveAcct: "ログインして、あなたのペットを呼びもどす", haveOr: "または"
+    haveAcct: "ログインして、パートナーを呼びもどす", haveOr: "または"
   },
   ko: {
     starsName: "별의 시즌", lake: "별빛 호수", lakeTap: "호수를 눌러 별똥별에게 소원을 빌어 보세요",
@@ -21693,7 +21708,7 @@ const V21_TXT = {
     recKeep: "Nic nie zostało usunięte: uszkodzone dane zostają na tym telefonie. Możesz zapisać je w pliku i wysłać nam na tanettoapp@gmail.com albo przywrócić kopię z konta lub z pliku w Profilu.",
     recSave: "Zapisz uszkodzone dane", recOkB: "Rozumiem",
     nudgeT: (n) => `Zaloguj się i zrób kopię zapasową: ${n}`, nudgeP: (n) => `Z darmowym kontem ${n} ma kopię w internecie i odnajdzie cię nawet na nowym telefonie.`, nudgeLater: "Nie teraz",
-    haveAcct: "Zaloguj się, żeby odzyskać swojego zwierzaka", haveOr: "albo"
+    haveAcct: "Zaloguj się, żeby odzyskać swojego towarzysza", haveOr: "albo"
   },
   nl: {
     starsName: "Sterrenseizoen", lake: "Sterrenmeer", lakeTap: "Tik op het meer en doe een wens bij een vallende ster",
@@ -21713,7 +21728,7 @@ const V21_TXT = {
     recKeep: "Er is niets gewist: de beschadigde gegevens blijven op deze telefoon. Je kunt ze als bestand opslaan en naar ons sturen via tanettoapp@gmail.com, of een back-up terugzetten vanuit je account of vanuit een bestand in Profiel.",
     recSave: "Beschadigde gegevens opslaan", recOkB: "Begrepen",
     nudgeT: (n) => `Log in om ${n} veilig te houden`, nudgeP: (n) => `Met een gratis account heeft ${n} een online kopie en vindt je ook terug op een nieuwe telefoon.`, nudgeLater: "Niet nu",
-    haveAcct: "Log in om je huisdier terug te halen", haveOr: "of"
+    haveAcct: "Log in om je maatje terug te halen", haveOr: "of"
   },
   tr: {
     starsName: "Yıldızlar Sezonu", lake: "Yıldız Gölü", lakeTap: "Göle dokun ve kayan bir yıldıza dilek tut",
@@ -21733,7 +21748,7 @@ const V21_TXT = {
     recKeep: "Hiçbir şey silinmedi: bozuk veriler bu telefonda duruyor. Onları bir dosyaya kaydedip tanettoapp@gmail.com adresine gönderebilir ya da Profil'den hesabındaki veya bir dosyadaki yedeği geri yükleyebilirsin.",
     recSave: "Bozuk verileri kaydet", recOkB: "Anladım",
     nudgeT: (n) => `${n} güvende kalsın diye giriş yap`, nudgeP: (n) => `Ücretsiz bir hesapla ${n} için çevrim içi bir kopya olur ve telefon değiştirsen bile seni yeniden bulur.`, nudgeLater: "Şimdi değil",
-    haveAcct: "Evcil dostunu geri getirmek için giriş yap", haveOr: "ya da"
+    haveAcct: "Dostunu geri getirmek için giriş yap", haveOr: "ya da"
   }
 };
 Object.keys(V21_TXT).forEach((l) => { const t = T[l]; if (!t) return; t.v21 = V21_TXT[l]; t.items = Object.assign(t.items || {}, V21_TXT[l].items); });
@@ -22197,7 +22212,7 @@ const V23 = {
   de: {
     welT: "Ein kleiner Freund, der dir guttut",
     welP: "Wähle ein paar kleine Ziele am Tag. Jedes gibt deinem Begleiter Energie für eine Reise, und eine Postkarte kommt zu dir nach Hause.",
-    opt: "freiwillig",
+    opt: "optional",
     gift2T: "Zwei Geschenke für dich",
     gift2P: (n) => `50 Tanì, um das kleine Zimmer von ${n} zu schmücken, und ein Partyhut zur ersten Saison von Tanetto.`,
     launchP: (n) => `Zur ersten Saison von Tanetto bekommt ${n} einen exklusiven Partyhut.`,
@@ -22215,7 +22230,7 @@ const V23 = {
   },
   es: {
     welT: "Un pequeño amigo para cuidarte",
-    welP: "Elige unas pocas metas pequeñas al día. Cada una le da energía a tu compañero para un viaje, y una postal llega a casa para ti.",
+    welP: "Elige algunas metas pequeñas al día. Cada una le da energía a tu compañero para un viaje, y desde allí te manda una postal.",
     opt: "opcional",
     gift2T: "Dos regalos para ti",
     gift2P: (n) => `50 Tanì para decorar el cuartito de ${n} y un gorro de fiesta para celebrar la primera temporada de Tanetto.`,
@@ -22239,7 +22254,7 @@ const V23 = {
     gift2T: "Deux cadeaux pour toi",
     gift2P: (n) => `50 Tanì pour décorer la petite chambre de ${n}, et un chapeau de fête pour la première saison de Tanetto.`,
     launchP: (n) => `Pour fêter la première saison de Tanetto, ${n} reçoit un chapeau de fête exclusif.`,
-    albEmpty: (n) => `Ton album est encore vide. Envoie ${n} en premier voyage : la carte postale arrivera juste ici.`,
+    albEmpty: (n) => `Ton album est encore vide. Envoie ${n} faire son premier voyage : la carte postale arrivera juste ici.`,
     adMore: (n) => `Regarde une vidéo : un autre cadeau (+${n} Tanì)`,
     adThanksMore: (n) => `Un autre cadeau : +${n} Tanì. Merci !`,
     privP: "Le compagnon, les objectifs et le journal restent sur cet appareil. Si tu crées un compte, nous enregistrons aussi ton e-mail et une sauvegarde de ta progression, uniquement pour que tu la retrouves. Pour améliorer l'app, on compte seulement, de façon anonyme, combien de fois elle est ouverte. Tanetto n'est pas un outil médical et s'adresse à tous les âges : pour les enfants et les ados, les publicités ne sont jamais personnalisées et la sauvegarde en ligne n'est pas disponible.",
@@ -22296,7 +22311,7 @@ const V23 = {
     gift2T: "선물이 두 개 있어요",
     gift2P: (n) => `${n}의 작은 방을 꾸밀 Tanì 50개, 그리고 Tanetto의 첫 시즌을 축하하는 파티 모자예요.`,
     launchP: (n) => `Tanetto의 첫 시즌을 축하하며 ${n}에게 특별한 파티 모자를 선물해요.`,
-    albEmpty: (n) => `앨범이 아직 비어 있어요. ${n}을(를) 첫 여행에 보내 보세요. 엽서가 바로 여기에 도착해요.`,
+    albEmpty: (n) => `앨범이 아직 비어 있어요. ${n}의 첫 여행을 시작해 보세요. 엽서가 바로 여기에 도착해요.`,
     adMore: (n) => `영상 보고 선물 하나 더 받기 (Tanì +${n})`,
     adThanksMore: (n) => `선물 하나 더: Tanì +${n}. 고마워요!`,
     privP: "친구, 목표, 일기는 이 기기에 저장돼요. 계정을 만들면 다시 찾을 수 있도록 이메일과 진행 상황 백업도 저장해요. 앱을 개선하기 위해 앱이 얼마나 자주 열리는지만 익명으로 집계해요. Tanetto는 의료 도구가 아니며 모든 연령을 위한 앱이에요. 어린이와 청소년에게는 광고가 절대 맞춤형으로 표시되지 않고 온라인 백업도 사용할 수 없어요.",
@@ -22306,7 +22321,7 @@ const V23 = {
     ageNo: "말하지 않기로 하셨어요. 광고는 항상 어린이에게 맞는 것만 나오고 온라인 백업은 사용할 수 없어요.", ageBtn: "지금 답하기",
     taniT: "Tanì", taniP: "상점에서 쓰는 게임 코인이에요. 목표를 해내면 받을 수 있고, 팩은 Google Play로만 결제돼요.",
     look: (a) => `돌보는 영역: ${a}`,
-    catch: { germo: "조금씩, 우리는 자라요!", ondi: "천천히 숨 한 번... 좀 나아요?", lumi: "불 하나 켜 둘게요.", miko: "포근한 둥지로 만들어요.", rufi: "오! 알아보자!", pingo: "한 걸음 더? 가자!", dori: "안아 줄까? 안아 줄게!" }
+    catch: { germo: "조금씩, 우리는 자라요!", ondi: "천천히 숨 한 번... 좀 나아요?", lumi: "작은 불 하나 켜 둘게요.", miko: "포근한 둥지로 만들어요.", rufi: "오! 알아보자!", pingo: "한 걸음 더? 가자!", dori: "안아 줄까? 안아 줄게!" }
   },
   zh: {
     welT: "陪你好好照顾自己的小伙伴",
@@ -22354,13 +22369,13 @@ const V23 = {
     gift2P: (n) => `50 Tanì, чтобы украсить комнатку питомца по имени ${n}, и праздничный колпак в честь первого сезона Tanetto.`,
     launchP: (n) => `В честь первого сезона Tanetto питомец по имени ${n} получает особый праздничный колпак.`,
     albEmpty: (n) => `Альбом пока пуст. Отправь питомца по имени ${n} в первое путешествие: открытка придёт прямо сюда.`,
-    adMore: (n) => `Посмотреть видео: ещё один подарок (+${n} Tanì)`,
+    adMore: (n) => `Посмотреть видео и получить ещё один подарок (+${n} Tanì)`,
     adThanksMore: (n) => `Ещё один подарок: +${n} Tanì. Спасибо!`,
     privP: "Питомец, цели и дневник хранятся на этом устройстве. Если создать аккаунт, мы также сохраним e-mail и копию прогресса, только чтобы их можно было вернуть. Чтобы улучшать приложение, мы лишь анонимно считаем, как часто его открывают. Tanetto не является медицинским инструментом и подходит для любого возраста: для детей и подростков реклама никогда не персонализируется, а онлайн-копия недоступна.",
     pg: { prog: "Трофеи, подарки подряд, щиты", comp: "Имя, цели, напоминание", set: "Язык, звуки, оформление", acct: "Аккаунт, копия, начать заново", priv: "Конфиденциальность, возраст, реклама", buy: "Tanetto Plus, Tanì, восстановление", help: "Помощь, идеи, пригласить друга", about: "Руководство, условия, авторы и лицензии" },
     tPriv: "Конфиденциальность и возраст", tBuy: "Покупки и Plus", tAbout: "О Tanetto",
-    ageT: "Твой возраст", ageYes: "Ты указал(а) месяц и год рождения. Они хранятся только на этом телефоне и определяют, какая реклама может показываться.",
-    ageNo: "Ты решил(а) не отвечать: реклама всегда подходит для детей, а онлайн-копия недоступна.", ageBtn: "Ответить сейчас",
+    ageT: "Твой возраст", ageYes: "Месяц и год рождения хранятся только на этом телефоне и определяют, какая реклама может показываться.",
+    ageNo: "Без ответа на этот вопрос реклама всегда подходит для детей, а онлайн-копия недоступна.", ageBtn: "Ответить сейчас",
     taniT: "Tanì", taniP: "Игровые монетки для магазина. Их дают за цели; наборы оплачиваются только через Google Play.",
     look: (a) => `Область заботы: ${a}`,
     catch: { germo: "Понемногу мы растём!", ondi: "Медленный вдох... лучше?", lumi: "Оставлю для тебя огонёк.", miko: "Давай устроим тут уютное гнёздышко.", rufi: "Ого! Давай узнаем!", pingo: "Ещё шаг? Вперёд!", dori: "Обнимашки? Обнимашки!" }
@@ -22370,10 +22385,10 @@ const V23 = {
     welP: "Wybierz kilka małych celów na dzień. Każdy daje towarzyszowi energię na podróż, a z podróży przychodzi do ciebie pocztówka.",
     opt: "opcjonalnie",
     gift2T: "Dwa prezenty dla ciebie",
-    gift2P: (n) => `50 Tanì na urządzenie pokoiku (${n}) i czapeczka imprezowa na pierwszy sezon Tanetto.`,
+    gift2P: (n) => `50 Tanì na urządzenie pokoiku towarzysza ${n} i czapeczka imprezowa na pierwszy sezon Tanetto.`,
     launchP: (n) => `Na pierwszy sezon Tanetto towarzysz ${n} dostaje wyjątkową czapeczkę imprezową.`,
     albEmpty: (n) => `Album jest jeszcze pusty. Wyślij towarzysza ${n} w pierwszą podróż: pocztówka trafi właśnie tutaj.`,
-    adMore: (n) => `Obejrzyj filmik: jeszcze jeden prezent (+${n} Tanì)`,
+    adMore: (n) => `Obejrzyj filmik i odbierz jeszcze jeden prezent (+${n} Tanì)`,
     adThanksMore: (n) => `Jeszcze jeden prezent: +${n} Tanì. Dziękujemy!`,
     privP: "Twój towarzysz, cele i dziennik zostają na tym urządzeniu. Po założeniu konta zapisujemy też e-mail i kopię postępów wyłącznie po to, aby można je było odzyskać. Aby ulepszać aplikację, liczymy jedynie anonimowo, jak często jest otwierana. Tanetto nie jest narzędziem medycznym i jest dla osób w każdym wieku: dla dzieci i nastolatków reklamy nigdy nie są spersonalizowane, a kopia online nie jest dostępna.",
     pg: { prog: "Trofea, prezenty z rzędu, tarcze", comp: "Imię, cele, przypomnienie", set: "Język, dźwięki, wygląd", acct: "Konto, kopia, zacznij od nowa", priv: "Prywatność, wiek, reklamy", buy: "Tanetto Plus, Tanì, przywracanie", help: "Pomoc, pomysły, zaproś znajomych", about: "Przewodnik, warunki, autorzy i licencje" },
@@ -22386,7 +22401,7 @@ const V23 = {
   },
   nl: {
     welT: "Een klein maatje om goed voor jezelf te zorgen",
-    welP: "Kies elke dag een paar kleine doelen. Elk doel geeft je maatje energie voor een reis, en er komt een ansichtkaart naar je toe.",
+    welP: "Kies elke dag een paar kleine doelen. Elk doel geeft je maatje energie voor een reis, en onderweg stuurt het je een ansichtkaart.",
     opt: "niet verplicht",
     gift2T: "Twee cadeaus voor jou",
     gift2P: (n) => `50 Tanì om het kamertje van ${n} te versieren, en een feesthoedje voor het eerste seizoen van Tanetto.`,
@@ -22408,10 +22423,10 @@ const V23 = {
     welP: "Her gün birkaç küçük hedef seç. Her biri arkadaşına yolculuk için enerji verir ve yolculuktan sana bir kartpostal gelir.",
     opt: "isteğe bağlı",
     gift2T: "Sana iki hediye",
-    gift2P: (n) => `${n} için küçük odasını süsleyecek 50 Tanì ve Tanetto'nun ilk sezonunu kutlayan bir parti şapkası.`,
+    gift2P: (n) => `${n} için: küçük odasını süslemek üzere 50 Tanì ve Tanetto'nun ilk sezonunu kutlayan bir parti şapkası.`,
     launchP: (n) => `Tanetto'nun ilk sezonunu kutlamak için ${n} özel bir parti şapkası kazanıyor.`,
     albEmpty: (n) => `Albümün henüz boş. ${n} ilk yolculuğuna çıksın: kartpostal tam buraya gelecek.`,
-    adMore: (n) => `Video izle: bir hediye daha (+${n} Tanì)`,
+    adMore: (n) => `Video izle, bir hediye daha al (+${n} Tanì)`,
     adThanksMore: (n) => `Bir hediye daha: +${n} Tanì. Teşekkürler!`,
     privP: "Arkadaşın, hedeflerin ve günlüğün bu cihazda kalır. Hesap oluşturursan, yalnızca geri bulabilmen için e-postanı ve ilerlemenin yedeğini de saklarız. Uygulamayı geliştirmek için sadece kaç kez açıldığını anonim olarak sayarız. Tanetto bir tıbbi araç değildir ve her yaş içindir: çocuklar ve gençler için reklamlar asla kişiselleştirilmez ve çevrimiçi yedek kullanılamaz.",
     pg: { prog: "Kupalar, art arda hediyeler, kalkanlar", comp: "İsim, hedefler, hatırlatıcı", set: "Dil, sesler, görünüm", acct: "Hesap, yedek, baştan başla", priv: "Gizlilik, yaş, reklamlar", buy: "Tanetto Plus, Tanì, geri yükleme", help: "Yardım, fikirler, arkadaş davet et", about: "Rehber, koşullar, yapımcılar ve lisanslar" },
@@ -23299,7 +23314,7 @@ Object.assign(REAL_SKY2, {
 }
 
 /* GENERATO da scratchpad/app10/scripts/make_img.py: non modificare a mano */
-const IMG3D_V = "86931927";
+const IMG3D_V = "77191dd6";
 const IMG3D_PC = {"f:forest":["f_forest",960,640],"f:lake":["f_lake",960,640],"f:hill":["f_hill",960,640],"f:mountain":["f_mountain",960,640],"f:city":["f_city",960,640],"v:fireflies":["v_fireflies",960,640],"v:shells":["v_shells",960,640],"v:mushrooms":["v_mushrooms",960,640],"v:library":["v_library",960,640],"v:crystal":["v_crystal",960,640],"v:starsea":["v_starsea",960,640],"v:sugar":["v_sugar",960,640],"v:aurora":["v_aurora",960,640],"v:dragon":["v_dragon",960,640],"w:pyramids":["w_pyramids",960,640],"w:santorini":["w_santorini",960,640],"w:matterhorn":["w_matterhorn",960,640],"w:fjords":["w_fjords",960,640],"w:lapland":["w_lapland",960,640],"w:iceland":["w_iceland",960,640],"w:sahara":["w_sahara",960,640],"w:petra":["w_petra",960,640],"w:safari":["w_safari",960,640],"w:victoria":["w_victoria",960,640],"w:tajmahal":["w_tajmahal",960,640],"w:angkor":["w_angkor",960,640],"w:bali":["w_bali",960,640],"w:maldives":["w_maldives",960,640],"w:reef":["w_reef",960,640],"w:sydney":["w_sydney",960,640],"w:banff":["w_banff",960,640],"w:hawaii":["w_hawaii",960,640],"w:galapagos":["w_galapagos",960,640],"w:machupicchu":["w_machupicchu",960,640],"w:uyuni":["w_uyuni",960,640],"w:patagonia":["w_patagonia",960,640],"w:moai":["w_moai",960,640],"w:antarctica":["w_antarctica",960,640],"r:venezia":["r_venezia",960,640],"r:dolomiti":["r_dolomiti",960,640],"r:cinqueterre":["r_cinqueterre",960,640],"r:roma":["r_roma",960,640],"r:neuschwanstein":["r_neuschwanstein",960,640],"r:schwarzwald":["r_schwarzwald",960,640],"r:bodensee":["r_bodensee",960,640],"r:berlin":["r_berlin",960,640],"r:sevilla":["r_sevilla",960,640],"r:granada":["r_granada",960,640],"r:barcelona":["r_barcelona",960,640],"r:tenerife":["r_tenerife",960,640],"r:london":["r_london",960,640],"r:highlands":["r_highlands",960,640],"r:newyork":["r_newyork",960,640],"r:grandcanyon":["r_grandcanyon",960,640],"r:paris":["r_paris",960,640],"r:montsaintmichel":["r_montsaintmichel",960,640],"r:provence":["r_provence",960,640],"r:chamonix":["r_chamonix",960,640],"r:rio":["r_rio",960,640],"r:amazonia":["r_amazonia",960,640],"r:lencois":["r_lencois",960,640],"r:iguacu":["r_iguacu",960,640],"r:tokyo":["r_tokyo",960,640],"r:fuji":["r_fuji",960,640],"r:kyoto":["r_kyoto",960,640],"r:hokkaido":["r_hokkaido",960,640],"r:seoul":["r_seoul",960,640],"r:busan":["r_busan",960,640],"r:seorak":["r_seorak",960,640],"r:jeju":["r_jeju",960,640],"r:greatwall":["r_greatwall",960,640],"r:shanghai":["r_shanghai",960,640],"r:guilin":["r_guilin",960,640],"r:zhangjiajie":["r_zhangjiajie",960,640],"r:taipei101":["r_taipei101",960,640],"r:jiufen":["r_jiufen",960,640],"r:sunmoonlake":["r_sunmoonlake",960,640],"r:taroko":["r_taroko",960,640],"r:moskva":["r_moskva",960,640],"r:piter":["r_piter",960,640],"r:baikal":["r_baikal",960,640],"r:kamchatka":["r_kamchatka",960,640],"r:krakow":["r_krakow",960,640],"r:tatry":["r_tatry",960,640],"r:gdansk":["r_gdansk",960,640],"r:bialowieza":["r_bialowieza",960,640],"r:amsterdam":["r_amsterdam",960,640],"r:kinderdijk":["r_kinderdijk",960,640],"r:keukenhof":["r_keukenhof",960,640],"r:wadden":["r_wadden",960,640],"r:istanbul":["r_istanbul",960,640],"r:kapadokya":["r_kapadokya",960,640],"r:pamukkale":["r_pamukkale",960,640],"r:efes":["r_efes",960,640]};
 const BOOT_IMG = "data:image/webp;base64,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";
 
@@ -38334,7 +38349,7 @@ const NAV20_T = {
     webT: "在 Android App 中開通", webP: (n) => `Tanetto Plus 和 Tanì 禮包要在 Google Play 的 Android App 裡購買。有了免費帳號，在 App 裡也能找回 ${n} 和你的所有進度。`,
     webSoon: "App 很快就會上架 Google Play。", webFree: "在那之前，Tanì 可以免費賺：目標、旅行、遊戲和每日禮物。",
     plusT: "想試試 Tanetto Plus 嗎？", plusP: (n, c) => `喜歡和 ${n} 在一起嗎？有了 Plus，你們可以環遊世界，還有 ${c}，每個月還有禮物。`,
-    plusTrial: (d) => `免費 ${d} 天`, plusThen: (p) => `之後 ${p} · 隨時可取消`, plusFrom: (p) => `${p} · 隨時可取消`,
+    plusTrial: (d) => `免費 ${d} 天`, plusThen: (p) => `之後${p} · 隨時可取消`, plusFrom: (p) => `${p} · 隨時可取消`,
     plusGo: (d) => `免費試用 ${d} 天`, plusSub: "了解 Plus", plusLater: "以後再說",
     daysAct: ["活躍天數", "活躍天數"], goalsDone: ["完成的目標", "完成的目標"],
     talkMood: "聊天時記錄的心情", fut: "即將到來", resetP: "你的小夥伴、進度和日記將被永久刪除。",
@@ -38394,7 +38409,7 @@ const NAV20_T = {
     webT: "Dostępne w aplikacji na Androida", webP: (n) => `Tanetto Plus i pakiety Tanì kupisz w aplikacji na Androida w Google Play. Z darmowym kontem czekają tam na ciebie ${n} i wszystkie twoje postępy.`,
     webSoon: "Aplikacja wkrótce pojawi się w Google Play.", webFree: "Na razie Tanì zdobywasz za darmo: cele, podróże, gry i prezent dnia.",
     plusT: "Chcesz wypróbować Tanetto Plus?", plusP: (n, c) => `Lubisz wspólne chwile? Z Plus czekają na was podróże po całym świecie, ${c} i prezent co miesiąc.`,
-    plusTrial: (d) => `${d} dni za darmo`, plusThen: (p) => `potem ${p} · anulujesz w każdej chwili`, plusFrom: (p) => `${p} · anulujesz w każdej chwili`,
+    plusTrial: (d) => `${d} dni za darmo`, plusThen: (p) => `potem ${p} · możesz anulować w każdej chwili`, plusFrom: (p) => `${p} · anulujesz w każdej chwili`,
     plusGo: (d) => `Wypróbuj ${d} dni za darmo`, plusSub: "Poznaj Plus", plusLater: "Nie teraz",
     daysAct: ["aktywny dzień", "aktywne dni", "aktywnych dni"], goalsDone: ["ukończony cel", "ukończone cele", "ukończonych celów"],
     talkMood: "Nastrój z rozmowy", fut: "Przed tobą", resetP: "Towarzysz, postępy i dziennik zostaną usunięte na zawsze.",
@@ -41867,6 +41882,8 @@ function moment3d(pose, cls, pet) {
   if (PETS3D.includes(p)) return img3d(`pet/${p}.webp`, "mom pet3d " + (cls || ""), "", 384, 384, true);
   return "";
 }
+/* critica fase 3: le due scene di gruppo hanno un testo alternativo (i nomi dei compagni, nella lingua dell'app) */
+const petNames = (ks) => { const n = ks.map((k) => (L().pets[k] || [k])[0]); try { return new Intl.ListFormat(L().locale || S.lang, { type: "conjunction" }).format(n); } catch (e) { return n.join(", "); } };
 const LOGO3D = () => `<img class="logo3d" src="${BOOT_IMG}" alt="" width="28" height="28">`;
 const _topBarP3 = topBar;
 topBar = function () { const h = _topBarP3(); return S.pet ? h : h.replace(LOGO, LOGO3D()); };
@@ -41909,7 +41926,10 @@ gr20Make = async function (kind, ck) { try { await pcPrefetch(gr20Spec(kind, ck)
 function ban3d(name, big) {
   const h = big ? 120 : 90, g = nid("b3");
   const scrim = big ? `<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset=".45" stop-color="#1B1430" stop-opacity="0"/><stop offset="1" stop-color="#1B1430" stop-opacity=".55"/></linearGradient></defs>` : "";
-  return `<svg viewBox="0 0 320 ${h}" aria-hidden="true" class="ban3">${scrim}<image href="${IMG3D("ban/" + name + ".webp")}" x="0" y="${-(160 - h) / 2}" width="320" height="160" preserveAspectRatio="xMidYMid slice"/>${big ? `<rect width="320" height="${h}" fill="url(#${g})"/>` : ""}</svg>`;
+  /* critica fase 3: nella testata grande il titolo della stagione sta in basso a sinistra, proprio dove le scene hanno
+     Germo e i suoi amici (il titolo copriva la faccia): li' la scena si mostra specchiata, i compagni finiscono a destra */
+  const img = `<image href="${IMG3D("ban/" + name + ".webp")}" x="0" y="${-(160 - h) / 2}" width="320" height="160" preserveAspectRatio="xMidYMid slice"/>`;
+  return `<svg viewBox="0 0 320 ${h}" aria-hidden="true" class="ban3">${scrim}${big ? `<g transform="translate(320 0) scale(-1 1)">${img}</g>` : img}${big ? `<rect width="320" height="${h}" fill="url(#${g})"/>` : ""}</svg>`;
 }
 const _starsBannerP3 = starsBanner;
 starsBanner = function (big) { try { return ban3d("stars", big); } catch (e) { return _starsBannerP3(big); } };
@@ -41934,7 +41954,7 @@ viewOnboard = function () {
     const cut = h.indexOf('<div class="stack'); const top = cut > 0 ? h.slice(0, cut) : "";
     const n = v18n(); const val = nameClean(S.uname || v18gName || "");
     return `${top}<div class="stack namestep w3"><div class="onbtop">${p3steps(0)}</div>
-    <div class="w3hero">${img3d("welcome.webp", "w3img", "", 720, 720, true)}</div>
+    <div class="w3hero">${img3d("welcome.webp", "w3img", petNames(["germo", "ondi", "lumi"]), 720, 720, true)}</div>
     <h1>${esc(w.welT)}</h1><p class="muted w3p">${esc(w.welP)}</p>
     <div class="field"><label for="userName">${esc(n.label)} <span class="opt">(${esc(w.opt)})</span></label><input id="userName" class="nameinp" maxlength="${NAME_MAX}" autocomplete="given-name" autocapitalize="words" spellcheck="false" enterkeyhint="next" placeholder="${esc(n.ph)}" value="${esc(val)}"></div>
     <p class="small nameerr" id="nameErr" role="alert" aria-live="polite"></p>
@@ -41964,6 +41984,8 @@ document.addEventListener("input", (ev) => {
 }, true);
 window.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest("button"); if (!b || S.pet) return;
+  /* tornati al benvenuto con "indietro": chi cancella il nome scritto prima non deve ritrovarselo */
+  if (b.id === "nameNext") { const i = document.getElementById("userName"); if (i && !nameClean(i.value).trim() && S.uname) { S.uname = ""; save(); } }
   if (b.id === "toName") {
     ev.stopImmediatePropagation(); const t = L(); const i = document.getElementById("petName"); const v = (i ? i.value : "").trim();
     draftName = v || t.pets[draftPet][0]; S.onboard = 2; SND.play("click"); render(); window.scrollTo(0, 0); return;
@@ -41977,6 +41999,22 @@ window.addEventListener("click", (ev) => {
     render(); return;
   }
 }, true);
+
+/* critica fase 3: "indietro" del telefono durante l'inizio torna al passo prima (prima chiedeva subito "Vuoi uscire?"):
+   obiettivi -> compagno -> benvenuto (con il nome gia' scritto); solo dal primo passo si chiede di uscire */
+const _backPressP3o = backPress;
+backPress = function () {
+  try {
+    if (!S.pet && !layer.innerHTML.trim() && !document.getElementById("exitAsk") && !document.querySelector(".tutwrap")) {
+      if (S.onboard === 2) { S.onboard = 0; render(); window.scrollTo(0, 0); return "onboard"; }
+      if (S.onboard === 0 && S.nameAsked && !document.getElementById("userName") && !(typeof gateNeeded === "function" && gateNeeded())) {
+        const i = document.getElementById("petName"); if (i) { const v = i.value.trim(); draftName = v && v !== L().pets[draftPet][0] ? v : ""; }
+        S.nameAsked = false; save(); render(); window.scrollTo(0, 0); return "onboard";
+      }
+    }
+  } catch (e) { /* niente */ }
+  return _backPressP3o();
+};
 
 /* ---------------- 5) DUE REGALI IN UNA SCHEDA (benvenuto + cappellino della prima stagione) ---------------- */
 const launchOk = () => typeof LAUNCH_END !== "undefined" && S.pet && !S.owned.includes("h_launch") && dkey() <= LAUNCH_END && !window.__TEST_NOLAUNCH;
@@ -42007,7 +42045,7 @@ function decorLayer() {
   }
   const wg = layer.querySelector(".wgbox"); if (wg) giftMerge(wg);
   const ph = layer.querySelector(".plusbox .plushead .plpet");
-  if (ph && !ph.dataset.m3) { ph.dataset.m3 = "plus"; ph.className = "plpet plhero"; ph.innerHTML = img3d("plus_hero.webp", "plimg", "", 900, 600, true); }
+  if (ph && !ph.dataset.m3) { ph.dataset.m3 = "plus"; ph.className = "plpet plhero"; ph.innerHTML = img3d("plus_hero.webp", "plimg", petNames(["rufi", "miko", "pingo", "dori"]), 900, 600, true); }
   const pp = layer.querySelector(".ppbox .ppbig");
   if (pp && !pp.dataset.m3) {
     const b = layer.querySelector(".ppbox [data-pickpet], .ppbox [data-wantpet]"); const p = b ? b.dataset.pickpet || b.dataset.wantpet : S.pet;
@@ -42024,7 +42062,8 @@ function decorLayer() {
 /* trofei: la festa e' aggiunta a body */
 function decorBody() {
   const tp = document.getElementById("trParty"); if (!tp || tp.dataset.m3) return; tp.dataset.m3 = "1";
-  const big = tp.querySelector(".trbig"); const im = moment3d("love", "m3tr"); if (big && im) big.insertAdjacentHTML("afterend", `<div class="trpet">${im}</div>`);
+  /* critica fase 3: il compagno 3D prende il posto di quello disegnato (prima c'erano due Germo, e quello 3D copriva il nome del trofeo) */
+  const pet = tp.querySelector("#trPet"); const im = moment3d("love", "m3tr"); if (pet && im) { pet.classList.add("trp3"); pet.setAttribute("aria-hidden", "true"); pet.innerHTML = im; }
 }
 
 /* ---------------- 7) MOMENTI GRANDI nelle schermate ---------------- */
@@ -42114,6 +42153,7 @@ Object.keys(V19AD).forEach((k) => {
    - "Indietro" del telefono: da una pagina torna al menu del Profilo (poi, come prima, alla Home).
    - Toccare di nuovo "Profilo" in basso riporta al menu; cambiando scheda si riparte dal menu. */
 let moreSub = null;
+let psDeep = false; /* critica fase 3: pagina aperta da un collegamento fuori dal Profilo ("Modifica gli obiettivi" in Home) */
 const PSUB = ["prog", "comp", "set", "acct", "priv", "buy", "help", "about"];
 const PSUB_GRP = { mgrpP: "prog", mgrp0: "comp", mgrp1: "set", mgrp2: "acct", mgrp3: "help" };
 const PS_IC = {
@@ -42198,7 +42238,7 @@ function psApply(st) {
   [...st.children].forEach((el) => { const pg = el.dataset.pg || "main"; if (pg === want) el.removeAttribute("hidden"); else el.setAttribute("hidden", ""); });
 }
 function psGo(k, focus) {
-  if (k && !PSUB.includes(k)) return; moreSub = k || null;
+  if (k && !PSUB.includes(k)) return; moreSub = k || null; psDeep = false;
   if (!k) { try { showPicker = false; editGoals = null; confirmReset = false; } catch (e) { /* niente */ } }
   const st = app.querySelector(".stack.psplit");
   if (!st || tab !== "more") return;
@@ -42212,23 +42252,27 @@ function psGo(k, focus) {
 }
 window.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
-  if (b.dataset.psub) { ev.stopImmediatePropagation(); SND.play("click"); psGo(b.dataset.psub); return; }
+  if (b.dataset.psub) { ev.stopImmediatePropagation(); psDeep = false; SND.play("click"); psGo(b.dataset.psub); return; }
   if (b.dataset.psback) { ev.stopImmediatePropagation(); SND.play("click"); const from = moreSub; psGo(null, from); return; }
   if (b.id === "psPlus") { ev.stopImmediatePropagation(); openPlus("profilo"); return; }
   if (b.id === "psTani") { ev.stopImmediatePropagation(); openTaniShop("profilo"); return; }
   if (b.id === "psAge") { ev.stopImmediatePropagation(); openAge(() => { if (tab === "more") { const y = window.scrollY; render(); window.scrollTo(0, y); } }); return; }
   /* "Modifica gli obiettivi" dalla Home: si apre direttamente la pagina del compagno */
-  if (b.dataset.focus === "goals") moreSub = "comp";
+  if (b.dataset.focus === "goals") { moreSub = "comp"; psDeep = tab !== "more"; }
   /* di nuovo "Profilo" in basso: si torna al menu */
   if (b.dataset.tab) { if (b.dataset.tab === "more" && tab === "more" && moreSub) { ev.stopImmediatePropagation(); psGo(null); return; } if (b.dataset.tab !== "more" && !b.dataset.focus) moreSub = null; }
 }, true);
 /* "indietro" del telefono: da una pagina del Profilo si torna al menu del Profilo */
 const _backPressP3 = backPress;
 backPress = function () {
-  if (moreSub && tab === "more" && !layer.innerHTML.trim() && !document.getElementById("exitAsk") && !document.querySelector(".tutwrap") && !(typeof full !== "undefined" && full)) { psGo(null); return "profile"; }
+  if (moreSub && tab === "more" && !layer.innerHTML.trim() && !document.getElementById("exitAsk") && !document.querySelector(".tutwrap") && !(typeof full !== "undefined" && full)) {
+    /* arrivati da "Modifica gli obiettivi" in Home: "indietro" riporta in Home, dove si era (la freccia sullo schermo porta sempre al menu) */
+    if (psDeep) { psDeep = false; moreSub = null; try { showPicker = false; editGoals = null; confirmReset = false; } catch (e) { /* niente */ } return _backPressP3(); }
+    psGo(null); return "profile";
+  }
   return _backPressP3();
 };
-try { new MutationObserver(() => { if (tab !== "more") moreSub = null; }).observe(app, { childList: true }); } catch (e) { /* niente */ }
+try { new MutationObserver(() => { if (tab !== "more") { moreSub = null; psDeep = false; } }).observe(app, { childList: true }); } catch (e) { /* niente */ }
 
 splash();
 render();
