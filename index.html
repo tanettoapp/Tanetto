@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-hybLf2lYAEaV33N/FonL3k4rBcD740DnVThcIa00Sz0=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-dubCvAYDBlx9CwFGOVhJFKPGDQD0x0hFa6kBTQQ9oI4=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -33116,7 +33116,7 @@ Object.assign(GOAL_ICON, {
 });
 
 /* ===== 1.0.7 — video con premio (AdMob), solo su scelta =====
-   1.0.9 (fase 2, decisione finale di Riccardo dell'11/11/2026): OGNI video raddoppia il regalo di oggi.
+   1.0.9 (fase 2, decisione finale del proprietario dell'11/11/2026): OGNI video raddoppia il regalo di oggi.
    1) Ogni video, in ogni posto, da' "+il regalo di oggi" = econGift alla serie di oggi (6-18 Tanì, 98e_v20_econ.js).
    2) Al massimo AD_DOUBLE_MAX video al giorno, con UN SOLO contatore per tutti i posti.
    3) I video si sbloccano solo dopo almeno un obiettivo fatto oggi (AD_NEED_GOAL): prima non c'e' nessun pulsante,
@@ -41255,7 +41255,7 @@ document.addEventListener("pointerdown", (ev) => {
 setTimeout(() => { try { if (document.fonts && document.fonts.load) document.fonts.load('700 20px "Caveat"', "Aa").catch(() => {}); } catch (e) { /* niente */ } }, 4000);
 
 /* =================== 1.0.9 (fase 2): UNA SOLA MONETA, i Tanì ===================
-   Riccardo (12/11/2026): troppi nomi confondono (Tanì, Scintille, Passi, "crediti"). Da ora:
+   Il proprietario (12/11/2026): troppi nomi confondono (Tanì, Scintille, Passi, "crediti"). Da ora:
    1) l'unica cosa che si spende e si guadagna come moneta sono i Tanì;
    2) il sentiero della stagione non ha piu' una "moneta" sua: si parla solo di TAPPE. Gli obiettivi, le giornate complete
       e la sfida della settimana fanno avanzare di una parte di tappa (in percentuale), senza nome di moneta e senza icona;
@@ -41373,7 +41373,7 @@ Object.keys(COIN1).forEach((l) => {
   const x = ECT[l]; if (x) { x.how = c.how; x.festaP = c.festaP; x.guidePath = c.guidePath; }
 });
 
-/* =================== 1.0.9 (fase 2): progressione lenta, obiettivi APPROVATI da Riccardo (12/11/2026) ===================
+/* =================== 1.0.9 (fase 2): progressione lenta, obiettivi APPROVATI dal proprietario (12/11/2026) ===================
    Per chi gioca tipico (tutti gli obiettivi, regalo, un viaggio, ~2 video al giorno), misurato con l'app vera giorno per giorno
    (scratchpad/p2b/tools/econrun.py + econtab.py):
      iniziali 100 (giorno 1) · base 100-250 · comune 900-1.750 (1-2 settimane) · raro 4.700-5.500 (5-6 settimane) ·
@@ -41472,7 +41472,7 @@ Object.keys(T).forEach((l) => {
 });
 
 /* =================== 1.0.9 (fase 2): INTROVABILI, la fascia sopra le leggendarie ===================
-   Decisione di Riccardo (11-12/11/2026): le cose piu' belle di tutto il negozio. Si comprano SOLO con i Tanì (niente
+   Decisione del proprietario (11-12/11/2026): le cose piu' belle di tutto il negozio. Si comprano SOLO con i Tanì (niente
    attese a giorni, niente sentieri o forzieri), con un prezzo pari ad almeno 12 mesi di risparmio per chi gioca "tipico"
    (tutti gli obiettivi, ~2 video al giorno: circa 14 mesi) e non meno di ~9 mesi per chi guarda 5 video al giorno con la serie piena.
    Plus non le sconta e non le regala. Si vedono dal primo giorno, con il prezzo vero e "hai X di Y Tanì".
