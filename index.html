@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YMKKsfu6Z1jJa/plz2OUFVZQvrvDqD7F1rA6kwsWa60=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jBVVaepGY/tf6HfzKiEtil1nZRhYPrA88N/8YsLercM=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2803,6 +2803,9 @@ html.calm .xa .xsh, html.lite .xa .xsh, html.xvstill .xa .xsh { display: none; }
 /* (critica fase 2) chiudi della chat: 44 px come tutti gli altri pulsanti (era 40) */
 .chhead .iconbtn { width: 44px; height: 44px; }
 #agT:focus { outline: none; }
+/* (critica fase 2) negozio dei Tanì su schermi stretti: "Schließen" copriva l'ultima lettera di "Tanì holen" (de, 320 px);
+   sotto i 360 px il titolo scende sotto il pulsante invece di passarci accanto */
+@media (max-width: 360px) { .tshop > #closeLayer { margin-bottom: 2px; } }
 
 </style>
 
@@ -41426,6 +41429,18 @@ openTaniShop = function (src) {
 if (typeof openPlus === "function") {
   const _openPlusAge = openPlus;
   openPlus = function (...a) { const r = _openPlusAge.apply(this, a); try { if (ageBand() !== "adult") { const box = document.querySelector(".plusbox"); if (box && !box.querySelector(".ageadult")) box.insertAdjacentHTML("beforeend", `<p class="small ageadult">${esc(ageT().adult)}</p>`); } } catch (e) { /* niente */ } return r; };
+}
+
+/* (critica fase 2) "Ti mancano X Tanì": a bambini, ragazzi e a chi non ha detto l'eta' non si propone un pacchetto preciso
+   con il suo prezzo (con i pacchetti x5 la proposta compariva quasi sempre). Restano la stima onesta dei giorni e
+   "Vedi i pacchetti", che porta al negozio con "Chiedi sempre a un adulto". */
+if (typeof needSheet === "function") {
+  const _needSheetAge = needSheet;
+  needSheet = function (s) {
+    const r = _needSheetAge(s);
+    try { if (ageBand() !== "adult") { const box = document.querySelector(".ndsheet"); if (box) box.querySelectorAll(":scope > p.small").forEach((p) => { if (p.className === "small") p.remove(); }); } } catch (e) { /* niente */ }
+    return r;
+  };
 }
 
 splash();
