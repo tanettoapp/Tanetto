@@ -4,7 +4,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")); W = "www"
 shutil.rmtree(W, ignore_errors=True); os.makedirs(W + "/fonts")
 for f in os.listdir(SITE):
-    if f in ("og.png", "icon-512.png", "icon-maskable-512.png"): continue  # solo per il sito (anteprime social, installazione web): nell'app non servono
+    if f in ("og.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "favicon-32.png", "icon-192.png", "manifest.webmanifest"): continue  # solo per il sito (anteprime social, installazione web, icona della scheda): nell'app non servono
     if f.endswith((".png", ".webmanifest", ".woff2")) or f == "fb.js": shutil.copy(f"{SITE}/{f}", W)  # 1.0.9: .woff2 = Caveat (lettere)
 # 1.0.9 (fase 3): immagini 3D (WebP) della cartella img/ del sito
 if os.path.isdir(f"{SITE}/img"): shutil.copytree(f"{SITE}/img", f"{W}/img")
@@ -23,6 +23,9 @@ h = h.replace('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/g
 h = re.sub(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">\s*', "", h)
 h = re.sub(r'<link rel="preconnect" href="https://fonts\.gstatic\.com"[^>]*>\s*', "", h)
 h = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">', '<link rel="stylesheet" href="fonts.css">', h)
+# fix 1.0.9 (verifica Android POLISH 4): icone della scheda, icona di iPhone e manifesto del sito web non servono nell'app
+h, nic = re.subn(r'<link rel="(?:icon|apple-touch-icon|manifest)"[^>]*>\s*', "", h)
+assert nic == 4 and "favicon-32" not in h and "apple-touch-icon" not in h and "manifest.webmanifest" not in h, "link del sito non tolti"
 # 1.0.8: la Content-Security-Policy serve al sito (script di terzi, Firebase sul web); nell'app tutto e' locale,
 # lo script dell'app cambia qui sotto (impronta diversa) e Capacitor aggiunge un suo script: la si toglie.
 h, ncsp = re.subn(r'<meta http-equiv="Content-Security-Policy"[^>]*>\s*', "", h)
