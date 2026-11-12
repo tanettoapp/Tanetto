@@ -1,9 +1,10 @@
 /* Tanetto: funziona anche senza internet */
+/* 1.0.9 (fase 3): le immagini 3D (img/) si salvano quando si vedono la prima volta; subito solo quelle dell'inizio. */
 /* 1.0.8 (sicurezza): in cache come "index.html" va solo la pagina dell'app riuscita (prima anche pagine di errore o
    altre pagine del sito, che poi comparivano al posto dell'app senza internet); dagli altri siti si conservano solo i
    caratteri di Google Fonts; GSAP ora e' sul sito. */
-const C = "tanetto-v25";
-self.addEventListener("install", (e) => { e.waitUntil(caches.open(C).then((c) => c.addAll(["./", "index.html", "fb.js", "gsap.min.js", "caveat-700.woff2", "manifest.webmanifest", "icon-192.png", "icon-512.png"])).then(() => self.skipWaiting())); });
+const C = "tanetto-v26";
+self.addEventListener("install", (e) => { e.waitUntil(caches.open(C).then((c) => c.addAll(["./", "index.html", "fb.js", "gsap.min.js", "caveat-700.woff2", "manifest.webmanifest", "icon-192.png", "icon-512.png", "img/welcome.webp", "img/m/wave.webp", "img/pet/germo.webp", "img/pet/ondi.webp", "img/pet/lumi.webp"])).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== C).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", (e) => {
   const r = e.request; if (r.method !== "GET") return;

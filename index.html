@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jBVVaepGY/tf6HfzKiEtil1nZRhYPrA88N/8YsLercM=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-GVyw+Mdkcc0PQlm7Iqpv9EDx3AP9pRNndu12S+LVlhY=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2807,16 +2807,15 @@ html.calm .xa .xsh, html.lite .xa .xsh, html.xvstill .xa .xsh { display: none; }
    sotto i 360 px il titolo scende sotto il pulsante invece di passarci accanto */
 @media (max-width: 360px) { .tshop > #closeLayer { margin-bottom: 2px; } }
 
+/* ===== 1.0.9 (fase 3): immagini 3D (Germo e amici in argilla) nei momenti grandi ===== */
+/* un solo Germo: logo di avvio, splash e marchio in alto sono lo stesso Germo 3D dell'icona */
+#boot .bootlogo img, .splash.v9 .splogo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.splash.v9 .splogo, #boot .bootlogo { background: #F6EEDC; }
+.top .brand .logo3d { width: 28px; height: 28px; border-radius: 9px; display: block; box-shadow: 0 2px 6px -2px rgba(40, 90, 50, .45); }
+
 </style>
 
-<div id="boot" aria-hidden="true"><div class="bootlogo"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="bibg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A6E3A8"/><stop offset="1" stop-color="#4FA866"/></linearGradient><radialGradient id="bihl" cx="28%" cy="18%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="bilf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9BE08F"/><stop offset="1" stop-color="#4FAE55"/></linearGradient><radialGradient id="bifc" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#FFFDF7"/><stop offset=".75" stop-color="#FFF4E2"/><stop offset="1" stop-color="#F3E1C6"/></radialGradient></defs>
-<rect class="ibg" width="512" height="512" fill="url(#bibg)"/><rect class="ibg" width="512" height="512" fill="url(#bihl)"/>
-<ellipse cx="256" cy="440" rx="128" ry="20" fill="#24603A" opacity=".28"/>
-<g class="isprout"><path d="M256 168 C256 140 260 116 270 92" stroke="#3E8A48" stroke-width="18" fill="none" stroke-linecap="round"/><path class="ileafL" d="M266 104 C226 54 152 60 134 98 C168 136 236 140 266 104 Z" fill="url(#bilf)"/><path d="M262 104 C226 92 186 90 150 98" stroke="#3E8A48" stroke-width="6" fill="none" stroke-linecap="round" opacity=".55"/><path class="ileafR" d="M270 96 C300 40 378 40 390 82 C356 124 292 128 270 96 Z" fill="url(#bilf)"/><path d="M274 96 C306 82 344 78 380 84" stroke="#3E8A48" stroke-width="6" fill="none" stroke-linecap="round" opacity=".55"/></g>
-<g class="iface"><circle cx="256" cy="300" r="146" fill="url(#bifc)"/><path d="M128 330 C150 410 362 410 384 330 C380 420 132 420 128 330 Z" fill="#E9D3B2" opacity=".55"/>
-<g class="ieyes"><ellipse cx="204" cy="290" rx="18" ry="24" fill="#2F2A26"/><ellipse cx="308" cy="290" rx="18" ry="24" fill="#2F2A26"/><circle cx="211" cy="279" r="7" fill="#fff"/><circle cx="315" cy="279" r="7" fill="#fff"/><circle cx="199" cy="299" r="3.5" fill="#fff" opacity=".8"/><circle cx="303" cy="299" r="3.5" fill="#fff" opacity=".8"/></g>
-<ellipse cx="170" cy="334" rx="28" ry="16" fill="#F6A3A3" opacity=".75"/><ellipse cx="342" cy="334" rx="28" ry="16" fill="#F6A3A3" opacity=".75"/>
-<path d="M226 330 L286 330 C286 368 226 368 226 330 Z" fill="#2F2A26"/><path d="M238 352 C246 342 266 342 274 352 C266 360 246 360 238 352 Z" fill="#F08A8A"/></g></svg></div><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
+<div id="boot" aria-hidden="true"><div class="bootlogo"><img src="data:image/webp;base64,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" alt="" width="132" height="132"></div><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
 <main class="app" id="app"></main>
 <nav class="tabs" id="tabs" hidden aria-label="Menu"><div class="in" id="tabsIn"></div></nav>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -22921,6 +22920,11 @@ Object.assign(REAL_SKY2, {
   });
 }
 
+/* GENERATO da scratchpad/app10/scripts/make_img.py: non modificare a mano */
+const IMG3D_V = "4b5bcab4";
+const IMG3D_PC = {"f:forest":["f_forest",960,640,0],"f:lake":["f_lake",960,640,0],"f:hill":["f_hill",960,640,0],"f:mountain":["f_mountain",960,640,0],"f:city":["f_city",960,640,0],"v:fireflies":["v_fireflies",960,640,0],"v:shells":["v_shells",960,640,0],"v:mushrooms":["v_mushrooms",960,640,0],"v:library":["v_library",960,640,0],"v:crystal":["v_crystal",960,640,0],"v:starsea":["v_starsea",960,640,0],"v:sugar":["v_sugar",960,640,0],"v:aurora":["v_aurora",960,640,0],"v:dragon":["v_dragon",960,640,0],"r:venezia":["r_venezia",300,200,1],"r:dolomiti":["r_dolomiti",300,200,1],"r:cinqueterre":["r_cinqueterre",300,200,1],"r:roma":["r_roma",300,200,1],"r:neuschwanstein":["r_neuschwanstein",300,200,1],"r:schwarzwald":["r_schwarzwald",300,200,1],"r:bodensee":["r_bodensee",300,200,1],"r:berlin":["r_berlin",300,200,1],"r:sevilla":["r_sevilla",300,200,1],"r:granada":["r_granada",300,200,1],"r:barcelona":["r_barcelona",300,200,1],"r:tenerife":["r_tenerife",300,200,1],"r:london":["r_london",960,640,0],"r:highlands":["r_highlands",960,640,0],"r:newyork":["r_newyork",960,640,0],"r:grandcanyon":["r_grandcanyon",960,640,0],"r:paris":["r_paris",300,200,1],"r:montsaintmichel":["r_montsaintmichel",300,200,1],"r:provence":["r_provence",300,200,1],"r:chamonix":["r_chamonix",300,200,1],"r:rio":["r_rio",300,200,1],"r:amazonia":["r_amazonia",300,200,1],"r:lencois":["r_lencois",300,200,1],"r:iguacu":["r_iguacu",300,200,1],"r:tokyo":["r_tokyo",300,200,1],"r:fuji":["r_fuji",300,200,1],"r:kyoto":["r_kyoto",300,200,1],"r:hokkaido":["r_hokkaido",300,200,1],"r:seoul":["r_seoul",300,200,1],"r:busan":["r_busan",300,200,1],"r:seorak":["r_seorak",300,200,1],"r:jeju":["r_jeju",300,200,1],"r:greatwall":["r_greatwall",300,200,1],"r:shanghai":["r_shanghai",300,200,1],"r:guilin":["r_guilin",300,200,1],"r:zhangjiajie":["r_zhangjiajie",300,200,1],"r:taipei101":["r_taipei101",300,200,1],"r:jiufen":["r_jiufen",300,200,1],"r:sunmoonlake":["r_sunmoonlake",300,200,1],"r:taroko":["r_taroko",300,200,1],"r:moskva":["r_moskva",300,200,1],"r:piter":["r_piter",300,200,1],"r:baikal":["r_baikal",300,200,1],"r:kamchatka":["r_kamchatka",300,200,1],"r:krakow":["r_krakow",300,200,1],"r:tatry":["r_tatry",300,200,1],"r:gdansk":["r_gdansk",300,200,1],"r:bialowieza":["r_bialowieza",300,200,1],"r:amsterdam":["r_amsterdam",300,200,1],"r:kinderdijk":["r_kinderdijk",300,200,1],"r:keukenhof":["r_keukenhof",300,200,1],"r:wadden":["r_wadden",300,200,1],"r:istanbul":["r_istanbul",300,200,1],"r:kapadokya":["r_kapadokya",300,200,1],"r:pamukkale":["r_pamukkale",300,200,1],"r:efes":["r_efes",300,200,1]};
+const BOOT_IMG = "data:image/webp;base64,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";
+
 /* =================== STATO (solo su questo dispositivo) =================== */
 const G = window.gsap || null;
 const REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -26645,27 +26649,23 @@ const money = (v) => { try { return intlNF(loc(), { style: "currency", currency:
 const plusActive = () => plusOk(); /* v14: vale solo un abbonamento vero di Google Play (vedi 97o_billing.js) */
 
 /* --- L'icona grande di Tanetto (benvenuto e icone dell'app) --- */
-const ICON_BIG = `<svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="ibg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A6E3A8"/><stop offset="1" stop-color="#4FA866"/></linearGradient><radialGradient id="ihl" cx="28%" cy="18%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="ilf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9BE08F"/><stop offset="1" stop-color="#4FAE55"/></linearGradient><radialGradient id="ifc" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#FFFDF7"/><stop offset=".75" stop-color="#FFF4E2"/><stop offset="1" stop-color="#F3E1C6"/></radialGradient></defs>
-<rect class="ibg" width="512" height="512" fill="url(#ibg)"/><rect class="ibg" width="512" height="512" fill="url(#ihl)"/>
-<ellipse cx="256" cy="440" rx="128" ry="20" fill="#24603A" opacity=".28"/>
-<g class="isprout"><path d="M256 168 C256 140 260 116 270 92" stroke="#3E8A48" stroke-width="18" fill="none" stroke-linecap="round"/><path class="ileafL" d="M266 104 C226 54 152 60 134 98 C168 136 236 140 266 104 Z" fill="url(#ilf)"/><path d="M262 104 C226 92 186 90 150 98" stroke="#3E8A48" stroke-width="6" fill="none" stroke-linecap="round" opacity=".55"/><path class="ileafR" d="M270 96 C300 40 378 40 390 82 C356 124 292 128 270 96 Z" fill="url(#ilf)"/><path d="M274 96 C306 82 344 78 380 84" stroke="#3E8A48" stroke-width="6" fill="none" stroke-linecap="round" opacity=".55"/></g>
-<g class="iface"><circle cx="256" cy="300" r="146" fill="url(#ifc)"/><path d="M128 330 C150 410 362 410 384 330 C380 420 132 420 128 330 Z" fill="#E9D3B2" opacity=".55"/>
-<g class="ieyes"><ellipse cx="204" cy="290" rx="18" ry="24" fill="#2F2A26"/><ellipse cx="308" cy="290" rx="18" ry="24" fill="#2F2A26"/><circle cx="211" cy="279" r="7" fill="#fff"/><circle cx="315" cy="279" r="7" fill="#fff"/><circle cx="199" cy="299" r="3.5" fill="#fff" opacity=".8"/><circle cx="303" cy="299" r="3.5" fill="#fff" opacity=".8"/></g>
-<ellipse cx="170" cy="334" rx="28" ry="16" fill="#F6A3A3" opacity=".75"/><ellipse cx="342" cy="334" rx="28" ry="16" fill="#F6A3A3" opacity=".75"/>
-<path d="M226 330 L286 330 C286 368 226 368 226 330 Z" fill="#2F2A26"/><path d="M238 352 C246 342 266 342 274 352 C266 360 246 360 238 352 Z" fill="#F08A8A"/></g></svg>`;
+/* 1.0.9 (fase 3): un solo Germo ovunque. L'icona grande e' il Germo 3D dell'icona dell'app (WebP in linea, < 8 KB,
+   BOOT_IMG da 41z_img3d.js generato da make_img.py): lo stesso del logo di avvio, dell'icona e dello splash di Android. */
+const ICON_BIG = `<img class="icon3d" src="${BOOT_IMG}" alt="" width="132" height="132" decoding="sync">`;
 
 /* --- Benvenuto animato --- */
 splash = function () {
   if (!anim || sessionStorageSafe("splash")) return;
   const t = L(); const d = document.createElement("div"); d.className = "splash v9";
-  d.innerHTML = `<div class="spglow"></div><div class="splogo">${ICON_BIG}</div><div class="spname">${"Tanetto".split("").map((c) => `<span>${c}</span>`).join("")}</div><div class="sptag">${esc(t.tagline || "")}</div>`;
+  d.innerHTML = `<div class="spglow"></div><div class="splogo">${ICON_BIG}</div><div class="spname">${["Ta", "ne", "tt", "o"].map((c, k) => `<span class="g${k}">${c}</span>`).join("")}</div><div class="sptag">${esc(t.tagline || "")}</div>`;
   document.body.appendChild(d);
   const tl = G.timeline({ onComplete: () => d.remove() });
-  tl.from(".splash .splogo", { scale: 0.3, opacity: 0, duration: 0.55, ease: "back.out(2)" })
-    .from(".splash .isprout", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.45, ease: "back.out(2.4)" }, "-=0.15")
-    .from(".splash .ileafL, .splash .ileafR", { scale: 0, transformOrigin: "50% 100%", duration: 0.4, stagger: 0.08, ease: "back.out(3)" }, "-=0.25")
-    .to(".splash .ieyes", { scaleY: 0.1, transformOrigin: "50% 50%", duration: 0.08, yoyo: true, repeat: 1 }, "+=0.05")
-    .from(".splash .spname span", { y: 26, opacity: 0, duration: 0.42, stagger: 0.045, ease: "back.out(2.6)" }, "-=0.3")
+  /* 1.0.9: il nome compare in 4 gruppi di lettere, a tempo con le 4 note del logo sonoro (Sol La Si Re, 112,5 bpm = 0,267 s) */
+  tl.from(".splash .splogo", { scale: 0.3, opacity: 0, duration: 0.55, ease: "back.out(1.6)" })
+    .from(".splash .spname .g0", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "-=0.05")
+    .from(".splash .spname .g1", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
+    .from(".splash .spname .g2", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
+    .from(".splash .spname .g3", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
     .from(".splash .sptag", { y: 10, opacity: 0, duration: 0.35 }, "-=0.15")
     .to(d, { opacity: 0, scale: 1.06, duration: 0.45, ease: "power2.in", delay: 0.55 });
   d.addEventListener("click", () => tl.progress(1));
@@ -39647,7 +39647,8 @@ async function gr20Make(kind, ck) {
     + `<svg x="${PX}" y="${PY}" width="${PS}" height="${PS}" viewBox="0 0 200 200">${pet}</svg>`
     + `</svg>`;
   const img = await loadImg("data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg));
-  const logo = await loadImg("data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="${lg.vb}">${lg.inner}</svg>`)).catch(() => null);
+  /* 1.0.9 (fase 3): il marchio e' il Germo 3D dell'icona (un solo Germo ovunque) */
+  const logo = await loadImg(typeof BOOT_IMG === "string" ? BOOT_IMG : "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="${lg.vb}">${lg.inner}</svg>`)).catch(() => null);
   await gr20Fonts();
   const cv = document.createElement("canvas"); cv.width = GR20_W; cv.height = GR20_H; const c = cv.getContext("2d"); c.drawImage(img, 0, 0);
   const FD = '"Fredoka", "Trebuchet MS", "Hiragino Maru Gothic ProN", "Noto Sans CJK JP", Arial, sans-serif', FB = '"Figtree", "Segoe UI", "Noto Sans CJK JP", Arial, sans-serif';
@@ -39668,7 +39669,7 @@ async function gr20Make(kind, ck) {
   /* marchio piccolo in basso: foglioline + "Tanetto" */
   c.font = `600 46px ${FD}`; const tw = c.measureText("Tanetto").width; const lw = logo ? 60 : 0; const gx = GR20_W / 2 - (tw + lw + 14) / 2; const my = GR20_H - 120;
   if (logo) { c.fillStyle = "rgba(255,253,248,.85)"; c.beginPath(); c.arc(gx + lw / 2, my - 16, lw / 2 + 6, 0, Math.PI * 2); c.fill(); }
-  c.globalAlpha = 0.9; if (logo) c.drawImage(logo, gx, my - 46, lw, lw);
+  c.globalAlpha = 0.9; if (logo) { c.save(); c.beginPath(); c.arc(gx + lw / 2, my - 16, lw / 2, 0, Math.PI * 2); c.clip(); c.drawImage(logo, gx, my - 46, lw, lw); c.restore(); }
   c.textAlign = "left"; c.fillStyle = pal[2]; c.fillText("Tanetto", gx + lw + 14, my); c.globalAlpha = 1;
   const url = cv.toDataURL("image/png");
   gr20Memo = { key, url };
@@ -41442,6 +41443,31 @@ if (typeof needSheet === "function") {
     return r;
   };
 }
+
+/* ===== 1.0.9 (fase 3): immagini 3D pre-renderizzate (WebP in img/, mai base64 nella pagina) =====
+   Decisione del proprietario: il 3D solo nei MOMENTI GRANDI (benvenuto, scelta del compagno, pagina Plus, cartoline,
+   festeggiamenti: livello nuovo, tutto fatto, regalo, partenza e ritorno dal viaggio, diario e album vuoti); le icone
+   piccole restano vettoriali; il compagno nella stanza resta quello interattivo (vettoriale, con cappelli ed espressioni).
+   - I momenti di Germo usano le sue pose 3D (img/m/*.webp); per gli altri compagni il loro ritratto 3D (img/pet/*.webp).
+   - Le immagini si caricano solo quando servono (loading="lazy", decoding="async"): mai nel primo disegno della Home.
+   - Cartoline: se esiste la versione 3D (IMG3D_PC, generato da make_img.py) la cartolina e' un <svg> con dentro
+     l'<image>: stessa forma (160x100) di prima, quindi album, ritorno, mete e condivisione funzionano uguali. */
+const IMG3D = (p) => `img/${p}?v=${IMG3D_V}`;
+const PETS3D = ["germo", "ondi", "lumi", "miko", "rufi", "pingo", "dori"];
+/* un'immagine 3D come <img>: alt vuoto se decorativa (il testo vicino dice gia' tutto) */
+function img3d(path, cls, alt, w, h, eager) {
+  return `<img class="i3d ${cls || ""}" src="${IMG3D(path)}" alt="${esc(alt || "")}" width="${w || 512}" height="${h || w || 512}" ${eager ? "" : 'loading="lazy"'} decoding="async" draggable="false">`;
+}
+/* il compagno in un momento grande: Germo nella posa giusta, gli altri col loro ritratto */
+function moment3d(pose, cls, pet) {
+  const p = pet || S.pet || "germo";
+  if (p === "germo") return img3d(`m/${pose}.webp`, "mom " + (cls || ""), "", 512, 512, true);
+  if (PETS3D.includes(p)) return img3d(`pet/${p}.webp`, "mom pet3d " + (cls || ""), "", 384, 384, true);
+  return null;
+}
+const LOGO3D = () => `<img class="logo3d" src="${BOOT_IMG}" alt="" width="28" height="28">`;
+const _topBarP3 = topBar;
+topBar = function () { const h = _topBarP3(); return S.pet ? h : h.replace(LOGO, LOGO3D()); };
 
 splash();
 render();

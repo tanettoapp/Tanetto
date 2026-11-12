@@ -6,6 +6,8 @@ shutil.rmtree(W, ignore_errors=True); os.makedirs(W + "/fonts")
 for f in os.listdir(SITE):
     if f in ("og.png", "icon-512.png", "icon-maskable-512.png"): continue  # solo per il sito (anteprime social, installazione web): nell'app non servono
     if f.endswith((".png", ".webmanifest", ".woff2")) or f == "fb.js": shutil.copy(f"{SITE}/{f}", W)  # 1.0.9: .woff2 = Caveat (lettere)
+# 1.0.9 (fase 3): immagini 3D (WebP) della cartella img/ del sito
+if os.path.isdir(f"{SITE}/img"): shutil.copytree(f"{SITE}/img", f"{W}/img")
 shutil.copy("node_modules/gsap/dist/gsap.min.js", W)
 css = ""
 for fam, ws in [("fredoka", [500, 600, 700]), ("figtree", [400, 500, 600, 700])]:
@@ -27,6 +29,7 @@ h, ncsp = re.subn(r'<meta http-equiv="Content-Security-Policy"[^>]*>\s*', "", h)
 assert ncsp <= 1 and "Content-Security-Policy" not in h, "CSP non tolta"
 assert "gsap.min.js\"" in h and "fonts.css" in h and "googleapis" not in h and "cdnjs" not in h, "riscrittura incompleta"
 assert os.path.exists(f"{W}/fb.js"), "manca fb.js (account)"
+assert "img/" not in h or os.path.isdir(f"{W}/img/m"), "manca la cartella img/ (immagini 3D)"
 assert "caveat-700.woff2" not in h or os.path.exists(f"{W}/caveat-700.woff2"), "manca caveat-700.woff2 (scrittura a mano)"
 # 1.0.8: nell'app per Android niente agganci di prova (eval da console): servono solo ai test sul sito
 dbg = "window.__v10 = { ev: (code) => eval(code) };"
