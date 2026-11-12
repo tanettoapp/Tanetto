@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-sSd7H/jb0Edk3uIOlEU/tDHFPjzOaUofHeDMtN5IpFQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YMKKsfu6Z1jJa/plz2OUFVZQvrvDqD7F1rA6kwsWa60=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2799,6 +2799,10 @@ html.calm .xa .xsh, html.lite .xa .xsh, html.xvstill .xa .xsh { display: none; }
 .pathbox .plk { position: relative; }
 .pathbox .plk::after { content: ""; position: absolute; inset: -7px -5px; }
 .pathhead #closeLayer::after { content: ""; position: absolute; inset: 0 -2px; }
+
+/* (critica fase 2) chiudi della chat: 44 px come tutti gli altri pulsanti (era 40) */
+.chhead .iconbtn { width: 44px; height: 44px; }
+#agT:focus { outline: none; }
 
 </style>
 
@@ -41309,12 +41313,14 @@ function openAge(after) {
   let months = []; try { const f = new Intl.DateTimeFormat(loc(), { month: "long" }); months = Array.from({ length: 12 }, (_, i) => f.format(new Date(2001, i, 15))); } catch (e) { months = Array.from({ length: 12 }, (_, i) => String(i + 1)); }
   const y0 = new Date().getFullYear(); const years = Array.from({ length: 101 }, (_, i) => y0 - i);
   layer.innerHTML = `<div class="overlay agewrap" role="dialog" aria-modal="true" aria-labelledby="agT"><div class="box card agebox"><div class="agepet" aria-hidden="true">${petSVG(S.pet || "germo", "felice", S.hat, typeof stage === "function" && S.pet ? stage() : 0, "")}</div>
-    <h2 id="agT">${esc(t.T)}</h2><p>${esc(t.P)}</p>
+    <h2 id="agT" tabindex="-1">${esc(t.T)}</h2><p>${esc(t.P)}</p>
     <div class="agerow"><label class="agefld"><span>${esc(t.month)}</span><select id="ageM" required><option value="" selected></option>${months.map((m, i) => `<option value="${i + 1}">${esc(m)}</option>`).join("")}</select></label>
     <label class="agefld"><span>${esc(t.year)}</span><select id="ageY" required><option value="" selected></option>${years.map((y) => `<option value="${y}">${y}</option>`).join("")}</select></label></div>
     <button class="btn block" id="ageGo" type="button" disabled>${esc(t.go)}</button><button class="link" id="ageSkip" type="button">${esc(t.skip)}</button>
     <p class="small muted">${esc(t.note)}</p></div></div>`;
   ageShown = true; trackOnce("eta-chiesta");
+  /* (critica fase 2) il lettore di schermo parte dal titolo della finestra (prima il fuoco restava sulla pagina dietro) */
+  try { const h = document.getElementById("agT"); if (h) h.focus({ preventScroll: true }); } catch (e) { /* niente */ }
 }
 function ageSet(a) {
   S.age = a; save(); ageMirror(a);
