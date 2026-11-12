@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-0v9BiSQB52K8atnuPZocyTNqpNqAyaejZWMi91fdNnQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-B805S2VsmkV9BjJTF5Ssdfe3MSM99LYc2+TPG8y7r0Q=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -41967,7 +41967,13 @@ window.addEventListener("click", (ev) => {
     draftName = v || t.pets[draftPet][0]; S.onboard = 2; SND.play("click"); render(); window.scrollTo(0, 0); return;
   }
   if (b.id === "backName") { ev.stopImmediatePropagation(); S.onboard = 0; render(); window.scrollTo(0, 0); return; }
-  if (b.dataset && b.dataset.pet && !document.querySelector("#layer .overlay")) { try { SND.petMotif(b.dataset.pet); } catch (e) { /* niente */ } }
+  /* scelta del compagno all'inizio: il nome scritto a mano resta (prima si perdeva cambiando compagno); si sente il suo motivo */
+  if (b.dataset && b.dataset.pet && !document.querySelector("#layer .overlay")) {
+    ev.stopImmediatePropagation(); const t = L(); const typed = draftName && draftName.trim() !== t.pets[draftPet][0] ? draftName : "";
+    draftPet = b.dataset.pet; draftName = typed;
+    try { if (!SND.petMotif(draftPet)) SND.play("pop"); } catch (e) { /* niente */ }
+    render(); return;
+  }
 }, true);
 
 /* ---------------- 5) DUE REGALI IN UNA SCHEDA (benvenuto + cappellino della prima stagione) ---------------- */
@@ -42031,7 +42037,9 @@ function decorApp() {
 }
 try {
   new MutationObserver(() => { try { decorLayer(); } catch (e) { /* niente */ } }).observe(layer, { childList: true });
-  new MutationObserver(() => { try { decorApp(); } catch (e) { /* niente */ } }).observe(app, { childList: true });
+  /* render() aggiorna la stessa pagina "a pezzi" (viewPut): serve guardare anche dentro (subtree). L'osservatore riunisce
+     tutte le modifiche di un disegno in una chiamata sola, prima che lo schermo si aggiorni (niente sfarfallio) */
+  new MutationObserver(() => { try { decorApp(); } catch (e) { /* niente */ } }).observe(app, { childList: true, subtree: true });
   new MutationObserver(() => { try { decorBody(); } catch (e) { /* niente */ } }).observe(document.body, { childList: true });
 } catch (e) { /* niente */ }
 
