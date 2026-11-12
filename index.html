@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-B805S2VsmkV9BjJTF5Ssdfe3MSM99LYc2+TPG8y7r0Q=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-AkZ/VM2DVoeDYHEr9DUMmUs8k9itopZ7WjkWOmFTH24=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2838,6 +2838,7 @@ img.i3d { display: block; max-width: 100%; height: auto; -webkit-user-drag: none
 .choice .lk { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 2px; text-align: center; line-height: 1.25; }
 .choose.four .choice .lk { font-size: 10px; }
 .field.onbname { margin-top: 2px; }
+.field.onbname input { scroll-margin-bottom: 120px; } /* col tocco, il campo sale sopra il pulsante "Avanti" fisso in basso */
 .ppbig.pp3 { background: none !important; width: 220px; height: auto; }
 .ppbig.pp3 img { width: 220px; }
 .ppbox .lk { color: var(--accent); font-weight: 600; margin-top: -4px; }
@@ -2869,7 +2870,8 @@ svg.pc3 { display: block; background: #E8E0D2; }
 .albox .alempty p { margin: 0; font-size: 14px; }
 
 /* --- regali: due in una scheda --- */
-.svgift .g2hat { display: inline-flex; align-items: center; margin-left: 8px; padding: 3px 10px; border-radius: 99px; background: rgba(78, 138, 74, .12); color: var(--accent); font-weight: 700; font-size: 14px; }
+/* la pillola del regalo e' crema anche col tema scuro: colori fissi (contrasto 5,3:1), non l'accento del tema */
+.svgift .g2hat { display: inline-flex; align-items: center; margin-left: 8px; padding: 3px 10px; border-radius: 99px; background: rgba(78, 138, 74, .14); color: #2E6630; font-weight: 700; font-size: 14px; }
 .wgbox #launchWear { margin-top: -2px; }
 
 /* --- Natale e trofei --- */
@@ -42137,7 +42139,9 @@ function psKind(el) {
 function psAgeCard() {
   if (typeof ageBand !== "function") return ""; const w = v23(); const a = S.age;
   const told = a && !a.skip && a.y; const btn = !told ? `<button class="btn ghost small" id="psAge" type="button">${esc(w.ageBtn)}</button>` : "";
-  return `<div class="card stack-s psage"><h3>${esc(w.ageT)}</h3><p class="small muted">${esc(told ? w.ageYes : w.ageNo)}</p>${btn}</div>`;
+  /* mai risposto (finestra chiusa senza scegliere): non "hai preferito non dirla", ma la stessa spiegazione della domanda */
+  const txt = told ? w.ageYes : a && a.skip ? w.ageNo : (typeof ageT === "function" && ageT().P) || w.ageNo;
+  return `<div class="card stack-s psage"><h3>${esc(w.ageT)}</h3><p class="small muted">${esc(txt)}</p>${btn}</div>`;
 }
 /* Acquisti e Plus: Tanetto Plus (scoprire, gestire, ripristinare) e i Tanì */
 function psBuyCards(plusEl) {
