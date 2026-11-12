@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-dubCvAYDBlx9CwFGOVhJFKPGDQD0x0hFa6kBTQQ9oI4=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yN51KXgvrPe05L0kM1N/bMGFucOWwUIE5LoTO91NDpo=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2977,6 +2977,8 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 /* resoconto del mese: il compagno con la corona (3D) */
 .repbox .rppet.m3host { width: 120px; height: auto; margin: -14px auto -8px; }
 .pctx h2 { margin: 0 0 6px; }
+/* pulsanti dei video: a capo solo tra le parole, righe bilanciate (prima "verdop-peln", "ca-deau" a meta' parola) */
+.adbtn, .adbtn .adtx { -webkit-hyphens: manual; hyphens: manual; text-wrap: balance; }
 
 </style>
 
@@ -42710,7 +42712,12 @@ try {
   new MutationObserver(() => { const tp = document.getElementById("trParty"); if (!tp || tp.dataset.v24) return; tp.dataset.v24 = "1"; const k = tp.querySelector(".trkick"); if (k) { k.id = "trpK"; tp.setAttribute("aria-labelledby", "trpK trpT"); } }).observe(document.body, { childList: true });
 } catch (e) { /* niente */ }
 /* Plus e negozio dei Tanì: "Chiudi" diventa una striscia piena quando si scorre */
-document.addEventListener("scroll", (ev) => { const b = ev.target; if (b && b.classList && (b.classList.contains("plusbox") || b.classList.contains("tshop"))) b.classList.toggle("scrolled", b.scrollTop > 6); }, true);
+/* (il negozio dei Tanì e' un foglio dal basso: a scorrere e' la finestra intorno, non il foglio) */
+document.addEventListener("scroll", (ev) => {
+  const b = ev.target; if (!b || !b.classList) return;
+  if (b.classList.contains("plusbox") || b.classList.contains("tshop")) { b.classList.toggle("scrolled", b.scrollTop > 6); return; }
+  if (b.classList.contains("overlay")) { const t = b.querySelector(":scope > .tshop"); if (t) t.classList.toggle("scrolled", b.scrollTop > 6); }
+}, true);
 
 /* ---------- 11) senza internet (sito installato): una cartolina mai vista mostra il disegno di prima, non un'immagine rotta ---------- */
 const _pc3dV24 = pc3d;
