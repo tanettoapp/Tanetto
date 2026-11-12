@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-TkLLY/hvKSfTpXlIiQKdJX52zroeBci/zs3F2GrqiMo=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-k4Tp57yEo4k2/FsF4bZXFTmTMbnLgCRyscEXraYSRB0=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2783,6 +2783,20 @@ html.calm .xa .xsh, html.lite .xa .xsh, html.xvstill .xa .xsh { display: none; }
 .agebox .link { min-height: 44px; margin-top: 4px; }
 .agemoney, .ageadult { color: var(--ink); background: var(--paper-2); border-radius: 12px; padding: 8px 10px; margin: 8px 0; }
 .chsafe { font-weight: 600; }
+.trybar .xvwishlink { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0; font-size: 13.5px; font-weight: 700; color: var(--xv-ink); text-align: left; }
+.trybar .xvwishlink svg, .trybar .xvwishon.small svg { width: 16px; height: 16px; flex: none; }
+.trybar .xvwishon.small { min-height: 0; padding: 4px 0 0; font-size: 13px; }
+/* scuro: testi secondari della vetrina piu' chiari (>= 4.5:1 anche sulla sfumatura rosa/viola) */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .xvshow .xvhd p, :root:not([data-theme="light"]) .xvfoot, :root:not([data-theme="light"]) .xvpaid { color: #DDD3EC; } }
+:root[data-theme="dark"] .xvshow .xvhd p, :root[data-theme="dark"] .xvfoot, :root[data-theme="dark"] .xvpaid { color: #DDD3EC; }
+/* barra della prova con "Fissa come desiderio": su schermi stretti i due pulsanti vanno a capo invece di uscire dal bordo */
+.trybar .tact:has(#xvWish) { flex-wrap: wrap; }
+.trybar .tact #xvWish { flex: 1 1 auto; white-space: normal; }
+.trybar .tact:has(#xvWish) #tryCancel { flex: 1 1 auto; }
+/* sentiero: lucchetti della fila d'oro e chiusura con area di tocco >= 44 px (senza cambiare il disegno) */
+.pathbox .plk { position: relative; }
+.pathbox .plk::after { content: ""; position: absolute; inset: -7px -5px; }
+.pathhead #closeLayer::after { content: ""; position: absolute; inset: 0 -2px; }
 
 </style>
 
@@ -41137,14 +41151,16 @@ document.addEventListener("click", (ev) => {
 function xvWish() {
   const w = S.x22wish && typeof S.x22wish === "object" ? S.x22wish : null;
   const own = (id) => S.owned.includes(id);
-  if (w && XV_IDS.includes(w.id) && !own(w.id)) return w;
+  /* il desiderio puo' essere un Introvabile o qualsiasi oggetto in vendita che non hai ancora (scelto dalla barra della prova) */
+  const ws = w && SHOP.find((s) => s.id === w.id);
+  if (ws && !own(w.id) && (ws.xv || (ws.price > 0 && !lockedItem(ws) && !ws.coll))) return w;
   const next = XV_IDS.map((id) => SHOP.find((s) => s.id === id)).filter((s) => s && !own(s.id)).sort((a, b) => a.price - b.price)[0];
   if (!next) return null;
   S.x22wish = { id: next.id, m: xvMileNow(next) }; save(); return S.x22wish;
 }
-const xvPct = (s) => (s ? Math.max(0, Math.min(100, (xvUsable() / s.price) * 100)) : 0);
+const xvPct = (s) => (s ? Math.max(0, Math.min(100, ((s.xv ? xvUsable() : S.seeds) / s.price) * 100)) : 0);
 const xvMileNow = (s) => [25, 50, 75].filter((p) => xvPct(s) >= p).pop() || 0;
-function xvSetWish(id) { const s = SHOP.find((x) => x.id === id); if (!s || !s.xv || S.owned.includes(id)) return; S.x22wish = { id, m: xvMileNow(s) }; save(); }
+function xvSetWish(id) { const s = SHOP.find((x) => x.id === id); if (!s || S.owned.includes(id) || !(s.xv || (s.price > 0 && !lockedItem(s) && !s.coll))) return; S.x22wish = { id, m: xvMileNow(s) }; save(); }
 let xvMileT = 0;
 function xvMileCheck() {
   if (!S.pet || layer.innerHTML || S.away) return; const w = xvWish(); if (!w) return; const s = SHOP.find((x) => x.id === w.id); if (!s) return;
@@ -41170,8 +41186,14 @@ tryBar = function () {
     return h.replace('<button class="btn ghost" id="tryCancel">', `${btn}<button class="btn ghost" id="tryCancel">`);
   }
   let h = _tryBarXV();
+  /* un oggetto normale che non puoi ancora prendere: lo puoi fissare come desiderio (piccolo pulsante sotto il nome) */
+  if (!ownsItem(s) && !lockedItem(s) && !s.coll && s.price > 0 && S.seeds < s.price) {
+    const w = xvWish(); const mine = w && w.id === s.id;
+    const wb = mine ? `<span class="xvwishon small">${xStarIcon()}${esc(x.wishIs)}</span>` : `<button class="link xvwishlink" id="xvWish" type="button">${xStarIcon()}${esc(x.wishSet)}</button>`;
+    return h.replace(/<b>([^<]*)<\/b><\/div>/, (m, nm) => `<span class="xvtx"><b>${nm}</b>${wb}</span></div>`);
+  }
   try {
-    const w = xvWish(); if (!w || ownsItem(s) || lockedItem(s) || !(s.price > 0) || S.seeds < s.price) return h;
+    const w = xvWish(); if (!w || w.id === s.id || ownsItem(s) || lockedItem(s) || !(s.price > 0) || S.seeds < s.price) return h;
     const d = dailyTaniGuess(); if (!(d > 0)) return h; const n = Math.max(1, Math.round(s.price / d));
     h = h.replace(/<b>([^<]*)<\/b><\/div>/, (m, nm) => `<span class="xvtx"><b>${nm}</b><small class="xvback">${esc(x.back(n))}</small></span></div>`);
   } catch (e) { /* niente */ }
@@ -41187,7 +41209,7 @@ xvShowcase = function () {
   const own = items.filter((s) => ownsItem(s)).length; const w = xvWish(); const next = w && SHOP.find((s) => s.id === w.id);
   const nf = (n) => n.toLocaleString(loc()); let prog = "";
   if (next) {
-    const use = xvUsable(), have = Math.min(use, next.price), pct = xvPct(next);
+    const use = next.xv ? xvUsable() : S.seeds, have = Math.min(use, next.price), pct = xvPct(next);
     prog = `<div class="xvprog"><p class="small xvwl">${xStarIcon()}<span>${esc(x.wishL)}<b>${esc((L().items || {})[next.id] || "")}</b></span></p><div class="xvbar" role="progressbar" aria-valuemin="0" aria-valuemax="${next.price}" aria-valuenow="${have}" aria-label="${esc(x.have(nf(have), nf(next.price)))}"><i style="width:${pct.toFixed(1)}%"></i>${[25, 50, 75].map((p) => `<span class="xvm${pct >= p ? " on" : ""}" style="left:${p}%"></span>`).join("")}</div><p class="small"><b>${esc(x.have(nf(have), nf(next.price)))}</b>${use < next.price ? ` · ${esc(xvPace(next.price - use))}` : ""}</p></div>`;
   }
   const paid = xvPaidLeft() > 0 ? `<p class="small xvpaid">${esc(x.paidOnly)}</p>` : "";
