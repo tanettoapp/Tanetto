@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-dtaCdDhdPa3LmKoMlhgn7zooJy8X/M1QJaaD2Uct46M=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-hybLf2lYAEaV33N/FonL3k4rBcD740DnVThcIa00Sz0=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -42683,7 +42683,7 @@ openAlbum = function (key) {
    Prima, nel primo minuto: 3 consigli, eta', due regali e subito dopo il papillon (5 finestre). Chi aveva gia' l'app
    (primo giorno passato) non cambia nulla. */
 const _w20GiftReadyV24 = w20GiftReady;
-w20GiftReady = function () { if (S.firstDay && S.firstDay === dkey()) return false; return _w20GiftReadyV24(); };
+w20GiftReady = function () { if (S.welcomeGift && S.welcomeGift === dkey()) return false; return _w20GiftReadyV24(); }; /* primo giorno = regalo di benvenuto ricevuto oggi */
 
 /* ---------- 9) questionario dei tester: a bambini e ragazzi non si chiede "Prenderesti Tanetto Plus?" ---------- */
 const svPlusQ = () => { const q = (L().survey || {}).q || []; return q.findIndex((x) => /Plus/.test(x.t)); };
@@ -42713,7 +42713,7 @@ document.addEventListener("scroll", (ev) => { const b = ev.target; if (b && b.cl
 
 /* ---------- 11) senza internet (sito installato): una cartolina mai vista mostra il disegno di prima, non un'immagine rotta ---------- */
 const _pc3dV24 = pc3d;
-pc3d = function (key, i, label) { const h = _pc3dV24(key, i, label); return h ? h.replace("<svg ", `<svg data-pk="${esc(key)}" data-pi="${Math.abs(i | 0)}" `) : h; };
+pc3d = function (key, i, label) { const h = _pc3dV24(key, i, label); return h ? h.replace('class="pc3">', `class="pc3" data-pk="${esc(key)}" data-pi="${Math.abs(i | 0)}">`) : h; };
 document.addEventListener("error", (ev) => {
   const t = ev.target; if (!t || !t.tagName) return;
   try {
