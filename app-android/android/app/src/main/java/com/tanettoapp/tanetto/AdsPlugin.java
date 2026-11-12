@@ -7,6 +7,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.google.android.gms.ads.AgeRestrictedTreatment;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -46,22 +47,27 @@ public class AdsPlugin extends Plugin {
     /* Eta' dichiarata nella schermata neutra dell'app: senza risposta si tratta come un bambino */
     private volatile String age = "child";
     private static String ageOf(PluginCall call) { String a = call.getString("age", "child"); return "adult".equals(a) || "teen".equals(a) ? a : "child"; }
-    /* Impostazioni di Google per l'eta': valgono per tutte le richieste da qui in poi */
+    /* Impostazioni di Google per l'eta': valgono per tutte le richieste da qui in poi.
+       1.0.9 (verifica politiche m2): anche la nuova impostazione di AdMob (GMA 25.3+) "trattamento per eta'":
+       CHILD per bambini e chi non ha risposto, TEEN per i ragazzi; restano i vecchi segnali (vale il piu' prudente). */
     @SuppressWarnings("deprecation")
     private void applyAge(String a) {
         RequestConfiguration.Builder b = MobileAds.getRequestConfiguration().toBuilder();
         if ("child".equals(a)) {
             b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
              .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_UNSPECIFIED)
-             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G);
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
+             .setAgeRestrictedTreatment(AgeRestrictedTreatment.CHILD);
         } else if ("teen".equals(a)) {
             b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
              .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_TRUE)
-             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG);
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG)
+             .setAgeRestrictedTreatment(AgeRestrictedTreatment.TEEN);
         } else {
             b.setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_UNSPECIFIED)
              .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_FALSE)
-             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG);
+             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_PG)
+             .setAgeRestrictedTreatment(AgeRestrictedTreatment.UNSPECIFIED);
         }
         MobileAds.setRequestConfiguration(b.build());
     }

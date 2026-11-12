@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-HT4ESTvaeWqycauf3aDBLgfIhlNLt17wkn1Urqk78a8=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-dtaCdDhdPa3LmKoMlhgn7zooJy8X/M1QJaaD2Uct46M=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2949,7 +2949,7 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 #nameCardGo, #nameSetGo { white-space: nowrap; flex: 0 0 auto; padding-inline: 14px; hyphens: manual; -webkit-hyphens: manual; }
 #nameCardIn, #nameSetIn { min-width: 0; }
 /* Plus e negozio dei Tanì: quando si scorre, "Chiudi" diventa una striscia piena (il contenuto passa sotto, non intorno) */
-.plusbox.scrolled > #closeLayer, .tshop.scrolled > #closeLayer { align-self: stretch; justify-content: flex-end; border-radius: 0; margin-left: -16px; margin-right: -16px; padding-right: 22px; box-shadow: 0 8px 10px -8px rgba(60, 40, 20, .28); }
+.plusbox.scrolled > #closeLayer, .tshop.scrolled > #closeLayer { align-self: stretch; justify-content: flex-end; border-radius: 0; margin-left: -16px; margin-right: -16px; padding-right: 22px; box-shadow: 0 -24px 0 var(--paper), 0 8px 10px -8px rgba(60, 40, 20, .28); }
 .tshop.scrolled > #closeLayer { margin-left: -18px; margin-right: -18px; }
 /* inizio, passo 2, telefoni bassi (640 px): il campo del nome sale sopra "Avanti" (prima lo copriva) */
 @media (max-height: 700px) {
@@ -2975,6 +2975,7 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 :lang(ja) .agebox p { word-break: auto-phrase; }
 /* resoconto del mese: il compagno con la corona (3D) */
 .repbox .rppet.m3host { width: 120px; height: auto; margin: -14px auto -8px; }
+.pctx h2 { margin: 0 0 6px; }
 
 </style>
 
@@ -28204,7 +28205,7 @@ function switchPet(p) {
 }
 function petCard() {
   const t = L(); if (!S.pet) return "";
-  return `<div class="card petcard"><div class="pcart" style="background:radial-gradient(circle at 50% 58%, ${HALO[S.pet]} 0 60%, transparent 61%)">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div><div class="pctx"><h3>${t.v12.meT}</h3><p class="small muted">${t.v12.meP}</p><button class="btn small ghost" id="pickPet">${t.v12.change}</button></div></div>`;
+  return `<div class="card petcard"><div class="pcart" style="background:radial-gradient(circle at 50% 58%, ${HALO[S.pet]} 0 60%, transparent 61%)">${petSVG(S.pet, "felice", S.hat, stage(), S.petName)}</div><div class="pctx"><h2 class="h3like">${t.v12.meT}</h2><p class="small muted">${t.v12.meP}</p><button class="btn small ghost" id="pickPet">${t.v12.change}</button></div></div>`;
 }
 const _friendTodayV12 = friendToday;
 friendToday = function () { const f = _friendTodayV12(); if (!f) return f; const n = Math.floor(new Date(S.day + "T12:00:00").getTime() / 86400000); const others = ALL_PETS.filter((p) => p !== S.pet); return others[n % others.length]; };
@@ -42580,7 +42581,7 @@ try {
     const k = `${S.onboard}|${document.getElementById("userName") ? 1 : 0}`; if (k === onbFk) return; const first = !onbFk; onbFk = k;
     if (first || fmOpen) return; const a = document.activeElement; if (a && a !== document.body && app.contains(a)) return;
     const h = app.querySelector("h1"); if (h) { h.setAttribute("tabindex", "-1"); try { h.focus({ preventScroll: true }); } catch (e) { /* niente */ } }
-  }).observe(app, { childList: true });
+  }).observe(app, { childList: true, subtree: true });
 } catch (e) { /* niente */ }
 
 /* ---------- 3) SERIE: i giorni senza obiettivi previsti non la interrompono, anche senza aprire l'app ----------
@@ -42732,6 +42733,11 @@ nameFocus = function () {
   const h = app.querySelector(".namestep h1"); if (!h) return;
   h.setAttribute("tabindex", "-1"); try { h.focus({ preventScroll: true }); } catch (e) { /* niente */ }
 };
+
+/* ---------- 13) negozio dei Tanì: a bambini e ragazzi niente "Conviene di piu'" anche quando arrivano i prezzi ----------
+   (i prezzi di Google Play arrivano dopo l'apertura e packDecorate rimetteva l'etichetta) */
+const _packDecorateV24 = packDecorate;
+packDecorate = function () { const r = _packDecorateV24(); try { if (typeof ageBand === "function" && ageBand() !== "adult") document.querySelectorAll(".tshop .pack .pbadge").forEach((x) => x.remove()); } catch (e) { /* niente */ } return r; };
 
 splash();
 render();
