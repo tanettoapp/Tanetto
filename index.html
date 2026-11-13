@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-1FSiQQ3Sw6LQKBMx1sXedYUrpNogHgOrefNny4z5rqc=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-uZGZ3o6W447F0KeC+LpRoTLph5mkIX4i8CE8t2VxTeY=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3008,6 +3008,8 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
    lo spazio in fondo permette di portare anche l'ultima etichetta nella parte ben visibile */
 .fulltop .scns { margin-right: 2px; padding-right: 48px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 52px), transparent calc(100% - 6px)); mask-image: linear-gradient(90deg, #000 calc(100% - 52px), transparent calc(100% - 6px)); }
 .fulltop .scns.scl { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 52px), transparent calc(100% - 6px)); mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 52px), transparent calc(100% - 6px)); }
+/* Plus per i minori: il risparmio, senza nastro, su una riga sua sotto il prezzo al mese (mai spezzato) */
+.plan small .psave { display: block; white-space: nowrap; }
 
 </style>
 
@@ -42815,7 +42817,7 @@ function v25NoNudge() {
   document.querySelectorAll(".plusbox .plans .ppop").forEach((pop) => {
     const txt = (pop.textContent || "").trim(); const sm = pop.parentElement && pop.parentElement.querySelector("small");
     /* il nastro con il numero e' il risparmio (97zj l'aveva tolto dalla riga sotto il prezzo): torna li', senza risalto */
-    if (sm && /\d/.test(txt) && !sm.textContent.includes(txt)) sm.textContent = (sm.textContent.trim() ? sm.textContent + " · " : "") + txt;
+    if (sm && /\d/.test(txt) && !sm.textContent.includes(txt)) { const sp = document.createElement("span"); sp.className = "psave"; sp.textContent = txt; sm.append(sp); }
     pop.remove();
   });
 }
