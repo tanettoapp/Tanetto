@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-HJ2zk2t4r36utUHUm895aopxaaUsf5TM0dZ1iysePlQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-oo7dL21UNME85JnGVeLH4q2x65oL7QHQTdiuEdzAXbc=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -42902,7 +42902,7 @@ ban3d = function (name, big) { const h = _ban3dV25(name, big); return name === "
 /* ---------- 6) stanza a schermo intero: fila delle scene ----------
    La fila finisce prima dei pulsanti "sposta" e "riduci" (11zf), sfuma solo dal lato dove ci sono altre scene e, quando si
    apre, parte dall'inizio: si scorre (il minimo) solo se la scena scelta altrimenti non si vedrebbe per intero. */
-const SCN_FADE = 28;
+const SCN_FADE = 28, SCN_FADE_MIN = 2;
 function v25ScnEdges(sc) {
   const max = sc.scrollWidth - sc.clientWidth;
   sc.classList.toggle("scl", sc.scrollLeft > 1); sc.classList.toggle("scr", sc.scrollLeft < max - 1);
@@ -42930,11 +42930,15 @@ function v25ScnFit(sc) {
   sc.style.removeProperty("--scnfade");
   const c = sc.querySelector('.scn[aria-pressed="true"]'); let x = 0;
   if (c && sc.clientWidth > 0) {
-    const { right, room } = v25ScnBox(sc, c), dpr = window.devicePixelRatio || 1;
-    if (right > room + 0.01) x = Math.max(0, Math.ceil((right - (room - (c.nextElementSibling ? SCN_FADE : 0))) * dpr - 0.001) / dpr);
-    else if (right > room - SCN_FADE) sc.style.setProperty("--scnfade", Math.max(2, Math.floor((room - right) * dpr + 0.001) / dpr) + "px");
+    const { right, room } = v25ScnBox(sc, c), dpr = window.devicePixelRatio || 1, next = !!c.nextElementSibling;
+    /* 1.0.10: si scorre anche se la scena ci sta ma lascia meno di 2 px (la sfumatura piu' corta): prima finiva dentro */
+    if (right > room - (next ? SCN_FADE_MIN : 0) + 0.01) x = Math.max(0, Math.ceil((right - (room - (next ? SCN_FADE : 0))) * dpr - 0.001) / dpr);
+    else if (right > room - SCN_FADE) sc.style.setProperty("--scnfade", Math.max(SCN_FADE_MIN, Math.floor((room - right) * dpr + 0.001) / dpr) + "px");
   }
-  sc.dataset.prog = String(x); sc.scrollLeft = x; v25ScnEdges(sc);
+  sc.scrollLeft = x;
+  /* alcuni WebView tengono lo scorrimento solo a pixel interi (81,33 -> 81): allora per eccesso, mai dentro la sfumatura */
+  if (sc.scrollLeft < x - 0.01) sc.scrollLeft = Math.ceil(x);
+  sc.dataset.prog = String(sc.scrollLeft); v25ScnEdges(sc);
 }
 function v25ScnView() {
   const sc = document.querySelector("#fullwrap .scns"); if (!sc || sc.dataset.v25) return; sc.dataset.v25 = "1";
