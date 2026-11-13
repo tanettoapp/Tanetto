@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-AFy/lzlmxZvsTLt81UbxFOG7AlPulND+7P6LsQm2iAI=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-BJ1znIUDw0FEwfwwgBV64KvNCgAHjRqiehfcVPlt1Sg=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3006,7 +3006,7 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 /* stanza a schermo intero: la fila delle scene finisce 10 px prima dei pulsanti "sposta" e "riduci" (che sono spostati
    di 10 px a sinistra dal loro posto: 11y li rende relative con right: 10px). Sfuma solo dal lato dove ci sono altre scene
    (classi scl/scr messe da 98zj); lo spazio in fondo porta anche l'ultima scena fuori dalla sfumatura. */
-.fulltop .scns { margin-right: 12px; padding-right: 28px; -webkit-mask-image: none; mask-image: none; }
+.fulltop .scns { position: relative; margin-right: 12px; padding-right: 28px; -webkit-mask-image: none; mask-image: none; }
 .fulltop .scns.scr { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--scnfade, 28px)), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - var(--scnfade, 28px)), transparent); }
 .fulltop .scns.scl { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
 .fulltop .scns.scl.scr { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
@@ -42873,32 +42873,37 @@ function v25ScnEdges(sc) {
   const max = sc.scrollWidth - sc.clientWidth;
   sc.classList.toggle("scl", sc.scrollLeft > 1); sc.classList.toggle("scr", sc.scrollLeft < max - 1);
 }
+/* misure di layout (offsetLeft/offsetWidth, .scns e' position: relative): non cambiano con le animazioni (transform) ne' con lo
+   scorrimento, quindi il calcolo e' giusto anche mentre la stanza si apre a schermo intero */
+function v25ScnFit(sc) {
+  if (!sc || !sc.isConnected || sc.dataset.user) return;
+  sc.style.removeProperty("--scnfade");
+  const c = sc.querySelector('.scn[aria-pressed="true"]'); let x = 0;
+  if (c && sc.clientWidth > 0) {
+    const right = c.offsetLeft + c.offsetWidth, room = sc.clientWidth;
+    if (right > room) x = Math.ceil(right - (room - (c.nextElementSibling ? SCN_FADE : 0)));
+    else if (right > room - SCN_FADE) sc.style.setProperty("--scnfade", Math.max(2, Math.floor(room - right)) + "px");
+  }
+  sc.dataset.prog = String(x); sc.scrollLeft = x; v25ScnEdges(sc);
+}
 function v25ScnView() {
   const sc = document.querySelector("#fullwrap .scns"); if (!sc || sc.dataset.v25) return; sc.dataset.v25 = "1";
-  sc.scrollLeft = 0; sc.style.removeProperty("--scnfade");
-  const c = sc.querySelector('.scn[aria-pressed="true"]');
-  if (c) {
-    const sr = sc.getBoundingClientRect(), cr = c.getBoundingClientRect();
-    if (cr.right > sr.right - 4) {
-      /* la scena scelta non ci sta: si scorre il minimo per vederla tutta, fuori dalla sfumatura */
-      const end = sr.right - (c.nextElementSibling ? SCN_FADE : 0); sc.scrollLeft = Math.ceil(cr.right - end);
-    } else if (cr.right > sr.right - SCN_FADE) {
-      /* ci sta, ma finirebbe nella sfumatura: si resta all'inizio e la sfumatura comincia subito dopo di lei */
-      sc.style.setProperty("--scnfade", Math.max(4, Math.floor(sr.right - cr.right - 2)) + "px");
-    }
-  }
-  v25ScnEdges(sc);
+  v25ScnFit(sc);
+  /* di nuovo quando il layout si e' assestato: fine dell'apertura a schermo intero, caratteri pronti */
+  requestAnimationFrame(() => requestAnimationFrame(() => v25ScnFit(sc)));
+  setTimeout(() => v25ScnFit(sc), 700);
+  try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => v25ScnFit(sc)); } catch (e) { /* niente */ }
+  const fw = document.getElementById("fullwrap"); if (fw) ["transitionend", "animationend"].forEach((n) => fw.addEventListener(n, () => v25ScnFit(sc)));
 }
-document.addEventListener("scroll", (ev) => { const sc = ev.target; if (sc && sc.classList && sc.classList.contains("scns")) { if (sc.scrollLeft > 1) sc.style.removeProperty("--scnfade"); v25ScnEdges(sc); } }, true);
-window.addEventListener("resize", () => { const sc = document.querySelector("#fullwrap .scns"); if (sc) v25ScnEdges(sc); });
+/* scorsa a mano: da li' in poi si lascia com'e' (si aggiornano solo le sfumature) */
+document.addEventListener("scroll", (ev) => {
+  const sc = ev.target; if (!sc || !sc.classList || !sc.classList.contains("scns")) return;
+  if (Math.abs(sc.scrollLeft - (+sc.dataset.prog || 0)) > 1) { sc.dataset.user = "1"; sc.style.removeProperty("--scnfade"); }
+  v25ScnEdges(sc);
+}, true);
+window.addEventListener("resize", () => { const sc = document.querySelector("#fullwrap .scns"); if (sc) { if (sc.dataset.user) v25ScnEdges(sc); else v25ScnFit(sc); } });
 const _renderV25 = render;
-render = function (...a) {
-  const r = _renderV25.apply(this, a);
-  try { v25ScnView(); } catch (e) { /* niente */ }
-  /* i caratteri possono arrivare un attimo dopo: si ricontrolla quando sono pronti */
-  try { if (document.fonts && document.fonts.status !== "loaded") document.fonts.ready.then(() => { const sc = document.querySelector("#fullwrap .scns"); if (sc) { delete sc.dataset.v25; v25ScnView(); } }); } catch (e) { /* niente */ }
-  return r;
-};
+render = function (...a) { const r = _renderV25.apply(this, a); try { v25ScnView(); } catch (e) { /* niente */ } return r; };
 
 splash();
 render();
