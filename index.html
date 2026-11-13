@@ -2934,8 +2934,8 @@ h2.h3like { font-size: 17px; }
 :root { --inpline: #958874; }
 :root[data-theme="dark"] { --inpline: #82786C; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --inpline: #82786C; } }
-.field input, .field select, .nameinp, .inline input, .gamebox .inline input, .capsule textarea, .chform input, .iospaste textarea, .agefld select { border-color: var(--inpline); }
-.field input:focus, .field select:focus, .nameinp:focus, .inline input:focus, .gamebox .inline input:focus, .capsule textarea:focus, .chform input:focus, .iospaste textarea:focus, .agefld select:focus { border-color: var(--accent); }
+.field input, .field select, .nameinp, .inline input, .gamebox .inline input, .capsule textarea, .chform input, .iospaste textarea, .agefld select, .inline .nameinp { border-color: var(--inpline); }
+.field input:focus, .field select:focus, .nameinp:focus, .inline input:focus, .gamebox .inline input:focus, .capsule textarea:focus, .chform input:focus, .iospaste textarea:focus, .agefld select:focus, .inline .nameinp:focus { border-color: var(--accent); }
 /* bersagli di almeno 44 px */
 .lang { min-height: 44px; }
 .gr20pill { position: relative; }
@@ -2952,6 +2952,9 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 /* Plus e negozio dei Tanì: quando si scorre, "Chiudi" diventa una striscia piena (il contenuto passa sotto, non intorno) */
 .plusbox.scrolled > #closeLayer, .tshop.scrolled > #closeLayer { align-self: stretch; justify-content: flex-end; border-radius: 0; margin-left: -16px; margin-right: -16px; padding-right: 22px; box-shadow: 0 -24px 0 var(--paper), 0 8px 10px -8px rgba(60, 40, 20, .28); }
 .tshop.scrolled > #closeLayer { margin-left: -18px; margin-right: -18px; }
+/* negozio dei Tanì: chi scorre e' il velo (con 16 px di margine sopra), quindi la striscia si ferma 16 px sotto il bordo;
+   quella fascia ora fa parte della striscia anche al tocco (prima si vedeva coperta ma il tocco passava ai pacchetti sotto) */
+.tshop.scrolled > #closeLayer::before { inset: auto 0 100% 0; height: calc(16px + env(safe-area-inset-top, 0px)); background: var(--paper); }
 /* inizio, passo 2, telefoni bassi (640 px): il campo del nome sale sopra "Avanti" (prima lo copriva) */
 @media (max-height: 700px) {
   .choose:not(.four) .choice .ds { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
