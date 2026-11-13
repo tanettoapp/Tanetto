@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Z//SZ6qY7wL64ddbXhN5IxquHXbSEbr8D4Hk8YyX090=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-d7AUCyp2lZvA6UZw1cfWQNYwkMcqfDKyeWAsb1hOn8A=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2982,6 +2982,24 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 .pctx h2 { margin: 0 0 6px; }
 /* pulsanti dei video: a capo solo tra le parole, righe bilanciate (prima "verdop-peln", "ca-deau" a meta' parola) */
 .adbtn, .adbtn .adtx { -webkit-hyphens: manual; hyphens: manual; text-wrap: balance; }
+
+/* ===== 1.0.9: ultime correzioni prima di Google Play (verifiche finali A e B, 13/11/2026) ===== */
+/* Profilo: i titoli delle schede ora sono h2.h3like (ordine dei titoli); stesso aspetto degli h3 di prima */
+.accard h2.h3like { display: flex; align-items: center; gap: 8px; }
+.accard h2.h3like svg { width: 22px; height: 22px; color: var(--accent); flex: none; }
+.psbuy h2.h3like svg, .pstani h2.h3like svg { width: 20px; height: 20px; vertical-align: -4px; margin-right: 6px; }
+.chhd h2.h3like, .trshelf h2.h3like, .svcard h2.h3like { margin: 0; }
+.svinvite h2.h3like { margin: 0 0 6px; }
+/* Avventure, energia piena: titolo, etichetta e (i) vanno a capo invece di uscire dallo schermo (ru a 320 px) */
+.tr20sth { flex-wrap: wrap; row-gap: 6px; }
+.tr20sth .tr20en { flex: none; white-space: nowrap; }
+/* bersagli di almeno 44 px: nome del compagno in alto (nomi corti) e la x delle finestre */
+.top #petNameBtn { min-width: 44px; }
+.overlay button#closeLayer.iconbtn { min-width: 44px; min-height: 44px; }
+/* Profilo, nome del compagno: con un pulsante lungo ("Переименовать") il campo non si stringe, il pulsante va sotto */
+.inline:has(> #doRename) { flex-wrap: wrap; }
+.inline:has(> #doRename) > #rename { flex: 1 1 140px; }
+.inline:has(> #doRename) > #doRename { white-space: nowrap; }
 
 </style>
 
@@ -19456,7 +19474,7 @@ T.zht.stories.lake[1][1] = "{n} 用樹葉做了一艘小船，看著它一路漂
 T.zht.stories.lake[2][1] = "在平靜的湖面上，{n} 看見了整片天空。{n} 想到你，笑了。";
 T.zht.stories.hill[0][1] = "在上千株幸運草中，{n} 找到一株四片葉子的，幫你留了下來。";
 T.zht.stories.hill[1][1] = "{n} 發現從山坡上滾下來是世界上最好玩的事。連滾了七次！";
-T.zht.stories.hill[2][1] = "一個小朋友借了 {n} 一只風箏。它飛得好高好高，就像你的進步一樣。";
+T.zht.stories.hill[2][1] = "一個小朋友借了 {n} 一隻風箏。它飛得好高好高，就像你的進步一樣。";
 T.zht.stories.mountain[0][1] = "到了山頂，雲朵就在 {n} 的小腳底下。感覺像在牛奶上走路。";
 T.zht.stories.mountain[1][1] = "一隻山羊帶 {n} 走最好走的路。有時候，開口求助就是最好的一步。";
 T.zht.stories.mountain[2][1] = "{n} 大喊「你做得到！」，山連續回應了三次。那是說給你聽的。";
@@ -21172,7 +21190,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Si rinnova da solo ogni anno: puoi disdire quando vuoi.`, afterM: (p) => `${p}. Si rinnova da solo ogni mese: puoi disdire quando vuoi.`,
     monthGift: "Regalo di Tanetto Plus: +300 Tanì e 2 scudi della serie", owned: "Hai già Tanetto Plus.",
     terms0: "Tanetto è offerto così com'è, senza garanzia di funzionamento continuo, e può cambiare nel tempo.",
-    termsPay: "Funzioni a pagamento: Tanetto è gratuito. Tanetto Plus (abbonamento mensile o annuale) e i pacchetti di Tanì sono facoltativi e si acquistano tramite Google Play, che gestisce pagamento, rinnovi, disdette e rimborsi secondo le proprie condizioni. Gli abbonamenti si rinnovano da soli finché non li disdici in Google Play › Abbonamenti: la disdetta ferma il rinnovo successivo e Plus resta attivo fino alla fine del periodo già pagato. I Tanì sono una moneta virtuale da usare solo nell'app: non hanno valore in denaro e non si possono convertire in soldi.",
+    termsPay: "Funzioni a pagamento: Tanetto si scarica gratuitamente. Tanetto Plus (abbonamento mensile o annuale) e i pacchetti di Tanì sono facoltativi e si acquistano tramite Google Play, che gestisce pagamento, rinnovi, disdette e rimborsi secondo le proprie condizioni. Gli abbonamenti si rinnovano da soli finché non li disdici in Google Play › Abbonamenti: la disdetta ferma il rinnovo successivo e Plus resta attivo fino alla fine del periodo già pagato. I Tanì sono una moneta virtuale da usare solo nell'app: non hanno valore in denaro e non si possono convertire in soldi.",
 },
   en: { unavail: "Payments aren't available right now. Check your connection and try again.", retry: "Try again", noPlans: "Google Play can't offer Tanetto Plus here right now (it isn't sold in every country). Everything else in Tanetto stays free for you.", atCheckout: "Price shown by Google Play before you pay", trialWhen: (d) => `First payment on ${d}. To pay nothing, cancel before that date in Google Play › Subscriptions.`,
     webOnly: "Tanetto Plus and Tanì packs are available in the Android app.", getApp: "Get it on Google Play",
@@ -21185,7 +21203,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. It renews automatically every year: you can cancel anytime.`, afterM: (p) => `${p}. It renews automatically every month: you can cancel anytime.`,
     monthGift: "Tanetto Plus gift: +300 Tanì and 2 streak shields", owned: "You already have Tanetto Plus.",
     terms0: "Tanetto is offered as it is, without a guarantee of uninterrupted operation, and may change over time.",
-    termsPay: "Paid features: Tanetto is free. Tanetto Plus (monthly or yearly subscription) and Tanì packs are optional and are bought through Google Play, which handles payment, renewals, cancellations and refunds under its own terms. Subscriptions renew automatically until you cancel them in Google Play › Subscriptions: cancelling stops the next renewal, and Plus stays active until the end of the period already paid. Tanì are a virtual currency for use only inside the app: they have no monetary value and cannot be exchanged for money.",
+    termsPay: "Paid features: Tanetto is free to download. Tanetto Plus (monthly or yearly subscription) and Tanì packs are optional and are bought through Google Play, which handles payment, renewals, cancellations and refunds under its own terms. Subscriptions renew automatically until you cancel them in Google Play › Subscriptions: cancelling stops the next renewal, and Plus stays active until the end of the period already paid. Tanì are a virtual currency for use only inside the app: they have no monetary value and cannot be exchanged for money.",
 },
   de: { unavail: "Zahlungen sind gerade nicht verfügbar. Prüfe deine Verbindung und versuch es noch mal.", retry: "Noch mal versuchen", noPlans: "Google Play kann Tanetto Plus hier gerade nicht anbieten (es ist nicht in allen Ländern erhältlich). Alles andere in Tanetto bleibt für dich kostenlos.", atCheckout: "Den Preis zeigt Google Play vor dem Bezahlen an", trialWhen: (d) => `Erste Zahlung am ${d}. Wenn du nichts zahlen möchtest, kündige vorher in Google Play › Abos.`,
     webOnly: "Tanetto Plus und Tanì-Pakete gibt es in der Android-App.", getApp: "Bei Google Play laden",
@@ -21198,7 +21216,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Verlängert sich automatisch jedes Jahr: Du kannst jederzeit kündigen.`, afterM: (p) => `${p}. Verlängert sich automatisch jeden Monat: Du kannst jederzeit kündigen.`,
     monthGift: "Geschenk von Tanetto Plus: +300 Tanì und 2 Serienschilde", owned: "Du hast Tanetto Plus schon.",
     terms0: "Tanetto wird so angeboten, wie es ist, ohne Garantie für einen ununterbrochenen Betrieb, und kann sich mit der Zeit ändern.",
-    termsPay: "Kostenpflichtige Funktionen: Tanetto ist kostenlos. Tanetto Plus (Monats- oder Jahresabo) und Tanì-Pakete sind freiwillig und werden über Google Play gekauft; Google Play wickelt Zahlung, Verlängerungen, Kündigungen und Erstattungen nach den eigenen Bedingungen ab. Abos verlängern sich automatisch, bis du sie in Google Play › Abos kündigst: Die Kündigung stoppt die nächste Verlängerung, und Plus bleibt bis zum Ende des bereits bezahlten Zeitraums aktiv. Tanì sind eine virtuelle Währung nur für die App: Sie haben keinen Geldwert und können nicht in Geld umgetauscht werden.",
+    termsPay: "Kostenpflichtige Funktionen: Tanetto kann kostenlos heruntergeladen werden. Tanetto Plus (Monats- oder Jahresabo) und Tanì-Pakete sind freiwillig und werden über Google Play gekauft; Google Play wickelt Zahlung, Verlängerungen, Kündigungen und Erstattungen nach den eigenen Bedingungen ab. Abos verlängern sich automatisch, bis du sie in Google Play › Abos kündigst: Die Kündigung stoppt die nächste Verlängerung, und Plus bleibt bis zum Ende des bereits bezahlten Zeitraums aktiv. Tanì sind eine virtuelle Währung nur für die App: Sie haben keinen Geldwert und können nicht in Geld umgetauscht werden.",
 },
   es: { unavail: "Ahora los pagos no están disponibles. Revisa tu conexión y vuelve a intentarlo.", retry: "Reintentar", noPlans: "Google Play no puede ofrecer Tanetto Plus aquí por ahora (no se vende en todos los países). Todo lo demás de Tanetto sigue siendo gratis para ti.", atCheckout: "Google Play te muestra el precio antes de pagar", trialWhen: (d) => `Primer pago el ${d}. Para no pagar nada, cancela antes de esa fecha en Google Play › Suscripciones.`,
     webOnly: "Tanetto Plus y los paquetes de Tanì están disponibles en la app para Android.", getApp: "Descárgala en Google Play",
@@ -21211,7 +21229,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Se renueva sola cada año: puedes cancelar cuando quieras.`, afterM: (p) => `${p}. Se renueva sola cada mes: puedes cancelar cuando quieras.`,
     monthGift: "Regalo de Tanetto Plus: +300 Tanì y 2 escudos de racha", owned: "Ya tienes Tanetto Plus.",
     terms0: "Tanetto se ofrece tal cual, sin garantía de funcionamiento ininterrumpido, y puede cambiar con el tiempo.",
-    termsPay: "Funciones de pago: Tanetto es gratis. Tanetto Plus (suscripción mensual o anual) y los paquetes de Tanì son opcionales y se compran a través de Google Play, que gestiona el pago, las renovaciones, las cancelaciones y los reembolsos según sus propias condiciones. Las suscripciones se renuevan solas hasta que las canceles en Google Play › Suscripciones: la cancelación detiene la siguiente renovación y Plus sigue activo hasta el final del periodo ya pagado. Los Tanì son una moneda virtual para usar solo dentro de la app: no tienen valor económico y no se pueden cambiar por dinero.",
+    termsPay: "Funciones de pago: Tanetto se descarga gratis. Tanetto Plus (suscripción mensual o anual) y los paquetes de Tanì son opcionales y se compran a través de Google Play, que gestiona el pago, las renovaciones, las cancelaciones y los reembolsos según sus propias condiciones. Las suscripciones se renuevan solas hasta que las canceles en Google Play › Suscripciones: la cancelación detiene la siguiente renovación y Plus sigue activo hasta el final del periodo ya pagado. Los Tanì son una moneda virtual para usar solo dentro de la app: no tienen valor económico y no se pueden cambiar por dinero.",
 },
   fr: { unavail: "Les paiements ne sont pas disponibles pour le moment. Vérifie ta connexion et réessaie.", retry: "Réessayer", noPlans: "Google Play ne peut pas proposer Tanetto Plus ici pour le moment (il n'est pas vendu dans tous les pays). Tout le reste de Tanetto reste gratuit pour toi.", atCheckout: "Prix affiché par Google Play avant le paiement", trialWhen: (d) => `Premier paiement le ${d}. Pour ne rien payer, résilie avant cette date dans Google Play › Abonnements.`,
     webOnly: "Tanetto Plus et les packs de Tanì sont disponibles dans l'app Android.", getApp: "Disponible sur Google Play",
@@ -21224,7 +21242,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Se renouvelle automatiquement chaque année : tu peux résilier quand tu veux.`, afterM: (p) => `${p}. Se renouvelle automatiquement chaque mois : tu peux résilier quand tu veux.`,
     monthGift: "Cadeau de Tanetto Plus : +300 Tanì et 2 boucliers de série", owned: "Tu as déjà Tanetto Plus.",
     terms0: "Tanetto est proposé tel quel, sans garantie de fonctionnement ininterrompu, et peut évoluer avec le temps.",
-    termsPay: "Fonctions payantes : Tanetto est gratuit. Tanetto Plus (abonnement mensuel ou annuel) et les packs de Tanì sont facultatifs et s'achètent via Google Play, qui gère le paiement, les renouvellements, les résiliations et les remboursements selon ses propres conditions. Les abonnements se renouvellent automatiquement jusqu'à ce que tu les résilies dans Google Play › Abonnements : la résiliation arrête le renouvellement suivant et Plus reste actif jusqu'à la fin de la période déjà payée. Les Tanì sont une monnaie virtuelle à utiliser uniquement dans l'app : ils n'ont aucune valeur monétaire et ne peuvent pas être échangés contre de l'argent.",
+    termsPay: "Fonctions payantes : Tanetto se télécharge gratuitement. Tanetto Plus (abonnement mensuel ou annuel) et les packs de Tanì sont facultatifs et s'achètent via Google Play, qui gère le paiement, les renouvellements, les résiliations et les remboursements selon ses propres conditions. Les abonnements se renouvellent automatiquement jusqu'à ce que tu les résilies dans Google Play › Abonnements : la résiliation arrête le renouvellement suivant et Plus reste actif jusqu'à la fin de la période déjà payée. Les Tanì sont une monnaie virtuelle à utiliser uniquement dans l'app : ils n'ont aucune valeur monétaire et ne peuvent pas être échangés contre de l'argent.",
 },
   pt: { unavail: "Os pagamentos não estão disponíveis agora. Verifique sua conexão e tente de novo.", retry: "Tentar de novo", noPlans: "O Google Play não consegue oferecer o Tanetto Plus aqui no momento (ele não é vendido em todos os países). Todo o resto do Tanetto continua grátis para você.", atCheckout: "O Google Play mostra o preço antes de você pagar", trialWhen: (d) => `Primeiro pagamento em ${d}. Para não pagar nada, cancele antes dessa data em Google Play › Assinaturas.`,
     webOnly: "O Tanetto Plus e os pacotes de Tanì estão disponíveis no app para Android.", getApp: "Baixar no Google Play",
@@ -21237,7 +21255,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Renova automaticamente todo ano: você pode cancelar quando quiser.`, afterM: (p) => `${p}. Renova automaticamente todo mês: você pode cancelar quando quiser.`,
     monthGift: "Presente do Tanetto Plus: +300 Tanì e 2 escudos de sequência", owned: "Você já tem o Tanetto Plus.",
     terms0: "O Tanetto é oferecido como está, sem garantia de funcionamento contínuo, e pode mudar com o tempo.",
-    termsPay: "Recursos pagos: o Tanetto é gratuito. O Tanetto Plus (assinatura mensal ou anual) e os pacotes de Tanì são opcionais e são comprados pelo Google Play, que cuida do pagamento, das renovações, dos cancelamentos e dos reembolsos conforme os próprios termos. As assinaturas renovam automaticamente até você cancelar em Google Play › Assinaturas: o cancelamento interrompe a próxima renovação e o Plus continua ativo até o fim do período já pago. Os Tanì são uma moeda virtual para usar só dentro do app: não têm valor em dinheiro e não podem ser trocados por dinheiro.",
+    termsPay: "Recursos pagos: o Tanetto é gratuito para baixar. O Tanetto Plus (assinatura mensal ou anual) e os pacotes de Tanì são opcionais e são comprados pelo Google Play, que cuida do pagamento, das renovações, dos cancelamentos e dos reembolsos conforme os próprios termos. As assinaturas renovam automaticamente até você cancelar em Google Play › Assinaturas: o cancelamento interrompe a próxima renovação e o Plus continua ativo até o fim do período já pago. Os Tanì são uma moeda virtual para usar só dentro do app: não têm valor em dinheiro e não podem ser trocados por dinheiro.",
 },
   ja: { unavail: "現在お支払いを利用できません。接続を確認して、もう一度お試しください。", retry: "もう一度試す", noPlans: "いまはこちらのGoogle PlayでTanetto Plusを購入できません（販売していない国もあります）。Tanettoのほかの機能はこれからも無料で使えます。", atCheckout: "お支払い前にGoogle Playで価格が表示されます", trialWhen: (d) => `初回のお支払いは${d}です。料金をかけたくない場合は、その日までに Google Play › 定期購入 で解約してください。`,
     webOnly: "Tanetto PlusとTanìのパックは、Android版アプリで利用できます。", getApp: "Google Playで手に入れよう",
@@ -21250,7 +21268,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}。毎年自動で更新されます。いつでも解約できます。`, afterM: (p) => `${p}。毎月自動で更新されます。いつでも解約できます。`,
     monthGift: "Tanetto Plusのプレゼント：+300 Tanìと連続記録シールド2個", owned: "Tanetto Plusはすでに有効です。",
     terms0: "Tanettoは現状のまま提供され、継続的な動作を保証するものではありません。内容は変わることがあります。",
-    termsPay: "有料機能：Tanettoは無料です。Tanetto Plus（月額または年額の定期購入）とTanìのパックは任意で、Google Playを通じて購入します。支払い、更新、解約、返金はGoogle Playの規約に従って処理されます。定期購入はGoogle Play › 定期購入で解約するまで自動で更新されます。解約すると次回の更新が止まり、Plusはすでに支払った期間の終わりまで有効です。Tanìはアプリ内だけで使える仮想通貨で、金銭的な価値はなく、お金に交換することはできません。",
+    termsPay: "有料機能：Tanettoは無料でダウンロードできます。Tanetto Plus（月額または年額の定期購入）とTanìのパックは任意で、Google Playを通じて購入します。支払い、更新、解約、返金はGoogle Playの規約に従って処理されます。定期購入はGoogle Play › 定期購入で解約するまで自動で更新されます。解約すると次回の更新が止まり、Plusはすでに支払った期間の終わりまで有効です。Tanìはアプリ内だけで使える仮想通貨で、金銭的な価値はなく、お金に交換することはできません。",
 },
   ko: { unavail: "지금은 결제를 이용할 수 없어요. 연결을 확인하고 다시 시도해 주세요.", retry: "다시 시도", noPlans: "지금은 이곳의 Google Play에서 Tanetto Plus를 구매할 수 없어요(판매하지 않는 나라도 있어요). Tanetto의 나머지 기능은 계속 무료로 쓸 수 있어요.", atCheckout: "결제 전에 Google Play에서 가격을 보여 줘요", trialWhen: (d) => `첫 결제일은 ${d}이에요. 결제되지 않게 하려면 그 전에 Google Play › 구독에서 해지하세요.`,
     webOnly: "Tanetto Plus와 Tanì 패키지는 Android 앱에서 이용할 수 있어요.", getApp: "Google Play에서 다운로드",
@@ -21263,7 +21281,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. 매년 자동으로 갱신돼요. 언제든 해지할 수 있어요.`, afterM: (p) => `${p}. 매달 자동으로 갱신돼요. 언제든 해지할 수 있어요.`,
     monthGift: "Tanetto Plus 선물: +300 Tanì와 연속 기록 방패 2개", owned: "이미 Tanetto Plus를 이용 중이에요.",
     terms0: "Tanetto는 있는 그대로 제공되며, 중단 없는 작동을 보장하지 않고, 시간이 지나며 바뀔 수 있어요.",
-    termsPay: "유료 기능: Tanetto는 무료예요. Tanetto Plus(월간 또는 연간 구독)와 Tanì 패키지는 선택 사항이며 Google Play를 통해 구매해요. 결제, 갱신, 해지, 환불은 Google Play가 자체 약관에 따라 처리해요. 구독은 Google Play › 구독에서 해지할 때까지 자동으로 갱신돼요. 해지하면 다음 갱신이 멈추고, Plus는 이미 결제한 기간이 끝날 때까지 유지돼요. Tanì는 앱 안에서만 쓰는 가상 화폐로, 금전적 가치가 없고 돈으로 바꿀 수 없어요.",
+    termsPay: "유료 기능: Tanetto는 무료로 다운로드할 수 있어요. Tanetto Plus(월간 또는 연간 구독)와 Tanì 패키지는 선택 사항이며 Google Play를 통해 구매해요. 결제, 갱신, 해지, 환불은 Google Play가 자체 약관에 따라 처리해요. 구독은 Google Play › 구독에서 해지할 때까지 자동으로 갱신돼요. 해지하면 다음 갱신이 멈추고, Plus는 이미 결제한 기간이 끝날 때까지 유지돼요. Tanì는 앱 안에서만 쓰는 가상 화폐로, 금전적 가치가 없고 돈으로 바꿀 수 없어요.",
 },
   zh: { unavail: "现在无法付款。请检查网络连接后重试。", retry: "重试", noPlans: "目前这里的 Google Play 无法提供 Tanetto Plus（并非所有国家都有销售）。Tanetto 的其他内容依然免费。", atCheckout: "付款前 Google Play 会显示价格", trialWhen: (d) => `首次扣款日期为 ${d}。如果不想付费，请在此之前到 Google Play › 订阅 中取消。`,
     webOnly: "Tanetto Plus 和 Tanì 礼包可在 Android 应用中购买。", getApp: "在 Google Play 下载",
@@ -21276,7 +21294,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}。每年自动续订：你可以随时取消。`, afterM: (p) => `${p}。每月自动续订：你可以随时取消。`,
     monthGift: "Tanetto Plus 礼物：+300 Tanì 和 2 个连续记录护盾", owned: "你已经开通了 Tanetto Plus。",
     terms0: "Tanetto 按现状提供，不保证不间断运行，并且可能随时间变化。",
-    termsPay: "付费功能：Tanetto 是免费的。Tanetto Plus（按月或按年订阅）和 Tanì 礼包是可选的，通过 Google Play 购买，付款、续订、取消和退款均由 Google Play 按其条款处理。订阅会自动续订，直到你在 Google Play › 订阅中取消：取消后将停止下一次续订，Plus 会保持有效直到已付费期间结束。Tanì 是只能在应用内使用的虚拟货币：没有货币价值，不能兑换成钱。",
+    termsPay: "付费功能：Tanetto 可免费下载。Tanetto Plus（按月或按年订阅）和 Tanì 礼包是可选的，通过 Google Play 购买，付款、续订、取消和退款均由 Google Play 按其条款处理。订阅会自动续订，直到你在 Google Play › 订阅中取消：取消后将停止下一次续订，Plus 会保持有效直到已付费期间结束。Tanì 是只能在应用内使用的虚拟货币：没有货币价值，不能兑换成钱。",
 },
   zht: { unavail: "現在無法付款。請檢查網路連線後再試一次。", retry: "再試一次", noPlans: "目前這裡的 Google Play 無法提供 Tanetto Plus（並非所有國家都有販售）。Tanetto 的其他內容依然免費。", atCheckout: "付款前 Google Play 會顯示價格", trialWhen: (d) => `首次扣款日期為 ${d}。如果不想付費，請在這之前到 Google Play › 訂閱 中取消。`,
     webOnly: "Tanetto Plus 和 Tanì 禮包可在 Android App 中購買。", getApp: "在 Google Play 下載",
@@ -21289,7 +21307,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}。每年自動續訂：你隨時可以取消。`, afterM: (p) => `${p}。每月自動續訂：你隨時可以取消。`,
     monthGift: "Tanetto Plus 禮物：+300 Tanì 和 2 個連續紀錄護盾", owned: "你已經啟用了 Tanetto Plus。",
     terms0: "Tanetto 依現狀提供，不保證不中斷運作，並可能隨時間改變。",
-    termsPay: "付費功能：Tanetto 是免費的。Tanetto Plus（月訂或年訂）和 Tanì 禮包為選用項目，透過 Google Play 購買，付款、續訂、取消和退款皆由 Google Play 依其條款處理。訂閱會自動續訂，直到你在 Google Play › 訂閱中取消：取消後會停止下一次續訂，Plus 會維持有效到已付費期間結束。Tanì 是只能在 App 內使用的虛擬貨幣：沒有金錢價值，也不能兌換成錢。",
+    termsPay: "付費功能：Tanetto 可免費下載。Tanetto Plus（月訂或年訂）和 Tanì 禮包為選用項目，透過 Google Play 購買，付款、續訂、取消和退款皆由 Google Play 依其條款處理。訂閱會自動續訂，直到你在 Google Play › 訂閱中取消：取消後會停止下一次續訂，Plus 會維持有效到已付費期間結束。Tanì 是只能在 App 內使用的虛擬貨幣：沒有金錢價值，也不能兌換成錢。",
 },
   ru: { unavail: "Сейчас оплата недоступна. Проверь подключение и попробуй ещё раз.", retry: "Попробовать снова", noPlans: "Сейчас Google Play не может предложить Tanetto Plus в твоей стране (подписка продаётся не везде). Всё остальное в Tanetto остаётся для тебя бесплатным.", atCheckout: "Цену покажет Google Play перед оплатой", trialWhen: (d) => `Первый платёж: ${d}. Чтобы ничего не платить, отмени подписку до этой даты в Google Play › Подписки.`,
     webOnly: "Tanetto Plus и наборы Tanì доступны в приложении для Android.", getApp: "Скачать в Google Play",
@@ -21302,7 +21320,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Продлевается автоматически каждый год: отменить можно в любой момент.`, afterM: (p) => `${p}. Продлевается автоматически каждый месяц: отменить можно в любой момент.`,
     monthGift: "Подарок Tanetto Plus: +300 Tanì и 2 щита серии", owned: "У тебя уже есть Tanetto Plus.",
     terms0: "Tanetto предоставляется как есть, без гарантии бесперебойной работы, и может меняться со временем.",
-    termsPay: "Платные функции: Tanetto бесплатно. Tanetto Plus (подписка на месяц или год) и наборы Tanì необязательны и покупаются через Google Play, который обрабатывает оплату, продления, отмены и возвраты по своим условиям. Подписка продлевается автоматически, пока ты не отменишь её в Google Play › Подписки: отмена останавливает следующее продление, а Plus остаётся активным до конца уже оплаченного периода. Tanì — виртуальная валюта только для приложения: она не имеет денежной ценности и не обменивается на деньги.",
+    termsPay: "Платные функции: Tanetto можно скачать бесплатно. Tanetto Plus (подписка на месяц или год) и наборы Tanì необязательны и покупаются через Google Play, который обрабатывает оплату, продления, отмены и возвраты по своим условиям. Подписка продлевается автоматически, пока ты не отменишь её в Google Play › Подписки: отмена останавливает следующее продление, а Plus остаётся активным до конца уже оплаченного периода. Tanì — виртуальная валюта только для приложения: она не имеет денежной ценности и не обменивается на деньги.",
 },
   pl: { unavail: "Płatności są teraz niedostępne. Sprawdź połączenie i spróbuj ponownie.", retry: "Spróbuj ponownie", noPlans: "Google Play nie może teraz zaoferować tutaj Tanetto Plus (nie jest sprzedawane we wszystkich krajach). Cała reszta Tanetto pozostaje dla ciebie za darmo.", atCheckout: "Cenę pokaże Google Play przed zapłatą", trialWhen: (d) => `Pierwsza płatność: ${d}. Aby nic nie płacić, anuluj przed tą datą w Google Play › Subskrypcje.`,
     webOnly: "Tanetto Plus i pakiety Tanì są dostępne w aplikacji na Androida.", getApp: "Pobierz z Google Play",
@@ -21315,7 +21333,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Odnawia się automatycznie co rok: możesz anulować w każdej chwili.`, afterM: (p) => `${p}. Odnawia się automatycznie co miesiąc: możesz anulować w każdej chwili.`,
     monthGift: "Prezent od Tanetto Plus: +300 Tanì i 2 tarcze serii", owned: "Masz już Tanetto Plus.",
     terms0: "Tanetto jest udostępniane w obecnej postaci, bez gwarancji nieprzerwanego działania, i może się z czasem zmieniać.",
-    termsPay: "Funkcje płatne: Tanetto jest darmowe. Tanetto Plus (subskrypcja miesięczna lub roczna) i pakiety Tanì są opcjonalne i kupuje się je przez Google Play, który obsługuje płatności, odnowienia, anulowania i zwroty zgodnie z własnymi warunkami. Subskrypcje odnawiają się automatycznie, dopóki nie anulujesz ich w Google Play › Subskrypcje: anulowanie zatrzymuje kolejne odnowienie, a Plus działa do końca opłaconego okresu. Tanì to wirtualna waluta do używania tylko w aplikacji: nie ma wartości pieniężnej i nie można jej wymienić na pieniądze.",
+    termsPay: "Funkcje płatne: Tanetto można pobrać za darmo. Tanetto Plus (subskrypcja miesięczna lub roczna) i pakiety Tanì są opcjonalne i kupuje się je przez Google Play, który obsługuje płatności, odnowienia, anulowania i zwroty zgodnie z własnymi warunkami. Subskrypcje odnawiają się automatycznie, dopóki nie anulujesz ich w Google Play › Subskrypcje: anulowanie zatrzymuje kolejne odnowienie, a Plus działa do końca opłaconego okresu. Tanì to wirtualna waluta do używania tylko w aplikacji: nie ma wartości pieniężnej i nie można jej wymienić na pieniądze.",
 },
   nl: { unavail: "Betalen kan nu niet. Controleer je verbinding en probeer het opnieuw.", retry: "Opnieuw proberen", noPlans: "Google Play kan Tanetto Plus hier nu niet aanbieden (het is niet in elk land te koop). Al het andere in Tanetto blijft gratis voor je.", atCheckout: "Google Play toont de prijs voordat je betaalt", trialWhen: (d) => `Eerste betaling op ${d}. Wil je niets betalen, zeg dan vóór die datum op via Google Play › Abonnementen.`,
     webOnly: "Tanetto Plus en Tanì-pakketten zijn beschikbaar in de Android-app.", getApp: "Download via Google Play",
@@ -21328,7 +21346,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Wordt elk jaar automatisch verlengd: je kunt altijd opzeggen.`, afterM: (p) => `${p}. Wordt elke maand automatisch verlengd: je kunt altijd opzeggen.`,
     monthGift: "Cadeau van Tanetto Plus: +300 Tanì en 2 reeksschilden", owned: "Je hebt Tanetto Plus al.",
     terms0: "Tanetto wordt aangeboden zoals het is, zonder garantie op ononderbroken werking, en kan in de loop van de tijd veranderen.",
-    termsPay: "Betaalde functies: Tanetto is gratis. Tanetto Plus (maand- of jaarabonnement) en Tanì-pakketten zijn optioneel en koop je via Google Play, dat betaling, verlengingen, opzeggingen en terugbetalingen regelt volgens de eigen voorwaarden. Abonnementen worden automatisch verlengd tot je ze opzegt via Google Play › Abonnementen: opzeggen stopt de volgende verlenging en Plus blijft actief tot het einde van de al betaalde periode. Tanì zijn een virtuele munt die je alleen in de app gebruikt: ze hebben geen geldwaarde en kunnen niet worden ingewisseld voor geld.",
+    termsPay: "Betaalde functies: Tanetto is gratis te downloaden. Tanetto Plus (maand- of jaarabonnement) en Tanì-pakketten zijn optioneel en koop je via Google Play, dat betaling, verlengingen, opzeggingen en terugbetalingen regelt volgens de eigen voorwaarden. Abonnementen worden automatisch verlengd tot je ze opzegt via Google Play › Abonnementen: opzeggen stopt de volgende verlenging en Plus blijft actief tot het einde van de al betaalde periode. Tanì zijn een virtuele munt die je alleen in de app gebruikt: ze hebben geen geldwaarde en kunnen niet worden ingewisseld voor geld.",
 },
   tr: { unavail: "Şu an ödeme yapılamıyor. Bağlantını kontrol edip tekrar dene.", retry: "Tekrar dene", noPlans: "Google Play şu anda burada Tanetto Plus sunamıyor (her ülkede satılmıyor). Tanetto'nun geri kalan her şeyi senin için ücretsiz kalıyor.", atCheckout: "Fiyatı ödemeden önce Google Play gösterir", trialWhen: (d) => `İlk ödeme ${d} tarihinde. Hiç ödeme yapmamak için bu tarihten önce Google Play › Abonelikler'den iptal et.`,
     webOnly: "Tanetto Plus ve Tanì paketleri Android uygulamasında.", getApp: "Google Play'den indir",
@@ -21341,7 +21359,7 @@ const BILL_TXT = {
     afterY: (p) => `${p}. Her yıl otomatik yenilenir: istediğin zaman iptal edebilirsin.`, afterM: (p) => `${p}. Her ay otomatik yenilenir: istediğin zaman iptal edebilirsin.`,
     monthGift: "Tanetto Plus hediyesi: +300 Tanì ve 2 seri kalkanı", owned: "Tanetto Plus zaten sende.",
     terms0: "Tanetto olduğu gibi sunulur, kesintisiz çalışma garantisi yoktur ve zamanla değişebilir.",
-    termsPay: "Ücretli özellikler: Tanetto ücretsizdir. Tanetto Plus (aylık veya yıllık abonelik) ve Tanì paketleri isteğe bağlıdır ve Google Play üzerinden satın alınır; ödeme, yenileme, iptal ve iadeleri Google Play kendi koşullarına göre yönetir. Abonelikler, Google Play › Abonelikler'den iptal edene kadar otomatik yenilenir: iptal bir sonraki yenilemeyi durdurur ve Plus, ödenmiş dönemin sonuna kadar etkin kalır. Tanì yalnızca uygulama içinde kullanılan sanal bir paradır: parasal değeri yoktur ve paraya çevrilemez.",
+    termsPay: "Ücretli özellikler: Tanetto ücretsiz indirilebilir. Tanetto Plus (aylık veya yıllık abonelik) ve Tanì paketleri isteğe bağlıdır ve Google Play üzerinden satın alınır; ödeme, yenileme, iptal ve iadeleri Google Play kendi koşullarına göre yönetir. Abonelikler, Google Play › Abonelikler'den iptal edene kadar otomatik yenilenir: iptal bir sonraki yenilemeyi durdurur ve Plus, ödenmiş dönemin sonuna kadar etkin kalır. Tanì yalnızca uygulama içinde kullanılan sanal bir paradır: parasal değeri yoktur ve paraya çevrilemez.",
 },
 };
 Object.keys(BILL_TXT).forEach((l) => {
@@ -23534,7 +23552,7 @@ Object.assign(REAL_SKY2, {
 }
 
 /* GENERATO da scratchpad/app10/scripts/make_img.py: non modificare a mano */
-const IMG3D_V = "429eb2bb";
+const IMG3D_V = "c012a790";
 const IMG3D_PC = {"f:forest":["f_forest",960,640],"f:lake":["f_lake",960,640],"f:hill":["f_hill",960,640],"f:mountain":["f_mountain",960,640],"f:city":["f_city",960,640],"v:fireflies":["v_fireflies",960,640],"v:shells":["v_shells",960,640],"v:mushrooms":["v_mushrooms",960,640],"v:library":["v_library",960,640],"v:crystal":["v_crystal",960,640],"v:starsea":["v_starsea",960,640],"v:sugar":["v_sugar",960,640],"v:aurora":["v_aurora",960,640],"v:dragon":["v_dragon",960,640],"w:pyramids":["w_pyramids",960,640],"w:santorini":["w_santorini",960,640],"w:matterhorn":["w_matterhorn",960,640],"w:fjords":["w_fjords",960,640],"w:lapland":["w_lapland",960,640],"w:iceland":["w_iceland",960,640],"w:sahara":["w_sahara",960,640],"w:petra":["w_petra",960,640],"w:safari":["w_safari",960,640],"w:victoria":["w_victoria",960,640],"w:tajmahal":["w_tajmahal",960,640],"w:angkor":["w_angkor",960,640],"w:bali":["w_bali",960,640],"w:maldives":["w_maldives",960,640],"w:reef":["w_reef",960,640],"w:sydney":["w_sydney",960,640],"w:banff":["w_banff",960,640],"w:hawaii":["w_hawaii",960,640],"w:galapagos":["w_galapagos",960,640],"w:machupicchu":["w_machupicchu",960,640],"w:uyuni":["w_uyuni",960,640],"w:patagonia":["w_patagonia",960,640],"w:moai":["w_moai",960,640],"w:antarctica":["w_antarctica",960,640],"r:venezia":["r_venezia",960,640],"r:dolomiti":["r_dolomiti",960,640],"r:cinqueterre":["r_cinqueterre",960,640],"r:roma":["r_roma",960,640],"r:neuschwanstein":["r_neuschwanstein",960,640],"r:schwarzwald":["r_schwarzwald",960,640],"r:bodensee":["r_bodensee",960,640],"r:berlin":["r_berlin",960,640],"r:sevilla":["r_sevilla",960,640],"r:granada":["r_granada",960,640],"r:barcelona":["r_barcelona",960,640],"r:tenerife":["r_tenerife",960,640],"r:london":["r_london",960,640],"r:highlands":["r_highlands",960,640],"r:newyork":["r_newyork",960,640],"r:grandcanyon":["r_grandcanyon",960,640],"r:paris":["r_paris",960,640],"r:montsaintmichel":["r_montsaintmichel",960,640],"r:provence":["r_provence",960,640],"r:chamonix":["r_chamonix",960,640],"r:rio":["r_rio",960,640],"r:amazonia":["r_amazonia",960,640],"r:lencois":["r_lencois",960,640],"r:iguacu":["r_iguacu",960,640],"r:tokyo":["r_tokyo",960,640],"r:fuji":["r_fuji",960,640],"r:kyoto":["r_kyoto",960,640],"r:hokkaido":["r_hokkaido",960,640],"r:seoul":["r_seoul",960,640],"r:busan":["r_busan",960,640],"r:seorak":["r_seorak",960,640],"r:jeju":["r_jeju",960,640],"r:greatwall":["r_greatwall",960,640],"r:shanghai":["r_shanghai",960,640],"r:guilin":["r_guilin",960,640],"r:zhangjiajie":["r_zhangjiajie",960,640],"r:taipei101":["r_taipei101",960,640],"r:jiufen":["r_jiufen",960,640],"r:sunmoonlake":["r_sunmoonlake",960,640],"r:taroko":["r_taroko",960,640],"r:moskva":["r_moskva",960,640],"r:piter":["r_piter",960,640],"r:baikal":["r_baikal",960,640],"r:kamchatka":["r_kamchatka",960,640],"r:krakow":["r_krakow",960,640],"r:tatry":["r_tatry",960,640],"r:gdansk":["r_gdansk",960,640],"r:bialowieza":["r_bialowieza",960,640],"r:amsterdam":["r_amsterdam",960,640],"r:kinderdijk":["r_kinderdijk",960,640],"r:keukenhof":["r_keukenhof",960,640],"r:wadden":["r_wadden",960,640],"r:istanbul":["r_istanbul",960,640],"r:kapadokya":["r_kapadokya",960,640],"r:pamukkale":["r_pamukkale",960,640],"r:efes":["r_efes",960,640]};
 const BOOT_IMG = "data:image/webp;base64,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";
 
@@ -27736,7 +27754,7 @@ function openPath() {
   const founder = seaKind(se) === "lanterns" && S.owned.includes("founder_lantern") ? `<p class="founder">${icon("p_star")}<b>${t.founder}</b> · ${t.founderP}</p>` : "";
   layer.innerHTML = `<div class="overlay pathwrap" role="dialog" aria-modal="true" aria-labelledby="paT"><div class="pathbox"><div class="pathhead">${seasonBanner(se, true)}<div class="phx"><small>${se.zero ? t.zero : ""} · ${t.left(daysLeft(se))}</small><h2 id="paT">${esc(seaName(se))}</h2></div><button class="iconbtn" id="closeLayer" aria-label="${esc(L().close)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="pathsum"><div class="hd"><b>${t.tier(tier, N)}</b><span>${t.passi(p)}</span></div><div class="seabar"><i style="width:${into}%"></i></div><p class="small muted">${tier < N ? t.next(100 - (p % 100)) : ""}</p><p class="small">${t.how}</p>${founder}</div>
-  <div class="pathcols"><span>${t.free}</span><span></span><span class="gcol">${icon("p_crown")}${t.gold}</span></div><div class="pathlist" id="pathList">${rows.join("")}</div></div></div>`;
+  <div class="pathcols"><span>${t.free}</span><span></span><span class="gcol">${icon("p_crown")}${t.gold}</span></div><div class="pathlist" id="pathList" tabindex="0" role="region" aria-label="${esc(t.pathT || seaName(se))}">${rows.join("")}</div></div></div>`;
   trackOnce("sentiero-aperto");
   setTimeout(() => { const r = document.getElementById("prow" + Math.max(1, Math.min(N, tier))); const l = document.getElementById("pathList"); if (r && l) l.scrollTop = r.offsetTop - l.offsetTop - 80; }, 30);
   if (anim) G.from(".pathbox", { y: 40, opacity: 0, duration: 0.4, ease: "power3.out" });
@@ -29443,7 +29461,10 @@ viewMore = function () {
 /* ---------- Promemoria con notifiche vere (solo app Android) ---------- */
 const LN = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.LocalNotifications) || (C.registerPlugin ? C.registerPlugin("LocalNotifications") : null); } catch (e) { return null; } };
 const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200, NOTIF_CH = "promemoria";
-const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), { hour: "2-digit", minute: "2-digit" }).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
+/* fix 1.0.9 (verifica finale B, P5): 12 o 24 ore come il campo dell'ora, che segue il telefono (prima la lingua dell'app:
+   in inglese "20:00" nell'avviso e "08:00 PM" nel campo) */
+const FMT_H12 = (() => { try { const o = new Intl.DateTimeFormat(undefined, { hour: "numeric" }).resolvedOptions(); return typeof o.hour12 === "boolean" ? o.hour12 : o.hourCycle ? /h1[12]/.test(o.hourCycle) : null; } catch (e) { return null; } })();
+const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), Object.assign({ hour: "2-digit", minute: "2-digit" }, FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
 let notifBusy = null;
 /* Programma i prossimi 7 giorni (un messaggio diverso ogni giorno); se oggi e' gia' tutto fatto, oggi niente notifica.
    Si riprogramma a ogni apertura: chi non apre l'app per una settimana non riceve altro (niente insistenza). */
@@ -41934,8 +41955,11 @@ function ageBand() {
   const n = ageYears(a); if (n == null) return "unknown";
   return n < 13 ? "child" : n < ageConsent() ? "teen" : "adult";
 }
-/* per la pubblicita': chi non ha detto l'eta' e' trattato come un bambino */
-const ageAds = () => { const b = ageBand(); return b === "unknown" ? "child" : b; };
+/* per la pubblicita': chi non ha detto l'eta' e' trattato come un bambino.
+   fix 1.0.9 (verifica finale A m3): chi ha detto l'eta' e ha meno di 18 anni non riceve mai il trattamento "adult" (pubblicita'
+   personalizzabile), anche dove l'eta' del consenso e' 13 (Stati Uniti, Regno Unito...): sotto i 18 anni almeno "teen"
+   (TFUA, contenuti PG, mai personalizzata). L'account resta su ageCloudOk() (eta' del consenso del Paese), come prima. */
+const ageAds = () => { const b = ageBand(); if (b === "unknown") return "child"; if (b === "adult" && ageYears(S.age) < 18) return "teen"; return b; };
 const ageCloudOk = () => ageBand() === "adult";
 
 const AGE_T = {
@@ -42749,6 +42773,85 @@ nameFocus = function () {
    (i prezzi di Google Play arrivano dopo l'apertura e packDecorate rimetteva l'etichetta) */
 const _packDecorateV24 = packDecorate;
 packDecorate = function () { const r = _packDecorateV24(); try { if (typeof ageBand === "function" && ageBand() !== "adult") document.querySelectorAll(".tshop .pack .pbadge").forEach((x) => x.remove()); } catch (e) { /* niente */ } return r; };
+
+/* =================== 1.0.9: ultime correzioni prima di Google Play (verifiche finali A e B, 13/11/2026) =================== */
+
+/* ---------- 1) Profilo: ordine dei titoli (axe heading-order) ----------
+   Nelle 7 pagine del Profilo il titolo della pagina e' h1 e i titoli delle schede sotto erano h3 (si saltava h2).
+   Ora sono h2 con la classe h3like: stesso aspetto (11zf_v25_fix.css), ordine giusto per i lettori di schermo. */
+function v25Heads(root) {
+  root.querySelectorAll("h3").forEach((h) => {
+    const n = document.createElement("h2");
+    for (const a of [...h.attributes]) n.setAttribute(a.name, a.value);
+    n.classList.add("h3like"); n.append(...h.childNodes); h.replaceWith(n);
+  });
+}
+const _viewMoreV25 = viewMore;
+viewMore = function () {
+  const h = _viewMoreV25(); if (!S.pet || h.indexOf("psplit") < 0) return h;
+  try {
+    const tpl = document.createElement("template"); tpl.innerHTML = h;
+    const st = tpl.content.querySelector(".stack.psplit"); if (!st || !st.querySelector("h3")) return h;
+    v25Heads(st); return tpl.innerHTML;
+  } catch (e) { return h; }
+};
+
+/* ---------- 2) negozio dei Tanì e Plus: a bambini, ragazzi e a chi non ha detto l'eta' nessuna spinta in evidenza ----------
+   Prima l'etichetta "Conviene di piu'" spariva, ma il pacchetto piu' caro restava dorato (.best); in Plus restava il nastro
+   "Risparmi il 44%". Ora niente oro e niente nastro; il risparmio resta scritto, come semplice informazione, sotto il prezzo. */
+const v25Minor = () => typeof ageBand === "function" && ageBand() !== "adult";
+function v25NoNudge() {
+  if (!v25Minor()) return;
+  document.querySelectorAll(".tshop .pack.best").forEach((x) => x.classList.remove("best"));
+  document.querySelectorAll(".tshop .pack .pbadge").forEach((x) => x.remove());
+  document.querySelectorAll(".plusbox .plans .ppop").forEach((pop) => {
+    const txt = (pop.textContent || "").trim(); const sm = pop.parentElement && pop.parentElement.querySelector("small");
+    /* il nastro con il numero e' il risparmio (97zj l'aveva tolto dalla riga sotto il prezzo): torna li', senza risalto */
+    if (sm && /\d/.test(txt) && !sm.textContent.includes(txt)) sm.textContent = (sm.textContent.trim() ? sm.textContent + " · " : "") + txt;
+    pop.remove();
+  });
+}
+const _openTaniShopV25 = openTaniShop;
+openTaniShop = function (...a) { const r = _openTaniShopV25.apply(this, a); try { v25NoNudge(); } catch (e) { /* niente */ } return r; };
+const _packDecorateV25 = packDecorate;
+packDecorate = function (...a) { const r = _packDecorateV25.apply(this, a); try { v25NoNudge(); } catch (e) { /* niente */ } return r; };
+const _openPlusV25 = openPlus;
+openPlus = function (...a) { const r = _openPlusV25.apply(this, a); try { v25NoNudge(); } catch (e) { /* niente */ } return r; };
+const _plusFootV25 = plusFoot;
+plusFoot = function (...a) { const r = _plusFootV25.apply(this, a); try { v25NoNudge(); } catch (e) { /* niente */ } return r; };
+
+/* ---------- 3) "Bentornato" solo se si sono davvero saltati giorni con obiettivi ----------
+   Prima bastavano 2 giorni di calendario senza aprire l'app: chi ha obiettivi solo dal lunedi' al venerdi' riceveva ogni
+   lunedi' "non preoccuparti dei giorni che hai perso" (e +10 Tanì), subito prima del trofeo della serie. Ora la finestra si
+   apre solo se, tra l'ultima visita e oggi, c'e' almeno un giorno con obiettivi previsti che non era libero o di riposo.
+   I salvataggi della 1.0.8 non cambiano: si leggono solo S.goals e S.days. */
+const V25_LAST = (() => { try { if (typeof BACK_GAP !== "number" || BACK_GAP < 1) return null; const d = new Date(); d.setDate(d.getDate() - BACK_GAP); return dkey(d); } catch (e) { return null; } })();
+function v25MissedGoalDays() {
+  if (!V25_LAST || !S.pet || !Array.isArray(S.goals)) return 0;
+  const t = dkey(); const d = ldate(V25_LAST); let n = 0;
+  for (let i = 0; i < 400; i++) {
+    d.setDate(d.getDate() + 1); const k = dkey(d); if (k >= t) break;
+    const r = (S.days || {})[k]; if (r && (r.free || r.rest)) continue;
+    const wd = wdIdx(d); if (S.goals.some((g) => !g || !Array.isArray(g.days) || g.days.includes(wd))) n++;
+  }
+  return n;
+}
+const _openWelcomeBackV25 = openWelcomeBack;
+openWelcomeBack = function (...a) { try { if (!v25MissedGoalDays()) return; } catch (e) { /* in dubbio si apre come prima */ } return _openWelcomeBackV25.apply(this, a); };
+
+/* ---------- 4) il papillon in regalo mai il primo giorno ----------
+   98zi controllava solo "regalo di benvenuto ricevuto oggi": in una finestra di tempo prima dei "Due regali" il controllo
+   passava e il papillon restava in coda, poi si apriva subito dopo. Ora vale anche il primo giorno dell'app (S.firstDay) e
+   si ricontrolla quando la finestra in coda sta per aprirsi: se e' ancora il primo giorno non si apre (arriva domani). */
+const v25FirstDay = () => { const t = dkey(); return (!!S.firstDay && S.firstDay === t) || (!!S.welcomeGift && S.welcomeGift === t); };
+if (typeof w20GiftReady === "function") { const _w20GiftReadyV25 = w20GiftReady; w20GiftReady = function () { if (v25FirstDay()) return false; return _w20GiftReadyV25(); }; }
+const _nq20doV25 = nq20do;
+nq20do = function (it) { if (it && it.key === "wear" && v25FirstDay()) return; return _nq20doV25(it); };
+
+/* ---------- 5) Stagione delle Lanterne: nella testata grande si vede tutta la faccia di Germo ----------
+   (prima il taglio centrale finiva sulla bocca); l'immagine scende un po' nella cornice, solo per le Lanterne */
+const _ban3dV25 = ban3d;
+ban3d = function (name, big) { const h = _ban3dV25(name, big); return name === "lanterns" && big ? h.replace(/(<image [^>]*?) y="-20"/, '$1 y="-36"') : h; };
 
 splash();
 render();
