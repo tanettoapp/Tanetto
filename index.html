@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-cfb9W99Z4nzRkBsBsZy/S5hC1nEgKHRHBsYc+9zY+qo=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-HJ2zk2t4r36utUHUm895aopxaaUsf5TM0dZ1iysePlQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -28910,16 +28910,46 @@ Object.assign(ICON, {
 /* Logo ufficiale "G" di Google (a colori, come chiedono le regole del pulsante "Accedi con Google") */
 const G_LOGO = `<svg class="glogo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>`;
 
+/* --- 1.0.10: Firebase App Check (Play Integrity), solo nell'app Android ---
+   Il gettone lo fa il codice nativo (AppCheckPlugin.java, plugin "TanettoAppCheck"): l'SDK web lo allega alle richieste di
+   Auth e Firestore. SPENTO finche' la build Android non contiene l'ID dell'app Android di Firebase (status: on=false):
+   allora qui non si fa niente e tutto resta come nella 1.0.9. Sul sito niente App Check. Il controllo e' solo
+   "monitoraggio" finche' la console di Firebase non lo rende obbligatorio. Un gettone che non arriva (niente Google Play,
+   rete lenta) non blocca le richieste: la prima puo' aspettare al massimo 10 s, poi l'SDK la manda senza gettone valido, e
+   per 1 minuto non lo si richiede (cosi' le richieste seguenti partono subito).
+   L'SDK web (fb.js) ha il rinnovo automatico spento: chiede un gettone solo quando quello che ha e' scaduto. Si usa quello gia'
+   pronto nel telefono (meno chiamate a Play Integrity, che ha una quota al giorno); se scade entro 3 minuti se ne chiede uno
+   nuovo (force), cosi' non si ricomincia subito. */
+const appCheckPl = () => { try { const C = window.Capacitor; return (C && C.Plugins && C.Plugins.TanettoAppCheck) || null; } catch (e) { return null; } };
+const acWait = (p, ms) => Promise.race([Promise.resolve(p), new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), Math.max(0, ms)))]);
+const acStale = (t) => !t || typeof t.token !== "string" || !t.token || !(+t.exp - Date.now() > 3 * 60e3);
+let acFailUntil = 0;
+function appCheckSetup() {
+  const p = isNativeApp() ? appCheckPl() : null;
+  if (!p || typeof p.status !== "function") return Promise.resolve(null);
+  return acWait(p.status(), 1500).then((r) => (r && r.on === true ? async () => {
+    if (Date.now() < acFailUntil) throw new Error("app check: retry later");
+    const end = Date.now() + 10e3;
+    try {
+      let t = await acWait(p.token({}), end - Date.now());
+      if (acStale(t)) t = await acWait(p.token({ force: true }), end - Date.now());
+      if (acStale(t)) throw new Error("app check: bad token");
+      return { token: t.token, expireTimeMillis: +t.exp };
+    } catch (e) { acFailUntil = Date.now() + 60e3; throw e; }
+  } : null)).catch(() => null);
+}
+
 /* --- Firebase caricato solo quando serve --- */
 let fbP = null;
 function fbLoad() {
   if (fbP) return fbP;
+  const acP = appCheckSetup(); /* in parallelo al caricamento di fb.js: nessuna attesa in piu' */
   fbP = new Promise((res, rej) => {
     if (window.TanFB) { res(); return; }
     const s = document.createElement("script"); s.src = "fb.js"; s.async = true;
     s.onload = () => (window.TanFB ? res() : rej(netErr())); s.onerror = () => rej(netErr());
     document.head.appendChild(s);
-  }).then(() => window.TanFB.init(FB_CFG, { native: isNativeApp(), emu: window.__FB_EMU || null, lang: fbLang() }))
+  }).then(() => acP).then((appCheck) => window.TanFB.init(FB_CFG, { native: isNativeApp(), emu: window.__FB_EMU || null, lang: fbLang(), appCheck }))
     .then((u) => { checkSession(u); return u; })
     .catch((e) => { fbP = null; throw e; });
   return fbP;
@@ -42877,16 +42907,32 @@ function v25ScnEdges(sc) {
   const max = sc.scrollWidth - sc.clientWidth;
   sc.classList.toggle("scl", sc.scrollLeft > 1); sc.classList.toggle("scr", sc.scrollLeft < max - 1);
 }
-/* misure di layout (offsetLeft/offsetWidth, .scns e' position: relative): non cambiano con le animazioni (transform) ne' con lo
-   scorrimento, quindi il calcolo e' giusto anche mentre la stanza si apre a schermo intero */
+/* misure di layout: non cambiano con le animazioni (transform) ne' con lo scorrimento, quindi il calcolo e' giusto anche
+   mentre la stanza si apre a schermo intero.
+   1.0.10: con i decimali. offsetLeft/offsetWidth/clientWidth sono arrotondati al pixel: la scena scelta poteva finire
+   0,6-1,4 px dentro la sfumatura. Ora: larghezza della fila da getComputedStyle (decimali, senza transform) e posizione della
+   scena da getBoundingClientRect divisa per la scala dell'animazione (k = 1 a riposo); lo scorrimento si arrotonda per
+   eccesso al pixel del telefono, cosi' la scena finisce sempre prima della sfumatura, mai dentro. */
+function v25ScnBox(sc, c) {
+  const cs = getComputedStyle(sc), num = (v) => parseFloat(v) || 0;
+  const bl = num(cs.borderLeftWidth), br = num(cs.borderRightWidth);
+  let bw = num(cs.width); if (cs.boxSizing !== "border-box") bw += num(cs.paddingLeft) + num(cs.paddingRight) + bl + br;
+  const sr = sc.getBoundingClientRect(), cr = c.getBoundingClientRect();
+  if (!(bw > 0) || !(sr.width > 0)) return { right: c.offsetLeft + c.offsetWidth, room: sc.clientWidth };
+  const k = sr.width / bw;
+  /* barra di scorrimento nascosta (.scns): l'area utile e' il riquadro senza i bordi. bar mette insieme due valori arrotondati:
+     al massimo sbaglia di 1 px per eccesso, cioe' la scena finisce un po' prima della sfumatura, mai dentro */
+  const bar = Math.max(0, sc.offsetWidth - sc.clientWidth - Math.round(bl + br));
+  return { right: (cr.right - sr.left) / k - bl + sc.scrollLeft, room: bw - bl - br - bar };
+}
 function v25ScnFit(sc) {
   if (!sc || !sc.isConnected || sc.dataset.user) return;
   sc.style.removeProperty("--scnfade");
   const c = sc.querySelector('.scn[aria-pressed="true"]'); let x = 0;
   if (c && sc.clientWidth > 0) {
-    const right = c.offsetLeft + c.offsetWidth, room = sc.clientWidth;
-    if (right > room) x = Math.ceil(right - (room - (c.nextElementSibling ? SCN_FADE : 0)));
-    else if (right > room - SCN_FADE) sc.style.setProperty("--scnfade", Math.max(2, Math.floor(room - right)) + "px");
+    const { right, room } = v25ScnBox(sc, c), dpr = window.devicePixelRatio || 1;
+    if (right > room + 0.01) x = Math.max(0, Math.ceil((right - (room - (c.nextElementSibling ? SCN_FADE : 0))) * dpr - 0.001) / dpr);
+    else if (right > room - SCN_FADE) sc.style.setProperty("--scnfade", Math.max(2, Math.floor((room - right) * dpr + 0.001) / dpr) + "px");
   }
   sc.dataset.prog = String(x); sc.scrollLeft = x; v25ScnEdges(sc);
 }
@@ -42897,7 +42943,14 @@ function v25ScnView() {
   requestAnimationFrame(() => requestAnimationFrame(() => v25ScnFit(sc)));
   setTimeout(() => v25ScnFit(sc), 700);
   try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => v25ScnFit(sc)); } catch (e) { /* niente */ }
-  const fw = document.getElementById("fullwrap"); if (fw) ["transitionend", "animationend"].forEach((n) => fw.addEventListener(n, () => v25ScnFit(sc)));
+  /* 1.0.10: solo alla fine dell'apertura di #fullwrap stesso, non per ogni transizione o animazione delle cose dentro
+     (pulsanti, scene, compagno); un solo ascoltatore per #fullwrap, che rifa' la fila di quel momento */
+  const fw = document.getElementById("fullwrap");
+  if (fw && !fw.__v25scn) {
+    fw.__v25scn = true;
+    const refit = (ev) => { if (ev.target !== fw) return; v25ScnFit(fw.querySelector(".scns")); };
+    ["transitionend", "animationend"].forEach((n) => fw.addEventListener(n, refit));
+  }
 }
 /* scorsa a mano: da li' in poi si lascia com'e' (si aggiornano solo le sfumature) */
 document.addEventListener("scroll", (ev) => {

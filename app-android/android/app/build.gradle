@@ -1,5 +1,16 @@
 apply plugin: 'com.android.application'
 
+// 1.0.10: Firebase App Check (Play Integrity) per proteggere account e backup (Firestore/Auth).
+// SPENTO finche' tanettoAppCheckAppId e tanettoAppCheckApiKey (android/gradle.properties) sono vuoti: si riempiono con
+// i valori dell'app Android registrata nella console di Firebase (istruzioni in CHANGES_110.md), poi si ricostruisce.
+def acAppId = (project.findProperty("tanettoAppCheckAppId") ?: "").toString().trim()
+def acApiKey = (project.findProperty("tanettoAppCheckApiKey") ?: "").toString().trim()
+if (!(acAppId ==~ /^$|^1:223551726724:android:[0-9a-f]+$/)) throw new GradleException("tanettoAppCheckAppId non valido: deve essere l'ID dell'app Android di Firebase (1:223551726724:android:...)")
+if (!(acApiKey ==~ /^$|^AIza[0-9A-Za-z_-]{35}$/)) throw new GradleException("tanettoAppCheckApiKey non valida")
+if (acAppId.isEmpty() != acApiKey.isEmpty()) throw new GradleException("App Check: servono sia tanettoAppCheckAppId sia tanettoAppCheckApiKey (o nessuno dei due)")
+def appCheckOn = !acAppId.isEmpty()
+logger.lifecycle("Tanetto: App Check " + (appCheckOn ? "ACCESO (Play Integrity)" : "SPENTO (come la 1.0.9)"))
+
 android {
     namespace = "com.tanettoapp.tanetto"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,13 +18,36 @@ android {
         applicationId "com.tanettoapp.tanetto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 109
-        versionName "1.0.9"
+        versionCode 110
+        versionName "1.0.10"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
              // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+        // 1.0.10 App Check: progetto e numero di progetto sono quelli di Firebase gia' usati dall'app (tanettoapp-pet)
+        buildConfigField "String", "APPCHECK_APP_ID", "\"${acAppId}\""
+        buildConfigField "String", "APPCHECK_API_KEY", "\"${acApiKey}\""
+        buildConfigField "String", "APPCHECK_PROJECT_ID", "\"tanettoapp-pet\""
+        buildConfigField "String", "APPCHECK_PROJECT_NUMBER", "\"223551726724\""
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+    // 1.0.10: App Check acceso solo se c'e' l'ID dell'app Android. Spento = plugin "TanettoAppCheck" che risponde
+    // on=false (src/appcheck/off) e NESSUNA libreria Firebase nativa: stesse librerie, stesse versioni della 1.0.9.
+    // Acceso = plugin vero (src/appcheck/on) + Play Integrity nella build release, fornitore "debug" nell'APK di prova.
+    sourceSets {
+        main.java.srcDirs += appCheckOn ? 'src/appcheck/on/java' : 'src/appcheck/off/java'
+        if (appCheckOn) {
+            debug.java.srcDirs += 'src/appcheck/on-debug/java'
+            release.java.srcDirs += 'src/appcheck/on-release/java'
+            debug.manifest.srcFile 'src/appcheck/AndroidManifest.xml'    // toglie l'avvio automatico di Firebase
+            release.manifest.srcFile 'src/appcheck/AndroidManifest.xml'
         }
     }
     signingConfigs {
@@ -45,8 +79,12 @@ android {
         }
         release {
             if (signingConfigs.findByName("release") != null) signingConfig = signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 1.0.10: R8 (riduce e offusca il codice Java; avviso di Play Console "offuscamento 0%") e toglie le risorse
+            // inutilizzate. Regole per cio' che si usa per nome (plugin chiamati dal JavaScript, widget): proguard-rules.pro;
+            // risorse chiamate per nome: res/raw/tanetto_keep.xml. Il file mapping.txt finisce dentro l'AAB per Play Console.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -70,7 +108,17 @@ dependencies {
     implementation "com.google.android.ump:user-messaging-platform:4.0.0"
     implementation "androidx.credentials:credentials-play-services-auth:1.5.0"
     implementation "com.google.android.libraries.identity.googleid:googleid:1.1.1"
+    // 1.0.10: App Check con Play Integrity, SOLO se acceso (vedi sopra); nelle build di prova (debug) il fornitore "debug"
+    // di Firebase, perche' un APK di prova non passa Play Integrity. Da acceso Gradle alza alcune librerie comuni di Google
+    // (play-services-base 18.9.0, play-services-tasks 18.4.0, kotlin-stdlib 2.1.21, coroutines 1.10.2, datastore 1.1.7)
+    // e aggiunge play:integrity 1.4.0: da riprovare sul telefono annunci, acquisti e accesso con Google.
+    if (appCheckOn) {
+        implementation "com.google.firebase:firebase-appcheck-playintegrity:20.1.0"
+        debugImplementation "com.google.firebase:firebase-appcheck-debug:20.1.0"
+    }
     testImplementation "junit:junit:$junitVersion"
+    // 1.0.10: prova del widget (lettura dell'immagine) sul computer, con la grafica vera di Android; solo per i test
+    testImplementation "org.robolectric:robolectric:4.16"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')

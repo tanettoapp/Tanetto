@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1.0.10 (shrinkResources): risorse cercate PER NOME, che l'eliminazione delle risorse inutilizzate non puo' vedere:
+     ic_stat_tanetto = icona piccola delle notifiche, scritta come testo in capacitor.config.json ("smallIcon")
+     e nel JavaScript, cercata da @capacitor/local-notifications;
+     config = res/xml/config.xml di Capacitor/Cordova, cercato per nome all'avvio;
+     com_android_billingclient_* = registrazione "Phenotype" della libreria di Google Play Billing, letta da
+     Google Play services per nome (come nella 1.0.9). -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_stat_tanetto,@xml/config,@raw/com_android_billingclient_heterodyne_info,@raw/com_android_billingclient_registration_info,@xml/com_android_billingclient_phenotype" />

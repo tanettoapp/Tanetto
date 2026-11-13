@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1.0.10: usato solo con App Check ACCESO (build.gradle, sourceSets debug/release). Firebase nativo serve solo ad
+     App Check e si avvia a mano dal plugin TanettoAppCheck: niente avvio automatico di Firebase all'apertura dell'app. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <application>
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="${applicationId}.firebaseinitprovider"
+            tools:node="remove" />
+    </application>
+</manifest>
