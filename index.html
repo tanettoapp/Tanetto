@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-d7AUCyp2lZvA6UZw1cfWQNYwkMcqfDKyeWAsb1hOn8A=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-+/IZJknOQBXMBnm/5V3Eb+zgdFg3B8fslbSlkg6Y9+g=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3000,6 +3000,11 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 .inline:has(> #doRename) { flex-wrap: wrap; }
 .inline:has(> #doRename) > #rename { flex: 1 1 140px; }
 .inline:has(> #doRename) > #doRename { white-space: nowrap; }
+/* stanza a schermo intero: le etichette delle scene (es. "Giardino") sembravano tagliate sotto i pulsanti "sposta" e
+   "riduci". Ora la fila finisce prima dei pulsanti e l'ultima etichetta sfuma del tutto (si capisce che si scorre);
+   lo spazio in fondo permette di portare anche l'ultima etichetta nella parte ben visibile */
+.fulltop .scns { margin-right: 2px; padding-right: 48px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 52px), transparent calc(100% - 6px)); mask-image: linear-gradient(90deg, #000 calc(100% - 52px), transparent calc(100% - 6px)); }
+.fulltop .scns.scl { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 52px), transparent calc(100% - 6px)); mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 52px), transparent calc(100% - 6px)); }
 
 </style>
 
@@ -42852,6 +42857,20 @@ nq20do = function (it) { if (it && it.key === "wear" && v25FirstDay()) return; r
    (prima il taglio centrale finiva sulla bocca); l'immagine scende un po' nella cornice, solo per le Lanterne */
 const _ban3dV25 = ban3d;
 ban3d = function (name, big) { const h = _ban3dV25(name, big); return name === "lanterns" && big ? h.replace(/(<image [^>]*?) y="-20"/, '$1 y="-36"') : h; };
+
+/* ---------- 6) stanza a schermo intero: la scena scelta si vede sempre per intero nella fila delle scene ----------
+   (a 320 px "Stanza" restava quasi tutta nascosta dietro la sfumatura, accanto ai pulsanti "sposta" e "riduci") */
+function v25ScnView() {
+  const sc = document.querySelector("#fullwrap .scns"); if (!sc) return;
+  const c = sc.querySelector('.scn[aria-pressed="true"]'); if (!c) return;
+  const sr = sc.getBoundingClientRect(), cr = c.getBoundingClientRect(); const end = sr.right - 56;
+  if (cr.right > end) sc.scrollLeft += Math.ceil(cr.right - end); else if (cr.left < sr.left) sc.scrollLeft -= Math.ceil(sr.left - cr.left + 4);
+  sc.classList.toggle("scl", sc.scrollLeft > 2);
+}
+/* fila scorsa: sfuma anche a sinistra (niente etichetta tagliata di netto sul bordo) */
+document.addEventListener("scroll", (ev) => { const sc = ev.target; if (sc && sc.classList && sc.classList.contains("scns")) sc.classList.toggle("scl", sc.scrollLeft > 2); }, true);
+const _renderV25 = render;
+render = function (...a) { const r = _renderV25.apply(this, a); try { v25ScnView(); } catch (e) { /* niente */ } return r; };
 
 splash();
 render();
