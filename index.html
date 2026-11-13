@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-+/IZJknOQBXMBnm/5V3Eb+zgdFg3B8fslbSlkg6Y9+g=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-1FSiQQ3Sw6LQKBMx1sXedYUrpNogHgOrefNny4z5rqc=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -2993,6 +2993,9 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 /* Avventure, energia piena: titolo, etichetta e (i) vanno a capo invece di uscire dallo schermo (ru a 320 px) */
 .tr20sth { flex-wrap: wrap; row-gap: 6px; }
 .tr20sth .tr20en { flex: none; white-space: nowrap; }
+/* etichetta e (i) restano insieme: se non c'e' posto vanno sulla riga sotto, l'etichetta a sinistra e la (i) a destra */
+.tr20r { flex: 1 1 auto; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.tr20r .spacer { flex: 1; }
 /* bersagli di almeno 44 px: nome del compagno in alto (nomi corti) e la x delle finestre */
 .top #petNameBtn { min-width: 44px; }
 .overlay button#closeLayer.iconbtn { min-width: 44px; min-height: 44px; }
@@ -36835,7 +36838,7 @@ function tr20StatusCard() {
     bar = `<div class="tr20seg" aria-hidden="true">${seg}</div><div class="tr20segl"><span>${esc(t.prog(st.dn, st.n))}</span>${st.half < st.n ? `<span class="tr20lg"><i></i>${esc(t.kShort)}</span>` : ""}</div>`;
   }
   const steps = !(S.cards || []).length ? `<div class="tr20how"><b>${esc(t.howT)}</b><ol>${[t.s1, t.s2, t.s3].map((s, k) => `<li><span class="tr20n">${k + 1}</span><span>${esc(s)}</span></li>`).join("")}</ol></div>` : "";
-  return `<div class="tr20st tr20-${st.why}" role="status"><div class="tr20sth"><span class="tr20en"><span class="tr20bdg">${LEAF}</span><b>${esc(L().energy)}</b></span>${badge}<span class="spacer"></span>${tr20iBtn()}</div><p class="tr20tx">${esc(txt)}</p>${bar}${note ? `<p class="tr20note">${esc(note)}</p>` : ""}${steps}</div>`;
+  return `<div class="tr20st tr20-${st.why}" role="status"><div class="tr20sth"><span class="tr20en"><span class="tr20bdg">${LEAF}</span><b>${esc(L().energy)}</b></span><span class="tr20r">${badge}<span class="spacer"></span>${tr20iBtn()}</span></div><p class="tr20tx">${esc(txt)}</p>${bar}${note ? `<p class="tr20note">${esc(note)}</p>` : ""}${steps}</div>`;
 }
 const _viewTripsTr20 = viewTrips;
 let tr20tripsMemo = ["", ""];
