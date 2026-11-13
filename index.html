@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-uZGZ3o6W447F0KeC+LpRoTLph5mkIX4i8CE8t2VxTeY=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-k3kVqe+OXSIs9pmtlP9Qa/cKy9ZCQtu6ufkDQhq2ceI=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -24563,7 +24563,7 @@ const SND = (() => {
     lastAt = performance.now(); if (!S.sfx) return false; const f = MOTIF[pet] || MOTIF.germo; const c = ensure(); if (!c) return false;
     try { f(c, fxBus, c.currentTime + 0.02); return true; } catch (e) { return false; }
   }
-  function haptic(p = 8) { try { if (S.haptic && navigator.vibrate) navigator.vibrate(p); } catch (e) { /* niente */ } }
+  function haptic(p = 8) { try { if (S.haptic && navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(p); } catch (e) { /* niente */ } } /* 1.0.9: prima di un tocco il sistema la blocca comunque (e scrive un errore): una finestra che si apre da sola non vibra */
 
   /* --- Musica: 12 brani, ognuno con stile, strumenti, tempo e ritmo diversi --- */
   const N = (s) => 440 * Math.pow(2, s / 12);
