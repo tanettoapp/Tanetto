@@ -4,8 +4,8 @@
 # NEW_FP = frasi normali di tutti i giorni che NON devono far scattare niente (ne' forte ne' lieve).
 # NEG = frasi negate / di paura ("non voglio morire"): attese = controllo gentile (livello 1), mai forte.
 import sys
-sys.path.insert(0, "/tmp/claude-0/-home-claude/98d65832-ceaf-57c7-bffe-ab6ef32f731b/scratchpad/audit110/areas/GAPS3")
-from lists import T as AUD_T, FP as AUD_FP
+import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from aud_lists import T as AUD_T, FP as AUD_FP
 NEW_T = {
 "it": ["VOGLIO MORIRE", "voglio morireee", "non ce la faccio piu, voglio morire", "mi voglio togliere la vita", "stasera mi ammazzo", "penso di farla finita", "sarebbe meglio se morissi", "nessuno sentirebbe la mia mancanza", "mi taglio con la lametta", "non voglio piu vivere davvero", "vorrei morire", "mi faccio del male di nascosto"],
 "en": ["I REALLY WANT TO DIE", "i'm going to kill myself tonight", "i want to kill myself lol", "nobody would care if i died", "i dont see the point in living", "im thinking about ending it all", "life isnt worth living", "i hate myself and want to die", "i want to sleep and never wake up", "i wanna kill myself", "i dont want to be here anymore", "i've been cutting myself"],

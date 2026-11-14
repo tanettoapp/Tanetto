@@ -36,4 +36,4 @@ async def main():
         print("errori pagina:", pg.errs[:5])
         await b.close()
     print("TUTTO OK" if bad == 0 else f"CI SONO ERRORI ({bad})")
-asyncio.run(main())
+if __name__ == "__main__": asyncio.run(main())

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tp5JrHkTjUeV3LO2fCBdQvvXA3HW9TnIhpANBd0DHa0=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-V+fcUsc75zNsU+sojOQa4LEAR+25pFgmebGb8vee1FQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -43178,7 +43178,7 @@ const sf110T = () => SF110_T[S.lang] || SF110_T.en;
 
 /* ---------------- B) numeri di aiuto per PAESE (verificati il 14/11/2026, fonti in HELPLINES_FONTI.md) ----------------
    n = nome (l'originale; "en" = nome per chi usa l'app in un'altra lingua, solo per i Paesi con un'altra scrittura),
-   t = numero, y = per bambini e ragazzi. E = emergenza. Lingue "di casa" (L): si usa il nome originale. */
+   t = numero, y = per bambini e ragazzi (ny = il nome lo dice gia', niente etichetta). E = emergenza. Lingue "di casa" (L): si usa il nome originale. */
 const SF110_HL = {
   IT: { L: ["it"], E: "112", h: [{ n: "Telefono Amico Italia", t: "02 2327 2327" }, { n: "Telefono Azzurro", t: "19696", y: 1 }] },
   DE: { L: ["de"], E: "112", h: [{ n: "TelefonSeelsorge", t: "0800 111 0 111 · 0800 111 0 222 · 116 123" }, { n: "Nummer gegen Kummer", t: "116 111", y: 1 }] },
@@ -43200,13 +43200,13 @@ const SF110_HL = {
   AU: { L: ["en"], E: "000", h: [{ n: "Lifeline", t: "13 11 14" }, { n: "Kids Helpline", t: "1800 55 1800", y: 1 }] },
   NZ: { L: ["en"], E: "111", h: [{ n: "Need to talk? 1737", t: "1737" }, { n: "Youthline", t: "0800 376 633", y: 1 }] },
   IN: { L: ["en"], E: "112", h: [{ n: "Tele-MANAS", t: "14416" }] },
-  JP: { L: ["ja"], E: "119 · 110", h: [{ n: { ja: "よりそいホットライン", en: "Yorisoi Hotline" }, t: "0120-279-338" }, { n: { ja: "#いのちSOS", en: "#Inochi SOS" }, t: "0120-061-338" }, { n: { ja: "24時間子供SOSダイヤル", en: "24-hour Children's SOS Dial" }, t: "0120-0-78310", y: 1 }] },
-  KR: { L: ["ko"], E: "119 · 112", h: [{ n: { ko: "자살예방상담전화", en: "Suicide prevention line" }, t: "109" }, { n: { ko: "청소년상담", en: "Youth counselling" }, t: "1388", y: 1 }] },
+  JP: { L: ["ja"], E: "119 · 110", h: [{ n: { ja: "よりそいホットライン", en: "Yorisoi Hotline" }, t: "0120-279-338" }, { n: { ja: "#いのちSOS", en: "#Inochi SOS" }, t: "0120-061-338" }, { n: { ja: "24時間子供SOSダイヤル", en: "24-hour Children's SOS Dial" }, t: "0120-0-78310", y: 1, ny: 1 }] },
+  KR: { L: ["ko"], E: "119 · 112", h: [{ n: { ko: "자살예방상담전화", en: "Suicide prevention line" }, t: "109" }, { n: { ko: "청소년상담", en: "Youth counselling" }, t: "1388", y: 1, ny: 1 }] },
   CN: { L: ["zh", "zht"], E: "120 · 110", h: [{ n: { zh: "心理援助热线", zht: "心理援助熱線", en: "Mental health support line" }, t: "12356" }] },
   TW: { L: ["zh", "zht"], E: "119 · 110", h: [{ n: { zh: "安心专线", zht: "安心專線", en: "MOHW Anxin line" }, t: "1925" }, { n: { zh: "生命线", zht: "生命線", en: "Lifeline Taiwan" }, t: "1995" }] },
   HK: { L: ["zh", "zht"], E: "999", h: [{ n: { zh: "香港撒玛利亚防止自杀会", zht: "香港撒瑪利亞防止自殺會", en: "Samaritan Befrienders Hong Kong" }, t: "2389 2222" }, { n: { zh: "撒玛利亚会", zht: "撒瑪利亞會", en: "The Samaritans Hong Kong" }, t: "2896 0000" }] },
-  RU: { L: ["ru"], E: "112", h: [{ n: { ru: "Детский телефон доверия", en: "Children's helpline" }, t: "8-800-2000-122", y: 1 }] },
-  PL: { L: ["pl"], E: "112", h: [{ n: "Centrum Wsparcia", t: "800 70 2222" }, { n: "Telefon zaufania dla dzieci i młodzieży", t: "116 111", y: 1 }] },
+  RU: { L: ["ru"], E: "112", h: [{ n: { ru: "Телефон доверия", en: "Helpline" }, t: "8-800-2000-122", y: 1 }] },
+  PL: { L: ["pl"], E: "112", h: [{ n: "Centrum Wsparcia", t: "800 70 2222" }, { n: "Telefon zaufania", t: "116 111", y: 1 }] },
   TR: { L: ["tr"], E: "112", h: [{ n: "ALO 183", t: "183" }] },
 };
 /* Paesi dove si da' solo il numero di emergenza (UE/SEE senza numeri di aiuto in tabella: 112 ovunque) */
@@ -43223,6 +43223,8 @@ function sf110Country() {
   const r = rs.find((x) => x && (SF110_HL[x] || SF110_E[x])); if (r) return [r];
   return SF110_LANG_C[S.lang] || ["US", "GB"];
 }
+/* un numero non si spezza a meta' riga (spazi fissi, niente a capo dopo i trattini); si va a capo solo tra due numeri (" · ") */
+const sf110Num = (t) => t.split(" · ").map((n) => n.replace(/ /g, "\u00a0").replace(/-/g, "\u2060-\u2060")).join(" · ");
 function sf110CName(c) { try { return new Intl.DisplayNames([loc()], { type: "region" }).of(c) || c; } catch (e) { return c; } }
 function sf110Lines(lang, cs) {
   lang = lang || S.lang; cs = cs || sf110Country(); const x = SF110_T[lang] || SF110_T.en; const out = [];
@@ -43232,9 +43234,9 @@ function sf110Lines(lang, cs) {
     if (d) {
       const nm = (n) => (typeof n === "string" ? n : n[lang] || (d.L.includes(lang) && n[d.L[0]]) || n.en || Object.values(n)[0]);
       let h = d.h.slice(); if (kidFirst) h = h.filter((z) => z.y).concat(h.filter((z) => !z.y));
-      h.forEach((z) => out.push(`${nm(z.n)}${z.y ? ` (${x.y})` : ""}${x.sep}${z.t}`));
-      out.push(`${x.e} (${sf110CName(c)})${x.sep}${d.E}`);
-    } else if (SF110_E[c]) out.push(`${x.e} (${sf110CName(c)})${x.sep}${SF110_E[c]}`);
+      h.forEach((z) => out.push(`${nm(z.n)}${z.y && !z.ny ? ` (${x.y})` : ""}${x.sep}${sf110Num(z.t)}`));
+      out.push(`${x.e} (${sf110CName(c)})${x.sep}${sf110Num(d.E)}`);
+    } else if (SF110_E[c]) out.push(`${x.e} (${sf110CName(c)})${x.sep}${sf110Num(SF110_E[c])}`);
     else out.push(`${x.e}${x.sep}${x.local}`);
   });
   out.push(`${x.find}${x.sep}findahelpline.com`);
