@@ -699,3 +699,66 @@ new MutationObserver((ms) => {
 }).observe(document.body, { childList: true, subtree: true, characterData: true });
 const _renderV26b = render;
 render = function (...a) { const r = _renderV26b.apply(this, a); v26Title(); return r; };
+
+/* ---------- 14) Prodotto (M-40, E-08, E-11, E-14, G2-11, M-37) ---------- */
+const V26_VERSION = "1.0.11";
+/* a) M-40 / E-03 / E-11: "bentornato" a livelli. Dopo 7+ giorni: una riga su cio' che c'e' adesso (Natale, stagione che
+   finisce), "Ripartiamo piano: oggi solo 1 obiettivo" e, se il promemoria era stato rifiutato, una sola nuova proposta. */
+function v26Light() { const l = S.v26light; return l && l.day === dkey() && typeof l.goal === "string" ? l.goal : null; }
+const _todayGoalsV26 = todayGoals;
+todayGoals = function (...a) { const r = _todayGoalsV26.apply(this, a); const g = v26Light(); return g && r.includes(g) ? [g] : r; };
+const _openWelcomeBackV26 = openWelcomeBack;
+openWelcomeBack = function (...a) {
+  const r = _openWelcomeBackV26.apply(this, a);
+  try {
+    const box = layer.querySelector(".wgbox"); if (!box || box.querySelector(".v26wb") || !(BACK_GAP >= 7)) return r;
+    const w = L().v26.wb; const lines = [];
+    if (typeof xmOn === "function" && xmOn()) lines.push(w.xmas);
+    const se = typeof curSeason === "function" ? curSeason() : null; if (se) { const n = daysLeft(se); if (n > 0 && n <= 30) lines.push(w.season(seaName(se), n)); }
+    const tg = _todayGoalsV26(); const easy = tg.find((g) => ["water", "breathe", "stretch", "sun", "fruit"].includes(g)) || tg[0];
+    let html = lines.map((x) => `<p class="small v26wb">${esc(x)}</p>`).join("");
+    if (tg.length > 1 && easy && !S.done.length) html += `<button class="btn ghost block v26wb" id="v26Light" data-goal="${esc(easy)}">${esc(w.light)}</button>`;
+    if (S.rem === "no" && !S.remAsk2 && typeof openRemAsk === "function") html += `<button class="link v26wb" id="v26Rem">${esc(w.rem)}</button>`;
+    const anchor = box.querySelector("#closeLayer") || box.lastElementChild; if (anchor) anchor.insertAdjacentHTML("beforebegin", html); else box.insertAdjacentHTML("beforeend", html);
+  } catch (e) { /* niente */ }
+  return r;
+};
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("#v26Light, #v26Rem, #v26BrDid"); if (!b) return; ev.stopImmediatePropagation();
+  if (b.id === "v26Light") { S.v26light = { day: dkey(), goal: b.dataset.goal }; const r = dayRec(); r.total = 1; save(); layer.innerHTML = ""; render(); toast(L().v26.wb.lightDone.split("{g}").join(goalText(b.dataset.goal))); trackOnce("ripartenza-leggera"); return; }
+  if (b.id === "v26Rem") { S.remAsk2 = dkey(); S.rem = null; save(); layer.innerHTML = ""; openRemAsk(); return; }
+  if (b.id === "v26BrDid") { layer.innerHTML = ""; if (todayGoals().includes("breathe") && !S.done.includes("breathe")) completeGoal("breathe"); else render(); }
+}, true);
+/* b) E-08: "Respira con me" ha anche "L'ho gia' fatto" (chi respira da solo puo' spuntare l'obiettivo) */
+const _breatheV26 = breathe;
+breathe = function (...a) {
+  const r = _breatheV26.apply(this, a);
+  try { if (todayGoals().includes("breathe") && !S.done.includes("breathe")) { const c = layer.querySelector("#closeLayer"); if (c && !layer.querySelector("#v26BrDid")) c.insertAdjacentHTML("beforebegin", `<button class="link" id="v26BrDid">${esc(L().v26.brDid)}</button>`); } } catch (e) { /* niente */ }
+  return r;
+};
+/* c) E-14: dopo la prima settimana una riga con il prossimo traguardo (trofeo della serie), sopra gli obiettivi */
+function v26NextLine() {
+  try { if (typeof trNext !== "function") return ""; const st = streak(); if (st < 7) return ""; const n = trNext(st); if (!n || n.left <= 0) return "";
+    return `<p class="small muted nextgoal">${esc(L().v26.nextTr(TROPHY_DAYS[n.i], n.left))}</p>`; } catch (e) { return ""; }
+}
+const _viewTodayV26 = viewToday;
+viewToday = function (...a) {
+  const h = _viewTodayV26.apply(this, a); const line = v26NextLine(); if (!line || h.indexOf('<ul class="goals">') < 0) return h;
+  return h.replace('<ul class="goals">', line + '<ul class="goals">');
+};
+/* d) G2-11: versione dell'app in "Informazioni" (serve per i messaggi di aiuto) */
+const _viewMoreV26b = viewMore;
+viewMore = function (...a) {
+  const h = _viewMoreV26b.apply(this, a); if (!S.pet || h.indexOf('id="v26Ver"') >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h;
+  const about = [...tpl.content.querySelectorAll(".card")].find((c) => c.querySelector("[data-doc]")); if (!about) return h;
+  about.insertAdjacentHTML("beforeend", `<p class="small muted" id="v26Ver" style="margin:8px 0 0;text-align:center">Tanetto ${esc(L().v26.ver)} ${V26_VERSION}</p>`);
+  return tpl.innerHTML;
+};
+/* e) M-37 / A-04 / A-02: il benvenuto animato (e il logo sonoro) solo alla prima apertura del giorno; le altre volte
+   l'app si apre subito dopo lo splash del telefono */
+const _splashV26 = splash;
+splash = function (...a) {
+  try { if (S.pet && S.v26splash === dkey()) sessionStorage.setItem("tanetto-nosplash", "1"); else if (S.pet) { S.v26splash = dkey(); save(); } } catch (e) { /* niente */ }
+  return _splashV26.apply(this, a);
+};

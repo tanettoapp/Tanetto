@@ -978,7 +978,7 @@ nq20wrap("hint", "ask", () => (typeof v20touchHint === "function" ? v20touchHint
 /* Mai durante il benvenuto. Una volta, con calma, dopo la prima vera conquista: a fine del primo giorno
    (tutti gli obiettivi fatti) oppure, dal secondo giorno, dopo il primo obiettivo spuntato. Se si dice "Non ora",
    almeno 2 giorni di pausa (massimo 3 volte in tutto). Solo nell'app Android, con prezzo e prova veri di Google Play. */
-const NAV20_PLUS_MAX = 3, NAV20_PLUS_PAUSE = 2;
+const NAV20_PLUS_MAX = 3, NAV20_PLUS_PAUSE = 5; /* 1.0.11 (E-04): prima 2 giorni (3 offerte nei primi 6 giorni) */
 const nav20days = (a, b) => Math.round((new Date(b + "T12:00:00") - new Date(a + "T12:00:00")) / 86400000);
 /* 1.0.9: mai nel momento di una partenza o di un ritorno. Niente offerta con una meta appena scelta, con la cartolina del
    ritorno aperta, nella scheda Viaggi o nei 10 minuti dopo la partenza (prima arrivava proprio dopo "Parti").

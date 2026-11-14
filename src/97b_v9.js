@@ -23,13 +23,13 @@ splash = function () {
   document.body.appendChild(d);
   const tl = G.timeline({ onComplete: () => d.remove() });
   /* 1.0.9: il nome compare in 4 gruppi di lettere, a tempo con le 4 note del logo sonoro (Sol La Si Re, 112,5 bpm = 0,267 s) */
-  tl.from(".splash .splogo", { scale: 0.3, opacity: 0, duration: 0.55, ease: "back.out(1.6)" })
+  tl.from(".splash .splogo", { scale: 0.85, opacity: 0, duration: 0.35, ease: "back.out(1.6)" }) /* 1.0.11 (A-04): niente salto dal logo nativo */
     .from(".splash .spname .g0", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "-=0.05")
     .from(".splash .spname .g1", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
     .from(".splash .spname .g2", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
     .from(".splash .spname .g3", { y: 26, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, "+=" + (0.267 - 0.3))
     .from(".splash .sptag", { y: 10, opacity: 0, duration: 0.35 }, "-=0.15")
-    .to(d, { opacity: 0, scale: 1.06, duration: 0.45, ease: "power2.in", delay: 0.55 });
+    .to(d, { opacity: 0, scale: 1.03, duration: 0.3, ease: "power2.in", delay: 0.1 });
   d.addEventListener("click", () => tl.progress(1));
 };
 

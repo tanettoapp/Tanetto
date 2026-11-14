@@ -67,7 +67,7 @@ const SND = (() => {
     flute: (f, t, v, d) => { const o = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain(); o.type = "sine"; o.frequency.value = f; lfo.frequency.value = 5; lg.gain.value = f * 0.006; lfo.connect(lg); lg.connect(o.frequency); g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(v * 0.7, t + 0.12); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.1); o.connect(g); g.connect(d); o.start(t); lfo.start(t); o.stop(t + 1.2); lfo.stop(t + 1.2); }
   };
   const FX = {
-    tap: (t) => { tone(740, t, 0.07, { vol: 0.12, glide: 980 }); },
+    tap: (t) => { tone(740, t, 0.07, { vol: 0.3, glide: 980 }); },
     pop: (t) => { tone(520, t, 0.16, { type: "sine", vol: 0.3, glide: 980 }); tone(1040, t + 0.05, 0.12, { vol: 0.1 }); },
     chime: (t) => { [784, 988, 1319].forEach((f, i) => bell(f, t + i * 0.075, 0.2, fxBus, 0.9)); },
     coin: (t) => { tone(988, t, 0.09, { type: "triangle", vol: 0.2 }); tone(1319, t + 0.08, 0.32, { type: "triangle", vol: 0.2 }); },
@@ -76,19 +76,19 @@ const SND = (() => {
     jingle: (t) => { [1319, 1568, 1760, 2093, 1760].forEach((f, i) => bell(f, t + i * 0.07, 0.13, fxBus, 0.6)); },
     depart: (t) => { tone(330, t, 0.6, { type: "triangle", vol: 0.18, glide: 990 }); noise(t, 0.5, 0.12, 1800); },
     back: (t) => { [659, 784, 988, 1175].forEach((f, i) => bell(f, t + i * 0.09, 0.16, fxBus, 0.8)); },
-    click: (t) => { tone(1200, t, 0.05, { vol: 0.08, glide: 1600 }); },
+    click: (t) => { tone(1200, t, 0.05, { vol: 0.2, glide: 1600 }); },
     buy: (t) => { tone(784, t, 0.1, { type: "triangle", vol: 0.18 }); bell(1175, t + 0.08, 0.18, fxBus, 0.7); },
     chomp: (t) => { [0, 0.16, 0.32].forEach((d) => { noise(t + d, 0.07, 0.35, 900); tone(220, t + d, 0.08, { vol: 0.12, glide: 140 }); }); },
-    purr: (t) => { tone(160, t, 0.18, { vol: 0.12, glide: 120 }); },
+    purr: (t) => { tone(160, t, 0.18, { vol: 0.3, glide: 120 }); },
     giggle: (t) => { [880, 990, 880, 1040, 920].forEach((f, i) => tone(f, t + i * 0.07, 0.07, { vol: 0.12, glide: f * 1.15 })); },
     shutter: (t) => { noise(t, 0.05, 0.5, 3000); noise(t + 0.08, 0.06, 0.35, 2000); },
     paper: (t) => { noise(t, 0.25, 0.18, 4200); noise(t + 0.15, 0.2, 0.12, 3200); },
     sparkle: (t) => { [1568, 2093, 2637].forEach((f, i) => bell(f, t + i * 0.05, 0.08, fxBus, 0.5)); },
     lightoff: (t) => { tone(660, t, 0.3, { vol: 0.12, glide: 330 }); },
     lighton: (t) => { tone(440, t, 0.3, { vol: 0.12, glide: 880 }); bell(1319, t + 0.15, 0.1, fxBus, 0.6); },
-    beep: (t) => { tone(880, t, 0.12, { type: "triangle", vol: 0.14 }); },
+    beep: (t) => { tone(880, t, 0.12, { type: "triangle", vol: 0.32 }); },
     go: (t) => { tone(1319, t, 0.3, { type: "triangle", vol: 0.16 }); },
-    miss: (t) => { tone(300, t, 0.15, { vol: 0.08, glide: 200 }); }
+    miss: (t) => { tone(300, t, 0.15, { vol: 0.2, glide: 200 }); }
   };
   /* 1.0.9: LOGO SONORO di Tanetto (come nel video): ogni obiettivo spuntato suona la nota successiva di
      Sol5-La5-Si5-Re6 (gradi 1-2-3-5 di Sol maggiore), la giornata completa suona il "chime" Sol-Si-Re che finisce
@@ -145,6 +145,8 @@ const SND = (() => {
     if (!S.sfx || !FX[name]) return;
     const c = ensure(); if (!c) return;
     try { FX[name](c.currentTime + 0.01); } catch (e) { /* niente */ }
+    /* 1.0.11 (A-02): con la musica accesa, la musica si abbassa un attimo sotto il suono (si sente sempre il tocco) */
+    try { if (musicTimer && musicBus) { const t0 = c.currentTime, g = MUSIC_K * TRACKS[cur].g; musicBus.gain.cancelScheduledValues(t0); musicBus.gain.setTargetAtTime(g * 0.5, t0, 0.03); musicBus.gain.setTargetAtTime(g, t0 + 0.6, 0.25); } } catch (e) { /* niente */ }
   }
   /* 1.0.9 (fase 3): il motivo di ogni compagno (scratchpad/gpu/characters.md), tutti in Sol maggiore pentatonico come il
      logo, con la stessa kalimba/celesta; brevi (sotto 1,2 s), piano, mai insistenti. Germo = il logo stesso. */
@@ -153,10 +155,10 @@ const SND = (() => {
     germo: (c, d, t) => { LOGO_HZ.forEach((f, i) => logoKal(c, d, f, t + i * S16, 0.2, i % 2 ? 0.15 : -0.15)); },
     ondi: (c, d, t) => { [587.33, 493.88, 392.0].forEach((f, i) => logoKal(c, d, f, t + i * E8 * 1.5, 0.2 - i * 0.03, -0.1, 1.5)); /* goccia */ tone(1400, t + E8 * 4.4, 0.12, { vol: 0.05, glide: 700, dest: d }); },
     lumi: (c, d, t) => { [987.77, 1174.66, 1567.98].forEach((f, i) => { bell(f, t + i * E8 * 1.4, 0.11, d, 1.6); tone(f * 2, t + i * E8 * 1.4, 0.9, { vol: 0.012, dest: d }); }); },
-    miko: (c, d, t) => { logoKal(c, d, 987.77, t, 0.18, -0.1); tone(1108.73, t + E8, 0.45, { vol: 0.07, glide: 1174.66, dest: d, attack: 0.01 }); /* fusa */ tone(70, t + E8, 0.5, { type: "triangle", vol: 0.03, dest: d, filter: 300 }); },
+    miko: (c, d, t) => { logoKal(c, d, 987.77, t, 0.18, -0.1); tone(1108.73, t + E8, 0.45, { vol: 0.11, glide: 1174.66, dest: d, attack: 0.01 }); /* fusa */ tone(70, t + E8, 0.5, { type: "triangle", vol: 0.048, dest: d, filter: 300 }); },
     rufi: (c, d, t) => { [880.0, 987.77, 1174.66, 1318.51].forEach((f, i) => logoKal(c, d, f, t + i * S16 * 0.8, 0.16, (i - 1.5) * 0.1, 0.5)); },
-    pingo: (c, d, t) => { [[783.99, 0, 0.6], [783.99, E8, 0.6], [1174.66, E8 * 2, 1.3]].forEach(([f, dt, tl]) => { tone(f, t + dt, 0.2 * tl, { type: "sine", vol: 0.1, dest: d, attack: 0.003 }); tone(f * 4, t + dt, 0.05, { vol: 0.03, dest: d, attack: 0.002 }); }); },
-    dori: (c, d, t) => { tone(392.0, t, 0.7, { type: "triangle", vol: 0.07, dest: d, filter: 1200, attack: 0.03 }); tone(493.88, t, 0.7, { type: "triangle", vol: 0.06, dest: d, filter: 1200, attack: 0.03 }); noise(t + 0.45, 0.12, 0.03, 900, d); bell(1975.53, t + 0.62, 0.07, d, 0.9); }
+    pingo: (c, d, t) => { [[783.99, 0, 0.6], [783.99, E8, 0.6], [1174.66, E8 * 2, 1.3]].forEach(([f, dt, tl]) => { tone(f, t + dt, 0.2 * tl, { type: "sine", vol: 0.25, dest: d, attack: 0.003 }); tone(f * 4, t + dt, 0.05, { vol: 0.075, dest: d, attack: 0.002 }); }); },
+    dori: (c, d, t) => { tone(392.0, t, 0.7, { type: "triangle", vol: 0.175, dest: d, filter: 1200, attack: 0.03 }); tone(493.88, t, 0.7, { type: "triangle", vol: 0.15, dest: d, filter: 1200, attack: 0.03 }); noise(t + 0.45, 0.12, 0.075, 900, d); bell(1975.53, t + 0.62, 0.175, d, 0.9); }
   };
   function petMotif(pet) {
     lastAt = performance.now(); if (!S.sfx) return false; const f = MOTIF[pet] || MOTIF.germo; const c = ensure(); if (!c) return false;
@@ -174,6 +176,7 @@ const SND = (() => {
     epiano: (f, t, v, d) => { tone(f, t, 1.8, { vol: v, dest: d, attack: 0.012, filter: 1800 }); tone(f * 2, t, 0.7, { vol: v * 0.16, dest: d, attack: 0.01 }); tone(f / 2, t, 1.2, { vol: v * 0.18, dest: d, attack: 0.03 }); },
     celesta: (f, t, v, d) => { tone(f, t, 1.8, { vol: v, dest: d, attack: 0.003 }); tone(f * 4, t, 0.25, { vol: v * 0.18, dest: d }); }
   });
+  const MUSIC_K = 0.64; /* 1.0.11 (A-02): prima 1,6 (musica 10-25 LU sopra i suoni dei tocchi) */
   const TRACKS = [
     { root: 3, mode: "major", beat: 0.4, per: 8, prog: [0, 4, 5, 3], mel: "epiano", dens: 0.42, acc: "broken", accI: "harp", bass: "root", drums: null, g: 0.95, seed: 11 },
     { root: -2, mode: "mixo", beat: 0.27, per: 8, prog: [0, 3, 6, 4], mel: "marimba", dens: 0.55, acc: "hits", accI: "epiano", bass: "walk", drums: "tick", g: 1.2, seed: 23 },
@@ -283,14 +286,14 @@ const SND = (() => {
       nextT += tr.beat; step++;
     }
   }
-  function startSong(i) { cur = (i + TRACKS.length) % TRACKS.length; song = buildSong(cur); step = 0; nextT = ctx.currentTime + 0.15; startBed(TRACKS[cur].bed); if (musicTimer) { musicBus.gain.cancelScheduledValues(ctx.currentTime); musicBus.gain.setValueAtTime(musicBus.gain.value, ctx.currentTime); musicBus.gain.linearRampToValueAtTime(1.6 * TRACKS[cur].g, ctx.currentTime + 1.5); } if (onTrack) onTrack(cur); }
+  function startSong(i) { cur = (i + TRACKS.length) % TRACKS.length; song = buildSong(cur); step = 0; nextT = ctx.currentTime + 0.15; startBed(TRACKS[cur].bed); if (musicTimer) { musicBus.gain.cancelScheduledValues(ctx.currentTime); musicBus.gain.setValueAtTime(musicBus.gain.value, ctx.currentTime); musicBus.gain.linearRampToValueAtTime(MUSIC_K * TRACKS[cur].g, ctx.currentTime + 1.5); } if (onTrack) onTrack(cur); }
   function next() { startSong(cur + 1); }
   function musicOn(first) {
     const c = ensure(); if (!c || musicTimer) return;
     startSong(first != null ? first : cur);
     musicBus.gain.cancelScheduledValues(c.currentTime);
     musicBus.gain.setValueAtTime(musicBus.gain.value, c.currentTime);
-    musicBus.gain.linearRampToValueAtTime(1.6 * TRACKS[cur].g, c.currentTime + 3.5);
+    musicBus.gain.linearRampToValueAtTime(MUSIC_K * TRACKS[cur].g, c.currentTime + 3.5); /* 1.0.11 (A-02): -8 dB */
     musicTimer = setInterval(schedule, 120); schedule();
   }
   function musicOff() {
