@@ -50,7 +50,7 @@ h1 { font-size: 24px; margin: 0 0 10px; line-height: 1.25; } p { margin: 0 0 12p
 const S = ${JSON.stringify(S)};
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const link = (s) => esc(s).replace(/tanettoapp\\.github\\.io\\/Tanetto\\/elimina-account\\.html/g, '<a href="elimina-account.html">tanettoapp.github.io/Tanetto/elimina-account.html</a>').replace(/([\\w.+-]+@[\\w-]+\\.[\\w.]+)/g, '<a href="mailto:$1">$1</a>').replace(/(https:\\/\\/[^\\s<>"）)，。、]+[^\\s<>"）)，。、.,;:])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+const link = (s) => esc(s).replace(/tanettoapp\\.github\\.io\\/Tanetto\\/elimina-account\\.html/g, '<a href="elimina-account.html">tanettoapp.github.io/Tanetto/elimina-account.html</a>').replace(/([\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+)/g /* 1.0.11 (K-01): senza il punto finale della frase */, '<a href="mailto:$1">$1</a>').replace(/(https:\\/\\/[^\\s<>"）)，。、]+[^\\s<>"）)，。、.,;:])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
 const pick = () => { const q = (/[?&]lang=([a-z]+)/.exec(location.search) || [])[1]; if (q && Object.prototype.hasOwnProperty.call(S, q)) return q; /* 1.0.8: ?lang=constructor non rompe la pagina */ const n = (navigator.language || "en").toLowerCase(); if (/^zh-(tw|hk|mo)|hant/.test(n)) return "zht"; const l = n.slice(0, 2); return S[l] ? l : "en"; };
 let lang = pick();
 $("lang").innerHTML = Object.keys(S).map((k) => '<option value="' + k + '">' + S[k].lang + "</option>").join(""); $("lang").value = lang;

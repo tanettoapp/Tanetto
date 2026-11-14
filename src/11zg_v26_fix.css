@@ -143,3 +143,8 @@ html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%;
 
 /* --- M-44 / G-04: l'anello "tocca qui" del primo obiettivo pulsa 6 volte, non per sempre (60 ricalcoli al secondo) --- */
 html.firstgoal .goal .tick::after { animation-iteration-count: 6; }
+
+/* --- M-14: licenze open source dentro l'app --- */
+.v26lic .doc pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.45; background: var(--paper-2); border-radius: 12px; padding: 10px; }
+.v26lic .doc .card { box-shadow: none; border: 1px solid var(--line); margin: 8px 0; }
+.v26lic .dochead { display: flex; align-items: center; gap: 8px; justify-content: space-between; }

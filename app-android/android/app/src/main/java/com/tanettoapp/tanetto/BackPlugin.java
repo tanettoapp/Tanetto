@@ -36,6 +36,8 @@ public class BackPlugin extends Plugin {
     @PluginMethod
     public void exitApp(PluginCall call) {
         call.resolve();
-        getActivity().runOnUiThread(() -> getActivity().finish());
+        // 1.0.11 (G-07): "Esci" manda l'app dietro (come fa Android 12+ con il tasto indietro) invece di chiuderla:
+        // la prossima apertura e' immediata, non un avvio da zero
+        getActivity().runOnUiThread(() -> getActivity().moveTaskToBack(true));
     }
 }

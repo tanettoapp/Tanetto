@@ -7,8 +7,13 @@
          database del WebView: come avere i permessi di root). Un salvataggio rimesso sul telefono passa comunque dai
          controlli dell'avvio (45z_v20_secboot.js) e Plus viene riconfermato da Google Play.
          Niente usesCleartextTraffic (vietato per default), nessun deep link, una sola attivita' esportata. -->
+    <!-- 1.0.11 (G-14/H-08): regole esplicite del backup automatico di Google: torna il compagno (memoria locale del
+         WebView) e il widget; NON tornano la sessione di Firebase (si rientra nell'account), le cache e le scelte sulla
+         pubblicita' (il consenso si richiede sul telefono nuovo). -->
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -66,4 +71,13 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" tools:node="remove" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" tools:node="remove" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <!-- 1.0.11 (A-01): la vibrazione leggera dei tocchi (interruttore in Impostazioni) senza questo permesso non funzionava mai.
+         E' un permesso "normale": nessuna richiesta a chi usa l'app. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 1.0.11 (H-07): non servono (API di Privacy Sandbox per la pubblicita' e servizio in primo piano di WorkManager, mai usato):
+         in un'app anche per bambini si tolgono -->
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" tools:node="remove" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" tools:node="remove" />
 </manifest>

@@ -786,3 +786,63 @@ v26IdleT = setInterval(() => { if (!document.hidden) v26Idle(); }, 1000);
 setInterval(() => {
   try { if (document.hidden || SND.playing() || document.getElementById("ring")) return; if (performance.now() - SND.lastAt() > 20000) SND.suspend(); } catch (e) { /* niente */ }
 }, 5000);
+/* d) G-17: cambio di fuso orario (viaggio): al ritorno nell'app i promemoria si riprogrammano sull'ora del posto nuovo */
+let v26Tz = ""; try { v26Tz = Intl.DateTimeFormat().resolvedOptions().timeZone + "|" + new Date().getTimezoneOffset(); } catch (e) { /* niente */ }
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) return; let z = ""; try { z = Intl.DateTimeFormat().resolvedOptions().timeZone + "|" + new Date().getTimezoneOffset(); } catch (e) { return; }
+  if (z !== v26Tz) { v26Tz = z; try { if (S.notif && typeof notifSchedule === "function") notifSchedule(); } catch (e) { /* niente */ } }
+});
+
+/* ---------- 16) Licenze open source (M-14, I-10), cancellazione dell'account per i minori (I-08) ---------- */
+const _viewMoreV26c = viewMore;
+viewMore = function (...a) {
+  const h = _viewMoreV26c.apply(this, a); if (!S.pet || h.indexOf('id="v26Lic"') >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h;
+  const about = [...tpl.content.querySelectorAll(".card")].find((c) => c.querySelector("[data-doc]")); if (!about) return h;
+  const v = about.querySelector("#v26Ver"); const btn = `<button class="btn ghost block" id="v26Lic" type="button">${esc(L().v26.lic)}</button>`;
+  if (v) v.insertAdjacentHTML("beforebegin", btn); else about.insertAdjacentHTML("beforeend", btn);
+  return tpl.innerHTML;
+};
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest("#v26Lic"); if (!b) return; ev.stopImmediatePropagation();
+  fetch("licenses.html").then((r) => r.text()).then((txt) => {
+    const d = new DOMParser().parseFromString(txt, "text/html"); const m = d.getElementById("lic"); if (!m) return;
+    m.querySelectorAll("h1").forEach((x) => x.remove());
+    layer.innerHTML = `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="licT"><div class="box card docbox v26lic"><div class="dochead"><h2 id="licT">${esc(L().v26.lic)}</h2><button class="iconbtn" id="closeLayer" aria-label="${esc(L().close)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="doc">${m.innerHTML}</div></div></div>`;
+  }).catch(() => { /* senza file niente */ });
+}, true);
+/* I-08: chi risulta minore dopo aver avuto un account non perde la strada per cancellarlo (pagina web di cancellazione) */
+if (typeof acctCard === "function") {
+  const _acctCardV26 = acctCard;
+  acctCard = function (...a) {
+    const h = _acctCardV26.apply(this, a);
+    try { if (typeof ageCloudOk === "function" && !ageCloudOk() && S.age !== undefined && h.indexOf("elimina-account.html") < 0) {
+      const lbl = (AC().webT || AC().delT || ""); if (!lbl) return h;
+      return h.replace(/<\/div>\s*$/, `<a class="inlink" href="https://tanettoapp.github.io/Tanetto/elimina-account.html?lang=${esc(S.lang)}" target="_blank" rel="noopener">${esc(lbl)}</a></div>`);
+    } } catch (e) { /* niente */ }
+    return h;
+  };
+}
+
+/* ---------- 17) Conteggi anonimi utili (E-13) e "+N Tanì" anche senza animazioni (G2-09) ---------- */
+function v26Ver() { return "1.0.11"; }
+const _finishTripV26 = finishTrip;
+finishTrip = function (...a) { const r = _finishTripV26.apply(this, a); try { trackOnce("viaggio-tornato"); } catch (e) { /* niente */ } return r; };
+const _showLevelUpV26 = showLevelUp;
+showLevelUp = function (...a) { const r = _showLevelUpV26.apply(this, a); try { if (S.level <= 10) trackOnce("livello-" + S.level); } catch (e) { /* niente */ } return r; };
+const _adGrantV26 = adGrant;
+adGrant = function (...a) { const r = _adGrantV26.apply(this, a); try { trackOnce("video-premio-ok"); } catch (e) { /* niente */ } return r; };
+window.addEventListener("click", (ev) => {
+  const b = ev.target && ev.target.closest && ev.target.closest("button"); if (!b) return;
+  if (b.id === "depart") setTimeout(() => { if (S.away) trackOnce("viaggio-partito"); }, 1500);
+  if (b.dataset.item || b.id === "tryBuy") { const n0 = (S.owned || []).length; setTimeout(() => { if ((S.owned || []).length > n0) trackOnce("negozio-acquisto"); }, 0); }
+}, true);
+try { const ln = typeof LN === "function" ? LN() : null; if (ln && ln.addListener) { const r = ln.addListener("localNotificationActionPerformed", () => { try { trackOnce("notifica-aperta"); } catch (e) { /* niente */ } }); if (r && r.catch) r.catch(() => {}); } } catch (e) { /* niente */ }
+/* G2-09: con "riduci movimento" il numero dei Tanì cambiava senza nessun segno: ora un piccolo avviso "+5 Tanì" */
+const _econShowV26c = econShow;
+econShow = function (...a) {
+  const before = v26SeedsSeen; const r = _econShowV26c.apply(this, a);
+  try { const d = S.seeds - (before == null ? S.seeds : before); const el = document.getElementById("toast");
+    if (!anim && d > 0 && Date.now() - v26TouchAt < 3000 && el && (el.hidden || !el.textContent)) toast(`+${d.toLocaleString(loc(), NUMG)} Tanì`); } catch (e) { /* niente */ }
+  return r;
+};

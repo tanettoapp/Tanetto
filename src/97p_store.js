@@ -3,6 +3,10 @@
 /* ---------- Promemoria con notifiche vere (solo app Android) ---------- */
 const LN = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.LocalNotifications) || (C.registerPlugin ? C.registerPlugin("LocalNotifications") : null); } catch (e) { return null; } };
 const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200, NOTIF_CH = "promemoria";
+/* 1.0.11 (CR-04): canale nuovo per i promemoria, importanza normale (niente finestrella sopra le altre app) e testo nascosto
+   sulla schermata di blocco; Android non abbassa mai l'importanza di un canale esistente, quindi il vecchio si cancella */
+const NOTIF_CH2 = "promemoria2";
+function v26OldChannel(p) { try { if (S.v26ch || !p || !p.deleteChannel) return; S.v26ch = 1; save(); const r = p.deleteChannel({ id: NOTIF_CH }); if (r && r.catch) r.catch(() => {}); } catch (e) { /* niente */ } }
 /* fix 1.0.9 (verifica finale B, P5): 12 o 24 ore come il campo dell'ora, che segue il telefono (prima la lingua dell'app:
    in inglese "20:00" nell'avviso e "08:00 PM" nel campo) */
 const FMT_H12 = (() => { try { const o = new Intl.DateTimeFormat(undefined, { hour: "numeric" }).resolvedOptions(); return typeof o.hour12 === "boolean" ? o.hour12 : o.hourCycle ? /h1[12]/.test(o.hourCycle) : null; } catch (e) { return null; } })();
@@ -29,8 +33,8 @@ function notifSchedule() {
     if (S.away && S.away.until > now + 60000) list.push({ id: NOTIF_TRIP, title: t.notif.trip(n), body: t.notif.tripB, schedule: { at: new Date(S.away.until), allowWhileIdle: true }, isExactNotification: false, smallIcon: "ic_stat_tanetto", iconColor: "#4E8A4A" });
     if (!list.length) return;
     /* Canale con un nome chiaro nelle impostazioni di Android ("Promemoria" nella lingua dell'app) */
-    let ch = false; if (p.createChannel) { try { await p.createChannel({ id: NOTIF_CH, name: t.v12.remT || "Tanetto", importance: 4, visibility: 1, vibration: true }); ch = true; } catch (e) { ch = false; } }
-    if (ch) list.forEach((x) => { x.channelId = NOTIF_CH; });
+    let ch = false; if (p.createChannel) { try { await p.createChannel({ id: NOTIF_CH2, name: t.v12.remT || "Tanetto", importance: 3, visibility: 0, vibration: true }); ch = true; v26OldChannel(p); } catch (e) { ch = false; } }
+    if (ch) list.forEach((x) => { x.channelId = NOTIF_CH2; });
     try { await p.schedule({ notifications: list }); } catch (e) { trackOnce("notifiche-errore"); }
   };
   notifBusy = (notifBusy || Promise.resolve()).then(run, run);
@@ -127,7 +131,7 @@ function reportErr(msg, line) {
   if (errN >= 5) return; const m = String(msg || "").replace(/^Uncaught\s+/i, "").slice(0, 200);
   if (!m || /ResizeObserver loop|Script error|Load failed|NetworkError|Failed to fetch/i.test(m)) return;
   errN++; const slug = m.toLowerCase().replace(/https?:\/\/\S+/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
-  try { trackOnce(`errore-js-v14-${isNativeApp() ? "app" : "web"}-${slug}-l${line || 0}`); } catch (e) { /* niente */ }
+  try { trackOnce(`errore-js-${v26Ver()}-${isNativeApp() ? "app" : "web"}-${slug}-l${line || 0}`); /* 1.0.11 (E-13): con la versione */ } catch (e) { /* niente */ }
 }
 window.addEventListener("error", (e) => { if (e && e.filename && !/index\.html|tanetto|localhost|github\.io|^$/.test(e.filename) && !e.filename.startsWith(location.origin)) return; reportErr(e && e.message, e && e.lineno); });
 window.addEventListener("unhandledrejection", (e) => { const r = e && e.reason; if (r && r.code) return; /* errori gestiti (rete, annullato...) */ reportErr(r && (r.message || r), 0); });

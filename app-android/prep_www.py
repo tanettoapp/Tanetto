@@ -5,7 +5,7 @@ SITE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 shutil.rmtree(W, ignore_errors=True); os.makedirs(W + "/fonts")
 for f in os.listdir(SITE):
     if f in ("og.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "favicon-32.png", "icon-192.png", "manifest.webmanifest"): continue  # solo per il sito (anteprime social, installazione web, icona della scheda): nell'app non servono
-    if f.endswith((".png", ".webmanifest", ".woff2")) or f == "fb.js": shutil.copy(f"{SITE}/{f}", W)  # 1.0.9: .woff2 = Caveat (lettere)
+    if f.endswith((".png", ".webmanifest", ".woff2")) or f in ("fb.js", "licenses.html"): shutil.copy(f"{SITE}/{f}", W)  # 1.0.11: licenze open source  # 1.0.9: .woff2 = Caveat (lettere)
 # 1.0.9 (fase 3): immagini 3D (WebP) della cartella img/ del sito
 if os.path.isdir(f"{SITE}/img"): shutil.copytree(f"{SITE}/img", f"{W}/img")
 shutil.copy("node_modules/gsap/dist/gsap.min.js", W)

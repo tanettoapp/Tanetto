@@ -44,8 +44,8 @@ notifSchedule = function () {
       list.push({ id: NOTIF_TRIP, title, body, schedule: { at: quietShift(S.away.until), allowWhileIdle: true }, isExactNotification: false, smallIcon: "ic_stat_tanetto", iconColor: "#4E8A4A" });
     }
     if (!list.length) return;
-    let ch = false; if (p.createChannel) { try { await p.createChannel({ id: NOTIF_CH, name: t.v12.remT || "Tanetto", importance: 4, visibility: 1, vibration: true }); ch = true; } catch (e) { ch = false; } }
-    if (ch) list.forEach((y) => { y.channelId = NOTIF_CH; });
+    let ch = false; if (p.createChannel) { try { await p.createChannel({ id: NOTIF_CH2, name: t.v12.remT || "Tanetto", importance: 3, visibility: 0, vibration: true }); ch = true; v26OldChannel(p); } catch (e) { ch = false; } }
+    if (ch) list.forEach((y) => { y.channelId = NOTIF_CH2; });
     try { await p.schedule({ notifications: list }); } catch (e) { trackOnce("notifiche-errore"); }
   };
   notifBusy = (notifBusy || Promise.resolve()).then(run, run);

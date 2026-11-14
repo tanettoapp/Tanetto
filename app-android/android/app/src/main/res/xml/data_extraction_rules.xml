@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1.0.11 (G-14/H-08): Android 12+ (backup nel cloud di Google e passaggio a un telefono nuovo) -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="root" path="app_webview/Default/Local Storage/" />
+        <include domain="root" path="app_webview/Local Storage/" />
+        <include domain="sharedpref" path="tanetto_widget.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="root" path="app_webview/Default/Local Storage/" />
+        <include domain="root" path="app_webview/Local Storage/" />
+        <include domain="sharedpref" path="tanetto_widget.xml" />
+    </device-transfer>
+</data-extraction-rules>

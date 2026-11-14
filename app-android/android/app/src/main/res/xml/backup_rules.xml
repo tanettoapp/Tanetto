@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1.0.11 (G-14/H-08): Android 11 e precedenti, stesse regole di data_extraction_rules.xml -->
+<full-backup-content>
+    <include domain="root" path="app_webview/Default/Local Storage/" />
+        <include domain="root" path="app_webview/Local Storage/" />
+    <include domain="sharedpref" path="tanetto_widget.xml" />
+</full-backup-content>

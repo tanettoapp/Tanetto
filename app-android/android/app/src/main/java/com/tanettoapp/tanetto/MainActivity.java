@@ -24,6 +24,9 @@ public class MainActivity extends BridgeActivity {
             // 1.0.9 (accessibilita'): zoom con due dita permesso, senza i pulsanti +/- sullo schermo
             getBridge().getWebView().getSettings().setBuiltInZoomControls(true);
             getBridge().getWebView().getSettings().setDisplayZoomControls(false);
+            // 1.0.11 (G-13/A-04): fondo del WebView uguale allo splash (crema o scuro): niente lampo chiaro in tema scuro
+            boolean night = (getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+            getBridge().getWebView().setBackgroundColor(night ? 0xFF1A1714 : 0xFFF4EFE6);
         }
     }
 }
