@@ -1,0 +1,16 @@
+{
+"it": ["non voglio morire", "ho paura di morire", "non voglio morire, ma sto male"],
+"en": ["i dont want to die", "i don't want to die but i'm scared", "im scared of dying"],
+"de": ["ich will nicht sterben", "ich habe angst zu sterben"],
+"es": ["no quiero morir", "no me quiero morir"],
+"fr": ["je ne veux pas mourir", "j'ai peur de mourir"],
+"pt": ["não quero morrer", "tenho medo de morrer"],
+"ru": ["я не хочу умирать", "боюсь умереть"],
+"pl": ["nie chcę umrzeć", "boję się umrzeć"],
+"nl": ["ik wil niet dood", "ik wil niet sterven"],
+"tr": ["ölmek istemiyorum", "ölmekten korkuyorum"],
+"ja": ["死にたくない", "死ぬのが怖い"],
+"ko": ["죽고 싶지 않아", "죽기 싫어"],
+"zh": ["我不想死", "我怕死"],
+"zht": ["我不想死", "我怕死"]
+}

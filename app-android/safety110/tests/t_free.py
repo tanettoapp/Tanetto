@@ -8,12 +8,12 @@ import tl
 from playwright.async_api import async_playwright
 EXPECT = os.environ.get("EXPECT", "110")
 SH = os.path.join(tl.D, "shots"); os.makedirs(SH, exist_ok=True)
-async def newpage(b, lang, tz="Europe/Rome", loc="it-IT", w=412, h=915, scheme="light"):
+async def newpage(b, lang, tz="Europe/Rome", loc="it-IT", w=412, h=915, scheme="light", age=None, extra=""):
     ctx = await b.new_context(viewport={"width": w, "height": h}, device_scale_factor=1, locale=loc, timezone_id=tz, color_scheme=scheme)
     pg = await ctx.new_page(); pg.errs = []; pg.on("pageerror", lambda e: pg.errs.append(str(e)))
-    st = tl.base_state(lang, day="2026-11-12"); st["age"] = {"y": 2014, "m": 4, "at": "2026-11-01"}
+    st = tl.base_state(lang, day="2026-11-12"); st["age"] = age or {"y": 2014, "m": 4, "at": "2026-11-01"}; st["firstDay"] = "2026-11-01"; st["done"] = []
     js = "window.__TEST_NOGIFT20 = 1;" + tl.common.MOCK + tl.common.timeshift(2026, 11, 12, 10) + ";sessionStorage.setItem('splash','1');" + f"if(!sessionStorage.getItem('s10')){{localStorage.clear();localStorage.setItem('tanetto-prova-v3',{json.dumps(json.dumps(st))});sessionStorage.setItem('s10','1')}};localStorage.setItem('tanetto-account',{json.dumps(json.dumps({'gateDone': True}))});"
-    await pg.add_init_script("window.__TEST_NOAGE=1;" + js); await pg.goto(tl.common.URL); await pg.wait_for_timeout(3000)
+    await pg.add_init_script("window.__TEST_NOAGE=1;" + js + extra); await pg.goto(tl.common.URL); await pg.wait_for_timeout(3000)
     return ctx, pg
 ev = lambda pg, c: pg.evaluate("(c)=>window.__v10.ev(c)", c)
 SHEET = "(()=>{const s=layer.querySelector('.sfhelp');return s?{t:s.textContent,lines:[...s.querySelectorAll('.help strong')].map(x=>x.textContent.replace(/\\u00a0/g,' ').replace(/\\u2060/g,''))}:null})()"
@@ -44,6 +44,8 @@ async def main():
         if s:
             chk("Telefono Azzurro (per bambini e ragazzi): 19696" == s["lines"][0], f"bambino in Italia: prima riga = linea per i ragazzi ({s['lines'][:1]})")
             chk("non sostituisce un medico" in s["t"] and "Mi dispiace tanto" in s["t"], "testo calmo + 'non sostituisce un medico'")
+            tels = await ev(pg, "[...layer.querySelectorAll('.sfhelp a[href^=\"tel:\"]')].map(a=>a.getAttribute('href'))")
+            chk("tel:19696" in tels and "tel:0223272327" in tels and "tel:112" in tels, f"numeri toccabili per chiamare {tels}")
             await pg.screenshot(path=f"{SH}/sheet_it_diary.png")
             # coperta da un'altra finestra -> ricompare dopo
             await ev(pg, "(layer.innerHTML='<div class=\"overlay\"><div class=\"box card\"><button id=\"closeLayer\">x</button></div></div>', 1)"); await pg.wait_for_timeout(300)
@@ -54,7 +56,7 @@ async def main():
         s, saved = await diary(pg, "oggi bella giornata, ho fame da morire")
         chk(not s and saved, f"diario frase normale: nessuna scheda ({bool(s)}), salvato {saved}")
         s, saved = await diary(pg, "ho paura di morire")
-        chk(bool(s) and "Sembra che tu stia pensando alla morte" in (s or {}).get("t", ""), "diario frase lieve: controllo gentile")
+        chk(bool(s) and "Sembra che tu stia passando un momento molto pesante" in (s or {}).get("t", ""), "diario frase lieve: controllo gentile")
         if s:
             await ev(pg, "(backPress(), 1)"); await pg.wait_for_timeout(1500)
             chk(not await ev(pg, SHEET), "chiusa con indietro: non torna")
@@ -70,6 +72,22 @@ async def main():
         s, saved = await capsule(pg, "tra un anno saro al mare")
         chk(not s and saved, "capsula, frase normale: niente")
         chk(not pg.errs, f"nessun errore nella pagina {pg.errs[:3]}")
+        await ctx.close()
+        # adulto: dopo un momento difficile niente "Prova Plus", niente recensione, niente feste subito dopo
+        REV = "window.Capacitor.Plugins.Review = { requestReview: async () => { window.__revN = (window.__revN || 0) + 1; return {}; } };"
+        ctx, pg = await newpage(b, "it", age={"y": 1990, "m": 3, "at": "2026-11-01"}, extra=REV)
+        s, saved = await diary(pg, "stasera la faccio finita")
+        chk(bool(s) and saved, "adulto, diario: scheda di aiuto")
+        await ev(pg, "(document.querySelector('[data-sfhelp]').click(), 1)"); await pg.wait_for_timeout(600)
+        await ev(pg, "(tab='today', render(), completeGoal('water'), rev20Want('serie-7'), openAllDone(), 1)")
+        seen = []
+        for _ in range(16):
+            await pg.wait_for_timeout(500)
+            seen.append(await ev(pg, "({p:!!document.querySelector('.nvplus'),a:!!document.querySelector('.alldone'),r:window.__revN||0,l:layer.innerHTML.trim().length})"))
+        chk(not any(x["p"] for x in seen) and not any(x["r"] for x in seen), "adulto dopo la scheda: niente Prova Plus e niente recensione")
+        chk(not any(x["a"] for x in seen), "adulto dopo la scheda: la festa 'Tutto fatto' aspetta (niente allegria subito dopo)")
+        chk(await ev(pg, "NQ20.q.some(x=>x.key==='alldone')"), "la festa resta in coda (non si perde)")
+        chk(not pg.errs, f"adulto: nessun errore {pg.errs[:2]}")
         await ctx.close()
         # chat: risposta calma, numeri del Paese; schermate in 3 lingue / tema scuro / schermo piccolo
         for lang, tz, loc, msg, w, h, scheme in [("it", "Europe/Rome", "it-IT", "mi ammazzo", 412, 915, "light"), ("en", "America/New_York", "en-US", "i wanna die", 360, 800, "dark"), ("ja", "Asia/Tokyo", "ja-JP", "死にたい", 320, 640, "light")]:

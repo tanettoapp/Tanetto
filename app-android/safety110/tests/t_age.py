@@ -17,14 +17,14 @@ AGES = {
     "non_detta": {"skip": True, "at": "2026-11-01"},
     "mai_chiesta": None,
 }
-async def newpage(b, lang, st, age, extra=""):
+async def newpage(b, lang, st, age, extra="", date=(2026, 11, 12, 10)):
     st = copy.deepcopy(st)
     if age is not None: st["age"] = age
     ctx = await b.new_context(viewport={"width": 412, "height": 915}, device_scale_factor=1, locale="de-DE")
     pg = await ctx.new_page(); pg.errs = []
     pg.on("pageerror", lambda e: pg.errs.append(str(e)))
     await pg.route("**/goatcounter.com/**", lambda r: r.fulfill(body=""))
-    js = "window.__TEST_NOGIFT20 = 1;" + tl.common.MOCK + REVMOCK + tl.common.timeshift(2026, 11, 12, 10) + ";sessionStorage.setItem('splash','1');"
+    js = "window.__TEST_NOGIFT20 = 1;" + tl.common.MOCK + REVMOCK + tl.common.timeshift(*date) + ";sessionStorage.setItem('splash','1');"
     js += f"if(!sessionStorage.getItem('s10')){{localStorage.clear();localStorage.setItem('tanetto-prova-v3',{json.dumps(json.dumps(st))});sessionStorage.setItem('s10','1')}};localStorage.setItem('tanetto-account',{json.dumps(json.dumps({'gateDone': True}))});"
     if age is not None: js += f"localStorage.setItem('tanetto-eta',{json.dumps(json.dumps(age))});"
     await pg.add_init_script("window.__TEST_NOAGE=1;" + js + extra); await pg.goto(tl.common.URL); await pg.wait_for_timeout(3500)
@@ -66,6 +66,12 @@ async def run(b, name, age):
     ctx, pg = await newpage(b, "en", tl.base_state("en", day="2026-11-12", firstDay="2026-11-01", visit={"n": 3, "last": "2026-11-12"}), age)
     t = await ev(pg, "(()=>{const d=document.createElement('div');d.innerHTML=teaserCard();const c=d.querySelector('.teaser');return c?{t:c.textContent,dots:!!c.querySelector('.gdots')}:null})()")
     out["torna_domani"] = t; errs += pg.errs; await ctx.close()
+    # 6) albero di Natale (si apre dall'annuncio automatico dell'8/12): pulsante "con Plus costa meno"
+    xb = tl.base_state("en", day="2026-12-10", firstDay="2026-11-01", visit={"n": 3, "last": "2026-12-10"})
+    ctx, pg = await newpage(b, "en", xb, age, date=(2026, 12, 10, 10))
+    await ev(pg, "(closeLayer(), xmSheet(), 1)"); await pg.wait_for_timeout(1200)
+    out["albero"] = await ev(pg, "!!document.querySelector('.xmsheet')"); out["albero_plus"] = await ev(pg, "!!document.querySelector('.xmsheet #xmPlusGo')")
+    errs += pg.errs; await ctx.close()
     out["errori"] = errs[:3]
     return out
 async def main():
@@ -74,13 +80,13 @@ async def main():
         b = await p.chromium.launch()
         for name, age in AGES.items():
             r = await run(b, name, age); print(name, json.dumps(r, ensure_ascii=False))
-            minor = r["band"] != "adult"
+            minor = r["band"] != "adult" or name == "ragazzo_17"  # sotto i 18 anni mai "adulto" per le spinte (come ageAds della 1.0.9)
             if EXPECT == "110":
                 tz = r["torna_domani"]
-                exp = {"prova_plus": not minor, "invita": not minor, "recensione": 0 if minor else 1, "plus_primo_passo": not minor}
+                exp = {"prova_plus": not minor, "invita": not minor, "recensione": 0 if minor else 1, "plus_primo_passo": not minor, "albero_plus": not minor}
                 for k, v in exp.items():
                     if r[k] != v: bad.append(f"{name}: {k} = {r[k]} (atteso {v})")
-                if not r["tutto_fatto"] or not r["primo_passo"]: bad.append(f"{name}: scena di prova non aperta")
+                if not r["tutto_fatto"] or not r["primo_passo"] or not r["albero"]: bad.append(f"{name}: scena di prova non aperta")
                 if not tz: bad.append(f"{name}: scheda Torna domani assente")
                 elif minor and (any(ch.isdigit() for ch in tz["t"]) or tz["dots"] or "in a row" in tz["t"]): bad.append(f"{name}: Torna domani con numeri/serie")
                 elif not minor and not tz["dots"]: bad.append(f"{name}: adulto senza la fila dei 7 giorni")
