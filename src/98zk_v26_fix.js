@@ -652,7 +652,7 @@ plusLabels = billLabels;
 function v26FaqCard() {
   const f = L().v26.faq; if (!f) return "";
   const items = f.qa.map(([q, a], i) => `<details class="v26faq"><summary>${esc(q)}</summary><p class="small">${esc(a)}${i === 0 && typeof SUBS_URL === "string" ? ` <a class="inlink" href="${SUBS_URL}" target="_blank" rel="noopener">Google Play</a>` : ""}</p></details>`).join("");
-  return `<div class="card stack-s faq" id="v26Faq"><h3>${esc(f.t)}</h3>${items}</div>`;
+  return `<div class="card stack-s faq" id="v26Faq"><h2 class="h3like">${esc(f.t)}</h2>${items}</div>`; /* h2 come le altre schede del Profilo (ordine dei titoli) */
 }
 const _viewMoreV26 = viewMore;
 viewMore = function (...a) {
@@ -902,7 +902,7 @@ viewMore = function (...a) {
   const h = _viewMoreV26p.apply(this, a); if (!S.pet || moreSub !== "priv" || h.indexOf("v26psplit") >= 0) return h;
   const tpl = document.createElement("template"); tpl.innerHTML = h; const t = L(); let done = false;
   tpl.content.querySelectorAll(".card").forEach((c) => {
-    const h3 = c.querySelector("h3"); if (done || !h3 || h3.textContent.trim() !== String(t.privT).trim()) return;
+    const h3 = c.querySelector("h2, h3"); if (done || !h3 || h3.textContent.trim() !== String(t.privT).trim()) return;
     const ps = [...c.querySelectorAll("p")].filter((p) => !p.children.length && p.textContent.length > 200); if (!ps.length) return;
     const p = ps[0]; const parts = v26Split(p.textContent); if (parts.length < 2) return;
     const box = document.createElement("div"); box.className = "v26psplit stack-s";

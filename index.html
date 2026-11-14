@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-cvDY5WvKehoMeYx5elwncJQZUyWmRIWZSkI+SPNS5gA=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-RZzr18eGN53CbTp7QqFhEnIkbCSjFoZcBe8g2u4bzAs=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -43077,7 +43077,7 @@ function fmDialog() {
   const ex = document.getElementById("exitAsk"); if (ex) return ex;
   const ov = layer.querySelectorAll('[role="dialog"][aria-modal="true"]'); return ov.length ? ov[ov.length - 1] : null;
 }
-const fmFocusables = (d) => [...d.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((x) => !x.disabled && x.getAttribute("tabindex") !== "-1" && !x.closest("[hidden]") && x.getClientRects().length); /* 1.0.11: senza i tabindex=-1 (lucchetti del sentiero), se no l'ultimo "vero" sfuggiva */
+const fmFocusables = (d) => [...d.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((x) => !x.disabled && x.tabIndex >= 0 && !x.closest("[hidden]") && x.getClientRects().length); /* 1.0.11: solo cio' che Tab raggiunge davvero (prima anche i tabindex=-1 e le <image href> delle illustrazioni: il primo/ultimo "vero" sfuggiva) */
 function fmFocusIn(d) {
   const id = d.getAttribute("aria-labelledby"); let h = id ? document.getElementById(id.split(" ").pop()) : null;
   if (!h || !d.contains(h)) h = d.querySelector("h1, h2"); if (!h) h = fmFocusables(d)[0];
@@ -44083,7 +44083,7 @@ plusLabels = billLabels;
 function v26FaqCard() {
   const f = L().v26.faq; if (!f) return "";
   const items = f.qa.map(([q, a], i) => `<details class="v26faq"><summary>${esc(q)}</summary><p class="small">${esc(a)}${i === 0 && typeof SUBS_URL === "string" ? ` <a class="inlink" href="${SUBS_URL}" target="_blank" rel="noopener">Google Play</a>` : ""}</p></details>`).join("");
-  return `<div class="card stack-s faq" id="v26Faq"><h3>${esc(f.t)}</h3>${items}</div>`;
+  return `<div class="card stack-s faq" id="v26Faq"><h2 class="h3like">${esc(f.t)}</h2>${items}</div>`; /* h2 come le altre schede del Profilo (ordine dei titoli) */
 }
 const _viewMoreV26 = viewMore;
 viewMore = function (...a) {
@@ -44333,7 +44333,7 @@ viewMore = function (...a) {
   const h = _viewMoreV26p.apply(this, a); if (!S.pet || moreSub !== "priv" || h.indexOf("v26psplit") >= 0) return h;
   const tpl = document.createElement("template"); tpl.innerHTML = h; const t = L(); let done = false;
   tpl.content.querySelectorAll(".card").forEach((c) => {
-    const h3 = c.querySelector("h3"); if (done || !h3 || h3.textContent.trim() !== String(t.privT).trim()) return;
+    const h3 = c.querySelector("h2, h3"); if (done || !h3 || h3.textContent.trim() !== String(t.privT).trim()) return;
     const ps = [...c.querySelectorAll("p")].filter((p) => !p.children.length && p.textContent.length > 200); if (!ps.length) return;
     const p = ps[0]; const parts = v26Split(p.textContent); if (parts.length < 2) return;
     const box = document.createElement("div"); box.className = "v26psplit stack-s";

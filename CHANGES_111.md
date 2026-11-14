@@ -89,8 +89,9 @@ cosa sono i Tanì, chi legge il diario). Nella finestra Plus anche senza prova c
 scheda dell'età dice la **fascia d'età** data ("18 anni o più"). In "I tuoi progressi" una riga spiega la differenza tra
 **regali di fila** (aperture) e **trofei** (giorni con gli obiettivi): prima due numeri diversi con le stesse parole.
 
-8) **Pagamenti non disponibili nel Paese** (per esempio in Russia): dopo 2 tentativi l'app non dice più solo "controlla la
-connessione", ma che forse Google Play non vende nel tuo Paese in questo momento.
+8) **Pagamenti che non funzionano con internet acceso:** dopo 2 tentativi l'app non dice più solo "controlla la connessione",
+ma anche che forse Google Play non offre acquisti nel tuo Paese in questo momento (il caso "Plus non in vendita qui" era già
+spiegato nella 1.0.9).
 
 
 ## 4) Accessibilità e misure

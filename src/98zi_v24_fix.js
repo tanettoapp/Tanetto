@@ -29,7 +29,7 @@ function fmDialog() {
   const ex = document.getElementById("exitAsk"); if (ex) return ex;
   const ov = layer.querySelectorAll('[role="dialog"][aria-modal="true"]'); return ov.length ? ov[ov.length - 1] : null;
 }
-const fmFocusables = (d) => [...d.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((x) => !x.disabled && x.getAttribute("tabindex") !== "-1" && !x.closest("[hidden]") && x.getClientRects().length); /* 1.0.11: senza i tabindex=-1 (lucchetti del sentiero), se no l'ultimo "vero" sfuggiva */
+const fmFocusables = (d) => [...d.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((x) => !x.disabled && x.tabIndex >= 0 && !x.closest("[hidden]") && x.getClientRects().length); /* 1.0.11: solo cio' che Tab raggiunge davvero (prima anche i tabindex=-1 e le <image href> delle illustrazioni: il primo/ultimo "vero" sfuggiva) */
 function fmFocusIn(d) {
   const id = d.getAttribute("aria-labelledby"); let h = id ? document.getElementById(id.split(" ").pop()) : null;
   if (!h || !d.contains(h)) h = d.querySelector("h1, h2"); if (!h) h = fmFocusables(d)[0];

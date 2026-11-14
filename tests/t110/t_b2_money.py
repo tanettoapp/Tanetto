@@ -132,10 +132,11 @@ async def main(b):
     got = await T.ev(pg, "window.__got"); tst = await T.ev(pg, "(document.getElementById('toast') || {}).textContent || ''")
     T.check("video vecchio di 3 ore: il tocco prepara subito un video nuovo e lo mostra (niente 'No ad available')", got == 1 and "No ad" not in tst, (r, got, tst))
     await ctx.close()
-    # --- E-06: pagamenti non disponibili nel Paese (la rete funziona, Google Play rifiuta): dopo 2 tentativi un testo giusto
+    # --- E-06: Google Play risponde con un errore generico (non 'non in vendita', gia' gestito nella 1.0.9) e la rete funziona:
+    #     dopo 2 tentativi non piu' solo 'controlla la connessione'
     ctx, pg = await T.page(b, T.base_state("ru"), age="adult", native=True, lang="ru-RU")
     await T.close_layer(pg)
-    await T.ev(pg, "window.Capacitor.Plugins.Billing.products = async () => { throw { code: 'unavailable' }; }; billProducts = null; openPlus('t'); 1"); await pg.wait_for_timeout(1500)
+    await T.ev(pg, "window.Capacitor.Plugins.Billing.products = async () => { throw { code: 'error' }; }; billProducts = null; openPlus('t'); 1"); await pg.wait_for_timeout(1500)
     t1 = await T.ev(pg, "(document.getElementById('plusFoot') || {}).textContent || ''")
     await T.ev(pg, "document.getElementById('billRetry') && document.getElementById('billRetry').click(); 1"); await pg.wait_for_timeout(1500)
     t2 = await T.ev(pg, "(document.getElementById('plusFoot') || {}).textContent || ''")
