@@ -1,0 +1,20 @@
+// Native proofreading fixes for French (fr)
+T.fr.talk.morning[2] = "Je me suis réveillé de bonne humeur.";
+T.fr.talk.cheer[0] = "C'est fait ! Bravo.";
+T.fr.talk.evening[3] = "Ce soir, on prend notre temps, promis.";
+T.fr.awayT = (n) => `${n} est parti à l'aventure`;
+T.fr.got = "Il a rapporté";
+T.fr.questions[1] = "Pour quoi aimerais-tu dire merci aujourd'hui ?";
+T.fr.resetAsk = "Vraiment ? Le compagnon, les progrès et le journal seront effacés.";
+T.fr.stories.mountain[0][1] = "Au sommet, les nuages étaient sous les petites pattes de {n}. C'était comme marcher sur du lait.";
+T.fr.gameEnd = (n) => `Tu as marqué ${n} points !`;
+T.fr.letters[0] = "Coucou ! Je suis trop content de te connaître. À partir d'aujourd'hui, on se tient compagnie, pas à pas.";
+T.fr.tut[0] = "Voici {n} ! Touche-le pour lui faire un câlin, ou caresse-le en faisant glisser ton doigt.";
+T.fr.tut[2] = "Ici, tu peux lui donner un goûter, jouer, parler, le mettre au dodo ou le prendre en photo.";
+T.fr.capsP = (n) => `Écris un message à ton futur toi. ${n} le garde et te le remet le bon jour.`;
+T.fr.capsOpen = "Ouvrir";
+T.fr.chat.prog = (d, t, s) => t ? `Aujourd'hui, tu as accompli ${d} objectif${d > 1 ? "s" : ""} sur ${t}${s > 1 ? `, et ça fait ${s} jours d'affilée` : ""}. ${d >= t ? "Une journée complète : je suis trop fier de toi !" : "Un à la fois, ça suffit : tu vas y arriver !"}` : `Aujourd'hui, c'est un jour libre${s > 1 ? `, et ça fait ${s} jours d'affilée` : ""}. Profites-en !`;
+T.fr.tani.best = "Meilleure offre";
+T.fr.coll.get = "Obtenir";
+T.fr.season.got = (x) => `Tu as reçu ${x} !`;
+T.fr.world[2].s = "Devant un chalet en bois, {n} boit un chocolat chaud en admirant le Cervin. Son sommet pointu est si connu qu'il figure sur une célèbre barre de chocolat suisse !";

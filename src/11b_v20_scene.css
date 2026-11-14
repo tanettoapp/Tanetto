@@ -1,0 +1,9 @@
+/* =================== v20 (1.0.8): scene nella scheda di Oggi, schermo intero dalla Casetta =================== */
+/* Pulsante "schermo intero" nella Casetta: identico a quello della scheda di Oggi (.fullbtn) */
+.room .sc20hfull { position: absolute; top: 10px; right: 10px; z-index: 6; }
+.room .sc20hfull:active { transform: scale(.94); }
+/* La scheda di Oggi con un posto diverso dalla stanza: fondo del colore del cielo mentre si disegna */
+.room.sc20sc { background: #BFE0F2; }
+.room.sc20sc.scene-terrace, .room.sc20sc.scene-festival { background: #1E2450; }
+.room.sc20sc.scene-snow { background: #EEF6FB; }
+.room.sc20sc .dstar { cursor: pointer; }

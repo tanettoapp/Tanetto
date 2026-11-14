@@ -1,0 +1,117 @@
+/* ===== 1.0.9 (fase 3): immagini 3D (Germo e amici in argilla) nei momenti grandi ===== */
+/* un solo Germo: logo di avvio, splash e marchio in alto sono lo stesso Germo 3D dell'icona */
+#boot .bootlogo img, .splash.v9 .splogo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.splash.v9 .splogo, #boot .bootlogo { background: #F6EEDC; }
+.top .brand .logo3d { width: 28px; height: 28px; border-radius: 9px; display: block; box-shadow: 0 2px 6px -2px rgba(40, 90, 50, .45); }
+img.i3d { display: block; max-width: 100%; height: auto; -webkit-user-drag: none; user-select: none; }
+/* le figure 3D hanno gia' la loro ombra morbida: niente cornici */
+.m3host { display: grid; place-items: center; }
+.m3host img.m3big { width: 100%; height: auto; }
+.fdpet.m3host { width: 168px; margin: -18px auto -10px; }
+.alldone .fdpet.m3host { width: 184px; }
+.agebox .agepet.m3host, .acnudge .acnpet.m3host { width: 132px; height: auto; margin: -14px auto -6px; }
+.levelup .box > div.m3host { width: 184px !important; margin: -12px auto -8px; position: relative; }
+
+/* --- benvenuto --- */
+.namestep.w3 { gap: 12px; }
+.w3hero { width: 100%; aspect-ratio: 16 / 10; border-radius: 26px; overflow: hidden; box-shadow: 0 14px 30px -18px rgba(80, 60, 30, .55), 0 0 0 4px rgba(255, 255, 255, .7); background: #DCEBCB; }
+.w3hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 44%; }
+.namestep.w3 h1 { text-align: center; margin-top: 4px; text-wrap: balance; }
+.namestep.w3 > p.w3p { text-align: center; text-wrap: pretty; margin-top: -4px; }
+.namestep.w3 .opt { font-weight: 500; color: var(--muted); }
+.namestep.w3 #nameNext { margin-top: 2px; }
+@media (max-height: 700px) { .w3hero { aspect-ratio: 2 / 1; } }
+
+/* --- scelta del compagno: ritratti 3D --- */
+.choice .halo.h3d { overflow: visible; }
+.choice .halo.h3d img { width: 112%; max-width: none; margin: -6% -6% -2%; transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+.choice[aria-checked="true"] .halo.h3d img { transform: scale(1.06) translateY(-2px); }
+.choice .lk { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 2px; text-align: center; line-height: 1.25; }
+.choose.four .choice .lk { font-size: 10.5px; }
+/* critica fase 3: sotto i 380 px i 4 compagni Plus in 4 colonne avevano testi di 10 px a capo ogni parola: 2 x 2 */
+@media (max-width: 379px) {
+  .choose.four { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .choose.four .choice .halo { max-width: 72px; }
+  .choose.four .choice .ds { font-size: 12px; }
+  .choose.four .choice .lk { font-size: 11.5px; }
+}
+.field.onbname { margin-top: 2px; }
+.field.onbname input { scroll-margin-bottom: 120px; } /* col tocco, il campo sale sopra il pulsante "Avanti" fisso in basso */
+.ppbig.pp3 { background: none !important; width: 220px; height: auto; }
+.ppbig.pp3 img { width: 220px; }
+.ppbox .lk { color: var(--accent); font-weight: 600; margin-top: -4px; }
+.ppbox .ppcatch { font-family: "Caveat", var(--font-display), cursive; font-size: 22px; color: var(--ink); margin: 0; }
+
+/* --- Plus: tutti gli amici Plus in testa --- */
+.plusbox .plushead .plhero { width: 100%; max-width: 340px; aspect-ratio: 3 / 2; border-radius: 22px; overflow: hidden; margin: 0 auto 2px; box-shadow: 0 12px 26px -16px rgba(150, 90, 20, .55); }
+.plusbox .plushead .plhero img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-height: 700px) { .plusbox .plushead .plhero { max-width: 260px; } }
+
+/* --- cartoline 3D: stessa forma, leggero "grano" di carta come lo stile del video --- */
+svg.pc3 { display: block; background: #E8E0D2; }
+.ban3 { display: block; width: 100%; height: 100%; }
+.seaart .ban3, .pathhead .ban3, .seaannart .ban3 { object-fit: cover; }
+
+/* --- partenza, ritorno, diario e album vuoti --- */
+.tr20away .m3away { position: absolute; right: 46px; top: -30px; width: 88px; pointer-events: none; }
+.tr20away .m3away img { width: 100%; height: auto; }
+.away.tr20away > h3 { padding-right: 132px; }
+.story.st3 { position: relative; }
+.story.st3 .m3ret { position: relative; width: 116px; margin: -78px 4px -18px auto; z-index: 1; pointer-events: none; }
+.story.st3 .m3ret img { width: 100%; height: auto; }
+#diaryForm { position: relative; }
+#diaryForm .m3read { position: absolute; right: 6px; top: -14px; width: 92px; pointer-events: none; }
+#diaryForm .m3read img { width: 100%; height: auto; }
+#diaryForm .m3read ~ .stack-s:first-of-type, #diaryForm .m3read + .stack-s { padding-right: 92px; }
+/* critica fase 3: l'album e' una colonna flessibile alta al massimo 92vh: con la scheda "album vuoto" le righe si
+   schiacciavano e i bottoni delle pagine (Bosco, Lago...) restavano alti 8 px, invisibili. Nessuna riga si schiaccia. */
+.albox > * { flex-shrink: 0; }
+.albox .alempty { display: grid; grid-template-columns: 104px 1fr; align-items: center; gap: 10px; background: var(--paper); border-radius: 18px; padding: 6px 12px 6px 4px; margin: 4px 0 10px; }
+.albox .alempty img { width: 104px; height: auto; }
+.albox .alempty p { margin: 0; font-size: 14px; }
+
+/* --- regali: due in una scheda --- */
+/* la pillola del regalo e' crema anche col tema scuro: colori fissi (contrasto 5,3:1), non l'accento del tema */
+.svgift .g2hat { display: inline-flex; align-items: center; margin-left: 8px; padding: 3px 10px; border-radius: 99px; background: rgba(78, 138, 74, .14); color: #2E6630; font-weight: 700; font-size: 14px; }
+.wgbox #launchWear { margin-top: -2px; }
+
+/* --- Natale e trofei --- */
+.xmannart.xm3 { width: 100%; height: auto; aspect-ratio: 2 / 1; border-radius: 18px; overflow: hidden; margin-bottom: 4px; }
+.xmannart.xm3 img { width: 100%; height: 100%; object-fit: cover; }
+.trparty .trpet.trp3 { width: 118px; height: auto; margin: -6px auto -10px; position: relative; }
+.trparty .trpet.trp3 img { width: 100%; height: auto; }
+
+/* --- Introvabili: la versione 3D nella vetrina --- */
+.xvrow .item .art.xv3 { display: grid; place-items: center; }
+.xvrow .item .art.xv3 img { width: auto; height: 84px; margin-top: -6px; filter: drop-shadow(0 4px 6px rgba(60, 30, 90, .18)); }
+
+/* tema scuro: le scene 3D sono chiare, si abbassano appena per non abbagliare */
+[data-theme="dark"] .w3hero img, [data-theme="dark"] .plhero img, [data-theme="dark"] svg.pc3 image, [data-theme="dark"] .xm3 img { filter: brightness(.9) saturate(.95); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .w3hero img, :root:not([data-theme="light"]) .plhero img, :root:not([data-theme="light"]) svg.pc3 image, :root:not([data-theme="light"]) .xm3 img { filter: brightness(.9) saturate(.95); } }
+/* tema scuro: il bordo bianco del benvenuto diventa un filo appena visibile (non una cornice che abbaglia) */
+[data-theme="dark"] .w3hero { box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .7), 0 0 0 2px rgba(255, 255, 255, .12); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .w3hero { box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .7), 0 0 0 2px rgba(255, 255, 255, .12); } }
+/* giapponese: si va a capo tra le parole, non a meta' (prima "いっしょ / に") */
+:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ja) .plustag, :lang(ja) .w3p, :lang(ja) .plusbox p { word-break: auto-phrase; }
+@media (prefers-reduced-motion: reduce) { .choice .halo.h3d img { transition: none; } }
+
+/* ===== Profilo a pagine ===== */
+.pmenu.card { padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+.pmenu .prow { display: grid; grid-template-columns: 40px 1fr 18px; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 8px 10px; border: 0; background: transparent; border-radius: 16px; text-align: left; color: var(--ink); font: inherit; cursor: pointer; }
+.pmenu .prow + .prow { box-shadow: 0 -1px 0 rgba(120, 100, 70, .12); }
+.pmenu .prow:active { transform: scale(.98); background: rgba(78, 138, 74, .08); }
+@media (hover: hover) { .pmenu .prow:hover { background: rgba(78, 138, 74, .07); } }
+.pmenu .prow:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.prico { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: #fff; }
+.prico svg { width: 22px; height: 22px; }
+.pi-prog { background: #E9A23B; } .pi-comp { background: #EE7FA0; } .pi-set { background: #7A82C9; } .pi-acct { background: #5E9BD6; }
+.pi-priv { background: #4FA07A; } .pi-buy { background: #D9952E; } .pi-help { background: #9B8CF2; } .pi-about { background: #8A7A68; }
+.prtx { display: flex; flex-direction: column; min-width: 0; }
+.prtx b { font-family: var(--font-display); font-weight: 600; font-size: 16.5px; line-height: 1.25; }
+.prtx small { color: var(--muted); font-size: 13px; line-height: 1.3; }
+.pmenu .prow .pchev { color: var(--muted); font-size: 22px; line-height: 1; text-align: center; }
+.psubhd { display: flex; align-items: center; gap: 6px; margin: 2px 0 2px -6px; }
+.psubhd .psback { width: 44px; height: 44px; flex: none; }
+.psubhd .psback svg { width: 22px; height: 22px; }
+.psubhd .psubt { margin: 0; font-size: 26px; line-height: 1.2; outline: none; }
+.psbuy h3 svg, .pstani h3 svg { width: 20px; height: 20px; vertical-align: -4px; margin-right: 6px; }

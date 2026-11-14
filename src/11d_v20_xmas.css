@@ -1,0 +1,115 @@
+/* ===== 1.0.8 (v20) — Natale (8 dicembre - 6 gennaio): attivo solo con html[data-xmas] ===== */
+/* Colori: verde abete, rosso caldo, oro. Contrasto controllato (AA): accent 6.1:1 sul foglio, testo bianco sui pulsanti 6.3:1 */
+:root[data-xmas] {
+  --bg: #F5EDE2; --accent: #2F6B4A; --accent-soft: #E2EEE3; --on-accent: #FFFFFF; --sun: #D9962B;
+  --xm-red: #B23A3F; --xm-red-soft: #F6E4E1; --xm-gold: #C9962E; --xm-gold-ink: #8A6416; --xm-pine: #2F6B4A;
+}
+:root[data-xmas][data-theme="dark"] {
+  --bg: #161A17; --accent: #8FD3A4; --accent-soft: #24332A; --on-accent: #10241A; --sun: #F0B65A;
+  --xm-red: #F08C86; --xm-red-soft: #3A2423; --xm-gold: #E9C46A; --xm-gold-ink: #E9C46A; --xm-pine: #8FD3A4;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-xmas]:not([data-theme="light"]) {
+    --bg: #161A17; --accent: #8FD3A4; --accent-soft: #24332A; --on-accent: #10241A; --sun: #F0B65A;
+    --xm-red: #F08C86; --xm-red-soft: #3A2423; --xm-gold: #E9C46A; --xm-gold-ink: #E9C46A; --xm-pine: #8FD3A4;
+  }
+}
+/* gli altri compagni hanno colori propri: a Natale tutti in verde abete (stessa forza dei selettori originali) */
+:root[data-xmas][data-pet] { --accent: #2F6B4A; --accent-soft: #E2EEE3; }
+:root[data-xmas][data-theme="dark"][data-pet] { --accent: #8FD3A4; --accent-soft: #24332A; }
+@media (prefers-color-scheme: dark) { :root[data-xmas]:not([data-theme="light"])[data-pet] { --accent: #8FD3A4; --accent-soft: #24332A; } }
+
+/* bagliore caldo in alto (al posto di quello verde) */
+:root[data-xmas] body::before { background: radial-gradient(90% 70% at 18% 0%, color-mix(in srgb, var(--xm-red) 13%, transparent), transparent 70%), radial-gradient(80% 70% at 88% 0%, color-mix(in srgb, var(--xm-gold) 16%, transparent), transparent 70%); }
+
+/* barra delle schede: scheda attiva in rosso caldo, con una stellina d'oro */
+:root[data-xmas] .tab[aria-current="page"] { color: var(--xm-red); }
+:root[data-xmas] .tabpill { background: var(--xm-red-soft); }
+:root[data-xmas] .tabpill::after { content: ""; position: absolute; top: -3px; right: -3px; width: 10px; height: 10px; background: var(--xm-gold); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+
+/* --- Neve: dietro alle schede (si vede nei bordi e in alto), solo trasformazioni (leggerissima) --- */
+.xmsnow { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; contain: strict; }
+.xmsnow.xmpage { -webkit-mask-image: linear-gradient(#000 55%, transparent 92%); mask-image: linear-gradient(#000 55%, transparent 92%); }
+.xmsnow i { position: absolute; top: 0; left: var(--x); width: var(--s); height: 100%; animation: xmfall var(--d) linear var(--dl) infinite; will-change: transform; }
+.xmsnow i::before { content: ""; display: block; width: var(--s); height: var(--s); border-radius: 50%; background: #fff; opacity: var(--o); box-shadow: 0 0 2px rgba(120, 90, 60, .28); }
+.xmsnow.xmpause i, body.isfull .xmsnow.xmpage { animation-play-state: paused; }
+body.isfull .xmsnow.xmpage { display: none; }
+@keyframes xmfall { 0% { transform: translate3d(0, -4%, 0); } 50% { transform: translate3d(var(--sw), 48%, 0); } 100% { transform: translate3d(0, 100%, 0); } }
+/* dentro le scene all'aperto a schermo intero */
+.xmsnow.xmin { position: absolute; z-index: 2; }
+.xmsnow.xmin i::before { box-shadow: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .xmsnow i::before { box-shadow: none; } }
+:root[data-theme="dark"] .xmsnow i::before { box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .xmsnow { display: none; } }
+
+/* --- Albero nella stanza: zona da toccare --- */
+.xmtreehit { position: absolute; z-index: 1; border: 0; background: transparent; padding: 0; border-radius: 18px; -webkit-tap-highlight-color: transparent; }
+.xmtreehit:focus-visible { outline: 3px solid #fff; }
+
+/* --- Scheda "L'albero di Natale" --- */
+.xmcard { display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; background: linear-gradient(160deg, color-mix(in srgb, var(--xm-red) 7%, var(--paper)), var(--paper) 55%); box-shadow: var(--shadow), inset 0 0 0 1.5px color-mix(in srgb, var(--xm-gold) 38%, transparent); }
+.xmcard::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, var(--xm-red) 0 14px, var(--xm-gold) 14px 18px, var(--xm-pine) 18px 32px, var(--xm-gold) 32px 36px); opacity: .85; }
+.xmtop { display: flex; gap: 12px; align-items: flex-start; }
+.xmart { flex: none; width: 84px; height: 118px; border: 0; padding: 4px; border-radius: 16px; background: color-mix(in srgb, var(--xm-pine) 9%, var(--paper-2)); color: var(--muted); display: grid; place-items: center; }
+.xmart svg { width: 100%; height: 100%; }
+.xmtx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.xmtx h3 { color: var(--xm-red); }
+.xmprog { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.xmprog.c { justify-content: center; }
+.xmbar { display: inline-flex; gap: 4px; }
+.xmbar i { width: 22px; height: 8px; border-radius: 999px; background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--line); }
+.xmbar i.on { background: linear-gradient(90deg, var(--xm-gold), color-mix(in srgb, var(--xm-gold) 70%, var(--xm-red))); box-shadow: none; }
+.xmstep { color: var(--muted); font-weight: 700; }
+.xmnext { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+.xmnext small { display: block; font-size: 12px; color: var(--muted); line-height: 1.2; }
+.xmnext b { font-family: var(--font-display); font-weight: 600; font-size: 16px; line-height: 1.25; }
+.xmg { flex: none; width: 30px; height: 30px; border-radius: 10px; background: var(--paper-2); display: grid; place-items: center; }
+.xmg svg { width: 24px; height: 24px; }
+.xmbuy { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.xmbtn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; }
+.xmbtn:disabled { background: var(--paper-2); color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); transform: none; cursor: default; }
+.xmbtn:disabled .xmprice { background: var(--paper); }
+.xmprice { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px 2px 4px; border-radius: 999px; background: color-mix(in srgb, var(--on-accent) 18%, transparent); font-size: 15px; }
+.xmprice svg { width: 20px; height: 20px; }
+.xmprice s { opacity: .75; font-weight: 600; font-size: 13px; }
+.xmplus { align-self: center; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--xm-gold-ink); background: color-mix(in srgb, var(--xm-gold) 18%, var(--paper)); }
+.xmplus svg { width: 15px; height: 15px; }
+.xmmiss { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 0; text-align: center; }
+.xmmiss > svg { width: 18px; height: 18px; flex: none; }
+.xmmiss span { font-weight: 700; }
+.xmmiss .link { color: var(--accent); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; padding: 6px 2px; min-height: 32px; }
+.xmdone { flex-direction: row; align-items: center; }
+.xmdone .xmtx h3 { color: var(--xm-red); }
+
+/* --- Foglio con le tappe --- */
+.xmsheet { max-height: 92vh; overflow-y: auto; }
+.xmbig { width: 92px; height: 130px; margin: 0 auto; color: var(--muted); }
+.xmbig svg { width: 100%; height: 100%; }
+.xmlist { list-style: none; margin: 2px 0; padding: 0; display: flex; flex-direction: column; gap: 5px; text-align: left; }
+.xmlist li { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 14px; background: var(--paper-2); }
+.xmlist li.next { background: color-mix(in srgb, var(--xm-gold) 16%, var(--paper)); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--xm-gold) 55%, transparent); }
+.xmlist li.done .xmrn { color: var(--muted); }
+.xmlist .xmg { background: var(--paper); }
+.xmrn { flex: 1; min-width: 0; font-weight: 700; }
+.xmrp { display: inline-flex; align-items: center; gap: 3px; font-weight: 800; color: var(--seed); }
+.xmrp svg { width: 18px; height: 18px; }
+.xmrp s { color: var(--muted); font-weight: 600; font-size: 13px; }
+.xmok { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); }
+.xmok svg { width: 16px; height: 16px; }
+.xmplusp { color: var(--xm-gold-ink); font-weight: 700; text-wrap: balance; }
+.xmplusp svg { width: 16px; height: 16px; vertical-align: -2px; }
+.xmyear { margin-top: 2px; }
+
+/* --- Annuncio, festa e pallina ricordo --- */
+.xmann, .xmcel { position: relative; overflow: hidden; }
+.xmannart, .xmcelart { width: 120px; height: 170px; }
+.xmannart svg, .xmcelart svg { width: 100%; height: 100%; }
+.xmannrow { justify-content: center; }
+.xmrays { position: absolute; inset: -40% -20% auto; height: 120%; pointer-events: none; background: radial-gradient(closest-side, color-mix(in srgb, var(--xm-gold) 30%, transparent), transparent); }
+.xmcel > *:not(.xmrays):not(.fx) { position: relative; }
+.xmkeep { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 8px; border-radius: 999px; background: color-mix(in srgb, var(--xm-gold) 16%, var(--paper)); color: var(--xm-gold-ink); }
+.xmorn { display: inline-block; width: 40px; height: 44px; }
+.xmorn svg { width: 100%; height: 100%; }
+.xmorn.big { width: 96px; height: 106px; }
+.xmorn.sm { width: 20px; height: 22px; }
+.pfb.pfxm { color: var(--xm-gold-ink); }

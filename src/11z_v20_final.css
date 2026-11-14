@@ -1,0 +1,47 @@
+/* v20 (1.0.8) controllo finale UX (09/11/2026)
+   1) Viaggi: la barra "Parti per ..." galleggia sopra la lista; senza fondo le schede e i link sotto si leggevano
+      attraverso la pillola del premio e attorno al pulsante. Ora ha una sfumatura del colore della pagina.
+   2) Casa: dopo il viaggio del giorno l'energia e' gia' spesa: "0/4" accanto a obiettivi tutti fatti sembrava
+      lavoro perso. Resta la barra vuota con la frase "ha gia' viaggiato oggi", senza il numero. */
+.departbar { padding-top: 22px; background: linear-gradient(to bottom, transparent 0, var(--bg) 22px, var(--bg) 100%); box-shadow: 0 14px 0 0 var(--bg); }
+.nven.nv-used .nvenv { display: none; }
+
+/* 3) Foglio dell'albero: il pulsante "con Plus ogni tappa costa il 30% in meno" va a capo intero, senza tagli */
+.btn.ghost.small.xmplusgo, .xmplusgo { white-space: normal; height: auto !important; max-height: none !important; flex-shrink: 0; min-height: 44px; line-height: 1.3; text-align: center; padding-top: 8px; padding-bottom: 8px; }
+/* 4) Condivisione: in portoghese "Compartilhar" non ci stava; i due pulsanti vanno a capo se serve e il testo non si taglia */
+.gr20btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.gr20btns .btn { flex: 1 1 140px; min-width: 0; white-space: normal; height: auto; min-height: 44px; }
+.gr20btns .btn span { overflow: visible; text-overflow: clip; white-space: normal; }
+/* 5) All'apertura di un foglio il fuoco va sul primo pulsante per chi usa la tastiera o TalkBack:
+      il bordo si vede solo con la tastiera, non al tocco */
+.overlay button:focus:not(:focus-visible), .overlay a:focus:not(:focus-visible) { outline: none; }
+
+/* 1.0.9 (accessibilita'): chi chiede meno movimento nel telefono non vede animazioni CSS ne' transizioni lunghe.
+   Le animazioni in JavaScript (GSAP) erano gia' spente (anim = false con prefers-reduced-motion). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+}
+
+/* 1.0.9 (accessibilita'): aree di tocco di almeno 44 px. Dove il disegno deve restare piccolo (pillole in alto,
+   pulsanti sopra la stanza) l'area si allarga in modo invisibile con ::after; altrove si alza l'altezza minima. */
+#musicBtn, .nvi, button.chip.mjb { position: relative; }
+#lvBtn::after, #seedPill::after, #musicBtn::after, #arrOpen::after, #fullOpen::after, #nameCardX::after, .nvi::after, .tr20i::after, #sc20FullHome::after, #pfAlbum::after, #pfLevel::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%); border-radius: 12px;
+}
+button.chip.mjb, .day, .overlay button#closeLayer { min-height: 44px; }
+/* (l'area invisibile ::after va solo su elementi gia' posizionati: su un elemento statico coprirebbe tutta la finestra) */
+a.nvtel { display: inline-block; padding: 13px 11px; margin: -13px -11px; }
+.inlink { position: relative; }
+.inlink::after, .spot::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%); }
+/* contrasto: i giorni prima dell'inizio nel calendario (erano 2,3:1) e le pillole dei trofei */
+.cal .d.nvpre { opacity: 1; color: var(--muted); }
+.trstats .pill { color: var(--ink); }
+/* il saluto in Casa e' il titolo della pagina (h1) ma resta uguale */
+h1.greet { margin: 0 0 -4px; font-size: inherit; font-weight: inherit; line-height: inherit; }
+/* 1.0.9: schermi bassi (es. 320x640): la parte con prezzi e pulsante non resta fissa in basso, cosi' prima si vede
+   cosa offre Plus (prima a 640 px di altezza si vedeva solo un vantaggio e mezzo) */
+@media (max-height: 700px) { .plussticky { position: static; box-shadow: none; margin-bottom: 0; } }
+/* 1.0.9: finestra "Riporta qui il tuo cucciolo": Incolla e Riporta riempiono la riga (e vanno a capo larghi sugli schermi stretti) */
+.iospaste > .row { flex-wrap: wrap; gap: 10px; }
+.iospaste > .row > .spacer { display: none; }
+.iospaste > .row > .btn { flex: 1 1 auto; justify-content: center; }

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   v20 (1.0.8) 11y_v20_devices: Tanetto su ogni schermo
+   telefoni piccoli e in orizzontale, pieghevoli, tablet, Chromebook/desktop,
+   caratteri grandi, notch e barre di sistema, WebView vecchie (Chrome 90-110).
+   Il segno html[data-dvl] lo mette 98y_v20_devices.js:
+     "room"  = la pagina comincia con la stanza (Casa, Negozio)
+     "list"  = le altre pagine (Viaggi, Diario, Profilo, accoglienza)
+   ========================================================================== */
+
+/* ---------- 1. Area di tocco di almeno 44 px (senza cambiare il disegno) ---------- */
+.fulltop .fullbtn { position: relative; }
+.fullbtn::before { content: ""; position: absolute; inset: -3px; border-radius: 50%; }
+.scn { position: relative; }
+.scn::before { content: ""; position: absolute; inset: -2px 0; }
+.switch::before { content: ""; position: absolute; inset: -7px -4px; border-radius: 999px; }
+.top .lvpill::before { inset: -7px -3px; }
+.plusbox > #closeLayer::before, .tshop > #closeLayer::before { content: ""; position: absolute; inset: -3px -2px; }
+
+/* ---------- 2. Notch, foro della fotocamera, barra dei gesti e dei 3 tasti ---------- */
+.app { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+.hasbar .app { padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px)); }
+.tabs { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.departbar { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.fulltop { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); }
+.facts { padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); scroll-padding-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px)); }
+.roomwrap.full .arrbar { left: max(14px, env(safe-area-inset-left, 0px)); }
+
+/* ---------- 3. Schermo intero: sempre la scena intera (anche sugli schermi bassi) ---------- */
+/* con altezza <= 700 px una regola vecchia riduceva il disegno a 36vh anche nello schermo intero */
+#app .roomwrap.full .room > svg { height: 100%; }
+/* ai lati della scena (tablet in orizzontale, desktop) un fondo caldo e morbido invece del nero */
+.roomwrap.full { background: radial-gradient(120% 90% at 50% 45%, #3A3129 0%, #221D19 60%, #171310 100%); }
+.roomwrap.full .room { box-shadow: 0 0 60px -10px rgba(0, 0, 0, .55); }
+
+/* ---------- 3b. Schermo intero: le azioni centrate sotto la scena quando ci stanno tutte ----------
+   (margini automatici: se la fila è più lunga dello schermo valgono 0 e la fila scorre come prima) */
+.roomwrap.full .facts > .fact:first-child { margin-left: auto; }
+.roomwrap.full .facts > .fact:last-child { margin-right: auto; }
+/* caratteri grandi: il pulsante si allarga quanto la parola più lunga, invece di farla uscire */
+.fact { width: min-content; min-width: 72px; padding-inline: 4px; }
+
+/* ---------- 4. Telefono in orizzontale e schermi bassi ---------- */
+@media (orientation: landscape) and (max-height: 560px) {
+  .arena { height: max(190px, calc(100vh - 128px)); }
+  .gamebox { gap: 6px; }
+  .roomwrap.full .bubble { max-width: min(60%, 400px); }
+  /* il fumetto sale subito sotto i pulsanti in alto, così non copre il compagno (non mentre si spostano gli oggetti) */
+  .roomwrap.full:not([data-arr]) .bubble { top: calc(58px + env(safe-area-inset-top, 0px)) !important; }
+  /* barra in basso più bassa: icona e nome affiancati (resta alta 50 px, sopra i 44 richiesti) */
+  .tab { min-height: 50px; flex-direction: row; gap: 6px; }
+  .tab .ic { flex: none; }
+  /* barra più larga: con icona e nome affiancati ogni pulsante ha bisogno di più spazio */
+  .tabs .in { max-width: min(100%, 640px); }
+  /* nello schermo intero i pulsanti restano larghi almeno 72 px: "Nascondino" e "Abbraccio" ci stanno */
+  .fact { width: min-content; min-width: 72px; }
+}
+/* telefono in orizzontale (schermo basso e largo): nello schermo intero ai lati della scena resta spazio libero.
+   I pulsanti delle azioni vanno in una colonna a destra, fuori dalla scena, così non coprono più il compagno */
+@media (orientation: landscape) and (max-height: 560px) and (min-aspect-ratio: 7/4) {
+  .roomwrap.full .fullbar { left: auto; right: 0; top: calc(60px + env(safe-area-inset-top, 0px)); bottom: 0; width: max(92px, calc((100vw - 120vh) / 2)); padding: 0 max(4px, env(safe-area-inset-right, 0px)) 0 4px; background: none; }
+  .roomwrap.full .facts { height: 100%; box-sizing: border-box; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 8px; overflow-x: hidden; overflow-y: auto; padding: 4px 4px calc(12px + env(safe-area-inset-bottom, 0px)); scroll-snap-type: y proximity; overscroll-behavior: contain;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 8px, #000 calc(100% - 16px), transparent); mask-image: linear-gradient(180deg, transparent, #000 8px, #000 calc(100% - 16px), transparent); }
+  .roomwrap.full .facts > .fact:nth-child(n) { margin: 0; scroll-snap-align: start; }
+}
+
+/* ---------- 5. Tablet e pieghevoli in verticale: colonna centrata più larga ---------- */
+@media (min-width: 600px) {
+  .app { max-width: 600px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  .tabs .in { max-width: 600px; }
+  .departbar .in { max-width: 520px; }
+  .tab { font-size: 12.5px; }
+}
+@media (min-width: 768px) {
+  .app { max-width: 700px; }
+  .tabs .in { max-width: 640px; }
+}
+
+/* giochi sui tablet alti: area di gioco più grande (i giochi leggono le misure dell'area da soli) */
+@media (min-width: 700px) and (min-height: 900px) {
+  .gamebox { max-width: 580px; }
+  .arena { height: min(56vh, 660px); }
+}
+
+/* ---------- 6. Orizzontale largo (tablet, Chromebook, desktop, telefono girato) ---------- */
+@media (orientation: landscape) and (min-width: 560px) {
+  /* pagine a elenco: colonna centrata di larghezza comoda */
+  html[data-dvl="list"] .app { max-width: 760px; }
+  /* pagine con la stanza: stanza a sinistra (ferma mentre si scorre), il resto a destra */
+  html[data-dvl="room"] .app { max-width: 1180px; padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px)); }
+  html[data-dvl="room"] #app > .stack { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); grid-template-rows: repeat(var(--dvn, 14), auto) 1fr; column-gap: clamp(20px, 3vw, 40px); row-gap: 16px; align-items: start; }
+  html[data-dvl="room"] #app > .stack > * { grid-column: 2; min-width: 0; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { grid-column: 1; grid-row: 1 / -1; position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); width: 100%; justify-self: center; }
+  /* la stanza resta intera (niente versione schiacciata degli schermi bassi) */
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .room, html[data-dvl="room"] #app > .stack > #room { max-height: none; aspect-ratio: 360 / 300; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .room > svg, html[data-dvl="room"] #app > .stack > #room > svg { height: 100%; }
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full) .bubble { max-width: min(92%, 460px); }
+  /* il carrello "Prova / Compra" del Negozio resta centrato, largo come una scheda */
+  html[data-dvl="room"] .departbar .in { max-width: 480px; }
+  .tabs .in { max-width: 640px; }
+}
+/* orizzontale basso (telefono girato, finestre basse): la stanza non deve superare l'altezza dello schermo */
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 620px) {
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { position: relative; top: 0; max-width: min(calc((100vh - 96px) * 1.2), var(--dvroomw, 100vw)); }
+}
+@media (orientation: landscape) and (min-width: 560px) and (min-height: 621px) {
+  /* tablet e desktop: stanza, fumetto e pulsanti si vedono tutti insieme senza scorrere */
+  html[data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvl="room"] #app > .stack > #room { max-width: min(calc((100vh - 250px) * 1.2), var(--dvroomw, 100vw)); }
+}
+
+/* con i caratteri molto grandi la colonna della stanza (stanza, fumetto, azioni) può non starci in altezza
+   neanche rimpicciolita: allora scorre con la pagina invece di restare ferma (98y_v20_devices.js mette data-dvns) */
+@media (orientation: landscape) and (min-width: 560px) {
+  html[data-dvns][data-dvl="room"] #app > .stack > .roomwrap:not(.full), html[data-dvns][data-dvl="room"] #app > .stack > #room { position: relative; top: 0; }
+}
+
+/* ---------- 7. Caratteri di sistema molto grandi (130-200%) ---------- */
+/* le parole lunghe vanno a capo con il trattino (Android ha i dizionari) invece di uscire dalle schede.
+   Le etichette corte di umori, azioni e schermo intero restano come prima (a grandezza normale ci stanno);
+   nella barra in basso, solo se la parola proprio non ci sta, si va a capo */
+.hubcard, .item, .chip, .btn, .goal .txt, .dest .meta { -webkit-hyphens: auto; hyphens: auto; }
+.tabsx button { overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
+/* barra in basso: se un nome non ci sta, 98y_v20_devices.js rimpicciolisce un po' solo i nomi (--dvtabf);
+   solo se non basta nemmeno così la parola va a capo */
+.tab { overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+.tab > span:not(.ic) { font-size: calc(var(--dvtabf, 1) * 1em); }
+html[data-dvtm] .tab > span:not(.ic) { display: inline-block; width: min-content; font-size: 1em; overflow-wrap: normal; word-break: keep-all; -webkit-hyphens: manual; hyphens: manual; }
+/* orizzontale basso con caratteri grandi: icona sopra e nome sotto, così il nome ha tutta la larghezza */
+html[data-dvtcol] .tab { flex-direction: column; gap: 2px; }
+/* azioni sotto la stanza: stessa cosa (--dvactf); con parole molto lunghe su schermi stretti, 3 per fila */
+.actions > .act > span:not(.aci) { font-size: calc(var(--dvactf, 1) * 1em); max-width: 100%; overflow-wrap: anywhere; }
+html[data-dvam] .actions > .act > span:not(.aci) { display: inline-block; width: min-content; max-width: none; font-size: 1em; overflow-wrap: normal; word-break: keep-all; -webkit-hyphens: manual; hyphens: manual; }
+html[data-dvact3] .actions { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+html[data-dvact3] .actions > .act { grid-column: span 2; }
+html[data-dvact3] .actions > .act:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; } /* 3 + 2, la seconda fila centrata */
+.tab { line-height: 1.1; padding-inline: 2px; }
+.tabsx button { min-width: 0; padding-inline: 6px; line-height: 1.15; }
+/* umori e azioni: le colonne dipendono dalla grandezza del testo (em). Con i caratteri normali
+   restano 5 in fila anche a 320 px; con i caratteri grandi diventano 4 o 3, così le parole ci stanno */
+.moods { font-size: 12px; grid-template-columns: repeat(auto-fit, minmax(max(44px, 3.8em), 1fr)); }
+.actions { font-size: 12px; grid-template-columns: repeat(auto-fit, minmax(max(48px, 4.3em), 1fr)); }
+
+/* nome della stagione: se non ci sta (colonna stretta, caratteri grandi, lingue lunghe) va a capo invece dei puntini */
+.nvptx b { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: break-word; line-height: 1.2; }
+
+/* ---------- 8. Movimento ridotto: niente animazioni decorative continue ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #fullwrap.fullin { animation: none; }
+}
+
+/* === 11y_v20_devices: riserva WebView vecchie === */
+/* Android 7-9 con WebView non aggiornata (Chrome 90-110): niente color-mix (Chrome 111), :has() (105),
+   dvh (108), proprietà translate (104). Qui i colori pieni per le regole 1.0.8 che non ne avevano. */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  :root[data-xmas] body::before { background: none; }
+  .xmcard { background: var(--paper); }
+  .xmart { background: var(--paper-2); }
+  .xmbar i.on { background: var(--xm-gold); }
+  .xmprice { background: rgba(255, 255, 255, .18); }
+  .xmplus { background: rgba(242, 179, 61, .18); }
+  .xmlist li.next { background: var(--paper); box-shadow: inset 0 0 0 2px var(--xm-gold); }
+  .xmrays { background: radial-gradient(closest-side, rgba(242, 179, 61, .3), transparent); }
+  .xmkeep { background: var(--paper-2); }
+  .nvfb .nvfbsv { background: var(--accent-soft); }
+  /* !important: le varianti scure di queste regole hanno un selettore più forte */
+  .w20feed .snack.isfav { background: var(--paper-2) !important; }
+  .cal .d.l1, .cal .d.l2, .legend i.lgsome { background: var(--accent-soft) !important; }
+  .gr20wait { border: 3px solid rgba(0, 0, 0, .12); border-top-color: var(--accent); }
+}
+@supports not (height: 1dvh) {
+  .sheet.w20feed { max-height: calc(100vh - 16px); }
+}
+@supports not (translate: 0) {
+  .petpeek { left: 0; right: 0; margin-inline: auto; width: max-content; }
+}
+/* === fine riserva 11y === */

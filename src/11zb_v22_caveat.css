@@ -1,0 +1,8 @@
+/* =================== 1.0.9 (fase 2): Caveat 700, la scrittura a mano del video (lettere di Germo, cartoline) ===================
+   Caveat (c) 2014 The Caveat Project Authors, SIL Open Font License 1.1 (github.com/googlefonts/caveat).
+   Istanza statica peso 700 dal font variabile di google/fonts, ridotta ai caratteri delle lingue latine e del russo (38220 byte woff2).
+   (critica fase 2) In un file a parte, caveat-700.woff2 (38 KB invece di 51 KB di testo dentro la pagina): la pagina si apre prima e il
+   carattere si scarica solo quando serve (lettere e cartoline) o a riposo dopo l'avvio (98za). Offline: sul sito e' nella
+   cache del service worker (sw.js), nell'app Android e' un file locale (prep_www.py). Il cinese/giapponese/coreano usano il carattere del sistema. */
+@font-face { font-family: "Caveat"; font-style: normal; font-weight: 700; font-display: swap; src: url(caveat-700.woff2) format("woff2");
+  unicode-range: U+0020-007E,U+00A0-00FF,U+0104-0107,U+0118-0119,U+011E-011F,U+0130-0131,U+0141-0144,U+0150-0153,U+015A-015B,U+015E-015F,U+0170-0171,U+0179-017C,U+0401,U+0410-044F,U+0451,U+2013-2014,U+2018-201E,U+2022,U+2026,U+2039-203A,U+20AC; }

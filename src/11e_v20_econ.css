@@ -1,0 +1,27 @@
+/* ===== 1.0.8 — Economia: negozio che si legge subito =====
+   - Prezzo che puoi pagare ora: pastiglia verde (con il bordino), sempre lo stesso verde, qualunque sia il compagno.
+   - Prezzo che non puoi ancora pagare: cifra spenta (grigio caldo) e sotto "ne mancano N".
+   - Gli oggetti tuoi ("Usa" / "In uso") e quelli che non si comprano (premi, eventi) restano come prima.
+   Tutti i colori sono qui, in variabili: si regolano in un posto solo (contrasto ≥ 4,5:1 su carta chiara e scura). */
+:root {
+  --afford-bg: #DDF1D6;
+  --afford-ink: #1D6A2C;
+  --afford-line: #A9D9A0;
+  --unafford-ink: #6E635A;
+  --unafford-icon: .5;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --afford-bg: #23402A; --afford-ink: #B3EAA9; --afford-line: #3E7348; --unafford-ink: #ADA296; --unafford-icon: .45; }
+}
+:root[data-theme="dark"] { --afford-bg: #23402A; --afford-ink: #B3EAA9; --afford-line: #3E7348; --unafford-ink: #ADA296; --unafford-icon: .45; }
+
+.item .price.ecok { background: var(--afford-bg); color: var(--afford-ink); box-shadow: inset 0 0 0 1px var(--afford-line); padding: 2px 9px 2px 5px; border-radius: 99px; }
+.item .price.ecno { color: var(--unafford-ink); font-weight: 700; }
+.item .price.ecno svg { filter: grayscale(1); opacity: var(--unafford-icon); }
+.item .ecmiss { display: block; font-size: 11px; font-weight: 600; line-height: 1.15; color: var(--unafford-ink); margin-top: -2px; max-width: 100%; overflow-wrap: anywhere; }
+html.bigtext .item .ecmiss { font-size: 12px; }
+/* barra "Prova": la cifra del pulsante "Compra" nella stessa pastiglia verde */
+.trybar .pr.ecok { background: var(--afford-bg); color: var(--afford-ink); border-radius: 99px; padding: 1px 8px 1px 4px; margin-left: 2px; display: inline-flex; align-items: center; gap: 2px; }
+.trybar .pr.ecok svg { width: 14px; height: 14px; }
+/* Oggi: "riposo già preso questa settimana" al posto del pulsante */
+.ecrest { display: block; flex: 1 1 100%; text-align: left; line-height: 1.35; margin-top: 2px; }

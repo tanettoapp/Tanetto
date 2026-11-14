@@ -1,0 +1,58 @@
+/* ===== 1.0.9: correzioni finali prima di Google Play (verifiche visive, accessibilita', lingue) ===== */
+/* titoli h2 che prima erano h3 (ordine dei titoli per i lettori di schermo): stesso aspetto */
+h2.h3like { font-size: 17px; }
+/* contrasto: pagine bloccate dell'album e "Ritira il premio" (prima 3,9:1 e 2,9:1) */
+.apchip.lk { opacity: 1; color: var(--muted); }
+.albumbtn .abdot { background: #A85A12; }
+/* campi di testo: bordo a riposo visibile, almeno 3:1 (WCAG 1.4.11; prima 1,4:1 sul foglio) */
+:root { --inpline: #958874; }
+:root[data-theme="dark"] { --inpline: #82786C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --inpline: #82786C; } }
+.field input, .field select, .nameinp, .inline input, .gamebox .inline input, .capsule textarea, .chform input, .iospaste textarea, .agefld select, .inline .nameinp { border-color: var(--inpline); }
+.field input:focus, .field select:focus, .nameinp:focus, .inline input:focus, .gamebox .inline input:focus, .capsule textarea:focus, .chform input:focus, .iospaste textarea:focus, .agefld select:focus, .inline .nameinp:focus { border-color: var(--accent); }
+/* bersagli di almeno 44 px */
+.lang { min-height: 44px; }
+.gr20pill { position: relative; }
+.gr20pill::after { content: ""; position: absolute; inset: -10px -4px; }
+button.link { min-width: 44px; padding-inline: 8px; }
+.albox .alhead #closeLayer { min-width: 44px; min-height: 44px; }
+/* Introvabili: l'etichetta della rarita' sopra la figura 3D */
+.xvrow .item .rar { z-index: 2; }
+/* "Testo piu' grande": la barra dei piani di Plus non copre la pagina */
+html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0; }
+/* "Salva" del nome mai spezzato a meta' parola (320 px: "Spei-chern", "Сохра-нить") */
+#nameCardGo, #nameSetGo { white-space: nowrap; flex: 0 0 auto; padding-inline: 14px; hyphens: manual; -webkit-hyphens: manual; }
+#nameCardIn, #nameSetIn { min-width: 0; }
+/* Plus e negozio dei Tanì: quando si scorre, "Chiudi" diventa una striscia piena (il contenuto passa sotto, non intorno) */
+.plusbox.scrolled > #closeLayer, .tshop.scrolled > #closeLayer { align-self: stretch; justify-content: flex-end; border-radius: 0; margin-left: -16px; margin-right: -16px; padding-right: 22px; box-shadow: 0 -24px 0 var(--paper), 0 8px 10px -8px rgba(60, 40, 20, .28); }
+.tshop.scrolled > #closeLayer { margin-left: -18px; margin-right: -18px; }
+/* negozio dei Tanì: chi scorre e' il velo (con 16 px di margine sopra), quindi la striscia si ferma 16 px sotto il bordo;
+   quella fascia ora fa parte della striscia anche al tocco (prima si vedeva coperta ma il tocco passava ai pacchetti sotto) */
+.tshop.scrolled > #closeLayer::before { inset: auto 0 100% 0; height: calc(16px + env(safe-area-inset-top, 0px)); background: var(--paper); }
+/* inizio, passo 2, telefoni bassi (640 px): il campo del nome sale sopra "Avanti" (prima lo copriva) */
+@media (max-height: 700px) {
+  .choose:not(.four) .choice .ds { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .stack:has(> .choose:not(.four)) > h1 + p.muted { display: none; }
+}
+#toName { box-shadow: 0 -22px 18px -8px var(--bg), 0 6px 18px -6px rgba(0, 0, 0, .35), 0 3px 0 rgba(0, 0, 0, .15); }
+/* telefono in orizzontale: la testata del benvenuto non riempie tutto lo schermo; il livello nuovo si puo' scorrere */
+@media (orientation: landscape) and (max-height: 500px) {
+  .w3hero { max-height: 46vh; }
+  .levelup .box { max-height: 92vh; overflow: auto; }
+}
+/* scelta dei compagni Plus: niente salti mentre le figure arrivano; testi piccoli un po' piu' grandi */
+.choose.four .halo { aspect-ratio: 1; }
+.choose.four .choice .lk { font-size: 11.5px; }
+.choose.four .choice .ds { font-size: 12px; }
+.rar { font-size: 11px; }
+/* finestre: il titolo riceve il fuoco (lettori di schermo) senza bordo; i pulsanti lo mostrano come sempre */
+.overlay [tabindex="-1"]:focus, #trParty [tabindex="-1"]:focus, #app h1[tabindex="-1"]:focus { outline: none; }
+/* informativa: il riassunto per bambini e ragazzi in un riquadro */
+.docbox .doc p.pshort { background: var(--paper-2, #EFE7DA); border-radius: 14px; padding: 10px 12px; font-weight: 600; }
+/* giapponese: niente "す。" da solo sull'ultima riga nella schermata dell'eta' */
+:lang(ja) .agebox p { word-break: auto-phrase; }
+/* resoconto del mese: il compagno con la corona (3D) */
+.repbox .rppet.m3host { width: 120px; height: auto; margin: -14px auto -8px; }
+.pctx h2 { margin: 0 0 6px; }
+/* pulsanti dei video: a capo solo tra le parole, righe bilanciate (prima "verdop-peln", "ca-deau" a meta' parola) */
+.adbtn, .adbtn .adtx { -webkit-hyphens: manual; hyphens: manual; text-wrap: balance; }

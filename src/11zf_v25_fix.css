@@ -1,0 +1,29 @@
+/* ===== 1.0.9: ultime correzioni prima di Google Play (verifiche finali A e B, 13/11/2026) ===== */
+/* Profilo: i titoli delle schede ora sono h2.h3like (ordine dei titoli); stesso aspetto degli h3 di prima */
+.accard h2.h3like { display: flex; align-items: center; gap: 8px; }
+.accard h2.h3like svg { width: 22px; height: 22px; color: var(--accent); flex: none; }
+.psbuy h2.h3like svg, .pstani h2.h3like svg { width: 20px; height: 20px; vertical-align: -4px; margin-right: 6px; }
+.chhd h2.h3like, .trshelf h2.h3like, .svcard h2.h3like { margin: 0; }
+.svinvite h2.h3like { margin: 0 0 6px; }
+/* Avventure, energia piena: titolo, etichetta e (i) vanno a capo invece di uscire dallo schermo (ru a 320 px) */
+.tr20sth { flex-wrap: wrap; row-gap: 6px; }
+.tr20sth .tr20en { flex: none; white-space: nowrap; }
+/* etichetta e (i) restano insieme: se non c'e' posto vanno sulla riga sotto, l'etichetta a sinistra e la (i) a destra */
+.tr20r { flex: 1 1 auto; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.tr20r .spacer { flex: 1; }
+/* bersagli di almeno 44 px: nome del compagno in alto (nomi corti) e la x delle finestre */
+.top #petNameBtn { min-width: 44px; }
+.overlay button#closeLayer.iconbtn { min-width: 44px; min-height: 44px; }
+/* Profilo, nome del compagno: con un pulsante lungo ("Переименовать") il campo non si stringe, il pulsante va sotto */
+.inline:has(> #doRename) { flex-wrap: wrap; }
+.inline:has(> #doRename) > #rename { flex: 1 1 140px; }
+.inline:has(> #doRename) > #doRename { white-space: nowrap; }
+/* stanza a schermo intero: la fila delle scene finisce 10 px prima dei pulsanti "sposta" e "riduci" (che sono spostati
+   di 10 px a sinistra dal loro posto: 11y li rende relative con right: 10px). Sfuma solo dal lato dove ci sono altre scene
+   (classi scl/scr messe da 98zj); lo spazio in fondo porta anche l'ultima scena fuori dalla sfumatura. */
+.fulltop .scns { position: relative; margin-right: 12px; padding-right: 28px; -webkit-mask-image: none; mask-image: none; }
+.fulltop .scns.scr { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--scnfade, 28px)), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - var(--scnfade, 28px)), transparent); }
+.fulltop .scns.scl { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
+.fulltop .scns.scl.scr { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+/* Plus per i minori: il risparmio, senza nastro, su una riga sua sotto il prezzo al mese (mai spezzato) */
+.plan small .psave { display: block; white-space: nowrap; }

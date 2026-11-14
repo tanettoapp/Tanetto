@@ -1,0 +1,72 @@
+/* ===== 1.0.8 — Viaggi: gita breve, pulsante "i", scheda dello stato del viaggio ===== */
+:root { --tr20-sh-bg: #FCE9C6; --tr20-sh-ink: #7A4E0E; --tr20-off-bg: rgba(110, 101, 93, .12); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tr20-sh-bg: #4A3A1E; --tr20-sh-ink: #F6CF8A; --tr20-off-bg: rgba(241, 235, 226, .1); } }
+:root[data-theme="dark"] { --tr20-sh-bg: #4A3A1E; --tr20-sh-ink: #F6CF8A; --tr20-off-bg: rgba(241, 235, 226, .1); }
+
+/* pulsante "i" */
+.tr20i { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 0; padding: 0; display: inline-grid; place-items: center; background: var(--paper); color: var(--accent); box-shadow: 0 1px 4px rgba(0, 0, 0, .12); cursor: pointer; }
+.tr20i svg { width: 20px; height: 20px; }
+.tr20i:active { transform: scale(.92); }
+.tr20i::before { content: ""; position: absolute; inset: -6px; } /* area di tocco più grande */
+.tr20i { position: relative; }
+.away.tr20away { position: relative; }
+.away.tr20away > .tr20i { position: absolute; top: 12px; right: 12px; }
+.away.tr20away > h3 { padding-right: 44px; }
+.awayfull .afbar .tr20iaf { background: #EFE7DA; color: #4E8A4A; box-shadow: none; }
+
+/* etichette */
+.tr20badge { display: inline-block; font-size: 12px; font-weight: 700; line-height: 1; padding: 5px 9px; border-radius: 999px; white-space: nowrap; vertical-align: 1px; }
+.tr20badge.short { background: var(--tr20-sh-bg); color: var(--tr20-sh-ink); }
+.tr20badge.full { background: var(--accent); color: var(--on-accent, #fff); }
+
+/* scheda dello stato in cima alle Avventure */
+.tr20st { background: var(--paper); border-radius: 20px; padding: 14px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.tr20st.tr20-full { box-shadow: var(--shadow), inset 0 0 0 2px var(--accent); }
+.tr20st.tr20-short { box-shadow: var(--shadow), inset 0 0 0 2px #E9A23B; }
+.tr20sth { display: flex; align-items: center; gap: 8px; min-height: 34px; }
+.tr20sth .spacer { flex: 1; }
+.tr20en { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+.tr20bdg { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #FFE7A8, #F2B33D 70%); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .14); }
+.tr20bdg svg { width: 17px; height: 17px; }
+.tr20tx { margin: 0; line-height: 1.45; }
+.tr20note { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.4; }
+.tr20seg { display: flex; gap: 4px; margin-top: 2px; }
+.tr20seg i { flex: 1; height: 8px; border-radius: 4px; background: var(--tr20-off-bg); position: relative; }
+.tr20seg i.on { background: var(--accent); }
+.tr20seg i.half::after { content: ""; position: absolute; right: -4px; top: -5px; width: 4px; height: 18px; border-radius: 2px; background: #E9A23B; }
+.tr20segl { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.tr20lg { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.tr20lg i { width: 4px; height: 14px; border-radius: 2px; background: #E9A23B; }
+.tr20how { border-top: 1px solid var(--line, rgba(0, 0, 0, .08)); padding-top: 10px; margin-top: 2px; }
+.tr20how b { font-size: 14px; }
+.tr20how ol { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tr20how li { display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.35; }
+.tr20n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13px; }
+
+/* etichetta sulla meta */
+.tr20tag { align-self: flex-start; margin-top: 4px; font-size: 12px; font-weight: 600; line-height: 1.3; padding: 3px 8px; border-radius: 8px; max-width: 100%; }
+.tr20tag.full { background: var(--accent-soft); color: var(--accent); }
+.tr20tag.short { background: var(--tr20-sh-bg); color: var(--tr20-sh-ink); }
+.tr20tag.off { background: var(--tr20-off-bg); color: var(--muted); font-weight: 500; }
+.dest.tr20dim .pc { filter: saturate(.55); opacity: .8; }
+.dest.tr20dim .meta b { color: var(--muted); }
+.dest .meta .small { line-height: 1.35; }
+.dest { contain-intrinsic-size: auto 110px; }
+
+/* barra di partenza con il premio */
+.tr20dbar .in { display: flex; flex-direction: column; gap: 8px; }
+.tr20cap { align-self: center; margin: 0; display: inline-flex; align-items: center; gap: 8px; background: var(--paper); color: var(--ink); border-radius: 999px; padding: 6px 12px 6px 6px; box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .3); font-size: 14px; font-weight: 600; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+
+/* invito alla gita breve in Oggi */
+.tr20cta p { margin: 0; line-height: 1.5; }
+
+/* foglio "Come funzionano le avventure" */
+.overlay .box.tr20sheet { text-align: left; max-width: 420px; max-height: calc(100vh - 40px); overflow-y: auto; align-items: stretch; gap: 12px; }
+.tr20sheet h2 { margin: 0; text-align: center; font-size: 21px; line-height: 1.25; }
+.tr20now { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--accent-soft); font-size: 14px; font-weight: 600; line-height: 1.4; }
+.tr20now svg { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--accent); }
+.tr20list { list-style: none; margin: 0 0 4px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.tr20list li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.45; font-size: 15px; }
+.tr20ic { flex: none; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.tr20ic svg { width: 18px; height: 18px; }
+html.calm .tr20i:active { transform: none; }

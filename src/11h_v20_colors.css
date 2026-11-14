@@ -1,0 +1,236 @@
+/* ===== 1.0.8 (v20) — Colori: una tavolozza sola, calda e leggibile (11h_v20_colors.css) =====
+   Regole:
+   - Ogni testo ha contrasto WCAG AA (4,5:1; 3:1 per i titoli grandi) su chiaro, scuro e Natale. Controllato da t38_colors.py.
+   - Gerarchia: azione principale = colore del compagno (--accent) · secondaria = contorno/tonale · successo = verde fisso (--afford-*)
+     · attenzione = ambra · pericolo = rosso (--nv-danger) · Tanì = oro bruno (--seed) · Plus = oro-ambra (--cl-plus-*), sempre lo stesso.
+   - Plus si riconosce sempre dallo stesso oro (pulsante, distintivo, finestra, offerta, fila d'oro, pacchetto migliore),
+     senza trucchi: il pulsante "Chiudi" della finestra Plus e del negozio dei Tanì resta sempre in vista.
+   - Ogni regola scura c'e' due volte: tema scuro del telefono (@media) e tema scuro scelto ([data-theme="dark"]). */
+
+/* ---------- 1. Gettoni di colore ---------- */
+:root {
+  /* compagno di partenza (Germo): verde piu' profondo, leggibile come testo anche sul bagliore caldo in alto (4,8:1) e con il bianco sopra (6:1) */
+  --accent: #2F7035;
+  --muted: #6B625B;
+  --seed: #8A5B2D;
+  /* semantica */
+  --cl-warn: #8F5A00; --cl-warn-soft: #FBEBD0;
+  --cl-danger: var(--nv-danger, #B4372B);
+  --cl-success: var(--afford-ink, #1D6A2C); --cl-success-soft: var(--afford-bg, #DDF1D6);
+  /* Plus: oro che scalda verso l'ambra */
+  --cl-plus-1: #FFDB8A; --cl-plus-2: #F2B140; --cl-plus-3: #E8963A;
+  --cl-plus-ink: #3B2A10;      /* testo sopra l'oro */
+  --cl-plus-text: #93580A;     /* scritte "Plus" su carta */
+  --cl-plus-soft: #FFF3DA;     /* superfici Plus */
+  --cl-plus-soft-2: #FCE3B6;
+  --cl-plus-line: #E9B65A;     /* bordino Plus */
+  --cl-plus-shadow: #B06E1A;
+  --cl-plus-grad: linear-gradient(180deg, #FFDB8A 0%, #F6BF55 45%, #EDA43E 75%, #E8963A 100%);
+  --cl-plus-title: linear-gradient(90deg, #A9661A, #C2502E);
+  --cl-day-line: #D6C8B4; --cl-switch-off: #9A8E7E; --cl-tick: #968A79;
+  --cl-plus-glow: radial-gradient(closest-side at 50% 42%, #FFE6B0 0%, rgba(255, 230, 176, .62) 40%, rgba(255, 230, 176, .22) 70%, rgba(255, 230, 176, 0) 100%);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1C1916; --paper: #26221D; --paper-2: #302B25;
+  --cl-warn: #F0B65A; --cl-warn-soft: #3A2E1A;
+  --cl-day-line: #4F463C; --cl-switch-off: #7D7164; --cl-tick: #857A6C;
+  --cl-plus-text: #F2C063;
+  --cl-plus-soft: #3A2C17; --cl-plus-soft-2: #45341A;
+  --cl-plus-line: #8C6526;
+  --cl-plus-shadow: #8A5612;
+  --cl-plus-title: linear-gradient(90deg, #FFD27A, #F59A6B);
+  --cl-plus-glow: radial-gradient(closest-side at 50% 42%, rgba(240, 182, 90, .28) 0%, rgba(240, 182, 90, .16) 40%, rgba(240, 182, 90, .06) 70%, rgba(240, 182, 90, 0) 100%);
+} }
+:root[data-theme="dark"] {
+  --bg: #1C1916; --paper: #26221D; --paper-2: #302B25;
+  --cl-warn: #F0B65A; --cl-warn-soft: #3A2E1A;
+  --cl-day-line: #4F463C; --cl-switch-off: #7D7164; --cl-tick: #857A6C;
+  --cl-plus-text: #F2C063;
+  --cl-plus-soft: #3A2C17; --cl-plus-soft-2: #45341A;
+  --cl-plus-line: #8C6526;
+  --cl-plus-shadow: #8A5612;
+  --cl-plus-title: linear-gradient(90deg, #FFD27A, #F59A6B);
+  --cl-plus-glow: radial-gradient(closest-side at 50% 42%, rgba(240, 182, 90, .28) 0%, rgba(240, 182, 90, .16) 40%, rgba(240, 182, 90, .06) 70%, rgba(240, 182, 90, 0) 100%);
+}
+
+/* compagni con un colore troppo chiaro per il testo: stessa tinta, un passo piu' profondi (solo tema chiaro) */
+:root[data-pet="miko"] { --accent: #6556AA; }
+:root[data-pet="rufi"] { --accent: #A64522; }
+:root[data-pet="dori"] { --accent: #0C7057; }
+
+/* ---------- 2. Natale: resta il colore di ogni compagno ----------
+   Prima tutti diventavano verde abete e Rufi, Lumi, Miko... perdevano la loro faccia. Ora il Natale si vede da
+   neve, ghirlande, scheda dell'albero, bagliore rosso-oro e scheda attiva rossa; il compagno tiene il suo colore.
+   Germo (gia' verde) prende il verde abete. */
+:root[data-xmas][data-pet="ondi"] { --accent: #8A5A3C; --accent-soft: #F3E3D5; }
+:root[data-xmas][data-pet="lumi"] { --accent: #4F55B8; --accent-soft: #E4E5FA; }
+:root[data-xmas][data-pet="miko"] { --accent: #6556AA; --accent-soft: #ECE7F7; }
+:root[data-xmas][data-pet="rufi"] { --accent: #A64522; --accent-soft: #FBE3D2; }
+:root[data-xmas][data-pet="pingo"] { --accent: #3F5A8C; --accent-soft: #DDE6F3; }
+:root[data-xmas][data-pet="dori"] { --accent: #0C7057; --accent-soft: #D7F2E8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas] { --bg: #191D19; --paper: #26221D; --paper-2: #302B25; } }
+:root[data-theme="dark"][data-xmas] { --bg: #191D19; --paper: #26221D; --paper-2: #302B25; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="ondi"] { --accent: #DDAA88; --accent-soft: #3C2E24; } }
+:root[data-theme="dark"][data-xmas][data-pet="ondi"] { --accent: #DDAA88; --accent-soft: #3C2E24; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="lumi"] { --accent: #A9AEFF; --accent-soft: #2A2C4A; } }
+:root[data-theme="dark"][data-xmas][data-pet="lumi"] { --accent: #A9AEFF; --accent-soft: #2A2C4A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="miko"] { --accent: #B7A9F0; --accent-soft: #2E2A44; } }
+:root[data-theme="dark"][data-xmas][data-pet="miko"] { --accent: #B7A9F0; --accent-soft: #2E2A44; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="rufi"] { --accent: #F2A57A; --accent-soft: #3F2A20; } }
+:root[data-theme="dark"][data-xmas][data-pet="rufi"] { --accent: #F2A57A; --accent-soft: #3F2A20; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="pingo"] { --accent: #9FB8E6; --accent-soft: #232C40; } }
+:root[data-theme="dark"][data-xmas][data-pet="pingo"] { --accent: #9FB8E6; --accent-soft: #232C40; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])[data-xmas][data-pet="dori"] { --accent: #8ED8C0; --accent-soft: #1F3A32; } }
+:root[data-theme="dark"][data-xmas][data-pet="dori"] { --accent: #8ED8C0; --accent-soft: #1F3A32; }
+
+/* ---------- 3. Pulsanti: stessi stati ovunque ---------- */
+/* principale: sfumatura morbida dal colore pieno a un filo piu' scuro (il testo bianco resta sopra 4,5:1 in ogni punto) */
+.btn { background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 88%, #000)); box-shadow: 0 3px 0 color-mix(in srgb, var(--accent) 64%, #000), inset 0 1px 0 rgba(255, 255, 255, .2); }
+.btn:active { box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 64%, #000), inset 0 1px 0 rgba(255, 255, 255, .2); }
+@media (prefers-color-scheme: dark) { :where(:root:not([data-theme="light"])) .btn { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, #fff), var(--accent)); box-shadow: 0 3px 0 color-mix(in srgb, var(--accent) 55%, #000), inset 0 1px 0 rgba(255, 255, 255, .25); } }
+:where(:root[data-theme="dark"]) .btn { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, #fff), var(--accent)); box-shadow: 0 3px 0 color-mix(in srgb, var(--accent) 55%, #000), inset 0 1px 0 rgba(255, 255, 255, .25); }
+@media (prefers-color-scheme: dark) { :where(:root:not([data-theme="light"])) .btn:active { box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 55%, #000); } }
+:where(:root[data-theme="dark"]) .btn:active { box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 55%, #000); }
+.btn.ghost { background: transparent; box-shadow: inset 0 0 0 2px var(--accent); }
+.btn.ghost:active { background: var(--accent-soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.btn.adshop, #adTrip { background: var(--accent-soft); }
+/* spento: carta con il bordino, scritta grigia leggibile (prima: tutto trasparente al 45%) */
+.btn[disabled]:not(.ghost):not(.gold) { background: var(--paper-2); color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); opacity: 1; }
+.btn.ghost[disabled] { opacity: .55; }
+/* Plus / oro */
+.btn.gold { background: var(--cl-plus-grad); color: var(--cl-plus-ink); box-shadow: 0 3px 0 var(--cl-plus-shadow), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.btn.gold:active { box-shadow: 0 1px 0 var(--cl-plus-shadow), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.btn.gold[disabled] { opacity: .55; }
+/* anello di attivazione da tastiera: sempre visibile, anche sui pulsanti d'oro */
+.btn:focus-visible, .chip:focus-visible, .day:focus-visible, .pack:focus-visible, .plan:focus-visible, .item:focus-visible, .switch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.btn.gold:focus-visible, .pack.best:focus-visible, .plan[aria-checked="true"]:focus-visible, .pluscard:focus-visible { outline-color: var(--cl-plus-text); }
+
+/* ---------- 4. Scelte: giorni degli obiettivi, interruttori ---------- */
+/* giorni: acceso = tinta leggera del compagno con bordino pieno; spento = solo un tratteggio. Niente piu' muro verde. */
+.day { background: transparent; color: var(--muted); box-shadow: none; outline: 1.5px dashed var(--cl-day-line); outline-offset: -1.5px; font-weight: 600; }
+.day[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); outline: 0; box-shadow: inset 0 0 0 1.5px var(--accent); font-weight: 800; }
+.day:active { transform: scale(.94); }
+html.calm .day:active { transform: none; }
+.day:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.switch { background: var(--cl-switch-off); }
+.switch[aria-checked="true"] { background: var(--accent); }
+/* cerchio da spuntare degli obiettivi: si vede bene (prima 1,3:1, quasi invisibile su carta) */
+.goal:not([aria-pressed="true"]) .tick, .ritem:not([aria-pressed="true"]) .tick { border-color: var(--cl-tick); }
+
+/* ---------- 5. Barra delle sezioni: piena, senza testo che traspare ---------- */
+.tabs { background: var(--paper) !important; }
+
+/* ---------- 6. Diario: livelli del calendario leggibili anche al buio ---------- */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cal .d.l1 { background: color-mix(in srgb, var(--accent) 20%, var(--paper-2)); } }
+:root[data-theme="dark"] .cal .d.l1 { background: color-mix(in srgb, var(--accent) 20%, var(--paper-2)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cal .d.l2 { background: color-mix(in srgb, var(--accent) 36%, var(--paper-2)); } }
+:root[data-theme="dark"] .cal .d.l2 { background: color-mix(in srgb, var(--accent) 36%, var(--paper-2)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .legend i.lgsome { background: color-mix(in srgb, var(--accent) 36%, var(--paper-2)); } }
+:root[data-theme="dark"] .legend i.lgsome { background: color-mix(in srgb, var(--accent) 36%, var(--paper-2)); }
+
+/* ---------- 7. Tanetto Plus: finestra ---------- */
+.plushead { background: var(--cl-plus-glow); }
+.plushead h2 { background: var(--cl-plus-title); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.perks .pk { background: var(--cl-plus-soft); color: #B0701A; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cl-plus-line) 45%, transparent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .perks .pk { color: #F2C063; } }
+:root[data-theme="dark"] .perks .pk { color: #F2C063; }
+.plan[aria-checked="true"] { background: var(--cl-plus-soft); color: var(--cl-plus-ink); box-shadow: inset 0 0 0 3px var(--cl-plus-2); }
+.plan[aria-checked="true"] small { color: #6E4E22; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plan[aria-checked="true"] { background: var(--cl-plus-soft); color: #FBE3C4; box-shadow: inset 0 0 0 3px #D9982F; } }
+:root[data-theme="dark"] .plan[aria-checked="true"] { background: var(--cl-plus-soft); color: #FBE3C4; box-shadow: inset 0 0 0 3px #D9982F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plan[aria-checked="true"] small { color: #E3C9A0; } }
+:root[data-theme="dark"] .plan[aria-checked="true"] small { color: #E3C9A0; }
+.ppop { background: #B8432C; }
+/* "Chiudi" sempre in vista: in alto a destra, resta li' mentre scorri (prima era in fondo, sotto la barra dei piani) */
+.plusbox > #closeLayer, .tshop > #closeLayer { order: -1; position: sticky; top: 0; z-index: 6; align-self: flex-end; min-height: 40px; padding: 6px 14px; margin: -6px -4px -46px 0; border-radius: 999px; font-size: 14px; color: var(--ink); background: var(--paper); box-shadow: 0 1px 0 var(--line), 0 4px 12px -6px rgba(60, 40, 20, .35); }
+.tshop > #closeLayer { margin: -4px -2px -50px 0; }
+.plusbox > #closeLayer:active, .tshop > #closeLayer:active { background: var(--paper-2); }
+.plussticky .okline { color: var(--cl-success); }
+
+/* Profilo: "Scopri Tanetto Plus" */
+.pluscard { background: linear-gradient(135deg, var(--cl-plus-soft), var(--cl-plus-soft-2)); box-shadow: var(--shadow), inset 0 0 0 1px color-mix(in srgb, var(--cl-plus-line) 55%, transparent); }
+.pluscard small { color: #6E4E22; }
+.pcrown { background: var(--cl-plus-grad); color: #fff; box-shadow: inset 0 -2px 0 rgba(150, 90, 20, .25); }
+.pcrown svg { filter: drop-shadow(0 1px 0 rgba(140, 80, 10, .45)); }
+.pchev { color: var(--cl-plus-text); }
+.albumbtn .pchev { color: var(--cl-plus-text); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pluscard { background: linear-gradient(135deg, #45341A, #3A2C17); color: #FBE3C4; } }
+:root[data-theme="dark"] .pluscard { background: linear-gradient(135deg, #45341A, #3A2C17); color: #FBE3C4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pluscard small { color: #E3C9A0; } }
+:root[data-theme="dark"] .pluscard small { color: #E3C9A0; }
+
+/* scritte "Plus" sparse: stesso oro dappertutto */
+.item .tag.plus, .wdest.plusl .meta .small, .pathcols .gcol, .pphd, .xmplusp { color: var(--cl-plus-text); }
+.ppsec { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--cl-plus-line) 60%, transparent); }
+
+/* offerta Plus (una volta, con calma) */
+.nvplus .nvplpet { background: var(--cl-plus-glow); border-radius: 50%; padding: 6px; box-sizing: content-box; }
+.nvplus .nvprice { background: var(--cl-plus-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cl-plus-line) 55%, transparent); }
+.nvplus .nvprice b { color: var(--cl-plus-ink); }
+.nvplus .nvprice span { color: #6E4E22; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nvplus .nvprice b { color: #FBE3C4; } }
+:root[data-theme="dark"] .nvplus .nvprice b { color: #FBE3C4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nvplus .nvprice span { color: #E3C9A0; } }
+:root[data-theme="dark"] .nvplus .nvprice span { color: #E3C9A0; }
+
+/* ---------- 8. Stagione: la fila d'oro si riconosce ---------- */
+.pcell.g { background: linear-gradient(180deg, var(--cl-plus-soft), #FDEBC8); box-shadow: inset 0 0 0 1px #F0D49A; }
+.pcell.can { background: #FFF6E2; box-shadow: inset 0 0 0 2px var(--cl-plus-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pcell.g { background: linear-gradient(180deg, #3A2E1C, #33281A); box-shadow: inset 0 0 0 1px #5A4722; } }
+:root[data-theme="dark"] .pcell.g { background: linear-gradient(180deg, #3A2E1C, #33281A); box-shadow: inset 0 0 0 1px #5A4722; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pcell.can { background: #43381F; box-shadow: inset 0 0 0 2px #D9982F; } }
+:root[data-theme="dark"] .pcell.can { background: #43381F; box-shadow: inset 0 0 0 2px #D9982F; }
+
+/* ---------- 9. Negozio dei Tanì ---------- */
+.pack .pb { color: var(--cl-success); }
+.pack.best { background: linear-gradient(160deg, var(--cl-plus-soft), var(--cl-plus-soft-2)); color: var(--cl-plus-ink); box-shadow: inset 0 0 0 2.5px var(--cl-plus-2); }
+.pack.best .penough { color: #6E4E22; }
+.pack.best .pp { background: var(--cl-plus-grad); color: var(--cl-plus-ink); box-shadow: 0 2px 0 var(--cl-plus-shadow); }
+.pbadge { background: var(--cl-plus-text); color: #fff; }
+.firstpk { background: linear-gradient(110deg, var(--cl-plus-soft), var(--cl-plus-soft-2)); color: #4A3210; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cl-plus-line) 50%, transparent); }
+.firstpk svg { color: #B0701A; }
+.firstpk small { opacity: 1; color: #5E4420; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pack.best { background: linear-gradient(160deg, #45341A, #382A16); color: #FBE3C4; box-shadow: inset 0 0 0 2.5px #D9982F; } }
+:root[data-theme="dark"] .pack.best { background: linear-gradient(160deg, #45341A, #382A16); color: #FBE3C4; box-shadow: inset 0 0 0 2.5px #D9982F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pack.best .penough { color: #E3C9A0; } }
+:root[data-theme="dark"] .pack.best .penough { color: #E3C9A0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pbadge { background: #F2C063; color: #2A1E0A; } }
+:root[data-theme="dark"] .pbadge { background: #F2C063; color: #2A1E0A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .firstpk { background: linear-gradient(110deg, #3A2C17, #45341A); color: #FBE3C4; } }
+:root[data-theme="dark"] .firstpk { background: linear-gradient(110deg, #3A2C17, #45341A); color: #FBE3C4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .firstpk small { color: #E3C9A0; } }
+:root[data-theme="dark"] .firstpk small { color: #E3C9A0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .firstpk svg { color: #F2C063; } }
+:root[data-theme="dark"] .firstpk svg { color: #F2C063; }
+
+/* ---------- 10. Piccole correzioni ---------- */
+/* trofei: etichetta d'oro leggibile; mobile scuro anche con il tema scuro del telefono (prima solo col tema scelto) */
+.trslot.perf .trlbl { color: #864B06; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trwood { background: linear-gradient(180deg, #3A3026, #31281F); box-shadow: inset 0 0 0 2px #4A3B2C; } }
+:root[data-theme="dark"] .trwood { background: linear-gradient(180deg, #3A3026, #31281F); box-shadow: inset 0 0 0 2px #4A3B2C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trslot.perf .trlbl, :root:not([data-theme="light"]) .trperf { color: #F2C063; } }
+:root[data-theme="dark"] .trslot.perf .trlbl, :root[data-theme="dark"] .trperf { color: #F2C063; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trwood .trsvg circle[r="56"] { opacity: .32; } }
+:root[data-theme="dark"] .trwood .trsvg circle[r="56"] { opacity: .32; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .trparty { background: radial-gradient(circle at 50% 38%, #3A3122, #1F1A15 70%); } }
+:root[data-theme="dark"] .trparty { background: radial-gradient(circle at 50% 38%, #3A3122, #1F1A15 70%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nameerr { color: #F2A08F; } }
+:root[data-theme="dark"] .nameerr { color: #F2A08F; }
+/* merenda: cuoricino del preferito */
+.snack.isfav .favdot { color: #AA2C62; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .snack.isfav .favdot { color: #F29BBA; } }
+:root[data-theme="dark"] .snack.isfav .favdot { color: #F29BBA; }
+/* testo d'errore nel cambio nome */
+.rnsheet .rnmsg.err { color: var(--cl-danger); }
+
+/* giochi: il velo dietro la finestra e' piu' pieno, cosi' le scritte della pagina non si vedono sotto "Chiudi" */
+.overlay:has(> .gamebox) { background: color-mix(in srgb, var(--bg) 96%, transparent); }
+
+/* ---------- 11. Telefoni senza color-mix: colori pieni ---------- */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .btn { background: var(--accent); box-shadow: 0 3px 0 rgba(0, 0, 0, .28); }
+  .btn:active { box-shadow: 0 1px 0 rgba(0, 0, 0, .28); }
+  .perks .pk, .pluscard, .firstpk, .nvplus .nvprice { box-shadow: none; }
+  .ppsec { box-shadow: inset 0 0 0 2px var(--cl-plus-line); }
+  .cal .d.l1, .cal .d.l2, .legend i.lgsome { background: var(--accent-soft); }
+}

@@ -1,0 +1,65 @@
+/* =================== v20 (1.0.8): coccole per zone, oggetti da spostare e da regalare =================== */
+/* carezza orizzontale sul compagno senza far scorrere la pagina (in verticale la pagina scorre come sempre) */
+#petHit { touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.roomwrap.full #petHit { touch-action: none; }
+#room { -webkit-touch-callout: none; }
+#petHit.mvgive { box-shadow: 0 0 0 2px rgba(255, 255, 255, .55), 0 0 18px 4px rgba(255, 200, 220, .35); border-radius: 50%; transition: box-shadow .2s ease; }
+#petHit.mvover { box-shadow: 0 0 0 3px rgba(255, 255, 255, .9), 0 0 28px 10px rgba(255, 170, 200, .6); }
+
+/* effetti nel punto toccato */
+.fx .v20p { position: absolute; margin: -9px 0 0 -9px; line-height: 1; pointer-events: none; }
+.fx .v20p .fxg { width: 1em; height: 1em; display: block; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .18)); }
+.fx .v20ring { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 2.5px solid rgba(255, 255, 255, .9); box-shadow: 0 0 10px rgba(255, 255, 255, .5); pointer-events: none; }
+.fx .v20gift { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 251, 244, .92); box-shadow: 0 4px 12px -4px rgba(0, 0, 0, .35); }
+.fx .v20gift svg { width: 34px; height: 34px; }
+html.lite .fx .v20p .fxg { filter: none; }
+
+/* pulsante "Sposta" accanto allo schermo intero */
+#room > .fullbtn.mvbtn { right: 58px; }
+
+/* modalita' "Sposta" */
+#room[data-arr] { touch-action: none; -webkit-user-select: none; user-select: none; }
+#room[data-arr] .spot, #room[data-arr] .letter, #room[data-arr] .gift, #room[data-arr] .friendhit, #room[data-arr] .critter { pointer-events: none; }
+#room[data-arr] > .fullbtn { display: none; }
+.roomwrap[data-arr] .fulltop, .roomwrap[data-arr] .fullbar { visibility: hidden; pointer-events: none; }
+.mvh { position: absolute; z-index: 4; padding: 0; margin: 0; border: 2px dashed rgba(255, 255, 255, .95); border-radius: 14px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(60, 40, 20, .18), inset 0 0 0 1px rgba(60, 40, 20, .1); cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+.mvh .mvg { position: absolute; top: -9px; right: -9px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #FFFBF4; color: #2F2A26; box-shadow: 0 2px 6px -1px rgba(0, 0, 0, .35); pointer-events: none; }
+.mvh .mvg svg { width: 14px; height: 14px; }
+.mvh.gv .mvg { background: #F29BB8; color: #fff; }
+.mvh.gv .mvg svg { fill: currentColor; stroke: none; width: 13px; height: 13px; }
+.mvh.lift { border-style: solid; background: rgba(255, 255, 255, .2); cursor: grabbing; z-index: 5; }
+.mvh:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+#room[data-arr].dark .mvh { border-color: rgba(255, 246, 214, .9); }
+@media (prefers-reduced-motion: no-preference) {
+  .mvh.pl:not(.lift) { animation: v20pulse 2.4s ease-in-out infinite; }
+  html.lite .mvh.pl:not(.lift) { animation: none; }
+}
+@keyframes v20pulse { 50% { background: rgba(255, 255, 255, .24); } }
+
+.arrbar { position: absolute; top: 10px; left: 10px; z-index: 7; display: flex; align-items: center; gap: 6px; }
+.roomwrap.full .arrbar { top: calc(14px + env(safe-area-inset-top, 0px)); left: 14px; }
+.arrb { width: 40px; height: 40px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; background: rgba(255, 251, 244, .94); color: #2F2A26; box-shadow: 0 2px 8px -2px rgba(0, 0, 0, .35); }
+.arrb svg { width: 19px; height: 19px; }
+.arrb:disabled { opacity: .45; }
+.arrdone { height: 40px; border-radius: 20px; border: 0; padding: 0 16px 0 11px; display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--on-accent); font: 700 15px/1 var(--font-body); box-shadow: 0 2px 10px -2px rgba(0, 0, 0, .4); white-space: nowrap; }
+.arrdone svg { width: 18px; height: 18px; stroke-width: 2.6; }
+@media (max-width: 380px) { .arrb { width: 36px; height: 36px; } .arrb svg { width: 17px; height: 17px; } .arrdone { height: 36px; padding: 0 12px 0 9px; font-size: 14px; } .arrbar { gap: 5px; } }
+/* schermo intero: in "Sposta" il fumetto scende in basso, cosi' non copre gli oggetti appesi */
+.roomwrap.full[data-arr] .bubble { top: auto !important; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+.roomwrap[data-arr] .bubble::before { display: none; }
+.arrb:focus-visible, .arrdone:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* consiglio e aiuto: dove toccare */
+.v20help .box { max-width: 380px; gap: 12px; }
+.v20help h2 { margin: 0; }
+.v20help .v20pet { width: 150px; height: 150px; }
+.v20help .v20pet svg { width: 100%; height: 100%; display: block; }
+.v20zones { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.v20zones li { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 14px; background: var(--paper-2, rgba(0, 0, 0, .04)); text-align: left; font-weight: 600; font-size: 14px; line-height: 1.25; min-width: 0; }
+.v20zones li span { min-width: 0; overflow-wrap: anywhere; }
+.v20zones i { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
+.v20help .v20tip { margin: 0; color: var(--muted); }
+.v20arr { display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 14px; background: var(--accent-soft); box-sizing: border-box; }
+.v20arr p { margin: 0; }
+.v20arr .v20ic { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--paper, #fff); color: var(--ink); }
+.v20arr .v20ic svg { width: 18px; height: 18px; }
