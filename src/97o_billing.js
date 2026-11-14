@@ -13,7 +13,7 @@ const BT = () => L().bill;
 function plusOk() { return isNativeApp() && !!S.plusOn; }
 const billPlugin = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.Billing) || (C.registerPlugin ? C.registerPlugin("Billing") : null); } catch (e) { return null; } };
 const playLive = () => dkey() >= PLAY_FROM;
-const curFmt = (micros, cur) => { try { return intlNF(loc(), { style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
+const curFmt = (micros, cur) => { try { return intlNF((navigator.languages && navigator.languages[0]) || navigator.language || loc(), { /* 1.0.11 (C-14) */ style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
 const isoDays = (p) => { const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?$/.exec(p || ""); if (!m) return 0; return (+m[1] || 0) * 365 + (+m[2] || 0) * 30 + (+m[3] || 0) * 7 + (+m[4] || 0); };
 
 /* --- Prodotti e prezzi da Google --- */

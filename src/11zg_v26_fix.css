@@ -8,8 +8,8 @@ html { hyphenate-limit-chars: 10 4 4; -webkit-hyphenate-limit-before: 4; -webkit
 .rar, .tag, .penough, .btn, .chip, .pill, .seg, .choice .ds, .choice .lk, .choice .nm, .hubcard small, .hubcard span, .hubcard b, .nvtx, .xmprice, .pbadge, .ppop, .psave {
   hyphens: manual; -webkit-hyphens: manual;
 }
-.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0; }
+:lang(ko), :lang(ko) * { word-break: keep-all !important; }
 
 /* --- M-22b / G2-08: informativa e condizioni non piu' larghe dello schermo (testo tagliato a destra sotto i 375 px) --- */
 .doc, .docbox, .docbox * { overflow-wrap: anywhere; min-width: 0; }
@@ -64,17 +64,14 @@ body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), tex
 /* --- M-30 / B-04 / B-05: tutto quello che si tocca e' almeno 48 dp (anche dove il disegno e' piu' piccolo) --- */
 .btn.small, .link, .chip, .tabsx button, .seg, .scn { min-height: 48px; }
 .iconbtn { position: relative; }
-.iconbtn::after { content: ""; position: absolute; inset: -4px; }
+.iconbtn::after { content: ""; position: absolute; inset: -4px; width: auto; height: auto; transform: none; }
 .top .lvpill::before, .top .pillbtn::before { content: ""; position: absolute; inset: -9px -3px; }
-.nvi { position: relative; }
-.nvi::after { content: ""; position: absolute; inset: -7px; }
-.tr20i { position: relative; }
-.tr20i::before { content: ""; position: absolute; inset: -7px; }
+.nvi, .tr20i { position: relative; }
 .pathbox .plk { position: relative; }
 .pathbox .plk::after { content: ""; position: absolute; inset: -9px -7px; }
 .inlink { position: relative; }
 .inlink::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%); }
-.plegal .inlink { padding: 12px 4px; }
+.plegal .inlink { padding: 14px 6px; display: inline-block; }
 .namecard .ncx { width: 48px; height: 48px; top: 2px; right: 2px; }
 .gr20pill { position: relative; }
 .gr20pill::before { content: ""; position: absolute; inset: -11px 0; }
@@ -94,7 +91,23 @@ body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), tex
 html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%; box-sizing: border-box; }
 
 /* --- M-35 / B-11: nome del compagno leggibile anche con tanti Tanì --- */
-.top .namebtn { min-width: 72px; }
+.top .namebtn { min-width: 72px; flex-shrink: 0; }
+.top.v26big { gap: 6px; }
+.top.v26big .plusdot { display: none; }
+.top.v26big .pill { padding-left: 9px; padding-right: 9px; }
+/* stessa regola di 11z (area di tocco sopra i pulsanti piccoli) ma da 48 invece di 44 */
+#lvBtn::after, #seedPill::after, #musicBtn::after, #arrOpen::after, #fullOpen::after, #nameCardX::after, .nvi::after, .tr20i::after, #sc20FullHome::after, #pfAlbum::after, #pfLevel::after {
+  content: ""; position: absolute; inset: auto; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%);
+}
 
 /* --- F-08: la nuvoletta del compagno non sembra un pulsante (il tocco sul compagno resta) --- */
 #bubble { cursor: default; }
+
+/* --- E-15: risposte veloci (domande che si aprono con un tocco) --- */
+.faq .v26faq { border-top: 1px solid var(--line); }
+.faq .v26faq:first-of-type { border-top: 0; }
+.faq .v26faq summary { min-height: 48px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; list-style: none; padding: 6px 0; }
+.faq .v26faq summary::-webkit-details-marker { display: none; }
+.faq .v26faq summary::after { content: "+"; margin-left: auto; font-weight: 700; color: var(--accent); }
+.faq .v26faq[open] summary::after { content: "−"; }
+.faq .v26faq p { margin: 0 0 10px; }

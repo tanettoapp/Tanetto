@@ -6,7 +6,7 @@ const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200, NOTIF_CH = "promemoria"
 /* fix 1.0.9 (verifica finale B, P5): 12 o 24 ore come il campo dell'ora, che segue il telefono (prima la lingua dell'app:
    in inglese "20:00" nell'avviso e "08:00 PM" nel campo) */
 const FMT_H12 = (() => { try { const o = new Intl.DateTimeFormat(undefined, { hour: "numeric" }).resolvedOptions(); return typeof o.hour12 === "boolean" ? o.hour12 : o.hourCycle ? /h1[12]/.test(o.hourCycle) : null; } catch (e) { return null; } })();
-const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), Object.assign({ hour: "2-digit", minute: "2-digit" }, FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
+const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), Object.assign({ hour: FMT_H12 ? "numeric" : "2-digit", minute: "2-digit" }, FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
 let notifBusy = null;
 /* Programma i prossimi 7 giorni (un messaggio diverso ogni giorno); se oggi e' gia' tutto fatto, oggi niente notifica.
    Si riprogramma a ogni apertura: chi non apre l'app per una settimana non riceve altro (niente insistenza). */

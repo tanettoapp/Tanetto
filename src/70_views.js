@@ -185,8 +185,8 @@ function viewHome() {
 }
 function calendar() {
   const t = L(); const now = new Date(); const y = now.getFullYear(), m = now.getMonth();
-  const days = new Date(y, m + 1, 0).getDate(); const lead = (new Date(y, m, 1).getDay() + 6) % 7;
-  const wd = [...Array(7)].map((_, i) => wdName(i, "narrow"));
+  const days = new Date(y, m + 1, 0).getDate(); const wo = v26WeekOrder(); const lead = (wdIdx(new Date(y, m, 1)) - wo[0] + 7) % 7; /* 1.0.11 (C-13) */
+  const wd = wo.map((i) => wdName(i, "narrow"));
   const mname = intlDT(loc(), { month: "long", year: "numeric" }).format(now);
   let cells = wd.map((w) => `<span class="wd">${w}</span>`).join("") + `<span class="d empty"></span>`.repeat(lead);
   for (let d = 1; d <= days; d++) {
@@ -227,7 +227,7 @@ function viewMore() {
   const okDays = list.every((g) => g.days.length > 0);
   return `${topBar()}<div class="stack"><h1>${t.moreT}</h1>
   <div class="card stack" id="goalsCard"><div class="stack-s"><h3>${t.goalsEdit}</h3><p class="small muted">${t.goalsEditP} ${t.daysP}</p></div>
-  <div class="sched">${list.map((g, gi) => `<div><div class="gname"><i style="background:${CAT_COLOR[goalCat(g.id)]}">${catIcon(goalCat(g.id))}</i>${esc(goalText(g.id))}</div><div class="days">${ALL_DAYS.map((d) => `<button class="day" aria-pressed="${g.days.includes(d)}" data-gday="${gi}:${d}" aria-label="${esc(goalText(g.id))}: ${esc(wdName(d, "long"))}">${esc(wdName(d))}</button>`).join("")}</div></div>`).join("")}</div>
+  <div class="sched">${list.map((g, gi) => `<div><div class="gname"><i style="background:${CAT_COLOR[goalCat(g.id)]}">${catIcon(goalCat(g.id))}</i>${esc(goalText(g.id))}</div><div class="days">${v26WeekOrder().map((d) => `<button class="day" aria-pressed="${g.days.includes(d)}" data-gday="${gi}:${d}" aria-label="${esc(goalText(g.id))}: ${esc(wdName(d, "long"))}">${esc(wdName(d))}</button>`).join("")}</div></div>`).join("")}</div>
   <p class="small muted">${t.goalsCount(n)}</p>
   <button class="btn ghost small" id="togglePicker" aria-expanded="${showPicker}">${showPicker ? t.pickHide : t.pickShow}</button>
   ${showPicker ? goalPicker(ids) : ""}

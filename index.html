@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-u2AD4SqvNfzE0GK/SIDML/9yrMX/XJbQCsj6pJG1kHU=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-AtDN5rxLNG98vBBAZnk9fQPbAPeI0gXyUtEwjAVwCro=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3023,8 +3023,8 @@ html { hyphenate-limit-chars: 10 4 4; -webkit-hyphenate-limit-before: 4; -webkit
 .rar, .tag, .penough, .btn, .chip, .pill, .seg, .choice .ds, .choice .lk, .choice .nm, .hubcard small, .hubcard span, .hubcard b, .nvtx, .xmprice, .pbadge, .ppop, .psave {
   hyphens: manual; -webkit-hyphens: manual;
 }
-.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0; }
+:lang(ko), :lang(ko) * { word-break: keep-all !important; }
 
 /* --- M-22b / G2-08: informativa e condizioni non piu' larghe dello schermo (testo tagliato a destra sotto i 375 px) --- */
 .doc, .docbox, .docbox * { overflow-wrap: anywhere; min-width: 0; }
@@ -3079,17 +3079,14 @@ body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), tex
 /* --- M-30 / B-04 / B-05: tutto quello che si tocca e' almeno 48 dp (anche dove il disegno e' piu' piccolo) --- */
 .btn.small, .link, .chip, .tabsx button, .seg, .scn { min-height: 48px; }
 .iconbtn { position: relative; }
-.iconbtn::after { content: ""; position: absolute; inset: -4px; }
+.iconbtn::after { content: ""; position: absolute; inset: -4px; width: auto; height: auto; transform: none; }
 .top .lvpill::before, .top .pillbtn::before { content: ""; position: absolute; inset: -9px -3px; }
-.nvi { position: relative; }
-.nvi::after { content: ""; position: absolute; inset: -7px; }
-.tr20i { position: relative; }
-.tr20i::before { content: ""; position: absolute; inset: -7px; }
+.nvi, .tr20i { position: relative; }
 .pathbox .plk { position: relative; }
 .pathbox .plk::after { content: ""; position: absolute; inset: -9px -7px; }
 .inlink { position: relative; }
 .inlink::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%); }
-.plegal .inlink { padding: 12px 4px; }
+.plegal .inlink { padding: 14px 6px; display: inline-block; }
 .namecard .ncx { width: 48px; height: 48px; top: 2px; right: 2px; }
 .gr20pill { position: relative; }
 .gr20pill::before { content: ""; position: absolute; inset: -11px 0; }
@@ -3109,10 +3106,26 @@ body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), tex
 html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%; box-sizing: border-box; }
 
 /* --- M-35 / B-11: nome del compagno leggibile anche con tanti Tanì --- */
-.top .namebtn { min-width: 72px; }
+.top .namebtn { min-width: 72px; flex-shrink: 0; }
+.top.v26big { gap: 6px; }
+.top.v26big .plusdot { display: none; }
+.top.v26big .pill { padding-left: 9px; padding-right: 9px; }
+/* stessa regola di 11z (area di tocco sopra i pulsanti piccoli) ma da 48 invece di 44 */
+#lvBtn::after, #seedPill::after, #musicBtn::after, #arrOpen::after, #fullOpen::after, #nameCardX::after, .nvi::after, .tr20i::after, #sc20FullHome::after, #pfAlbum::after, #pfLevel::after {
+  content: ""; position: absolute; inset: auto; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%);
+}
 
 /* --- F-08: la nuvoletta del compagno non sembra un pulsante (il tocco sul compagno resta) --- */
 #bubble { cursor: default; }
+
+/* --- E-15: risposte veloci (domande che si aprono con un tocco) --- */
+.faq .v26faq { border-top: 1px solid var(--line); }
+.faq .v26faq:first-of-type { border-top: 0; }
+.faq .v26faq summary { min-height: 48px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; list-style: none; padding: 6px 0; }
+.faq .v26faq summary::-webkit-details-marker { display: none; }
+.faq .v26faq summary::after { content: "+"; margin-left: auto; font-weight: 700; color: var(--accent); }
+.faq .v26faq[open] summary::after { content: "−"; }
+.faq .v26faq p { margin: 0 0 10px; }
 
 </style>
 
@@ -23119,16 +23132,16 @@ Object.assign(REAL, {
     { art: "jeju", name: "제주도", t: "돌하르방, 안녕!", s: "{n}, 제주도에서 새콤달콤한 귤을 맛보고 돌하르방에게 인사했어요. '돌하르방'은 제주 말로 '돌 할아버지'라는 뜻이에요." }
   ],
   zh: [
-    { art: "greatwall", name: "长城", t: "一步一步向前走", s: "{n} 在长城上走了好久,数着一座又一座烽火台。长城全长两万多公里,一天可走不完!" },
-    { art: "shanghai", name: "上海", t: "江边的明珠", s: "{n} 在上海外滩散步,看着黄浦江对岸的高楼一座座亮起灯。那座串着粉色大圆球的塔叫东方明珠,有468米高。" },
-    { art: "guilin", name: "桂林", t: "像画一样的山水", s: "{n} 坐着竹筏漂在桂林的漓江上,两岸的山像一个个绿色的馒头。二十元人民币的背面,印的就是这里的风景!" },
-    { art: "zhangjiajie", name: "张家界", t: "云中的石柱", s: "{n} 在张家界看见一根根高高的石柱从云里冒出来。这里有三千多座这样的石峰,像一片站在云中的森林。" }
+    { art: "greatwall", name: "长城", t: "一步一步向前走", s: "{n} 在长城上走了好久，数着一座又一座烽火台。长城全长两万多公里，一天可走不完!" },
+    { art: "shanghai", name: "上海", t: "江边的明珠", s: "{n} 在上海外滩散步，看着黄浦江对岸的高楼一座座亮起灯。那座串着粉色大圆球的塔叫东方明珠，有468米高。" },
+    { art: "guilin", name: "桂林", t: "像画一样的山水", s: "{n} 坐着竹筏漂在桂林的漓江上，两岸的山像一个个绿色的馒头。二十元人民币的背面，印的就是这里的风景!" },
+    { art: "zhangjiajie", name: "张家界", t: "云中的石柱", s: "{n} 在张家界看见一根根高高的石柱从云里冒出来。这里有三千多座这样的石峰，像一片站在云中的森林。" }
   ],
   zht: [
-    { art: "taipei101", name: "台北101", t: "大樓裡的大金球", s: "{n} 搭上台北101的超快電梯,不到一分鐘就到了觀景台。大樓裡還掛著一顆超大的金色「阻尼球」,颱風來時能幫大樓保持穩定。" },
-    { art: "jiufen", name: "九份", t: "紅燈籠的山城", s: "傍晚,{n} 在九份的老街上看著紅燈籠一盞盞亮起來。很久很久以前,這裡是一個挖金礦的小鎮呢!" },
-    { art: "sunmoonlake", name: "日月潭", t: "太陽和月亮的湖", s: "{n} 坐著小船遊日月潭,湖水又綠又安靜。湖的一邊圓圓的像太陽,另一邊彎彎的像月亮,所以叫做日月潭。" },
-    { art: "taroko", name: "太魯閣", t: "大理石峽谷", s: "{n} 走進太魯閣,抬頭看見好高好高的峭壁。這些峭壁大多是大理石,是溪水花了很久很久才切出來的。" }
+    { art: "taipei101", name: "台北101", t: "大樓裡的大金球", s: "{n} 搭上台北101的超快電梯，不到一分鐘就到了觀景台。大樓裡還掛著一顆超大的金色「阻尼球」，颱風來時能幫大樓保持穩定。" },
+    { art: "jiufen", name: "九份", t: "紅燈籠的山城", s: "傍晚，{n} 在九份的老街上看著紅燈籠一盞盞亮起來。很久很久以前，這裡是一個挖金礦的小鎮呢!" },
+    { art: "sunmoonlake", name: "日月潭", t: "太陽和月亮的湖", s: "{n} 坐著小船遊日月潭，湖水又綠又安靜。湖的一邊圓圓的像太陽，另一邊彎彎的像月亮，所以叫做日月潭。" },
+    { art: "taroko", name: "太魯閣", t: "大理石峽谷", s: "{n} 走進太魯閣，抬頭看見好高好高的峭壁。這些峭壁大多是大理石，是溪水花了很久很久才切出來的。" }
   ]
 });
 
@@ -25228,8 +25241,8 @@ function viewHome() {
 }
 function calendar() {
   const t = L(); const now = new Date(); const y = now.getFullYear(), m = now.getMonth();
-  const days = new Date(y, m + 1, 0).getDate(); const lead = (new Date(y, m, 1).getDay() + 6) % 7;
-  const wd = [...Array(7)].map((_, i) => wdName(i, "narrow"));
+  const days = new Date(y, m + 1, 0).getDate(); const wo = v26WeekOrder(); const lead = (wdIdx(new Date(y, m, 1)) - wo[0] + 7) % 7; /* 1.0.11 (C-13) */
+  const wd = wo.map((i) => wdName(i, "narrow"));
   const mname = intlDT(loc(), { month: "long", year: "numeric" }).format(now);
   let cells = wd.map((w) => `<span class="wd">${w}</span>`).join("") + `<span class="d empty"></span>`.repeat(lead);
   for (let d = 1; d <= days; d++) {
@@ -25270,7 +25283,7 @@ function viewMore() {
   const okDays = list.every((g) => g.days.length > 0);
   return `${topBar()}<div class="stack"><h1>${t.moreT}</h1>
   <div class="card stack" id="goalsCard"><div class="stack-s"><h3>${t.goalsEdit}</h3><p class="small muted">${t.goalsEditP} ${t.daysP}</p></div>
-  <div class="sched">${list.map((g, gi) => `<div><div class="gname"><i style="background:${CAT_COLOR[goalCat(g.id)]}">${catIcon(goalCat(g.id))}</i>${esc(goalText(g.id))}</div><div class="days">${ALL_DAYS.map((d) => `<button class="day" aria-pressed="${g.days.includes(d)}" data-gday="${gi}:${d}" aria-label="${esc(goalText(g.id))}: ${esc(wdName(d, "long"))}">${esc(wdName(d))}</button>`).join("")}</div></div>`).join("")}</div>
+  <div class="sched">${list.map((g, gi) => `<div><div class="gname"><i style="background:${CAT_COLOR[goalCat(g.id)]}">${catIcon(goalCat(g.id))}</i>${esc(goalText(g.id))}</div><div class="days">${v26WeekOrder().map((d) => `<button class="day" aria-pressed="${g.days.includes(d)}" data-gday="${gi}:${d}" aria-label="${esc(goalText(g.id))}: ${esc(wdName(d, "long"))}">${esc(wdName(d))}</button>`).join("")}</div></div>`).join("")}</div>
   <p class="small muted">${t.goalsCount(n)}</p>
   <button class="btn ghost small" id="togglePicker" aria-expanded="${showPicker}">${showPicker ? t.pickHide : t.pickShow}</button>
   ${showPicker ? goalPicker(ids) : ""}
@@ -29603,7 +29616,7 @@ const BT = () => L().bill;
 function plusOk() { return isNativeApp() && !!S.plusOn; }
 const billPlugin = () => { try { const C = window.Capacitor; return (C.Plugins && C.Plugins.Billing) || (C.registerPlugin ? C.registerPlugin("Billing") : null); } catch (e) { return null; } };
 const playLive = () => dkey() >= PLAY_FROM;
-const curFmt = (micros, cur) => { try { return intlNF(loc(), { style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
+const curFmt = (micros, cur) => { try { return intlNF((navigator.languages && navigator.languages[0]) || navigator.language || loc(), { /* 1.0.11 (C-14) */ style: "currency", currency: cur }).format(micros / 1e6); } catch (e) { return (micros / 1e6).toFixed(2) + " " + cur; } };
 const isoDays = (p) => { const m = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?$/.exec(p || ""); if (!m) return 0; return (+m[1] || 0) * 365 + (+m[2] || 0) * 30 + (+m[3] || 0) * 7 + (+m[4] || 0); };
 
 /* --- Prodotti e prezzi da Google --- */
@@ -29821,7 +29834,7 @@ const NOTIF_DAYS = 7, NOTIF_ID0 = 100, NOTIF_TRIP = 200, NOTIF_CH = "promemoria"
 /* fix 1.0.9 (verifica finale B, P5): 12 o 24 ore come il campo dell'ora, che segue il telefono (prima la lingua dell'app:
    in inglese "20:00" nell'avviso e "08:00 PM" nel campo) */
 const FMT_H12 = (() => { try { const o = new Intl.DateTimeFormat(undefined, { hour: "numeric" }).resolvedOptions(); return typeof o.hour12 === "boolean" ? o.hour12 : o.hourCycle ? /h1[12]/.test(o.hourCycle) : null; } catch (e) { return null; } })();
-const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), Object.assign({ hour: "2-digit", minute: "2-digit" }, FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
+const fmtTime = (hm) => { const [h, m] = (hm || "20:00").split(":").map(Number); try { return intlDT(loc(), Object.assign({ hour: FMT_H12 ? "numeric" : "2-digit", minute: "2-digit" }, FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(new Date(2026, 0, 1, h || 0, m || 0)); } catch (e) { return hm; } };
 let notifBusy = null;
 /* Programma i prossimi 7 giorni (un messaggio diverso ogni giorno); se oggi e' gia' tutto fatto, oggi niente notifica.
    Si riprogramma a ogni apertura: chi non apre l'app per una settimana non riceve altro (niente insistenza). */
@@ -37420,8 +37433,8 @@ const XM_T = {
     badge: (y) => `Ёлка ${y}`, badgeP: (y) => `Шар на память: ёлку ${y} года нарядили вместе.`,
     says: ["Здесь уже пахнет праздником. Мне так нравится.", "Тёплый напиток и плед — то, что нужно.", "Сегодня на душе мягко, как в шерстяном свитере.", "Праздники лучше проводить вместе.", "Давай сегодня сделаем что-нибудь маленькое и доброе для тебя?"],
     tree0: "Наша ёлка растёт понемножку.", tree1: "Посмотри на нашу ёлку: она вся сияет!",
-    sp: { d24: "Сегодня сочельник! Вечером я буду рядом.", d25: "С Рождеством! Как здорово встречать его с тобой.", d26: "Праздник ещё не закончился: сегодня никуда не спешим.", d31: "Последний день года: спасибо за каждый день вместе.", d1: "С Новым годом! Начнём потихоньку, шаг за шагом." },
-    gr: { d24: "Хорошего сочельника", d25: "С Рождеством", d1: "С Новым годом" }, openL: "Ёлка: посмотреть шаги", added: (x) => `${x}: готово!` },
+    sp: { d24: "Уютный зимний вечер! Сегодня я буду рядом.", d25: "Какой тёплый зимний день! Как здорово, что мы вместе.", d26: "Зимние дни такие уютные: сегодня никуда не спешим.", d31: "Последний день года: спасибо за каждый день вместе.", d1: "С Новым годом! Начнём потихоньку, шаг за шагом." },
+    gr: { d24: "", d25: "", d31: "С наступающим Новым годом", d1: "С Новым годом" }, openL: "Ёлка: посмотреть шаги", added: (x) => `${x}: готово!` },
   pl: { treeT: "Choinka", treeP: (p, d) => `Ubieraj ją krok po kroku — ${p} pomoże. Choinka zostanie w pokoju do ${d}.`,
     stages: ["Mała choinka", "Lampki", "Bombki", "", "Prezenty pod choinką"], tops: ["Gwiazda na czubku", "Śnieżynka na czubku", "Złote serce na czubku"],
     step: (a, b) => `Krok ${a} z ${b}`, next: "Następny krok", add: "Dodaj", how: "Jak je zdobyć", plusB: "Plus −30%", plusP: "Z Tanetto Plus każdy krok kosztuje o 30% mniej.",
@@ -37456,8 +37469,8 @@ const XM_T = {
     badge: (y) => `Yılbaşı ${y}`, badgeP: (y) => `${y} yılbaşı hatıra süsü: ağacı birlikte bitirdiniz.`,
     says: ["Burası şimdiden bayram gibi. Çok seviyorum.", "Sıcak bir içecek ve bir battaniye: mükemmel.", "Bugün yün bir kazak gibi yumuşacık bir gün.", "Tatiller birlikte daha güzel.", "Bugün kendin için küçük ve güzel bir şey yapalım mı?"],
     tree0: "Ağacımız azar azar büyüyor.", tree1: "Ağacımıza bak: her yeri ışıl ışıl!",
-    sp: { d24: "Bugün Noel arifesi! Bu akşam sana ben eşlik ederim.", d25: "Mutlu Noeller! Bu günü seninle geçirmek çok güzel.", d26: "Hâlâ bayram havası var: bugün acele etmeyelim.", d31: "Yılın son günü: birlikte geçirdiğimiz her gün için teşekkürler.", d1: "Mutlu yıllar! Yavaş yavaş, adım adım başlayalım." },
-    gr: { d24: "İyi Noel arifeleri", d25: "Mutlu Noeller", d1: "Mutlu yıllar" }, openL: "Yılbaşı ağacı: adımları gör", added: (x) => `${x}: tamam!` }
+    sp: { d24: "Ne güzel bir kış akşamı! Bu akşam sana ben eşlik ederim.", d25: "Sıcacık bir kış günü! Seninle olmak çok güzel.", d26: "Hâlâ tatil havası var: bugün acele etmeyelim.", d31: "Yılın son günü: birlikte geçirdiğimiz her gün için teşekkürler.", d1: "Mutlu yıllar! Yavaş yavaş, adım adım başlayalım." },
+    gr: { d24: "", d25: "", d31: "Yeni yıla az kaldı", d1: "Mutlu yıllar" }, openL: "Yılbaşı ağacı: adımları gör", added: (x) => `${x}: tamam!` }
 };
 const xmT = () => XM_T[S.lang] || XM_T.en;
 
@@ -37995,9 +38008,9 @@ const ECT = {
     restWeek: "Du hast einen Ruhetag pro Woche.", restUsed: "Den Ruhetag dieser Woche hast du schon genommen. Der nächste kommt am Montag.",
     how: (g, f, w) => `Fünkchen sammelst du nur, indem du gut für dich sorgst: ${g} für jedes Ziel, ${f} für jeden vollen Tag, ${w} für jede Wochenaufgabe. In der Festwoche (vom 1. bis 7. jedes Monats) zählen Ziele und volle Tage doppelt.`,
     festaP: "Festwoche: Ziele und volle Tage bringen doppelte Fünkchen!",
-    perkColl: "Eine exklusive Kollektion mit Kleidung und Deko", collP: "Exklusive Objekte von Tanetto Plus: mit Plus gratis, und sie bleiben deine.",
-    guidePath: "In der Saison gibt es den Pfad: Sorg gut für dich, sammle Fünkchen und gewinne besondere Objekte, auch eine Mütze für deinen Begleiter.",
-    enough: { b: "Reicht für jedes Basis-Objekt", c: "Reicht für jedes gewöhnliche Objekt", r: "Reicht für jedes seltene Objekt", e: "Reicht für jedes epische Objekt", l: "Reicht für jedes legendäre Objekt" },
+    perkColl: "Eine exklusive Kollektion mit Kleidung und Deko", collP: "Exklusive Gegenstände von Tanetto Plus: mit Plus gratis, und sie bleiben deine.",
+    guidePath: "In der Saison gibt es den Pfad: Sorg gut für dich, sammle Fünkchen und gewinne besondere Gegenstände, auch eine Mütze für deinen Begleiter.",
+    enough: { b: "Reicht für jeden Basis-Gegenstand", c: "Reicht für jeden gewöhnlichen Gegenstand", r: "Reicht für jeden seltenen Gegenstand", e: "Reicht für jeden epischen Gegenstand", l: "Reicht für jeden legendären Gegenstand" },
     importFixed: "Einige Zahlen in der Sicherung sahen seltsam aus, deshalb wurden sie angepasst.",
     items: { lamp_candle: "Kleine Kerze", cushion_floor: "Bodenkissen", garland_paper: "Papiergirlande" } },
   es: { already: "Ya lo habías hecho hoy: vuelve a estar marcado.", miss: (n) => `faltan ${n}`,
@@ -39257,7 +39270,7 @@ function nav20awayTimes() {
   try { const d = destByKey(a.dest); total = d.h * 3600000 * (a.kind === "short" && typeof TRIP_PARTIAL_TIME !== "undefined" ? TRIP_PARTIAL_TIME : 1); } catch (e) { total = 3600000; }
   const t0 = a.t0 || a.until - total; const now = Date.now();
   const pct = Math.max(0.02, Math.min(1, (now - t0) / Math.max(1, a.until - t0)));
-  const end = new Date(a.until); const hm = intlDT(loc(), { hour: "2-digit", minute: "2-digit" }).format(end);
+  const end = new Date(a.until); const hm = intlDT(loc(), Object.assign({ hour: typeof FMT_H12 !== "undefined" && FMT_H12 ? "numeric" : "2-digit", minute: "2-digit" }, typeof FMT_H12 === "undefined" || FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(end); /* 1.0.11 (C-12) */
   const tomorrow = dkey(end) !== dkey(); const t = nav20();
   return { pct, label: `${tomorrow ? t.backTom(hm) : t.back(hm)} · ${t.left(timeLeft(a.until))}`, html: `<span>${esc(tomorrow ? t.backTom(hm) : t.back(hm))}</span> · <span>${esc(t.left(timeLeft(a.until)))}</span>` };
 }
@@ -41879,7 +41892,7 @@ const XV = {
     wishSet: "Make it my wish", wishIs: "Your wish", wishL: "Your wish: ", mile: (p, n) => `You are ${p}% of the way to the ${n}!`, back: (n) => (n === 1 ? "Your wish moves back by about 1 day" : `Your wish moves back by about ${n} days`),
     paidOnly: "Tanì from packs work for the whole shop except the Elusive treasures: those are bought only with Tanì you earn by taking care of yourself.", paidBlock: "Elusive treasures are bought only with the Tanì you earn by taking care of yourself.",
     items: { x_crown: "Aurora crown", x_cloak: "Comet cloak", x_tree: "Wishing tree", x_fountain: "Moon fountain", x_galaxy: "Galaxy", x_aura: "Starlight aura" } },
-  de: { chip: "Unauffindbar", title: "Unauffindbare Schätze", intro: "Die schönsten Dinge im ganzen Laden. Es gibt sie nur für Tanì, wenn du lange sparst: Sie krönen viele Monate voller Fürsorge.",
+  de: { chip: "Unikat", title: "Unauffindbare Schätze", intro: "Die schönsten Dinge im ganzen Laden. Es gibt sie nur für Tanì, wenn du lange sparst: Sie krönen viele Monate voller Fürsorge.",
     have: (a, b) => `Du hast ${a} von ${b} Tanì`, pace: (n) => (n < 60 ? `In deinem heutigen Tempo: etwa ${n} Tage` : `In deinem heutigen Tempo: etwa ${Math.round(n / 30.4)} Monate`), owned: (n, m) => `Du hast ${n} von ${m}`, plusNo: "Plus gibt keinen Rabatt: Sie kosten für alle gleich viel.",
     wishSet: "Als Wunsch festlegen", wishIs: "Dein Wunsch", wishL: "Dein Wunsch: ", mile: (p, n) => `Du hast ${p} % des Weges zu ${n} geschafft!`, back: (n) => (n === 1 ? "Dein Wunsch rückt etwa 1 Tag weiter weg" : `Dein Wunsch rückt etwa ${n} Tage weiter weg`),
     paidOnly: "Tanì aus Paketen gelten im ganzen Laden außer für die unauffindbaren Schätze: Die gibt es nur für Tanì, die du verdienst, indem du gut für dich sorgst.", paidBlock: "Unauffindbare Schätze gibt es nur für Tanì, die du verdienst, indem du gut für dich sorgst.",
@@ -43620,10 +43633,11 @@ econAlreadyRewarded = function (g) {
    Il controllo vecchio (98ze, sul documento) viene saltato quando c'e' gia' questo, per non contare due volte. */
 let v26SpendSnap = null;
 window.addEventListener("click", () => {
-  v26SpendSnap = { seeds: S.seeds, xv: XV_IDS.filter((id) => S.owned.includes(id)).length };
+  v26SpendSnap = { seeds: S.seeds, xv: XV_IDS.filter((id) => S.owned.includes(id)).length, s: S };
   setTimeout(() => {
     const sn = v26SpendSnap; v26SpendSnap = null; xvSpendSnap = null; /* il controllo di 98ze, se c'e', non conta di nuovo */
-    if (!sn) return; const d = sn.seeds - S.seeds; if (d <= 0) return;
+    /* stato sostituito (ripristino di un backup o di una copia): non e' una spesa */
+    if (!sn || sn.s !== S) return; const d = sn.seeds - S.seeds; if (d <= 0) return;
     if (XV_IDS.filter((id) => S.owned.includes(id)).length > sn.xv) return;
     try { const e = econ(); if ((+e.paid || 0) > (+e.spentN || 0)) { e.spentN = (+e.spentN || 0) + d; save(); } } catch (err) { /* niente */ }
   }, 0);
@@ -43711,13 +43725,19 @@ backupNow = function (force) {
       await fbLoad(); const c = await window.TanFB.pull();
       if (c && c.d && +c.at > (+A.last || 0) + 60e3 && hashStr(c.d) !== A.h) {
         const st = await unpackState(c.d);
-        if (st && st.pet) { cloudPending = { st, at: c.at }; if (!layer.innerHTML) openChoice(); else setTimeout(() => { if (!layer.innerHTML && cloudPending) openChoice(); }, 4000); return false; }
+        if (st && st.pet) { cloudPending = { st, at: c.at }; v26ChoiceWhenFree(0); return false; }
       }
     } catch (e) { return false; }
     return _backupNowV26(force);
   })();
 };
-function v26PaidLeft(st) { try { const e = (st && st.econ) || {}; return Math.max(0, (+e.paid || 0) - (+e.spentN || 0)); } catch (e) { return 0; } }
+/* la scelta si apre appena non c'e' un'altra finestra aperta (fino a 10 minuti) */
+function v26ChoiceWhenFree(k) {
+  if (!cloudPending || layer.querySelector("#acUseCloud")) return;
+  if (!layer.innerHTML && !(typeof tutOn !== "undefined" && tutOn)) { openChoice(); return; }
+  if (k < 200) setTimeout(() => v26ChoiceWhenFree(k + 1), 3000);
+}
+function v26PaidLeft(st) { try { const e = (st && st.v20econ) || {}; return Math.max(0, (+e.paid || 0) - (+e.spentN || 0)); } catch (e) { return 0; } }
 const _applyCloudV26 = applyCloud;
 applyCloud = function (st, at) {
   const keep = v26PaidLeft(S); const had = v26PaidLeft(st);
@@ -43874,7 +43894,8 @@ countUp = function (el, from, to) {
   if (!el || el.id !== "seedN") return _countUpV26(el, from, to);
   const f = el.dataset.v26 != null && el.textContent === el.dataset.v26t ? +el.dataset.v26 : from;
   _countUpV26(el, f, to);
-  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent; };
+  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent;
+    const top = el.closest(".top"); if (top) top.classList.toggle("v26big", to >= 10000 && window.innerWidth < 400); };
   if (!anim || f == null || f === to) fix(); else setTimeout(fix, 1300);
 };
 econShow = (function (prev) {
@@ -43893,11 +43914,83 @@ function v26PlusSticky() {
 /* i) B-10: tastiera "Avanti" nei campi del nome */
 function v26Hints(root) { (root || document).querySelectorAll("#userName, #petName").forEach((i) => { if (!i.hasAttribute("enterkeyhint")) i.setAttribute("enterkeyhint", "next"); }); }
 /* tutto dopo ogni disegno della pagina e quando si apre una finestra */
-function v26After(root) { try { v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
+function v26FitBadges(root) {
+  (root || document).querySelectorAll(".rar").forEach((x) => { x.style.fontSize = ""; let f = parseFloat(getComputedStyle(x).fontSize) || 12; let k = 0;
+    while (x.scrollWidth > x.clientWidth + 0.5 && f > 11.5 && k++ < 8) { f -= 0.5; x.style.fontSize = f + "px"; } });
+}
+function v26After(root) { try { v26FitBadges(root); v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
 const _renderV26 = render;
 render = function (...a) { const r = _renderV26.apply(this, a); v26After(document.getElementById("app")); return r; };
 new MutationObserver(() => v26After(layer)).observe(layer, { childList: true });
 window.addEventListener("resize", () => { try { v26PlusSticky(); } catch (e) { /* niente */ } });
+
+/* ---------- 13) Testi: FAQ, disdetta, viaggio, "chi sei", titolo, tipografia (E-15, I-07, C-22, G3-08, C-20, C-09, C-11, C-13) ---------- */
+/* a) C-13: la settimana inizia come sul telefono (domenica negli Stati Uniti, in Brasile, Giappone...); solo l'ordine mostrato */
+function v26WeekOrder() {
+  let fd = 1; /* 1 = lunedi' ... 7 = domenica (Intl) */
+  try { const loc0 = new Intl.Locale(navigator.language || "en"); const w = typeof loc0.getWeekInfo === "function" ? loc0.getWeekInfo() : loc0.weekInfo; if (w && w.firstDay) fd = w.firstDay; } catch (e) { fd = 1; }
+  const s = (fd + 6) % 7; /* indice dell'app: 0 = lunedi' */
+  return [0, 1, 2, 3, 4, 5, 6].map((i) => (i + s) % 7);
+}
+/* b) I-07: anche senza prova gratuita si dice dove disdire */
+const _billLabelsV26 = billLabels;
+billLabels = function (...a) {
+  const r = _billLabelsV26.apply(this, a);
+  try { const el = document.getElementById("plusAfterTxt"); const w = L().v26.where; if (el && w && !/Google Play/.test(el.textContent)) el.textContent = `${el.textContent} ${w}`; } catch (e) { /* niente */ }
+  return r;
+};
+plusLabels = billLabels;
+/* c) E-15: "Risposte veloci" in Profilo › Aiuto e idee (5 domande che portano a rimborsi e recensioni negative) */
+function v26FaqCard() {
+  const f = L().v26.faq; if (!f) return "";
+  const items = f.qa.map(([q, a], i) => `<details class="v26faq"><summary>${esc(q)}</summary><p class="small">${esc(a)}${i === 0 && typeof SUBS_URL === "string" ? ` <a class="inlink" href="${SUBS_URL}" target="_blank" rel="noopener">Google Play</a>` : ""}</p></details>`).join("");
+  return `<div class="card stack-s faq" id="v26Faq"><h3>${esc(f.t)}</h3>${items}</div>`;
+}
+const _viewMoreV26 = viewMore;
+viewMore = function (...a) {
+  const h = _viewMoreV26.apply(this, a); if (!S.pet || h.indexOf('id="v26Faq"') >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h; const t = L();
+  const fb = [...tpl.content.querySelectorAll(".card h3")].find((x) => x.textContent.trim() === String(t.feedbackT || "").trim());
+  const anchor = (fb && fb.closest(".card")) || tpl.content.querySelector(".card.help"); if (!anchor) return h;
+  const box = document.createElement("template"); box.innerHTML = v26FaqCard(); const card = box.content.firstElementChild; if (!card) return h;
+  if (anchor.hasAttribute("hidden")) card.setAttribute("hidden", ""); [...anchor.attributes].forEach((at) => { if (/^data-p/.test(at.name)) card.setAttribute(at.name, at.value); });
+  anchor.parentNode.insertBefore(card, anchor); return tpl.innerHTML;
+};
+/* d) C-22: un solo nome per "scegli un viaggio" (prima 4 diversi, uno con la freccia scritta) */
+Object.keys(T).forEach((l) => {
+  const one = T[l].v13 && T[l].v13.allB; if (!one) return;
+  try { if (typeof TR20T !== "undefined" && TR20T[l]) TR20T[l].ctaB = one; } catch (e) { /* niente */ }
+  try { if (typeof NAV20_T !== "undefined" && NAV20_T[l] && NAV20_T[l].enGo) NAV20_T[l].enGo = one; } catch (e) { /* niente */ }
+  try { if (typeof V19A !== "undefined" && V19A[l] && V19A[l].go) V19A[l].go = one; } catch (e) { /* niente */ }
+});
+/* e) G3-08: "Chi sei?" dice anche che animale e' il compagno (la descrizione della scelta del compagno) */
+Object.keys(T).forEach((l) => {
+  const c = T[l].chat; if (!c || typeof c.who !== "function" || c.who.v26) return; const w0 = c.who;
+  c.who = (...a) => { const s = w0(...a); let d = ""; try { d = ((T[l].pets || {})[S.pet] || [])[1] || ""; } catch (e) { d = ""; } if (!d || s.includes(d)) return s;
+    const m = /^(.*?[.!?！。]+)(\s*)([\s\S]*)$/u.exec(s); return m ? `${m[1]} ${d}${m[3] ? " " + m[3] : ""}`.replace(/\s+/g, " ").trim() : `${s} ${d}`; };
+  c.who.v26 = 1;
+});
+/* f) C-20: titolo della pagina nella lingua dell'app, senza la frase in inglese */
+function v26Title() { try { if (S && S.pet) document.title = "Tanetto"; } catch (e) { /* niente */ } }
+/* g) C-11 / C-09: tipografia francese (spazio che non va a capo prima di : ; ! ?) e punto esclamativo giapponese largo */
+const V26_FR = / ([:;!?»])/g, V26_JA = /([぀-ヿ一-鿿])!/g;
+function v26TypoText(s) {
+  if (!S) return s;
+  if (S.lang === "fr" && V26_FR.test(s)) { V26_FR.lastIndex = 0; return s.replace(V26_FR, " $1").replace(/« /g, "« "); }
+  if (S.lang === "ja" && V26_JA.test(s)) { V26_JA.lastIndex = 0; return s.replace(V26_JA, "$1！"); }
+  V26_FR.lastIndex = 0; V26_JA.lastIndex = 0; return s;
+}
+function v26Typo(root) {
+  if (!S || (S.lang !== "fr" && S.lang !== "ja") || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { if (n.parentElement && n.parentElement.closest("input, textarea, script, style")) continue; const v = v26TypoText(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; }
+}
+new MutationObserver((ms) => {
+  if (!S || (S.lang !== "fr" && S.lang !== "ja")) return;
+  ms.forEach((m) => { if (m.type === "characterData") { const v = v26TypoText(m.target.nodeValue); if (v !== m.target.nodeValue) m.target.nodeValue = v; } else m.addedNodes.forEach((a) => { if (a.nodeType === 3) { const v = v26TypoText(a.nodeValue); if (v !== a.nodeValue) a.nodeValue = v; } else v26Typo(a); }); });
+}).observe(document.body, { childList: true, subtree: true, characterData: true });
+const _renderV26b = render;
+render = function (...a) { const r = _renderV26b.apply(this, a); v26Title(); return r; };
 
 splash();
 render();

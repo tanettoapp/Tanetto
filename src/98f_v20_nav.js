@@ -609,7 +609,7 @@ function nav20awayTimes() {
   try { const d = destByKey(a.dest); total = d.h * 3600000 * (a.kind === "short" && typeof TRIP_PARTIAL_TIME !== "undefined" ? TRIP_PARTIAL_TIME : 1); } catch (e) { total = 3600000; }
   const t0 = a.t0 || a.until - total; const now = Date.now();
   const pct = Math.max(0.02, Math.min(1, (now - t0) / Math.max(1, a.until - t0)));
-  const end = new Date(a.until); const hm = intlDT(loc(), { hour: "2-digit", minute: "2-digit" }).format(end);
+  const end = new Date(a.until); const hm = intlDT(loc(), Object.assign({ hour: typeof FMT_H12 !== "undefined" && FMT_H12 ? "numeric" : "2-digit", minute: "2-digit" }, typeof FMT_H12 === "undefined" || FMT_H12 == null ? {} : { hour12: FMT_H12 })).format(end); /* 1.0.11 (C-12) */
   const tomorrow = dkey(end) !== dkey(); const t = nav20();
   return { pct, label: `${tomorrow ? t.backTom(hm) : t.back(hm)} · ${t.left(timeLeft(a.until))}`, html: `<span>${esc(tomorrow ? t.backTom(hm) : t.back(hm))}</span> · <span>${esc(t.left(timeLeft(a.until)))}</span>` };
 }

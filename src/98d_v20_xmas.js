@@ -143,8 +143,8 @@ const XM_T = {
     badge: (y) => `Ёлка ${y}`, badgeP: (y) => `Шар на память: ёлку ${y} года нарядили вместе.`,
     says: ["Здесь уже пахнет праздником. Мне так нравится.", "Тёплый напиток и плед — то, что нужно.", "Сегодня на душе мягко, как в шерстяном свитере.", "Праздники лучше проводить вместе.", "Давай сегодня сделаем что-нибудь маленькое и доброе для тебя?"],
     tree0: "Наша ёлка растёт понемножку.", tree1: "Посмотри на нашу ёлку: она вся сияет!",
-    sp: { d24: "Сегодня сочельник! Вечером я буду рядом.", d25: "С Рождеством! Как здорово встречать его с тобой.", d26: "Праздник ещё не закончился: сегодня никуда не спешим.", d31: "Последний день года: спасибо за каждый день вместе.", d1: "С Новым годом! Начнём потихоньку, шаг за шагом." },
-    gr: { d24: "Хорошего сочельника", d25: "С Рождеством", d1: "С Новым годом" }, openL: "Ёлка: посмотреть шаги", added: (x) => `${x}: готово!` },
+    sp: { d24: "Уютный зимний вечер! Сегодня я буду рядом.", d25: "Какой тёплый зимний день! Как здорово, что мы вместе.", d26: "Зимние дни такие уютные: сегодня никуда не спешим.", d31: "Последний день года: спасибо за каждый день вместе.", d1: "С Новым годом! Начнём потихоньку, шаг за шагом." },
+    gr: { d24: "", d25: "", d31: "С наступающим Новым годом", d1: "С Новым годом" }, openL: "Ёлка: посмотреть шаги", added: (x) => `${x}: готово!` },
   pl: { treeT: "Choinka", treeP: (p, d) => `Ubieraj ją krok po kroku — ${p} pomoże. Choinka zostanie w pokoju do ${d}.`,
     stages: ["Mała choinka", "Lampki", "Bombki", "", "Prezenty pod choinką"], tops: ["Gwiazda na czubku", "Śnieżynka na czubku", "Złote serce na czubku"],
     step: (a, b) => `Krok ${a} z ${b}`, next: "Następny krok", add: "Dodaj", how: "Jak je zdobyć", plusB: "Plus −30%", plusP: "Z Tanetto Plus każdy krok kosztuje o 30% mniej.",
@@ -179,8 +179,8 @@ const XM_T = {
     badge: (y) => `Yılbaşı ${y}`, badgeP: (y) => `${y} yılbaşı hatıra süsü: ağacı birlikte bitirdiniz.`,
     says: ["Burası şimdiden bayram gibi. Çok seviyorum.", "Sıcak bir içecek ve bir battaniye: mükemmel.", "Bugün yün bir kazak gibi yumuşacık bir gün.", "Tatiller birlikte daha güzel.", "Bugün kendin için küçük ve güzel bir şey yapalım mı?"],
     tree0: "Ağacımız azar azar büyüyor.", tree1: "Ağacımıza bak: her yeri ışıl ışıl!",
-    sp: { d24: "Bugün Noel arifesi! Bu akşam sana ben eşlik ederim.", d25: "Mutlu Noeller! Bu günü seninle geçirmek çok güzel.", d26: "Hâlâ bayram havası var: bugün acele etmeyelim.", d31: "Yılın son günü: birlikte geçirdiğimiz her gün için teşekkürler.", d1: "Mutlu yıllar! Yavaş yavaş, adım adım başlayalım." },
-    gr: { d24: "İyi Noel arifeleri", d25: "Mutlu Noeller", d1: "Mutlu yıllar" }, openL: "Yılbaşı ağacı: adımları gör", added: (x) => `${x}: tamam!` }
+    sp: { d24: "Ne güzel bir kış akşamı! Bu akşam sana ben eşlik ederim.", d25: "Sıcacık bir kış günü! Seninle olmak çok güzel.", d26: "Hâlâ tatil havası var: bugün acele etmeyelim.", d31: "Yılın son günü: birlikte geçirdiğimiz her gün için teşekkürler.", d1: "Mutlu yıllar! Yavaş yavaş, adım adım başlayalım." },
+    gr: { d24: "", d25: "", d31: "Yeni yıla az kaldı", d1: "Mutlu yıllar" }, openL: "Yılbaşı ağacı: adımları gör", added: (x) => `${x}: tamam!` }
 };
 const xmT = () => XM_T[S.lang] || XM_T.en;
 

@@ -341,10 +341,11 @@ econAlreadyRewarded = function (g) {
    Il controllo vecchio (98ze, sul documento) viene saltato quando c'e' gia' questo, per non contare due volte. */
 let v26SpendSnap = null;
 window.addEventListener("click", () => {
-  v26SpendSnap = { seeds: S.seeds, xv: XV_IDS.filter((id) => S.owned.includes(id)).length };
+  v26SpendSnap = { seeds: S.seeds, xv: XV_IDS.filter((id) => S.owned.includes(id)).length, s: S };
   setTimeout(() => {
     const sn = v26SpendSnap; v26SpendSnap = null; xvSpendSnap = null; /* il controllo di 98ze, se c'e', non conta di nuovo */
-    if (!sn) return; const d = sn.seeds - S.seeds; if (d <= 0) return;
+    /* stato sostituito (ripristino di un backup o di una copia): non e' una spesa */
+    if (!sn || sn.s !== S) return; const d = sn.seeds - S.seeds; if (d <= 0) return;
     if (XV_IDS.filter((id) => S.owned.includes(id)).length > sn.xv) return;
     try { const e = econ(); if ((+e.paid || 0) > (+e.spentN || 0)) { e.spentN = (+e.spentN || 0) + d; save(); } } catch (err) { /* niente */ }
   }, 0);
@@ -432,13 +433,19 @@ backupNow = function (force) {
       await fbLoad(); const c = await window.TanFB.pull();
       if (c && c.d && +c.at > (+A.last || 0) + 60e3 && hashStr(c.d) !== A.h) {
         const st = await unpackState(c.d);
-        if (st && st.pet) { cloudPending = { st, at: c.at }; if (!layer.innerHTML) openChoice(); else setTimeout(() => { if (!layer.innerHTML && cloudPending) openChoice(); }, 4000); return false; }
+        if (st && st.pet) { cloudPending = { st, at: c.at }; v26ChoiceWhenFree(0); return false; }
       }
     } catch (e) { return false; }
     return _backupNowV26(force);
   })();
 };
-function v26PaidLeft(st) { try { const e = (st && st.econ) || {}; return Math.max(0, (+e.paid || 0) - (+e.spentN || 0)); } catch (e) { return 0; } }
+/* la scelta si apre appena non c'e' un'altra finestra aperta (fino a 10 minuti) */
+function v26ChoiceWhenFree(k) {
+  if (!cloudPending || layer.querySelector("#acUseCloud")) return;
+  if (!layer.innerHTML && !(typeof tutOn !== "undefined" && tutOn)) { openChoice(); return; }
+  if (k < 200) setTimeout(() => v26ChoiceWhenFree(k + 1), 3000);
+}
+function v26PaidLeft(st) { try { const e = (st && st.v20econ) || {}; return Math.max(0, (+e.paid || 0) - (+e.spentN || 0)); } catch (e) { return 0; } }
 const _applyCloudV26 = applyCloud;
 applyCloud = function (st, at) {
   const keep = v26PaidLeft(S); const had = v26PaidLeft(st);
@@ -595,7 +602,8 @@ countUp = function (el, from, to) {
   if (!el || el.id !== "seedN") return _countUpV26(el, from, to);
   const f = el.dataset.v26 != null && el.textContent === el.dataset.v26t ? +el.dataset.v26 : from;
   _countUpV26(el, f, to);
-  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent; };
+  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent;
+    const top = el.closest(".top"); if (top) top.classList.toggle("v26big", to >= 10000 && window.innerWidth < 400); };
   if (!anim || f == null || f === to) fix(); else setTimeout(fix, 1300);
 };
 econShow = (function (prev) {
@@ -614,8 +622,80 @@ function v26PlusSticky() {
 /* i) B-10: tastiera "Avanti" nei campi del nome */
 function v26Hints(root) { (root || document).querySelectorAll("#userName, #petName").forEach((i) => { if (!i.hasAttribute("enterkeyhint")) i.setAttribute("enterkeyhint", "next"); }); }
 /* tutto dopo ogni disegno della pagina e quando si apre una finestra */
-function v26After(root) { try { v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
+function v26FitBadges(root) {
+  (root || document).querySelectorAll(".rar").forEach((x) => { x.style.fontSize = ""; let f = parseFloat(getComputedStyle(x).fontSize) || 12; let k = 0;
+    while (x.scrollWidth > x.clientWidth + 0.5 && f > 11.5 && k++ < 8) { f -= 0.5; x.style.fontSize = f + "px"; } });
+}
+function v26After(root) { try { v26FitBadges(root); v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
 const _renderV26 = render;
 render = function (...a) { const r = _renderV26.apply(this, a); v26After(document.getElementById("app")); return r; };
 new MutationObserver(() => v26After(layer)).observe(layer, { childList: true });
 window.addEventListener("resize", () => { try { v26PlusSticky(); } catch (e) { /* niente */ } });
+
+/* ---------- 13) Testi: FAQ, disdetta, viaggio, "chi sei", titolo, tipografia (E-15, I-07, C-22, G3-08, C-20, C-09, C-11, C-13) ---------- */
+/* a) C-13: la settimana inizia come sul telefono (domenica negli Stati Uniti, in Brasile, Giappone...); solo l'ordine mostrato */
+function v26WeekOrder() {
+  let fd = 1; /* 1 = lunedi' ... 7 = domenica (Intl) */
+  try { const loc0 = new Intl.Locale(navigator.language || "en"); const w = typeof loc0.getWeekInfo === "function" ? loc0.getWeekInfo() : loc0.weekInfo; if (w && w.firstDay) fd = w.firstDay; } catch (e) { fd = 1; }
+  const s = (fd + 6) % 7; /* indice dell'app: 0 = lunedi' */
+  return [0, 1, 2, 3, 4, 5, 6].map((i) => (i + s) % 7);
+}
+/* b) I-07: anche senza prova gratuita si dice dove disdire */
+const _billLabelsV26 = billLabels;
+billLabels = function (...a) {
+  const r = _billLabelsV26.apply(this, a);
+  try { const el = document.getElementById("plusAfterTxt"); const w = L().v26.where; if (el && w && !/Google Play/.test(el.textContent)) el.textContent = `${el.textContent} ${w}`; } catch (e) { /* niente */ }
+  return r;
+};
+plusLabels = billLabels;
+/* c) E-15: "Risposte veloci" in Profilo › Aiuto e idee (5 domande che portano a rimborsi e recensioni negative) */
+function v26FaqCard() {
+  const f = L().v26.faq; if (!f) return "";
+  const items = f.qa.map(([q, a], i) => `<details class="v26faq"><summary>${esc(q)}</summary><p class="small">${esc(a)}${i === 0 && typeof SUBS_URL === "string" ? ` <a class="inlink" href="${SUBS_URL}" target="_blank" rel="noopener">Google Play</a>` : ""}</p></details>`).join("");
+  return `<div class="card stack-s faq" id="v26Faq"><h3>${esc(f.t)}</h3>${items}</div>`;
+}
+const _viewMoreV26 = viewMore;
+viewMore = function (...a) {
+  const h = _viewMoreV26.apply(this, a); if (!S.pet || h.indexOf('id="v26Faq"') >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h; const t = L();
+  const fb = [...tpl.content.querySelectorAll(".card h3")].find((x) => x.textContent.trim() === String(t.feedbackT || "").trim());
+  const anchor = (fb && fb.closest(".card")) || tpl.content.querySelector(".card.help"); if (!anchor) return h;
+  const box = document.createElement("template"); box.innerHTML = v26FaqCard(); const card = box.content.firstElementChild; if (!card) return h;
+  if (anchor.hasAttribute("hidden")) card.setAttribute("hidden", ""); [...anchor.attributes].forEach((at) => { if (/^data-p/.test(at.name)) card.setAttribute(at.name, at.value); });
+  anchor.parentNode.insertBefore(card, anchor); return tpl.innerHTML;
+};
+/* d) C-22: un solo nome per "scegli un viaggio" (prima 4 diversi, uno con la freccia scritta) */
+Object.keys(T).forEach((l) => {
+  const one = T[l].v13 && T[l].v13.allB; if (!one) return;
+  try { if (typeof TR20T !== "undefined" && TR20T[l]) TR20T[l].ctaB = one; } catch (e) { /* niente */ }
+  try { if (typeof NAV20_T !== "undefined" && NAV20_T[l] && NAV20_T[l].enGo) NAV20_T[l].enGo = one; } catch (e) { /* niente */ }
+  try { if (typeof V19A !== "undefined" && V19A[l] && V19A[l].go) V19A[l].go = one; } catch (e) { /* niente */ }
+});
+/* e) G3-08: "Chi sei?" dice anche che animale e' il compagno (la descrizione della scelta del compagno) */
+Object.keys(T).forEach((l) => {
+  const c = T[l].chat; if (!c || typeof c.who !== "function" || c.who.v26) return; const w0 = c.who;
+  c.who = (...a) => { const s = w0(...a); let d = ""; try { d = ((T[l].pets || {})[S.pet] || [])[1] || ""; } catch (e) { d = ""; } if (!d || s.includes(d)) return s;
+    const m = /^(.*?[.!?！。]+)(\s*)([\s\S]*)$/u.exec(s); return m ? `${m[1]} ${d}${m[3] ? " " + m[3] : ""}`.replace(/\s+/g, " ").trim() : `${s} ${d}`; };
+  c.who.v26 = 1;
+});
+/* f) C-20: titolo della pagina nella lingua dell'app, senza la frase in inglese */
+function v26Title() { try { if (S && S.pet) document.title = "Tanetto"; } catch (e) { /* niente */ } }
+/* g) C-11 / C-09: tipografia francese (spazio che non va a capo prima di : ; ! ?) e punto esclamativo giapponese largo */
+const V26_FR = / ([:;!?»])/g, V26_JA = /([぀-ヿ一-鿿])!/g;
+function v26TypoText(s) {
+  if (!S) return s;
+  if (S.lang === "fr" && V26_FR.test(s)) { V26_FR.lastIndex = 0; return s.replace(V26_FR, " $1").replace(/« /g, "« "); }
+  if (S.lang === "ja" && V26_JA.test(s)) { V26_JA.lastIndex = 0; return s.replace(V26_JA, "$1！"); }
+  V26_FR.lastIndex = 0; V26_JA.lastIndex = 0; return s;
+}
+function v26Typo(root) {
+  if (!S || (S.lang !== "fr" && S.lang !== "ja") || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { if (n.parentElement && n.parentElement.closest("input, textarea, script, style")) continue; const v = v26TypoText(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; }
+}
+new MutationObserver((ms) => {
+  if (!S || (S.lang !== "fr" && S.lang !== "ja")) return;
+  ms.forEach((m) => { if (m.type === "characterData") { const v = v26TypoText(m.target.nodeValue); if (v !== m.target.nodeValue) m.target.nodeValue = v; } else m.addedNodes.forEach((a) => { if (a.nodeType === 3) { const v = v26TypoText(a.nodeValue); if (v !== a.nodeValue) a.nodeValue = v; } else v26Typo(a); }); });
+}).observe(document.body, { childList: true, subtree: true, characterData: true });
+const _renderV26b = render;
+render = function (...a) { const r = _renderV26b.apply(this, a); v26Title(); return r; };
