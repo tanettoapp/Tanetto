@@ -86,7 +86,8 @@ async def main():
             seen.append(await ev(pg, "({p:!!document.querySelector('.nvplus'),a:!!document.querySelector('.alldone'),r:window.__revN||0,l:layer.innerHTML.trim().length})"))
         chk(not any(x["p"] for x in seen) and not any(x["r"] for x in seen), "adulto dopo la scheda: niente Prova Plus e niente recensione")
         chk(not any(x["a"] for x in seen), "adulto dopo la scheda: la festa 'Tutto fatto' aspetta (niente allegria subito dopo)")
-        chk(await ev(pg, "NQ20.q.some(x=>x.key==='alldone')"), "la festa resta in coda (non si perde)")
+        chk(not await ev(pg, "NQ20.q.some(x=>x.key==='alldone'||x.key==='level')"), "la festa chiesta durante la calma non arriva piu' dopo, fuori contesto")
+        chk(await ev(pg, "S.done.includes('water')"), "l'obiettivo resta fatto (premi gia' dati)")
         chk(not pg.errs, f"adulto: nessun errore {pg.errs[:2]}")
         await ctx.close()
         # chat: risposta calma, numeri del Paese; schermate in 3 lingue / tema scuro / schermo piccolo

@@ -7,7 +7,7 @@ from playwright.async_api import async_playwright
 EXPECT = os.environ.get("EXPECT", "110")
 # (fuso, lingua del telefono, lingua dell'app, testi che devono esserci, testi che non devono esserci)
 CASES = [
-    ("Europe/Rome", "it-IT", "it", ["Telefono Amico Italia: 02 2327 2327", "Telefono Azzurro (per bambini e ragazzi): 19696", "Emergenze (Italia): 112", "Altri Paesi: findahelpline.com"], ["988", "Samaritans"]),
+    ("Europe/Rome", "it-IT", "it", ["Telefono Amico Italia (9-24): 02 2327 2327", "Telefono Azzurro (per bambini e ragazzi): 19696", "Emergenze (Italia): 112", "Altri Paesi: findahelpline.com"], ["988", "Samaritans"]),
     ("Europe/Rome", "en-US", "en", ["Telefono Azzurro (for children and teens): 19696", "Emergencies (Italy): 112"], ["988"]),
     ("Europe/Berlin", "de-DE", "de", ["TelefonSeelsorge: 0800 111 0 111 · 0800 111 0 222 · 116 123", "Nummer gegen Kummer (für Kinder und Jugendliche): 116 111", "Notruf (Deutschland): 112"], []),
     ("Europe/Vienna", "de-AT", "de", ["TelefonSeelsorge: 142", "Rat auf Draht (für Kinder und Jugendliche): 147", "Notruf (Österreich): 112"], ["0800 111"]),

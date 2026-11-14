@@ -3,7 +3,7 @@
 Ogni numero è stato letto oggi sul sito ufficiale del servizio o di un ente pubblico (scaricato e controllato
 nel testo della pagina). Dove la fonte non si poteva aprire o non era chiara, il numero NON è stato messo.
 
-1) **IT**: Telefono Amico Italia 02 2327 2327. Fonte: telefonoamico.it (pagina principale, letta il 14/11/2026: "tutti i giorni 24 ore su 24"). Nota del critico: comunicati stampa del 2024 parlavano di orario 9-24; per questo a bambini, ragazzi e a chi non ha detto l'eta' l'app mostra per primo Telefono Azzurro 19696, che risponde 24 ore su 24 anche agli adulti.
+1) **IT**: Telefono Amico Italia 02 2327 2327. Fonte: telefonoamico.it (pagina principale, letta il 14/11/2026: "tutti i giorni 24 ore su 24"). Ma i comunicati stampa di Telefono Amico del 2024 e dell'estate 2025 dicono orario 9-24: nell'app c'e' scritto "(9-24)" per prudenza; per questo a bambini, ragazzi e a chi non ha detto l'eta' l'app mostra per primo Telefono Azzurro 19696, che risponde 24 ore su 24 anche agli adulti.
 2) **IT**: Telefono Azzurro 19696 (bambini e ragazzi). Fonte: azzurro.it ("Linea di Ascolto 1.96.96 ... gratuito ... h24, 7 giorni su 7").
 3) **DE**: TelefonSeelsorge 0800 111 0 111 · 0800 111 0 222 · 116 123. Fonte: telefonseelsorge.de ("Tag und Nacht erreichbar", "kostenfrei").
 4) **DE**: Nummer gegen Kummer 116 111 (Kinder/Jugend). Fonte: nummergegenkummer.de ("Ruf uns an unter 116 111", Mo–Sa 14–20).
