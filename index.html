@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-0WTzpjweOcm3zng2QIPDCsFeNCWBGy1+BFqQz8VUBOU=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-a+ly1RaGRdIYfTavJevzdIe2ADQ+NETnnH9su4iQpCo=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3155,6 +3155,9 @@ html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%;
 
 /* --- E-14: prossimo traguardo sopra gli obiettivi --- */
 .nextgoal { margin: -4px 0 6px; }
+
+/* --- M-44 / G-04: l'anello "tocca qui" del primo obiettivo pulsa 6 volte, non per sempre (60 ricalcoli al secondo) --- */
+html.firstgoal .goal .tick::after { animation-iteration-count: 6; }
 
 </style>
 
@@ -29519,7 +29522,8 @@ render = function () {
 let acManage = false;
 function acctCard() {
   const a = AC(), n = S.petName || "";
-  if (!signedIn()) setTimeout(() => fbLoad().catch(() => {}), 0);
+  /* 1.0.11 (G-03): Firebase non si carica piu' solo perche' si apre il Profilo (prima: 800 ms di controlli per sempre);
+     si prepara al primo tocco sui pulsanti dell'account (98zk) */
   if (!signedIn()) return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3>${A.lost ? `<p class="small acwarn">${esc(a.lost)}</p>` : ""}<p class="small muted">${esc(a.localP(n))}</p>
   <div class="imgbtns col"><button class="btn gbtn" id="acGoogle2">${G_LOGO}<span>${esc(a.google)}</span></button><button class="btn ghost" id="acEmail2">${icon("ac_mail")}<span>${esc(a.email)}</span></button></div></div>`;
   return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3><p class="small muted acwho">${esc(a.as(A.email || ""))}</p>
@@ -44116,6 +44120,30 @@ splash = function (...a) {
   try { if (S.pet && S.v26splash === dkey()) sessionStorage.setItem("tanetto-nosplash", "1"); else if (S.pet) { S.v26splash = dkey(); save(); } } catch (e) { /* niente */ }
   return _splashV26.apply(this, a);
 };
+
+/* ---------- 15) Prestazioni (M-43, M-44, G-05, G-06) ---------- */
+/* a) M-43 / G-03: Firebase si prepara solo quando la persona tocca un pulsante dell'account (il tocco arriva circa 100 ms
+   prima del click: il file e' locale e la finestra di Google non viene bloccata) */
+document.addEventListener("pointerdown", (ev) => {
+  const b = ev.target && ev.target.closest && ev.target.closest("#acGoogle, #acGoogle2, #acEmail, #acEmail2, #acGo, #acRestore, .accard button, .acbox button");
+  if (b && typeof fbLoad === "function") { try { fbLoad().catch(() => {}); } catch (e) { /* niente */ } }
+}, true);
+/* b) M-44 / G-04: a riposo le animazioni del compagno girano a 24 fotogrammi al secondo (dopo 3 s senza tocchi) e a 12
+   dopo un minuto; al primo tocco tornano subito fluide. Prima: 60 fps sempre, ~120-160 ms di CPU al secondo a riposo. */
+let v26IdleT = 0, v26IdleLvl = 0; v26TouchAt = Date.now(); /* l'avvio conta come un tocco: le animazioni di benvenuto restano fluide */
+function v26FpsBack() { try { if (typeof applyLite === "function" && G && G.ticker) G.ticker.fps(isLite() ? 60 : 240); } catch (e) { /* niente */ } }
+function v26Idle() {
+  if (!G || !G.ticker) return; const idle = Date.now() - v26TouchAt;
+  const lvl = idle > 60000 ? 2 : idle > 3000 ? 1 : 0;
+  if (lvl !== v26IdleLvl) { v26IdleLvl = lvl; if (lvl === 0) v26FpsBack(); else G.ticker.fps(lvl === 2 ? 12 : 24); }
+}
+["pointerdown", "keydown", "touchstart", "wheel"].forEach((n) => document.addEventListener(n, () => { v26TouchAt = Date.now(); if (v26IdleLvl) { v26IdleLvl = 0; v26FpsBack(); } }, { capture: true, passive: true }));
+v26IdleT = setInterval(() => { if (!document.hidden) v26Idle(); }, 1000);
+/* c) G-05: il motore dei suoni si addormenta dopo 20 s di silenzio (niente musica, nessun esercizio di respiro);
+   si risveglia da solo al suono successivo */
+setInterval(() => {
+  try { if (document.hidden || SND.playing() || document.getElementById("ring")) return; if (performance.now() - SND.lastAt() > 20000) SND.suspend(); } catch (e) { /* niente */ }
+}, 5000);
 
 splash();
 render();

@@ -140,3 +140,6 @@ html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%;
 
 /* --- E-14: prossimo traguardo sopra gli obiettivi --- */
 .nextgoal { margin: -4px 0 6px; }
+
+/* --- M-44 / G-04: l'anello "tocca qui" del primo obiettivo pulsa 6 volte, non per sempre (60 ricalcoli al secondo) --- */
+html.firstgoal .goal .tick::after { animation-iteration-count: 6; }

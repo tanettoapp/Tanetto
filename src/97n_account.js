@@ -248,7 +248,8 @@ render = function () {
 let acManage = false;
 function acctCard() {
   const a = AC(), n = S.petName || "";
-  if (!signedIn()) setTimeout(() => fbLoad().catch(() => {}), 0);
+  /* 1.0.11 (G-03): Firebase non si carica piu' solo perche' si apre il Profilo (prima: 800 ms di controlli per sempre);
+     si prepara al primo tocco sui pulsanti dell'account (98zk) */
   if (!signedIn()) return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3>${A.lost ? `<p class="small acwarn">${esc(a.lost)}</p>` : ""}<p class="small muted">${esc(a.localP(n))}</p>
   <div class="imgbtns col"><button class="btn gbtn" id="acGoogle2">${G_LOGO}<span>${esc(a.google)}</span></button><button class="btn ghost" id="acEmail2">${icon("ac_mail")}<span>${esc(a.email)}</span></button></div></div>`;
   return `<div class="card stack-s accard" id="acctCard"><h3>${icon("ac_cloud")}${esc(a.cardT)}</h3><p class="small muted acwho">${esc(a.as(A.email || ""))}</p>

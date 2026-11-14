@@ -762,3 +762,27 @@ splash = function (...a) {
   try { if (S.pet && S.v26splash === dkey()) sessionStorage.setItem("tanetto-nosplash", "1"); else if (S.pet) { S.v26splash = dkey(); save(); } } catch (e) { /* niente */ }
   return _splashV26.apply(this, a);
 };
+
+/* ---------- 15) Prestazioni (M-43, M-44, G-05, G-06) ---------- */
+/* a) M-43 / G-03: Firebase si prepara solo quando la persona tocca un pulsante dell'account (il tocco arriva circa 100 ms
+   prima del click: il file e' locale e la finestra di Google non viene bloccata) */
+document.addEventListener("pointerdown", (ev) => {
+  const b = ev.target && ev.target.closest && ev.target.closest("#acGoogle, #acGoogle2, #acEmail, #acEmail2, #acGo, #acRestore, .accard button, .acbox button");
+  if (b && typeof fbLoad === "function") { try { fbLoad().catch(() => {}); } catch (e) { /* niente */ } }
+}, true);
+/* b) M-44 / G-04: a riposo le animazioni del compagno girano a 24 fotogrammi al secondo (dopo 3 s senza tocchi) e a 12
+   dopo un minuto; al primo tocco tornano subito fluide. Prima: 60 fps sempre, ~120-160 ms di CPU al secondo a riposo. */
+let v26IdleT = 0, v26IdleLvl = 0; v26TouchAt = Date.now(); /* l'avvio conta come un tocco: le animazioni di benvenuto restano fluide */
+function v26FpsBack() { try { if (typeof applyLite === "function" && G && G.ticker) G.ticker.fps(isLite() ? 60 : 240); } catch (e) { /* niente */ } }
+function v26Idle() {
+  if (!G || !G.ticker) return; const idle = Date.now() - v26TouchAt;
+  const lvl = idle > 60000 ? 2 : idle > 3000 ? 1 : 0;
+  if (lvl !== v26IdleLvl) { v26IdleLvl = lvl; if (lvl === 0) v26FpsBack(); else G.ticker.fps(lvl === 2 ? 12 : 24); }
+}
+["pointerdown", "keydown", "touchstart", "wheel"].forEach((n) => document.addEventListener(n, () => { v26TouchAt = Date.now(); if (v26IdleLvl) { v26IdleLvl = 0; v26FpsBack(); } }, { capture: true, passive: true }));
+v26IdleT = setInterval(() => { if (!document.hidden) v26Idle(); }, 1000);
+/* c) G-05: il motore dei suoni si addormenta dopo 20 s di silenzio (niente musica, nessun esercizio di respiro);
+   si risveglia da solo al suono successivo */
+setInterval(() => {
+  try { if (document.hidden || SND.playing() || document.getElementById("ring")) return; if (performance.now() - SND.lastAt() > 20000) SND.suspend(); } catch (e) { /* niente */ }
+}, 5000);
