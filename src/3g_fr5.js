@@ -15,7 +15,7 @@ Object.assign(T.fr, {
   ritualT: "Rituel du soir", ritualP: "Trois petits gestes avant de dormir. Fais ceux qui te font envie.", ritual: ["Lumière douce", "Téléphone loin du lit", "Une belle pensée de la journée"], ritualB: "Bonne nuit",
   visit: (f) => `Aujourd'hui, ${f} est venu me voir !`, visitHi: (f) => `${f} te dit coucou !`,
   remind: { water: "Hé, c'est un bon moment pour un verre d'eau.", pause: "Et si on faisait une petite pause ? Même cinq minutes.", sleep: "Il se fait tard. Le lit nous attend.", move: "On se dégourdit un peu les jambes ?" },
-  summaryT: (n) => `Le récap de ${n}`, summary: (g, best) => g ? `Cette semaine, tu as terminé ${g} objectifs. Ton meilleur jour, c'était ${best}. Je suis fier de toi !` : "Cette semaine a été calme. C'est très bien comme ça : on repart ensemble, pas à pas.",
+  summaryT: (n) => `Le récap de ${n}`, summary: (g, best) => g ? `Cette semaine, tu as terminé ${g === 1 ? "1 objectif" : `${g} objectifs`}. Ton meilleur jour, c'était ${best}. Je suis fier de toi !` : "Cette semaine a été calme. C'est très bien comme ça : on repart ensemble, pas à pas.",
   legalT: "Guide et infos", guideB: "Comment ça marche", privB: "Politique de confidentialité", termsB: "Conditions d'utilisation", healthB: "Avertissement santé", creditsB: "Crédits et licences", tutAgain: "Revoir la visite guidée", ownerMissing: "[à compléter avant la publication]",
   guide: [
     ["Comment fonctionne Tanetto ?", "Tu choisis de petits objectifs pour prendre soin de toi. À chaque objectif terminé, ton compagnon gagne de l'énergie et toi des Tanì."],

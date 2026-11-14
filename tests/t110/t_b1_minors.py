@@ -57,17 +57,17 @@ async def main(b):
             T.check("adulto: 'Torna domani' con il valore del regalo (come prima)", any(c.isdigit() for c in tz), tz)
         g1 = await T.ev(pg, "(document.getElementById('adGift') || {}).textContent || ''")
         if age == "child":
-            T.check("bambino: il video non dice 'double'", g1 and "double" not in g1.lower() and "+" in g1, g1)
+            T.check("bambino: il video non dice 'double' ('an extra gift')", g1 and "double" not in g1.lower() and "extra gift" in g1, g1)
         else:
             T.check("adulto, primo video: 'double your gift' (come prima)", "double your gift" in g1, g1)
             await pg.click("#adGift"); await pg.wait_for_timeout(1500)
             toast = await T.ev(pg, "(document.getElementById('toast') || {}).textContent || ''")
             T.check("adulto, dopo il primo video: 'Gift doubled' (vero)", "doubled" in toast.lower(), toast)
             g2 = await T.ev(pg, "(document.getElementById('adGift') || {}).textContent || ''")
-            T.check("adulto, secondo video: niente 'double', solo '+N Tanì'", g2 and "double" not in g2.lower() and "+" in g2, g2)
+            T.check("adulto, secondo video: niente 'double' ('an extra gift', come nella 1.0.9)", g2 and "double" not in g2.lower() and "extra gift" in g2, g2)
             await pg.click("#adGift"); await pg.wait_for_timeout(1500)
             toast = await T.ev(pg, "(document.getElementById('toast') || {}).textContent || ''")
-            T.check("adulto, dopo il secondo video: niente 'doubled'", "doubled" not in toast.lower() and "+" in toast, toast)
+            T.check("adulto, dopo il secondo video: niente 'doubled' ('Extra gift')", "doubled" not in toast.lower() and "Extra gift" in toast, toast)
         T.check(f"  nessun errore ({age})", not pg.errs, pg.errs[:2])
         await ctx.close()
     # 6) promemoria

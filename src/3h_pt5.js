@@ -15,7 +15,7 @@ Object.assign(T.pt, {
   ritualT: "Ritual da boa noite", ritualP: "Três pequenos gestos antes de dormir. Faça os que quiser.", ritual: ["Luz baixinha", "Celular longe da cama", "Um pensamento bom de hoje"], ritualB: "Boa noite",
   visit: (f) => `Hoje ${f} veio me visitar!`, visitHi: (f) => `${f} mandou um oi!`,
   remind: { water: "Ei, é um bom momento para um copo d'água.", pause: "Que tal uma pausinha? Nem que sejam cinco minutos.", sleep: "Está ficando tarde. A cama está esperando.", move: "Vamos esticar um pouco as pernas?" },
-  summaryT: (n) => `O resumo de ${n}`, summary: (g, best) => g ? `Esta semana você completou ${g} metas. Seu melhor dia foi ${best}. Estou orgulhoso de você!` : "Esta semana foi tranquila. Tudo bem: vamos recomeçar juntos, um passo de cada vez.",
+  summaryT: (n) => `O resumo de ${n}`, summary: (g, best) => g ? `Esta semana você completou ${g === 1 ? "1 meta" : `${g} metas`}. Seu melhor dia foi ${best}. Estou orgulhoso de você!` : "Esta semana foi tranquila. Tudo bem: vamos recomeçar juntos, um passo de cada vez.",
   legalT: "Guia e informações", guideB: "Como funciona", privB: "Política de privacidade", termsB: "Termos de uso", healthB: "Aviso de saúde", creditsB: "Créditos e licenças", tutAgain: "Rever o guia inicial", ownerMissing: "[a completar antes da publicação]",
   guide: [
     ["Como o Tanetto funciona?", "Você escolhe pequenas metas para se cuidar. Cada vez que completa uma, seu companheiro ganha energia e você ganha Tanì."],

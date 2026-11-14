@@ -9,7 +9,7 @@
     s3: (n) => `Apri Tanetto dalla schermata Home e tocca «Ho già un compagno»: ritrovi ${n} com'era.`,
     copy: (n) => `Copia ${n}`, copied: (n) => `${n} è copiato! Ora aggiungi Tanetto alla schermata Home.`, later: "Più tardi",
     onbT: "Su iPhone? Installa prima l'app", onbP: "Così il tuo compagno resta sempre al sicuro: Safari può cancellare i dati dei siti che non apri per qualche giorno.",
-    onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Benvenuto nell'app!", appP: "Avevi già un compagno in Safari? Riportalo qui in un attimo.",
+    onb3: "Poi apri Tanetto dalla schermata Home.", appT: "Ti diamo il benvenuto nell'app!", appP: "Avevi già un compagno in Safari? Riportalo qui in un attimo.",
     have: "Ho già un compagno", pasteT: "Riporta qui il tuo compagno", pasteP: "Incolla il codice di Tanetto, oppure apri un file di copia.",
     ph: "Codice di Tanetto", paste: "Incolla", go: "Riporta il compagno", file: "Apri un file di copia", bad: "Questo codice non funziona. Copialo di nuovo e riprova.",
     manual: "Tieni premuto sul codice, scegli «Seleziona tutto» e poi «Copia».", close: "Chiudi"

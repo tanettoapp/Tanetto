@@ -4,7 +4,7 @@ Object.assign(T.pt, {
   feedT: "O que você vai servir?", feedLeft: (n) => n === 1 ? "Mais 1 lanche hoje" : `Mais ${n} lanches hoje`, feedFull: "Estou de barriguinha cheia! Quem sabe mais tarde.",
   snacks: { apple: "Maçã", berries: "Morangos", cookie: "Biscoito", honey: "Mel", fish: "Biscoito de peixe", carrot: "Cenoura" },
   yum: ["Nham nham!", "Que gostoso!", "Obrigado, eu precisava!", "Delicioso!"], fav: "É o meu favorito! Obrigado!",
-  gameT: "Pegue as estrelas", gameP: "Toque nas estrelas antes que elas caiam. As douradas valem 3 pontos!", gameStart: "Jogar", gameScore: (n) => `Pontos: ${n}`, gameEnd: (n) => `Você fez ${n} pontos!`, gameSeeds: (s) => s ? `+${s} Tanì` : "Você já pegou todos os Tanì do jogo de hoje, mas a diversão é sempre de graça!", gameAgain: "De novo!", gameBest: (n) => `Recorde: ${n}`,
+  gameT: "Pegue as estrelas", gameP: "Toque nas estrelas antes que elas caiam. As douradas valem 3 pontos!", gameStart: "Jogar", gameScore: (n) => `Pontos: ${n}`, gameEnd: (n) => (n === 1 ? "Você fez 1 ponto!" : `Você fez ${n} pontos!`), gameSeeds: (s) => s ? `+${s} Tanì` : "Você já pegou todos os Tanì do jogo de hoje, mas a diversão é sempre de graça!", gameAgain: "De novo!", gameBest: (n) => `Recorde: ${n}`,
   talkT: "Como você está se sentindo agora?", talkBreath: "Vamos respirar juntos por um minuto?", talkHelp: "Se precisar conversar com alguém, em Mais você encontra quem pode ajudar.", talkSaved: "Anotei no diário.", talkQ: "Como você está se sentindo agora?",
   talkReply: [
     ["Sinto muito. Estou aqui com você, nem que seja para ficarmos um pouco em silêncio juntos.", "Dias pesados passam. Enquanto isso, uma respiração de cada vez."],

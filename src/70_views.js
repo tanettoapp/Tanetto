@@ -208,7 +208,7 @@ function weekData() {
   return out;
 }
 function viewDiary() {
-  const t = L(); const q = t.questions[Math.floor(Date.now() / 86400000) % t.questions.length];
+  const t = L(); const q = t.questions[Math.floor(new Date(dkey() + "T12:00:00").getTime() / 86400000) % t.questions.length] /* 1.0.10 (D-02): giorno locale, non UTC */;
   return `${topBar()}<div class="stack"><h1>${t.diaryT}</h1>
   <form class="card stack" id="diaryForm"><div class="stack-s"><span class="small muted">${t.qT}</span><p class="question">${esc(q)}</p></div>
   <fieldset style="border:0;padding:0;margin:0" class="stack-s"><legend class="small muted" style="margin-bottom:6px">${t.moodL}</legend>

@@ -140,7 +140,7 @@ Object.assign(T.en, {
     window: ["Look outside: what a lovely sky today.", "I wonder who's passing by out there."], fish: ["The little fish says hi!", "Blub blub! That means hello."], clock: (h) => `It's ${h}. A good moment for a sip of water?`,
     lamp: ["What a lovely warm light.", "Click! Much cozier."], plant: ["A little water and it grows happy, just like us.", "Plants love a bit of care."],
     guitar: ["Let me play you a little tune!", "Strum strum! Do you like it?"], books: ["A few pages a day add up to great things.", "This book is about an incredible adventure."],
-    yarn: ["Yarn! I can't resist!", "Roll, roll!"], teddy: ["My favorite teddy.", "A hug for him too!"], pouf: ["Hop! So soft!", "My favorite spot to rest."],
+    yarn: ["Yarn! I can't resist!", "Roll, roll!"], teddy: ["My favourite teddy.", "A hug for him too!"], pouf: ["Hop! So soft!", "My favourite spot to rest."],
     mirror: ["Who's that good-looking one in the mirror?", "I feel great today!"], poster: ["One day we'll visit the stars.", "That's the Big Dipper!"], frame: ["What a lovely memory.", "One day we'll go there together."],
     lights: ["So magical when they light up!", "They shine just like you."], bed: "My bed! Tap «Nap» whenever you want to rest.", toys: "My toys! Shall we play ball?",
     can: ["Let's water them! Every flower is a goal you completed.", "Grow, little flowers!"], telescope: ["Look, a shooting star! Make a wish.", "Every star here is a day you took care of yourself."]

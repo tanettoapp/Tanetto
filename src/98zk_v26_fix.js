@@ -37,14 +37,12 @@ teaserCard = function (...a) {
   if (S.giftDay === S.day && typeof adBtn === "function") { const b = adBtn("adGift", "small"); if (b) h = h.replace(/<\/div>$/, `${b}</div>`); }
   return h;
 };
-/* e) video con premio: "raddoppia il regalo" solo per il primo video del giorno e solo agli adulti; dal secondo (e per i
-   minori) "Guarda una pubblicità: +N Tanì" (G2-05: dopo il primo non e' piu' vero che "raddoppia") */
-Object.keys(V19AD).forEach((l) => {
-  const a = V19AD[l]; const g0 = a.gift, t0 = a.thanks; const t = T[l]; if (!t || !t.v26) return;
-  const r = (s, n) => s.split("{n}").join(String(n));
-  const seen = () => { try { return ADS_DAY_MAX - adsLeftToday(); } catch (e) { return 0; } };
-  a.gift = (n) => (v26Young() || seen() >= 1 ? r(t.v26.ad2.gift, n) : g0(n));
-  a.thanks = (n) => (v26Young() || seen() >= 2 ? r(t.v26.ad2.thanks, n) : t0(n));
+/* e) video con premio: la 1.0.9 (98zg, punto 9) dice gia' "raddoppia" solo per il primo video del giorno con il regalo
+   aperto, poi "un regalo in piu'". Ai giovani mai "raddoppia" (nessuna urgenza): sempre "un regalo in piu'" (E-02). */
+Object.keys(V19AD).forEach((k) => {
+  const o = V19AD[k], v = V23[k] || V23.en; if (!o || o.v26) return; const g0 = o.gift, t0 = o.thanks; o.v26 = 1;
+  o.gift = (n) => (v26Young() ? v.adMore(n) : g0(n));
+  o.thanks = (n) => (v26Young() ? v.adThanksMore(n) : t0(n));
 });
 
 /* ---------- 2) Promemoria senza pressione emotiva (M-16, E-05, G1-07) ----------
@@ -316,3 +314,211 @@ Object.keys(T).forEach((l) => {
   const t = T[l]; if (!t || !Array.isArray(t.helpLines)) return; const base = t.helpLines.slice();
   Object.defineProperty(t, "helpLines", { configurable: true, enumerable: true, get: () => v26HelpLines(l, base) });
 });
+
+/* ---------- 6) Soldi e Tanì (M-04, M-05, M-06/CR-03, D-09, H-17 in 45z) ---------- */
+/* a) Scambiare un obiettivo gia' fatto con uno nuovo non paga di nuovo (M-04, D-03). Quando nell'editor si toglie un
+   obiettivo gia' premiato oggi e se ne mette uno nuovo, il nuovo "eredita" il posto premiato: oggi si puo' spuntare, ma
+   senza Tanì, XP, passi della stagione o giorni dei trofei (come un obiettivo tolto e rimesso). Aggiungere obiettivi
+   (fino a 8) senza toglierne resta come prima. Il registro e' econ().v26inh[giorno]. */
+function v26GoalsInherit(before, after) {
+  if (!S.pet || S.day !== dkey()) return; const e = econ(); const d = S.day;
+  const rw = (e.rw[d] || []).concat((e.v26inh || {})[d] || []);
+  const removed = before.filter((g) => !after.includes(g) && rw.includes(g));
+  const added = after.filter((g) => !before.includes(g) && !rw.includes(g));
+  const n = Math.min(removed.length, added.length); if (!n) return;
+  e.v26inh = e.v26inh || {}; Object.keys(e.v26inh).forEach((k) => { if (k < d) delete e.v26inh[k]; });
+  e.v26inh[d] = (e.v26inh[d] || []).concat(added.slice(0, n)); save();
+}
+const _econAlreadyRewardedV26 = econAlreadyRewarded;
+econAlreadyRewarded = function (g) {
+  if (_econAlreadyRewardedV26(g)) return true;
+  try { const e = econ(); return !!(S.pet && !S.away && S.day === dkey() && todayGoals().includes(g) && !S.done.includes(g) && ((e.v26inh || {})[S.day] || []).includes(g)); } catch (err) { return false; }
+};
+/* b) Ogni Tanì speso con un tocco conta prima sui Tanì dei pacchetti, anche quando un altro ascoltatore ferma il tocco
+   (albero di Natale, 98d, stopImmediatePropagation): il controllo ora parte dalla finestra, prima di tutti (M-05, D-04).
+   Il controllo vecchio (98ze, sul documento) viene saltato quando c'e' gia' questo, per non contare due volte. */
+let v26SpendSnap = null;
+window.addEventListener("click", () => {
+  v26SpendSnap = { seeds: S.seeds, xv: XV_IDS.filter((id) => S.owned.includes(id)).length };
+  setTimeout(() => {
+    const sn = v26SpendSnap; v26SpendSnap = null; xvSpendSnap = null; /* il controllo di 98ze, se c'e', non conta di nuovo */
+    if (!sn) return; const d = sn.seeds - S.seeds; if (d <= 0) return;
+    if (XV_IDS.filter((id) => S.owned.includes(id)).length > sn.xv) return;
+    try { const e = econ(); if ((+e.paid || 0) > (+e.spentN || 0)) { e.spentN = (+e.spentN || 0) + d; save(); } } catch (err) { /* niente */ }
+  }, 0);
+}, true);
+/* c) I Tanì che arrivano solo con Tanetto Plus contano come "pagati": non accorciano gli Introvabili (regola del proprietario,
+   M-06, D-05, CR-03): i 750 Tanì al mese e i Tanì del sentiero d'oro della stagione. Il regalo del giorno triplo (x3) di Plus
+   NON e' toccato qui: e' una decisione riservata al proprietario (CHANGES_110.md, DA DECIDERE). */
+const _plusMonthlyV26 = plusMonthly;
+plusMonthly = function (...a) {
+  const r = _plusMonthlyV26.apply(this, a);
+  if (r) { try { const e = econ(); e.paid = (+e.paid || 0) + EC.PLUS_MONTH; save(); } catch (err) { /* niente */ } }
+  return r;
+};
+const _sRewardV26 = sReward;
+sReward = function (tr, n, se) { const r = _sRewardV26(tr, n, se); return r && tr === "g" && r.tani ? Object.assign({}, r, { v26g: 1 }) : r; };
+const _giveRewardV26 = giveReward;
+giveReward = function (r) {
+  const out = _giveRewardV26(r);
+  if (r && r.v26g && r.tani) { try { const e = econ(); e.paid = (+e.paid || 0) + r.tani; save(); } catch (err) { /* niente */ } }
+  return out;
+};
+/* d) Video preparato da troppo tempo (riaprendo l'app dopo ore): prima il primo tocco diceva "Nessuna pubblicita'
+   disponibile" e solo dopo 5 secondi se ne preparava una nuova. Ora si ricarica subito e il tocco aspetta il video (D-09). */
+const _adsLoadV26 = adsLoad;
+adsLoad = function (...a) { if (adsSt.loaded && !adFresh()) adsSt.loaded = false; return _adsLoadV26.apply(this, a); };
+const _adShowV26 = adShow;
+adShow = async function (onReward, src) {
+  if (!adsBusy && adsSt.canRequestAds && adsSt.loaded && !adFresh() && adsLeftToday() > 0) {
+    adsSt.loaded = false; try { await adsLoad(); } catch (e) { /* niente */ }
+  }
+  return _adShowV26(onReward, src);
+};
+
+/* ---------- 7) Regalo del giorno che perdona (M-07, E-01, D-01, D-12) ----------
+   Prima bastava un giorno senza aprire l'app (anche un weekend senza obiettivi, un giorno di riposo o protetto da uno scudo)
+   e il regalo tornava al minimo (18 -> 6 Tanì). Ora:
+   - i giorni liberi (senza obiettivi), di riposo, protetti da uno scudo o con almeno un obiettivo fatto non interrompono la serie;
+   - per ogni giorno saltato davvero la serie scende di 2 invece di ripartire da 1;
+   - se la data torna indietro (viaggio verso ovest, orologio corretto) la serie resta com'e'. */
+visitTick = function () {
+  const t = dkey(); const v = S.visit || { n: 0, last: null }; if (v.last === t) return;
+  if (v.last && t < v.last) return;
+  try { if (typeof useShieldIfNeeded === "function") useShieldIfNeeded(); } catch (e) { /* niente */ }
+  let n = 1;
+  if (v.last) {
+    const c = ldate(v.last); c.setDate(c.getDate() + 1); let missed = 0; const sh = S.shielded || [];
+    for (let i = 0; i < 400 && dkey(c) < t; i++) {
+      const k = dkey(c); const r = (S.days || {})[k];
+      if (!((r && (r.rest || r.free || r.done > 0)) || sh.includes(k))) missed++;
+      c.setDate(c.getDate() + 1);
+    }
+    n = missed === 0 ? (v.n || 0) + 1 : Math.max(1, (v.n || 1) - 2 * missed);
+  }
+  S.visit = { last: t, n }; save();
+};
+
+/* ---------- 8) Memoria del telefono piena (M-08, H-01, H-02) ----------
+   Prima il salvataggio fallito non diceva niente (alla chiusura si perdeva la giornata) e, per fare spazio, si cancellava
+   per prima la copia di sicurezza piu' recente. Ora si accorciano prima registro e conteggi, la copia piu' recente per
+   ultima, e se non basta un avviso (una volta, finche' un salvataggio non riesce di nuovo). */
+const _secFreeSpaceV26 = secFreeSpace;
+secFreeSpace = function (step) { return _secFreeSpaceV26([0, 1, 3, 4, 2][step]); };
+let v26SaveWarned = false;
+const _saveV26 = save;
+save = function (...a) {
+  const r = _saveV26.apply(this, a);
+  if (secSaveOk) v26SaveWarned = false;
+  else if (!v26SaveWarned) { v26SaveWarned = true; setTimeout(() => { try { toast(L().v26.full); } catch (e) { /* niente */ } }, 0); try { track("salvataggio-fallito"); } catch (e) { /* niente */ } }
+  return r;
+};
+
+/* ---------- 9) Backup online con due telefoni (M-06b, CR-02, G1-02) ----------
+   Prima un telefono vecchio, aperto dopo settimane, sovrascriveva in silenzio il backup piu' recente dell'altro telefono
+   (vince l'ultimo che salva) e il ripristino cancellava anche i Tanì comprati dopo l'ultimo backup.
+   a) backup automatico: prima si legge il backup online; se e' piu' recente dell'ultimo fatto da questo telefono ed e'
+      diverso, non si sovrascrive: si chiede quale tenere (la stessa finestra di quando si accede).
+   b) ripristino: i Tanì comprati con soldi veri e non ancora spesi su questo telefono restano (i pagamenti sono gia' chiusi).
+   c) finestre di ripristino e di scelta: livello e Tanì del backup accanto a quelli di questo telefono, e un avviso se il
+      backup ha meno progressi. */
+const _backupNowV26 = backupNow;
+backupNow = function (force) {
+  if (force || !A.uid || !S.pet) return _backupNowV26(force);
+  return (async () => {
+    try {
+      await fbLoad(); const c = await window.TanFB.pull();
+      if (c && c.d && +c.at > (+A.last || 0) + 60e3 && hashStr(c.d) !== A.h) {
+        const st = await unpackState(c.d);
+        if (st && st.pet) { cloudPending = { st, at: c.at }; if (!layer.innerHTML) openChoice(); else setTimeout(() => { if (!layer.innerHTML && cloudPending) openChoice(); }, 4000); return false; }
+      }
+    } catch (e) { return false; }
+    return _backupNowV26(force);
+  })();
+};
+function v26PaidLeft(st) { try { const e = (st && st.econ) || {}; return Math.max(0, (+e.paid || 0) - (+e.spentN || 0)); } catch (e) { return 0; } }
+const _applyCloudV26 = applyCloud;
+applyCloud = function (st, at) {
+  const keep = v26PaidLeft(S); const had = v26PaidLeft(st);
+  const r = _applyCloudV26(st, at);
+  const add = Math.max(0, keep - had);
+  if (add > 0) { try { S.seeds = (+S.seeds || 0) + add; const e = econ(); e.paid = (+e.paid || 0) + add; save(); render(); } catch (e) { /* niente */ } }
+  return r;
+};
+function v26BkLine(st) {
+  const b = L().v26.bk; const nf = (n) => { try { return Math.round(+n || 0).toLocaleString(loc(), NUMG); } catch (e) { return String(Math.round(+n || 0)); } };
+  const line = b.cmp.replace("{a}", nf(st.level || 1)).replace("{b}", nf(st.seeds)).replace("{c}", nf(S.level || 1)).replace("{d}", nf(S.seeds));
+  const less = (+st.level || 1) < (+S.level || 1) || ((+st.level || 1) === (+S.level || 1) && (+st.seeds || 0) < (+S.seeds || 0));
+  return `<p class="small v26bk">${esc(line)}</p>${less ? `<p class="small v26bkless" role="note">${esc(b.less)}</p>` : ""}`;
+}
+const _openChoiceV26 = openChoice;
+openChoice = function (...a) {
+  const r = _openChoiceV26.apply(this, a);
+  try { const c = cloudPending; const box = layer.querySelector(".acbox"); if (c && box && !box.querySelector(".v26bk")) { const p = box.querySelector("p"); if (p) p.insertAdjacentHTML("afterend", v26BkLine(c.st)); } } catch (e) { /* niente */ }
+  return r;
+};
+const _askRestoreV26 = askRestore;
+askRestore = async function (...a) {
+  const r = await _askRestoreV26.apply(this, a);
+  try { const c = restorePending; const box = layer.querySelector(".acbox"); if (c && box && !box.querySelector(".v26bk")) { const p = box.querySelector("p"); if (p) p.insertAdjacentHTML("afterend", v26BkLine(c.st)); } } catch (e) { /* niente */ }
+  return r;
+};
+
+/* ---------- 10) Editor degli obiettivi: "Le modifiche valgono da subito" ora e' vero (M-06c, G2-01) ----------
+   Prima i giorni toccati e gli obiettivi aggiunti o tolti restavano una bozza: uscendo dalla pagina senza "Salva" si
+   perdevano in silenzio. Ora ogni modifica valida (da 3 a 8 obiettivi, ognuno con almeno un giorno) si salva subito,
+   con la stessa logica di "Salva gli obiettivi" (e lo scambio di 6a). "Salva" resta come conferma. */
+function v26GoalsApply() {
+  if (!S.pet || typeof editGoals === "undefined" || !editGoals) return;
+  const list = editGoals; if (list.length < GOALS_MIN || list.length > GOALS_MAX || !list.every((g) => g.days.length)) return;
+  const same = list.length === S.goals.length && list.every((g, i) => S.goals[i] && S.goals[i].id === g.id && S.goals[i].days.join() === g.days.join());
+  if (same) return;
+  const before = todayGoals();
+  S.goals = list.map((g) => ({ id: g.id, days: g.days.slice() }));
+  const tg = todayGoals(); S.done = S.done.filter((g) => tg.includes(g)); const r = dayRec(); r.done = S.done.length;
+  if (S.energy < 100 && tg.length) S.energy = Math.min(100, (S.done.length / tg.length) * 100);
+  v26GoalsInherit(before, tg);
+  ecSaveSnap = { energy: S.energy, day: S.day, away: !!S.away }; save(); econAfterSave();
+  if (!v26GoalsApply.told) { v26GoalsApply.told = 1; setTimeout(() => toast(L().goalsSaved), 0); }
+}
+let v26GoalsBefore = null;
+window.addEventListener("click", (ev) => {
+  const b = ev.target && ev.target.closest && ev.target.closest("button"); if (!b || !S.pet) return;
+  if (b.id === "saveGoals") { v26GoalsBefore = todayGoals(); setTimeout(() => { const bf = v26GoalsBefore; v26GoalsBefore = null; if (bf) v26GoalsInherit(bf, todayGoals()); }, 0); return; }
+  const edit = b.dataset.gday !== undefined || b.id === "addGoal" || (b.dataset.goal !== undefined && b.classList.contains("chip"));
+  if (edit && typeof editGoals !== "undefined") setTimeout(() => { try { v26GoalsApply(); } catch (e) { /* niente */ } }, 0);
+}, true);
+
+/* ---------- 11) Coreano: particelle giuste dopo i nomi (C-07) ----------
+   Prima si vedevano le forme doppie "Germo이(가)", "은(는)", "을(를)"... (48 frasi). koJ sceglie la forma giusta guardando
+   l'ultima lettera prima della particella (sillaba coreana con o senza consonante finale; per le lettere latine: vocale o no).
+   Si usa in esc() (45_state.js, tutto il testo delle pagine), negli avvisi, nei promemoria e, come ultima rete, sul testo
+   che compare nella pagina. */
+function koJ(s) {
+  return String(s).replace(/([가-힣A-Za-z0-9])(이\(가\)|은\(는\)|을\(를\)|와\(과\)|과\(와\)|\(으\)로|아\(야\)|\(이\)?예요|이에요\(예요\))/g, (m, c, p) => {
+    const k = c.charCodeAt(0); let b;
+    if (k >= 0xAC00 && k <= 0xD7A3) { const j = (k - 0xAC00) % 28; b = j === 0 ? "v" : j === 8 ? "l" : "c"; } else b = /[aeiouyAEIOUY]/.test(c) ? "v" : /[lL]/.test(c) ? "l" : /[0-9]/.test(c) ? ("2459".includes(c) ? "v" : c === "1" || c === "7" || c === "8" ? "l" : "c") : "c";
+    if (p === "(으)로") return c + (b === "c" ? "으로" : "로");
+    if (p === "(이)예요" || p === "이에요(예요)") return c + (b === "v" ? "예요" : "이에요");
+    const P = { "이(가)": ["가", "이"], "은(는)": ["는", "은"], "을(를)": ["를", "을"], "와(과)": ["와", "과"], "과(와)": ["와", "과"], "아(야)": ["야", "아"] }[p];
+    return c + (b === "v" ? P[0] : P[1]);
+  });
+}
+const _toastV26 = toast;
+toast = function (msg, ...a) { return _toastV26.call(this, S && S.lang === "ko" ? koJ(msg) : msg, ...a); };
+(() => {
+  const x = V19N.ko; if (!x) return; const base = x.msgs.slice(); const nm = () => S.petName || "";
+  Object.defineProperty(x, "msgs", { configurable: true, get: () => base.map((m) => koJ(m.split("{n}").join(nm()))) });
+  ["streak", "last", "trip"].forEach((k) => { const f = x[k]; if (typeof f === "function") x[k] = (...a) => koJ(f(...a)); });
+  if (T.ko && T.ko.v12) { const rt = T.ko.v12.remTitle; T.ko.v12.remTitle = (n) => koJ(rt(n)); }
+})();
+/* ultima rete: testo comparso nella pagina (anche quello scritto senza esc) */
+const V26_KO_RE = /[가-힣A-Za-z0-9](이\(가\)|은\(는\)|을\(를\)|와\(과\)|과\(와\)|\(으\)로|아\(야\))/;
+function v26KoFix(root) {
+  if (!S || S.lang !== "ko" || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) if (V26_KO_RE.test(n.nodeValue)) n.nodeValue = koJ(n.nodeValue);
+  if (root.querySelectorAll) root.querySelectorAll("[aria-label]").forEach((e) => { const v = e.getAttribute("aria-label"); if (V26_KO_RE.test(v)) e.setAttribute("aria-label", koJ(v)); });
+}
+new MutationObserver((ms) => { if (!S || S.lang !== "ko") return; ms.forEach((m) => { if (m.type === "characterData") { if (V26_KO_RE.test(m.target.nodeValue)) m.target.nodeValue = koJ(m.target.nodeValue); } else m.addedNodes.forEach((a) => { if (a.nodeType === 3) { if (V26_KO_RE.test(a.nodeValue)) a.nodeValue = koJ(a.nodeValue); } else v26KoFix(a); }); }); })
+  .observe(document.body, { childList: true, subtree: true, characterData: true });

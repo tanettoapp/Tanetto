@@ -545,13 +545,13 @@ const V19W_TXT = {
     library: { name: "Floating Library", desc: "Books drifting among the clouds", cards: [
       ["A Staircase of Books", "{n} climbed a staircase made of books, one step at a time, all the way up to the clouds."],
       ["Paper Birds", "A flock of paper birds fluttered out of an open book. One landed on {n}'s nose for a moment."],
-      ["The Reading Nook", "On a soft cloud sat a cozy armchair and a glowing lamp. {n} curled up there and leafed through stories."],
+      ["The Reading Nook", "On a soft cloud sat a cosy armchair and a glowing lamp. {n} curled up there and leafed through stories."],
       ["The Golden Book", "Among a thousand books, one shone brighter than the rest: a golden book full of sparkles. {n} opened it and found a brand-new story."]
     ] },
-    crystal: { name: "Crystal Garden", desc: "Flowers and stones that shimmer in every color", cards: [
+    crystal: { name: "Crystal Garden", desc: "Flowers and stones that shimmer in every colour", cards: [
       ["Crystal Flowers", "In a quiet meadow, {n} heard crystal flowers chime in the breeze like tiny bells."],
       ["The Prism", "{n} held a prism up to a sunbeam, and the light spilled across the meadow as a rainbow."],
-      ["The Glittering Cave", "Inside the crystal cave, every step {n} took lit up little colored glints on the walls."],
+      ["The Glittering Cave", "Inside the crystal cave, every step {n} took lit up little coloured glints on the walls."],
       ["The Crystal Heart", "At the top of the garden, a heart-shaped crystal rested on a pedestal. When {n} touched it, it glowed a soft pink."]
     ] },
     starsea: { name: "Sea of Stars", desc: "A night sea that mirrors the sky", cards: [
@@ -561,13 +561,13 @@ const V19W_TXT = {
       ["The Starry Whale", "A gentle whale covered in stars leapt out of the sea. For one moment, {n} saw the sky swim."]
     ] },
     sugar: { name: "Sugar Castle", desc: "A pastel castle made of sweets", cards: [
-      ["Lollipop Trees", "{n} strolled through a forest of giant lollipops, all swirls and every color you can think of."],
+      ["Lollipop Trees", "{n} strolled through a forest of giant lollipops, all swirls and every colour you can think of."],
       ["The Cocoa River", "Soft marshmallows bobbed along a river of hot cocoa. {n} caught one as it floated by."],
       ["Cotton-Candy Clouds", "Pink and blue cotton-candy clouds drifted over the castle. {n} tasted just a tiny piece."],
       ["The Cake Tower", "In the castle courtyard stood a cake as tall as a tower, with a cherry on top. It was the sweetest party {n} ever had."]
     ] },
     aurora: { name: "Aurora Plains", desc: "Snowy plains beneath the northern lights", cards: [
-      ["The Glowing Igloo", "In the snow, {n} found an igloo with a warm little light at the door. Inside, it was perfectly cozy."],
+      ["The Glowing Igloo", "In the snow, {n} found an igloo with a warm little light at the door. Inside, it was perfectly cosy."],
       ["Curtains of Light", "Above the hills, the aurora swayed like green and violet curtains. {n} watched without a word."],
       ["The Frozen Lake", "On the frozen lake, {n} skated among the pines, drawing loops and swirls on the ice."],
       ["The Aurora Ring", "That night the aurora wrapped a rainbow ring around the moon. {n} looked up and knew it was a very special hello."]

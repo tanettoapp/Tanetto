@@ -743,7 +743,7 @@ const NAV20_FOUNDERP = {
   fr: "Tu étais là dès la toute première saison, la Saison des Lanternes : ce badge et la lanterne dorée sont à toi pour toujours.",
   pt: "Você está aqui desde a primeira temporada, a Temporada das Lanternas: este emblema e a lanterna dourada são seus para sempre.",
   ja: "最初のシーズン「ランタンのシーズン」から一緒にいてくれたあなたへ。このバッジと金のランタンは、ずっとあなたのものです。",
-  ko: "첫 시즌인 등불 시즌부터 함께했어요. 이 배지와 황금 등불은 영원히 당신의 것이에요.",
+  ko: "첫 시즌인 등불 시즌부터 함께했어요. 이 배지와 황금 등불은 영원히 네 거예요.",
   zh: "你从第一个季节“灯笼季”就在这里了。这枚徽章和金灯笼永远属于你。",
   zht: "你從第一個季節「燈籠季」就在這裡了。這枚徽章和金燈籠永遠都是你的。",
   ru: "Ты с нами с самого первого сезона — Сезона фонариков: этот значок и золотой фонарик останутся с тобой навсегда.",

@@ -6,7 +6,7 @@ T.es.waveIn = "Mantén pulsado e inhala";
 T.es.waveOut = "Suelta y exhala";
 T.es.goalsEditP = "De 3 a 8. Los cambios se aplican al momento.";
 T.es.trackL = "Ahora suena";
-T.es.gameEnd = (n) => `¡Has conseguido ${n} puntos!`;
+T.es.gameEnd = (n) => (n === 1 ? "¡Has conseguido 1 punto!" : `¡Has conseguido ${n} puntos!`);
 T.es.shareFallback = "Mantén pulsada la imagen para guardarla y compartirla donde quieras.";
 T.es.play.danceSay[1] = "¡La música me da ganas de bailar!";
 T.es.play.hideMiss[1] = "Frío, frío... ¡prueba en otro sitio!";

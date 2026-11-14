@@ -54,6 +54,8 @@ function secFixTypes(o) {
   const arr = (k, keep) => { const v = o[k]; if (v === undefined) return; if (!Array.isArray(v)) { F(k, []); return; } const a = v.filter(keep); if (a.length !== v.length) F(k, a); };
   const obj = (k, def) => { const v = o[k]; if (v === undefined) return; if (!secIsObj(v)) F(k, def()); };
   const isStr = (x) => typeof x === "string";
+  /* 1.0.10 (H-17): un saldo scritto come testo ("1e99") non si trasforma in un numero enorme: torna al valore di partenza */
+  ["seeds", "xp", "level"].forEach((k) => { if (typeof o[k] === "string") F(k, k === "level" ? 1 : 0); });
   num("v", 3); num("seeds", 0, 0, 1e9, true); num("xp", 0, 0, 1e8, true); num("level", 1, 1, 1000, true); num("energy", 0, 0, 100);
   num("joy", 40, 0, 100); num("joyAt", Date.now()); num("onboard", 0, 0, 20, true); num("tut", 0); num("letterN", 0, 0, 1e6, true); num("track", 0);
   num("shields", 0, 0, 1000, true);

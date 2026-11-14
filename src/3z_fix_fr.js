@@ -7,7 +7,7 @@ T.fr.got = "Il a rapporté";
 T.fr.questions[1] = "Pour quoi aimerais-tu dire merci aujourd'hui ?";
 T.fr.resetAsk = "Vraiment ? Le compagnon, les progrès et le journal seront effacés.";
 T.fr.stories.mountain[0][1] = "Au sommet, les nuages étaient sous les petites pattes de {n}. C'était comme marcher sur du lait.";
-T.fr.gameEnd = (n) => `Tu as marqué ${n} points !`;
+T.fr.gameEnd = (n) => (n === 1 ? "Tu as marqué 1 point !" : `Tu as marqué ${n} points !`);
 T.fr.letters[0] = "Coucou ! Je suis trop content de te connaître. À partir d'aujourd'hui, on se tient compagnie, pas à pas.";
 T.fr.tut[0] = "Voici {n} ! Touche-le pour lui faire un câlin, ou caresse-le en faisant glisser ton doigt.";
 T.fr.tut[2] = "Ici, tu peux lui donner un goûter, jouer, parler, le mettre au dodo ou le prendre en photo.";

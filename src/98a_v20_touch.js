@@ -28,7 +28,7 @@ const V20T_TX = {
   en: {
     head: ["Mmm, what a gentle pat...", "More on my little head!", "I'm so happy my eyes close by themselves."],
     side: ["Hehe, not my sides!", "You know I'm ticklish!", "Haha, you're making me laugh!"],
-    belly: ["Belly rubs! My favorite.", "I could roll around with joy!", "Happy tummy, happy me!"],
+    belly: ["Belly rubs! My favourite.", "I could roll around with joy!", "Happy tummy, happy me!"],
     feet: ["Hop! My toes are ticklish!", "A little hop just for you!", "Boing! I'm so bouncy!"],
     spam: ["Easy, easy, that tickles!", "Hehe, wait, let me catch my breath!"],
     trick: ["Watch what I can do!", "Ta-da! That one's for you."],

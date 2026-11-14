@@ -6,7 +6,8 @@ const CALM = (() => { try { return !!JSON.parse(localStorage.getItem(KEY) || "{}
 const anim = !!G && !REDUCED && !CALM;
 function guessLang() { const n = (navigator.language || "en").toLowerCase(); if (/^zh-(tw|hk|mo)|hant/.test(n) && T.zht) return "zht"; const l = n.slice(0, 2); return T[l] ? l : "en"; }
 function dkey(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+/* 1.0.10 (C-07): in coreano le particelle "이(가)", "은(는)"... si scelgono in base al nome (koJ, 98zk) */
+const esc = (s) => (typeof S !== "undefined" && S && S.lang === "ko" ? koJ(String(s)) : String(s)).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
 const fresh = () => ({ v: 3, lang: guessLang(), theme: "system", pet: null, petName: "", goals: [], day: dkey(), done: [], energy: 0, xp: 0, level: 1, seeds: 20, owned: ["w_cream"], hat: null, furn: [], wall: "w_cream", away: null, cards: [], diary: [], days: {}, giftDay: null, onboard: 0, sfx: true, music: false, season: { key: null, n: 0, claimed: false }, joy: 40, joyAt: Date.now(), garden: [], log: [], capsules: [], fed: { day: null, n: 0 }, game: { day: null, seeds: 0, best: 0 }, lightsOff: false, tut: 0, firstDay: null, haptic: true, letterDay: null, letterN: 0, visit: { last: null, n: 0 }, track: 0, tracked: {} });
 /* 1.0.9: un salvataggio rovinato non viene MAI sostituito in silenzio da un cucciolo nuovo.

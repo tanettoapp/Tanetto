@@ -70,7 +70,7 @@ const XV = {
     items: { x_crown: "Корона северного сияния", x_cloak: "Плащ кометы", x_tree: "Дерево желаний", x_fountain: "Лунный фонтан", x_galaxy: "Галактика", x_aura: "Звёздная аура" } },
   pl: { chip: "Unikatowy", title: "Unikaty", intro: "Najpiękniejsze rzeczy w całym sklepie. Można je zdobyć tylko za Tanì, długo oszczędzając: to ukoronowanie wielu miesięcy dbania o siebie.",
     have: (a, b) => `Masz ${a} z ${b} Tanì`, pace: (n) => (n < 60 ? `W dzisiejszym tempie: około ${n} dni` : `W dzisiejszym tempie: około ${Math.round(n / 30.4)} mies.`), owned: (n, m) => `Masz ${n} z ${m}`, plusNo: "Plus nie daje zniżki: dla wszystkich cena jest taka sama.",
-    wishSet: "Ustaw jako marzenie", wishIs: "Twoje marzenie", wishL: "Twoje marzenie: ", mile: (p, n) => `Masz już ${p}% drogi do: ${n}!`, back: (n) => `Twoje marzenie oddali się o około ${n} dni`,
+    wishSet: "Ustaw jako marzenie", wishIs: "Twoje marzenie", wishL: "Twoje marzenie: ", mile: (p, n) => `Masz już ${p}% drogi do: ${n}!`, back: (n) => (n === 1 ? "Twoje marzenie oddali się o około 1 dzień" : `Twoje marzenie oddali się o około ${n} dni`),
     paidOnly: "Tanì z pakietów działają w całym sklepie oprócz Unikatów: te kupisz tylko za Tanì zdobyte dzięki dbaniu o siebie.", paidBlock: "Unikaty kupisz tylko za Tanì zdobyte dzięki dbaniu o siebie.",
     items: { x_crown: "Korona zorzy", x_cloak: "Płaszcz komety", x_tree: "Drzewo życzeń", x_fountain: "Księżycowa fontanna", x_galaxy: "Galaktyka", x_aura: "Gwiezdna aura" } },
   nl: { chip: "Onvindbaar", title: "Onvindbare schatten", intro: "De mooiste dingen van de hele winkel. Je krijgt ze alleen met Tanì, door lang te sparen: ze bekronen vele maanden zorg voor jezelf.",

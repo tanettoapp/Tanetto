@@ -244,7 +244,7 @@ document.addEventListener("submit", (ev) => {
   ev.preventDefault();
   const t = L(); const text = document.getElementById("line").value.trim();
   if (!text && mood == null) return;
-  S.diary.push({ day: dkey(), mood, text, q: t.questions[Math.floor(Date.now() / 86400000) % t.questions.length] });
+  S.diary.push({ day: dkey(), mood, text, q: t.questions[Math.floor(new Date(dkey() + "T12:00:00").getTime() / 86400000) % t.questions.length] }); /* 1.0.10 (D-02): giorno locale */
   if (S.diary.length > 400) S.diary.shift();
   mood = null; save(); SND.play("coin");
   if (todayGoals().includes("journal") && !S.done.includes("journal")) { tab = "today"; render(); window.scrollTo(0, 0); completeGoal("journal"); toast(t.saved); return; }
