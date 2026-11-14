@@ -130,6 +130,8 @@ function feedLeft() { return FEED_MAX - (today(S.fed) ? S.fed.n : 0); }
 function gameSeedsLeft() { return GAME_SEEDS_MAX - (today(S.game) ? S.game.seeds : 0); }
 function track(path) {
   if (!GC_CODE) return;
+  /* 1.0.10 (M-11): interruttore delle statistiche, spente per minori ed eta' non detta, niente prima della risposta sull'eta' (98zk) */
+  if (typeof v26TrackGate === "function" && !v26TrackGate(path)) return;
   try { const i = new Image(); i.src = `https://${GC_CODE}.goatcounter.com/count?p=${encodeURIComponent("/" + path)}&e=true&rnd=${Math.random().toString(36).slice(2)}`; } catch (e) { /* niente */ }
 }
 function trackOnce(name) { const t = dkey(); S.tracked = S.tracked || {}; if (S.tracked[name] === t) return; S.tracked[name] = t; save(); track(name); }
