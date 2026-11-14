@@ -17,6 +17,8 @@ nav20plusDue = function (why) { if (v26Young()) return false; return _nav20plusD
    La finestra "tutto fatto" puo' aprirsi piu' tardi (coda delle finestre, 98f): il pulsante si toglie quando compare. */
 new MutationObserver(() => { try { if (layer.querySelector(".alldone #invite") && v26Young()) layer.querySelectorAll(".alldone #invite").forEach((x) => x.remove()); } catch (e) { /* niente */ } })
   .observe(layer, { childList: true, subtree: true });
+/* b2) richiesta di recensione su Google Play: mai ai giovani ne' a chi non ha detto l'eta' (come la 1.0.10 di sicurezza) */
+if (typeof rev20Allowed === "function") { const _rev20AllowedV26 = rev20Allowed; rev20Allowed = function (...a) { if (v26Young()) return false; return _rev20AllowedV26.apply(this, a); }; }
 /* c) prima configurazione: l'eta' si chiede dopo, quindi la fila dei compagni Plus (con le corone) non si mostra a chi non
    risulta adulto; i compagni Plus restano nella scelta del compagno (Profilo), con la loro etichetta "Tanetto Plus" */
 const _viewOnboardV26 = viewOnboard;
@@ -522,3 +524,98 @@ function v26KoFix(root) {
 }
 new MutationObserver((ms) => { if (!S || S.lang !== "ko") return; ms.forEach((m) => { if (m.type === "characterData") { if (V26_KO_RE.test(m.target.nodeValue)) m.target.nodeValue = koJ(m.target.nodeValue); } else m.addedNodes.forEach((a) => { if (a.nodeType === 3) { if (V26_KO_RE.test(a.nodeValue)) a.nodeValue = koJ(a.nodeValue); } else v26KoFix(a); }); }); })
   .observe(document.body, { childList: true, subtree: true, characterData: true });
+
+/* ---------- 12) Accessibilita' (M-24..M-28, F-01..F-13) e misure (M-29..M-35) ---------- */
+/* a) F-02 / F-10: la nuvoletta del compagno non annuncia piu' ogni lettera ne' le frasi "a riposo". Una regione nascosta
+   (#v26live) legge UNA volta la frase intera, solo se arriva subito dopo un tocco della persona; e dice anche i Tanì
+   guadagnati o spesi con un tocco ("+5 Tanì, 645 in tutto"). */
+let v26TouchAt = 0;
+["pointerdown", "keydown"].forEach((n) => document.addEventListener(n, () => { v26TouchAt = Date.now(); }, true));
+let v26LiveT = 0;
+function v26Live(msg) {
+  const el = document.getElementById("v26live"); if (!el || !msg) return;
+  el.textContent = ""; clearTimeout(v26LiveT); v26LiveT = setTimeout(() => { el.textContent = S && S.lang === "ko" ? koJ(msg) : msg; }, 120);
+}
+const _sayV26 = say;
+say = function (text, ...a) {
+  const r = _sayV26.call(this, text, ...a);
+  if (text && Date.now() - v26TouchAt < 1500) v26Live(`${S.petName || ""}: ${text}`);
+  return r;
+};
+let v26SeedsSeen = null;
+const _econShowV26 = econShow;
+econShow = function (...a) {
+  const r = _econShowV26.apply(this, a);
+  try { const d = S.seeds - (v26SeedsSeen == null ? S.seeds : v26SeedsSeen); if (d && Date.now() - v26TouchAt < 3000) { const nf = (n) => Math.round(n).toLocaleString(loc(), NUMG); v26Live(`${d > 0 ? "+" : "−"}${nf(Math.abs(d))} Tanì · ${nf(S.seeds)} Tanì`); } } catch (e) { /* niente */ }
+  v26SeedsSeen = S.seeds; return r;
+};
+/* b) F-03: avviso (toast) sempre presente per i lettori di schermo; il testo arriva al fotogramma dopo (cosi' viene letto)
+   e resta almeno 4 secondi (piu' a lungo se e' lungo). */
+const _toastBaseV26 = toast;
+toast = function (msg, ...a) {
+  const el = document.getElementById("toast"); if (!el) return _toastBaseV26.call(this, msg, ...a);
+  const m = S && S.lang === "ko" ? koJ(msg) : msg;
+  el.hidden = false; el.textContent = ""; clearTimeout(toastTimer);
+  requestAnimationFrame(() => { el.textContent = m; el.classList.add("v26on"); });
+  toastTimer = setTimeout(() => { el.hidden = true; el.classList.remove("v26on"); }, Math.max(4000, 60 * String(m || "").length));
+};
+/* c) F-01: negozio e viaggi fuori dallo schermo (il telefono non li disegna finche' non si scorre): nome sempre leggibile */
+function v26Names(root) {
+  (root || document).querySelectorAll(".grid3 > .item, .grid3 > button, button.dest, .dest > button").forEach((b) => {
+    if (b.hasAttribute("aria-label") || !b.matches("button")) return;
+    const txt = (b.textContent || "").replace(/\s+/g, " ").trim(); if (txt) b.setAttribute("aria-label", txt);
+  });
+}
+/* d) F-05: suggerimenti della prima volta = finestra: il resto dell'app non si raggiunge con Tab o TalkBack */
+const _fmDialogV26 = fmDialog;
+fmDialog = function () { return _fmDialogV26() || document.querySelector(".tutwrap .tutbox"); };
+/* e) F-11: immagini 3D dei momenti importanti con una descrizione (prima alt="") */
+function v26MomentAlt(root) {
+  (root || document).querySelectorAll("img.i3d.mom:not([alt]), img.i3d.mom[alt='']").forEach((i) => { i.alt = S.petName || ""; });
+}
+/* f) M-54 / G-11: l'entrata morbida delle pagine non lascia ascoltatori appesi (prima +10 a ogni cambio di scheda) */
+viewEnter = function (items, dx) {
+  items.forEach((el, i) => {
+    if (el.__v26ve) { el.removeEventListener("animationend", el.__v26ve); el.removeEventListener("animationcancel", el.__v26ve); el.__v26ve = null; }
+    if (!anim) { el.classList.remove("venter"); return; }
+    el.style.setProperty("--vi", i); el.style.setProperty("--vdx", dx * 0.6 + "px"); el.style.setProperty("--vdy", (dx ? 4 : 12) + "px");
+    el.classList.remove("venter"); el.classList.add("venter");
+    const done = (ev) => { if (ev.target !== el) return; el.classList.remove("venter"); el.style.removeProperty("--vi"); el.style.removeProperty("--vdx"); el.style.removeProperty("--vdy"); el.removeEventListener("animationend", done); el.removeEventListener("animationcancel", done); el.__v26ve = null; };
+    el.__v26ve = done; el.addEventListener("animationend", done); el.addEventListener("animationcancel", done);
+  });
+};
+/* g) M-35 / B-11: Tanì in alto in forma corta (99,9K) quando il numero e' grande e lo schermo stretto; il valore intero
+   resta nella pagina dei Tanì e nei negozi */
+const v26SeedFmt = (n) => {
+  const v = Math.round(n); const big = v >= 100000 || (v >= 10000 && window.innerWidth < 400);
+  try { if (big) return v.toLocaleString(loc(), { notation: "compact", maximumFractionDigits: 1, roundingMode: "trunc" }); return v.toLocaleString(loc(), NUMG); } catch (e) { return String(v); }
+};
+const _countUpV26 = countUp;
+countUp = function (el, from, to) {
+  if (!el || el.id !== "seedN") return _countUpV26(el, from, to);
+  const f = el.dataset.v26 != null && el.textContent === el.dataset.v26t ? +el.dataset.v26 : from;
+  _countUpV26(el, f, to);
+  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent; };
+  if (!anim || f == null || f === to) fix(); else setTimeout(fix, 1300);
+};
+econShow = (function (prev) {
+  return function (...a) {
+    const el = document.getElementById("seedN");
+    if (el && el.dataset.v26 != null && el.textContent === el.dataset.v26t) el.textContent = Math.round(+el.dataset.v26).toLocaleString(loc(), NUMG);
+    return prev.apply(this, a);
+  };
+})(econShow);
+/* h) M-32 / B-06 / F-13: Plus con caratteri grandi: se la parte fissa in basso (piani + pulsante) occupa piu' del 45% della
+   finestra, scorre con il resto (prima a 2x copriva tutto) */
+function v26PlusSticky() {
+  const box = layer.querySelector(".plusbox"); const st = box && box.querySelector(".plussticky"); if (!st) return;
+  st.classList.remove("v26static"); if (st.offsetHeight > box.clientHeight * 0.45) st.classList.add("v26static");
+}
+/* i) B-10: tastiera "Avanti" nei campi del nome */
+function v26Hints(root) { (root || document).querySelectorAll("#userName, #petName").forEach((i) => { if (!i.hasAttribute("enterkeyhint")) i.setAttribute("enterkeyhint", "next"); }); }
+/* tutto dopo ogni disegno della pagina e quando si apre una finestra */
+function v26After(root) { try { v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
+const _renderV26 = render;
+render = function (...a) { const r = _renderV26.apply(this, a); v26After(document.getElementById("app")); return r; };
+new MutationObserver(() => v26After(layer)).observe(layer, { childList: true });
+window.addEventListener("resize", () => { try { v26PlusSticky(); } catch (e) { /* niente */ } });

@@ -310,7 +310,7 @@ function showTutStep() {
     document.querySelectorAll(".tutwrap").forEach((x) => x.remove());
     const r = el.getBoundingClientRect(); const pad = 8;
     const w = document.createElement("div"); w.className = "tutwrap";
-    w.innerHTML = `<div class="tutblock"></div><div class="tutring" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div><div class="tutbox card" role="dialog" aria-live="polite"><p>${esc(t.tut[i].split("{n}").join(S.petName))}</p><div class="row"><button class="link" id="tutSkip">${t.tutSkip}</button><span class="spacer"></span><span class="small muted">${i + 1}/${TUT_TARGETS.length}</span><button class="btn small" id="tutNext">${last ? t.tutDone : t.tutNext}</button></div></div>`;
+    w.innerHTML = `<div class="tutblock"></div><div class="tutring" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div><div class="tutbox card" role="dialog" aria-modal="true" aria-labelledby="tutTx"><p id="tutTx">${esc(t.tut[i].split("{n}").join(S.petName))}</p><div class="row"><button class="link" id="tutSkip">${t.tutSkip}</button><span class="spacer"></span><span class="small muted">${i + 1}/${TUT_TARGETS.length}</span><button class="btn small" id="tutNext">${last ? t.tutDone : t.tutNext}</button></div></div>`;
     document.body.appendChild(w);
     const box = w.querySelector(".tutbox"); const bh = box.offsetHeight; const vh = window.innerHeight;
     const below = r.bottom + pad + 14; const top = below + bh < vh - 10 ? below : Math.max(10, r.top - pad - 14 - bh);

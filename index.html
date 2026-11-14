@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-+JR/H0movaoXPg/DpRCuJ7h/1FwwUMpAaztjHY+v/78=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-u2AD4SqvNfzE0GK/SIDML/9yrMX/XJbQCsj6pJG1kHU=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -3013,12 +3013,114 @@ html.bigtext .plussticky { position: static; box-shadow: none; margin-bottom: 0;
 /* Plus per i minori: il risparmio, senza nastro, su una riga sua sotto il prezzo al mese (mai spezzato) */
 .plan small .psave { display: block; white-space: nowrap; }
 
+/* =================== 1.0.10: accessibilita', misure e parole (AUDIT_110.md) =================== */
+
+/* --- M-21 / C-18 / C-21 / C-24 / C-25: niente parole spezzate a meta' ---
+   Si va a capo con il trattino solo nelle parole di almeno 10 lettere, con almeno 4 lettere per parte (prima "Ot-ter",
+   "Spross-geist", "корот-кую"); etichette, pulsanti, badge e testi dei giochi non si spezzano mai; il coreano va a capo
+   solo tra le parole (eojeol), come si scrive. */
+html { hyphenate-limit-chars: 10 4 4; -webkit-hyphenate-limit-before: 4; -webkit-hyphenate-limit-after: 4; }
+.rar, .tag, .penough, .btn, .chip, .pill, .seg, .choice .ds, .choice .lk, .choice .nm, .hubcard small, .hubcard span, .hubcard b, .nvtx, .xmprice, .pbadge, .ppop, .psave {
+  hyphens: manual; -webkit-hyphens: manual;
+}
+.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* --- M-22b / G2-08: informativa e condizioni non piu' larghe dello schermo (testo tagliato a destra sotto i 375 px) --- */
+.doc, .docbox, .docbox * { overflow-wrap: anywhere; min-width: 0; }
+.docbox { max-width: 100%; box-sizing: border-box; }
+
+/* --- M-23 / F-04: contrasto almeno 4,5:1 (misurato sui pixel) --- */
+.top .name { color: color-mix(in srgb, var(--accent) 74%, #000); }
+.greet .gd, .greet.g19 .gd { color: #574F49; }
+#trpK { color: #85560F; }
+#lT { color: #93472F; }
+.trips p.muted, .card.trips p.muted, .tr20intro p.muted, p.muted.trintro { color: #5C544E; }
+.svstar { color: #A86F12; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .top .name { color: var(--accent); }
+  :root:not([data-theme="light"]) .greet .gd, :root:not([data-theme="light"]) .greet.g19 .gd { color: var(--muted); }
+  :root:not([data-theme="light"]) #trpK { color: #F2C46D; }
+  :root:not([data-theme="light"]) #lT { color: #F0A890; }
+  :root:not([data-theme="light"]) .svstar { color: #F2C46D; }
+}
+:root[data-theme="dark"] .top .name { color: var(--accent); }
+:root[data-theme="dark"] .greet .gd, :root[data-theme="dark"] .greet.g19 .gd { color: var(--muted); }
+:root[data-theme="dark"] #trpK { color: #F2C46D; }
+:root[data-theme="dark"] #lT { color: #F0A890; }
+:root[data-theme="dark"] .svstar { color: #F2C46D; }
+
+/* --- F-12: campi di testo con un anello di fuoco ben visibile, non solo il bordo colorato --- */
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* --- F-14: niente scritte sotto i 12 px; prezzi e risparmio almeno 13 px --- */
+.tabs .tab span, .tabsx button, .rar, .pill small, .lvpill, .tr20pick small, .pack small, .penough { font-size: max(12px, 1em); }
+.plusbox .plans small, .plusbox .psave, .plusbox .ppop { font-size: max(13px, .8125rem); }
+
+/* --- F-09: calendario del diario, stato anche con un segno (non solo con il colore) --- */
+.cal .d { position: relative; }
+.cal .d.l3::after { content: "✓"; position: absolute; right: 1px; top: -3px; font-size: 10px; font-weight: 800; line-height: 1; }
+.cal .d.l1::after, .cal .d.l2::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; opacity: .8; }
+.cal .d.l2::after { margin-left: -5px; box-shadow: 6px 0 0 currentColor; }
+.cal .d.rest { box-shadow: inset 0 0 0 2px var(--line); outline: 1px dashed var(--muted); outline-offset: -4px; }
+
+/* --- M-31 / B-03: avviso largo quanto serve (prima al massimo meta' schermo, 4-5 righe) e mai sopra la barra "Compra" --- */
+.toast { left: 16px; right: 16px; transform: none; width: fit-content; max-width: calc(100% - 32px); margin-inline: auto; border-radius: 18px; text-align: center; }
+body:has(.trybar:not([hidden])) .toast, body:has(.departbar:not([hidden])) .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+.toast.v26on { animation: none; }
+
+/* --- M-29 / B-01 / B-02 / B-10: tastiera aperta, il campo resta visibile ---
+   (la barra in basso e quella dell'inizio si tolgono di mezzo finche' si scrive) */
+html { scroll-padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+.stack:has(#customGoal:focus) .sticky { position: static; background: none; box-shadow: none; }
+body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), textarea, select):focus) :is(.tabs, .departbar, .trybar) { display: none; }
+#userName, #petName, #customGoal, #line, #capsIn { scroll-margin-bottom: 120px; }
+
+/* --- M-30 / B-04 / B-05: tutto quello che si tocca e' almeno 48 dp (anche dove il disegno e' piu' piccolo) --- */
+.btn.small, .link, .chip, .tabsx button, .seg, .scn { min-height: 48px; }
+.iconbtn { position: relative; }
+.iconbtn::after { content: ""; position: absolute; inset: -4px; }
+.top .lvpill::before, .top .pillbtn::before { content: ""; position: absolute; inset: -9px -3px; }
+.nvi { position: relative; }
+.nvi::after { content: ""; position: absolute; inset: -7px; }
+.tr20i { position: relative; }
+.tr20i::before { content: ""; position: absolute; inset: -7px; }
+.pathbox .plk { position: relative; }
+.pathbox .plk::after { content: ""; position: absolute; inset: -9px -7px; }
+.inlink { position: relative; }
+.inlink::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%); }
+.plegal .inlink { padding: 12px 4px; }
+.namecard .ncx { width: 48px; height: 48px; top: 2px; right: 2px; }
+.gr20pill { position: relative; }
+.gr20pill::before { content: ""; position: absolute; inset: -11px 0; }
+.mood { min-width: 48px; }
+@media (max-width: 380px) {
+  .arrb { width: 40px; height: 40px; position: relative; }
+  .arrb::after { content: ""; position: absolute; inset: -4px; }
+}
+
+/* --- M-32 / B-06 / F-13: Plus a caratteri grandi, la parte fissa in basso non copre piu' tutto --- */
+.plussticky.v26static { position: static; box-shadow: none; }
+
+/* --- M-33 / B-07: stanza a schermo intero, la fila delle scene non passa sotto i pulsanti in alto a destra --- */
+.roomwrap.full .fulltop .scns { margin-right: 104px; }
+
+/* --- M-34 / B-08: schermi larghi, l'intestazione resta ferma cambiando scheda --- */
+html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+
+/* --- M-35 / B-11: nome del compagno leggibile anche con tanti Tanì --- */
+.top .namebtn { min-width: 72px; }
+
+/* --- F-08: la nuvoletta del compagno non sembra un pulsante (il tocco sul compagno resta) --- */
+#bubble { cursor: default; }
+
 </style>
 
 <div id="boot" aria-hidden="true"><div class="bootlogo"><img src="data:image/webp;base64,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" alt="" width="132" height="132"></div><b>Tanetto</b><span class="bdots"><i></i><i></i><i></i></span></div>
 <main class="app" id="app"></main>
 <nav class="tabs" id="tabs" hidden aria-label="Menu"><div class="in" id="tabsIn"></div></nav>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<span class="sr" id="v26live" aria-live="polite"></span>
 <div id="layer"></div>
 
 <script>
@@ -22711,6 +22813,8 @@ const V26T = {
   soft: "Sembra una cosa pesante da portare. Come stai, davvero? Se ti sembra tutto troppo difficile, puoi sempre parlarne con una persona di cui ti fidi, oppure chiamare uno di questi numeri:",
   sheet: { t: "{n} è qui con te", talk: "Parla con {n}" },
   more: "Altri Paesi: trova una linea di aiuto gratuita su findahelpline.com",
+  where: "Per disdire: Google Play › Abbonamenti.",
+  faq: { t: "Risposte veloci", qa: [["Come disdico la prova gratuita o Tanetto Plus?", "In Google Play › Abbonamenti › Tanetto Plus › Annulla abbonamento. Se disdici durante i 7 giorni gratis non paghi niente. Tanetto non può disdire al posto tuo."], ["Ho cambiato telefono: come ritrovo il mio compagno?", "Con un account gratuito (Profilo › Account e dati) Tanetto tiene un backup online: accedi sul telefono nuovo e scegli di ripristinarlo. Senza account i progressi restano su questo telefono; puoi anche salvarne una copia in un file."], ["I promemoria non arrivano: cosa posso fare?", "Controlla che le notifiche di Tanetto siano attive nelle impostazioni del telefono e che il risparmio energetico non blocchi Tanetto (Impostazioni › App › Tanetto › Batteria › Senza limitazioni)."], ["Cosa sono i Tanì?", "Le monete di Tanetto: le guadagni con gli obiettivi, i regali e i giochi e le spendi nel negozio. Non sono soldi veri. I pacchetti di Tanì costano soldi veri e si pagano solo con Google Play."], ["Chi può leggere il mio diario?", "Solo tu. Il diario resta su questo telefono e, se hai un account, nel tuo backup privato. La chat con il compagno non manda niente a nessuno."]] },
   full: "La memoria del telefono è piena: libera un po' di spazio, così Tanetto può salvare i tuoi progressi.", bk: { cmp: "Backup: livello {a} · {b} Tanì — questo telefono: livello {c} · {d} Tanì", less: "Il backup ha meno progressi di questo telefono." },
   find: "Trova una linea di aiuto gratuita nel tuo Paese su findahelpline.com", emerg: "Emergenze: chiama il numero di emergenza del tuo Paese.",
   privStats: "Puoi spegnere le statistiche quando vuoi in Profilo › Privacy ed età. Sono sempre spente per chi non ha ancora l'età del consenso digitale o non ha detto l'età, e prima della domanda sull'età non si conta niente."
@@ -22722,6 +22826,8 @@ const V26T = {
   soft: "That sounds like a lot to carry. How are you, really? If things ever feel too hard, you can always talk to someone you trust, or call one of these numbers:",
   sheet: { t: "{n} is here with you", talk: "Talk to {n}" },
   more: "Other countries: find a free helpline at findahelpline.com",
+  where: "To cancel: Google Play › Subscriptions.",
+  faq: { t: "Quick answers", qa: [["How do I cancel the free trial or Tanetto Plus?", "In Google Play › Subscriptions › Tanetto Plus › Cancel subscription. If you cancel during the 7 free days, you pay nothing. Tanetto can't cancel it for you."], ["I changed phone: how do I get my companion back?", "With a free account (Profile › Account and data), Tanetto keeps an online backup: sign in on the new phone and choose to restore it. Without an account, progress stays on this phone; you can also save a copy as a file."], ["Reminders don't arrive: what can I do?", "Check that notifications for Tanetto are on in your phone's settings and that battery saving isn't stopping Tanetto (Settings › Apps › Tanetto › Battery › Unrestricted)."], ["What are Tanì?", "Tanetto's coins: you earn them with goals, gifts and games and spend them in the shop. They aren't real money. Tanì packs cost real money and are paid only through Google Play."], ["Who can read my journal?", "Only you. The journal stays on this phone and, if you have an account, in your private backup. The chat with your companion sends nothing to anyone."]] },
   full: "Your phone's storage is full: free up some space so Tanetto can save your progress.", bk: { cmp: "Backup: level {a} · {b} Tanì — this phone: level {c} · {d} Tanì", less: "The backup has less progress than this phone." },
   find: "Find a free helpline in your country at findahelpline.com", emerg: "Emergencies: call your local emergency number.",
   privStats: "You can turn the statistics off at any time in Profile › Privacy and age. They are always off for anyone under the age of digital consent or who hasn't given their age, and nothing is counted before the age question."
@@ -22733,6 +22839,8 @@ const V26T = {
   soft: "Das klingt nach ganz schön viel. Wie geht es dir wirklich? Wenn dir alles zu schwer wird, kannst du immer mit einem Menschen reden, dem du vertraust, oder eine dieser Nummern anrufen:",
   sheet: { t: "{n} ist für dich da", talk: "Mit {n} reden" },
   more: "Andere Länder: Kostenlose Hilfe-Telefone findest du auf findahelpline.com",
+  where: "Kündigen: Google Play › Abos.",
+  faq: { t: "Schnelle Antworten", qa: [["Wie kündige ich den Gratis-Test oder Tanetto Plus?", "In Google Play › Abos › Tanetto Plus › Abo kündigen. Wenn du während der 7 Gratis-Tage kündigst, zahlst du nichts. Tanetto kann nicht für dich kündigen."], ["Ich habe ein neues Handy: Wie bekomme ich meinen Begleiter zurück?", "Mit einem kostenlosen Konto (Profil › Konto und Daten) speichert Tanetto ein Online-Backup: Melde dich auf dem neuen Handy an und stelle es wieder her. Ohne Konto bleiben die Fortschritte auf diesem Handy; du kannst auch eine Kopie als Datei speichern."], ["Die Erinnerungen kommen nicht an: Was kann ich tun?", "Prüfe, ob die Benachrichtigungen für Tanetto in den Einstellungen des Handys an sind und ob das Energiesparen Tanetto nicht stoppt (Einstellungen › Apps › Tanetto › Akku › Nicht eingeschränkt)."], ["Was sind Tanì?", "Die Münzen von Tanetto: Du verdienst sie mit Zielen, Geschenken und Spielen und gibst sie im Laden aus. Sie sind kein echtes Geld. Tanì-Pakete kosten echtes Geld und werden nur über Google Play bezahlt."], ["Wer kann mein Tagebuch lesen?", "Nur du. Das Tagebuch bleibt auf diesem Handy und, wenn du ein Konto hast, in deinem privaten Backup. Der Chat mit deinem Begleiter schickt nichts an irgendwen."]] },
   full: "Der Speicher deines Handys ist voll: Mach etwas Platz frei, damit Tanetto deine Fortschritte speichern kann.", bk: { cmp: "Backup: Level {a} · {b} Tanì — dieses Handy: Level {c} · {d} Tanì", less: "Das Backup hat weniger Fortschritt als dieses Handy." },
   find: "Kostenlose Hilfe-Telefone in deinem Land findest du auf findahelpline.com", emerg: "Notfall: Ruf die Notrufnummer deines Landes an.",
   privStats: "Du kannst die Statistik jederzeit unter Profil › Datenschutz und Alter ausschalten. Sie ist immer aus für alle unter dem Alter der digitalen Einwilligung oder ohne Altersangabe, und vor der Frage nach dem Alter wird nichts gezählt."
@@ -22744,6 +22852,8 @@ const V26T = {
   soft: "Parece algo pesado de llevar. ¿Cómo estás de verdad? Si todo te parece demasiado difícil, siempre puedes hablar con alguien de confianza o llamar a uno de estos números:",
   sheet: { t: "{n} está aquí contigo", talk: "Hablar con {n}" },
   more: "Otros países: encuentra una línea de ayuda gratuita en findahelpline.com",
+  where: "Para cancelar: Google Play › Suscripciones.",
+  faq: { t: "Respuestas rápidas", qa: [["¿Cómo cancelo la prueba gratuita o Tanetto Plus?", "En Google Play › Suscripciones › Tanetto Plus › Cancelar suscripción. Si cancelas durante los 7 días gratis, no pagas nada. Tanetto no puede cancelarla por ti."], ["He cambiado de móvil: ¿cómo recupero a mi compañero?", "Con una cuenta gratuita (Perfil › Cuenta y datos), Tanetto guarda una copia en línea: inicia sesión en el móvil nuevo y elige restaurarla. Sin cuenta, el progreso se queda en este móvil; también puedes guardar una copia en un archivo."], ["No me llegan los recordatorios: ¿qué hago?", "Comprueba que las notificaciones de Tanetto estén activadas en los ajustes del móvil y que el ahorro de batería no detenga Tanetto (Ajustes › Aplicaciones › Tanetto › Batería › Sin restricciones)."], ["¿Qué son los Tanì?", "Las monedas de Tanetto: las ganas con objetivos, regalos y juegos y las gastas en la tienda. No son dinero real. Los paquetes de Tanì cuestan dinero real y solo se pagan con Google Play."], ["¿Quién puede leer mi diario?", "Solo tú. El diario se queda en este móvil y, si tienes cuenta, en tu copia privada. El chat con tu compañero no envía nada a nadie."]] },
   full: "La memoria del teléfono está llena: libera algo de espacio para que Tanetto pueda guardar tu progreso.", bk: { cmp: "Copia en línea: nivel {a} · {b} Tanì — este teléfono: nivel {c} · {d} Tanì", less: "La copia tiene menos progreso que este teléfono." },
   find: "Encuentra una línea de ayuda gratuita en tu país en findahelpline.com", emerg: "Emergencias: llama al número de emergencias de tu país.",
   privStats: "Puedes desactivar las estadísticas cuando quieras en Perfil › Privacidad y edad. Siempre están desactivadas para quien aún no tiene la edad del consentimiento digital o no ha dicho su edad, y antes de la pregunta sobre la edad no se cuenta nada."
@@ -22755,6 +22865,8 @@ const V26T = {
   soft: "Ça a l'air lourd à porter. Comment tu vas, vraiment ? Si tout te semble trop dur, tu peux toujours en parler à une personne de confiance ou appeler l'un de ces numéros :",
   sheet: { t: "{n} est là pour toi", talk: "Parler à {n}" },
   more: "Autres pays : trouve une ligne d'écoute gratuite sur findahelpline.com",
+  where: "Pour résilier : Google Play › Abonnements.",
+  faq: { t: "Réponses rapides", qa: [["Comment résilier l'essai gratuit ou Tanetto Plus ?", "Dans Google Play › Abonnements › Tanetto Plus › Résilier l'abonnement. Si tu résilies pendant les 7 jours gratuits, tu ne paies rien. Tanetto ne peut pas résilier à ta place."], ["J'ai changé de téléphone : comment retrouver mon compagnon ?", "Avec un compte gratuit (Profil › Compte et données), Tanetto garde une sauvegarde en ligne : connecte-toi sur le nouveau téléphone et choisis de la restaurer. Sans compte, la progression reste sur ce téléphone ; tu peux aussi en enregistrer une copie dans un fichier."], ["Les rappels n'arrivent pas : que faire ?", "Vérifie que les notifications de Tanetto sont activées dans les réglages du téléphone et que l'économiseur de batterie ne bloque pas Tanetto (Paramètres › Applications › Tanetto › Batterie › Non restreinte)."], ["C'est quoi, les Tanì ?", "Les pièces de Tanetto : tu les gagnes avec les objectifs, les cadeaux et les jeux, et tu les dépenses dans la boutique. Ce n'est pas de l'argent réel. Les packs de Tanì coûtent de l'argent réel et se paient uniquement avec Google Play."], ["Qui peut lire mon journal ?", "Toi seulement. Le journal reste sur ce téléphone et, si tu as un compte, dans ta sauvegarde privée. Le chat avec ton compagnon n'envoie rien à personne."]] },
   full: "La mémoire de ton téléphone est pleine : libère un peu d'espace pour que Tanetto puisse enregistrer tes progrès.", bk: { cmp: "Sauvegarde : niveau {a} · {b} Tanì — ce téléphone : niveau {c} · {d} Tanì", less: "La sauvegarde contient moins de progrès que ce téléphone." },
   find: "Trouve une ligne d'écoute gratuite dans ton pays sur findahelpline.com", emerg: "Urgences : appelle le numéro d'urgence de ton pays.",
   privStats: "Tu peux désactiver les statistiques à tout moment dans Profil › Confidentialité et âge. Elles sont toujours désactivées pour qui n'a pas encore l'âge du consentement numérique ou n'a pas indiqué son âge, et rien n'est compté avant la question sur l'âge."
@@ -22766,6 +22878,8 @@ const V26T = {
   soft: "Parece algo pesado de carregar. Como você está, de verdade? Se tudo parecer difícil demais, você sempre pode conversar com alguém de confiança ou ligar para um destes números:",
   sheet: { t: "{n} está aqui com você", talk: "Conversar com {n}" },
   more: "Outros países: encontre uma linha de apoio gratuita em findahelpline.com",
+  where: "Para cancelar: Google Play › Assinaturas.",
+  faq: { t: "Respostas rápidas", qa: [["Como cancelo o teste grátis ou o Tanetto Plus?", "No Google Play › Assinaturas › Tanetto Plus › Cancelar assinatura. Se cancelar durante os 7 dias grátis, você não paga nada. O Tanetto não pode cancelar por você."], ["Troquei de celular: como recupero meu companheiro?", "Com uma conta grátis (Perfil › Conta e dados), o Tanetto guarda um backup on-line: entre no celular novo e escolha restaurar. Sem conta, o progresso fica neste celular; você também pode salvar uma cópia em um arquivo."], ["Os lembretes não chegam: o que eu faço?", "Confira se as notificações do Tanetto estão ativadas nas configurações do celular e se a economia de bateria não está bloqueando o Tanetto (Configurações › Apps › Tanetto › Bateria › Sem restrições)."], ["O que são os Tanì?", "As moedas do Tanetto: você ganha com metas, presentes e jogos e gasta na loja. Não são dinheiro de verdade. Os pacotes de Tanì custam dinheiro de verdade e são pagos só pelo Google Play."], ["Quem pode ler meu diário?", "Só você. O diário fica neste celular e, se você tiver uma conta, no seu backup privado. O chat com seu companheiro não envia nada para ninguém."]] },
   full: "A memória do celular está cheia: libere um pouco de espaço para o Tanetto salvar seu progresso.", bk: { cmp: "Backup: nível {a} · {b} Tanì — este celular: nível {c} · {d} Tanì", less: "O backup tem menos progresso que este celular." },
   find: "Encontre uma linha de apoio gratuita no seu país em findahelpline.com", emerg: "Emergências: ligue para o número de emergência do seu país.",
   privStats: "Você pode desativar as estatísticas quando quiser em Perfil › Privacidade e idade. Elas ficam sempre desativadas para quem ainda não tem a idade do consentimento digital ou não informou a idade, e nada é contado antes da pergunta sobre a idade."
@@ -22777,6 +22891,8 @@ const V26T = {
   soft: "それは重たい気持ちだね。ほんとうは、どんな気分？つらすぎると感じたら、信頼できる人に話したり、こちらの番号に電話したりしてね：",
   sheet: { t: "{n}がそばにいるよ", talk: "{n}と話す" },
   more: "ほかの国：無料の相談窓口は findahelpline.com で探せます",
+  where: "解約は Google Play › 定期購入 から。",
+  faq: { t: "よくある質問", qa: [["無料体験や Tanetto Plus はどうやって解約するの？", "Google Play › 定期購入 › Tanetto Plus › 定期購入を解約 から解約できます。7日間の無料期間中に解約すれば、お金はかかりません。Tanetto から代わりに解約することはできません。"], ["スマホを変えたら、パートナーはどうなるの？", "無料のアカウント（マイページ › アカウントとデータ）があれば、Tanetto がオンラインにバックアップします。新しいスマホでログインして、復元を選んでね。アカウントがない場合、記録はこのスマホだけに残ります。ファイルにコピーを保存することもできます。"], ["リマインダーが届かないときは？", "スマホの設定で Tanetto の通知がオンになっているか、省電力機能が Tanetto を止めていないか確認してね（設定 › アプリ › Tanetto › バッテリー › 制限なし）。"], ["Tanì ってなに？", "Tanetto のコインです。目標やプレゼント、ゲームでもらえて、ショップで使えます。本物のお金ではありません。Tanì のパックは本物のお金がかかり、Google Play でだけ支払えます。"], ["日記はだれが読めるの？", "あなただけです。日記はこのスマホに保存され、アカウントがあればあなた専用のバックアップにも入ります。パートナーとのチャットは、だれにも何も送りません。"]] },
   full: "スマホの空き容量がいっぱいです。Tanettoが進み具合を保存できるよう、少し空きを作ってね。", bk: { cmp: "バックアップ：レベル{a}・{b} Tanì — このスマホ：レベル{c}・{d} Tanì", less: "バックアップは、このスマホより進み具合が少ないです。" },
   find: "お住まいの国の無料相談窓口は findahelpline.com で探せます", emerg: "緊急のときは、お住まいの国の緊急番号に電話してね。",
   privStats: "統計は「マイページ › プライバシーと年齢」でいつでもオフにできます。デジタル同意年齢に達していない方や年齢を答えていない方は常にオフで、年齢の質問より前には何も数えません。"
@@ -22788,6 +22904,8 @@ const V26T = {
   soft: "마음이 많이 무거운 것 같아요. 정말 괜찮아요? 너무 힘들게 느껴지면 믿을 수 있는 사람에게 이야기하거나 아래 번호로 전화해 보세요:",
   sheet: { t: "{n}도 곁에 있어요", talk: "{n}에게 말 걸기" },
   more: "다른 나라: findahelpline.com에서 무료 상담 전화를 찾을 수 있어요",
+  where: "해지: Google Play › 구독",
+  faq: { t: "자주 묻는 질문", qa: [["무료 체험이나 Tanetto Plus는 어떻게 해지해요?", "Google Play › 구독 › Tanetto Plus › 구독 취소에서 해지할 수 있어요. 7일 무료 기간 안에 해지하면 요금이 나가지 않아요. Tanetto가 대신 해지해 줄 수는 없어요."], ["휴대폰을 바꿨어요. 친구를 어떻게 다시 찾아요?", "무료 계정(프로필 › 계정 및 데이터)이 있으면 Tanetto가 온라인 백업을 해 둬요. 새 휴대폰에서 로그인하고 복원을 고르면 돼요. 계정이 없으면 진행 상황은 이 휴대폰에만 남아요. 파일로 복사본을 저장할 수도 있어요."], ["알림이 오지 않으면 어떻게 해요?", "휴대폰 설정에서 Tanetto 알림이 켜져 있는지, 배터리 절약 기능이 Tanetto를 멈추지 않는지 확인해 보세요(설정 › 애플리케이션 › Tanetto › 배터리 › 제한 없음)."], ["Tanì가 뭐예요?", "Tanetto의 코인이에요. 목표, 선물, 게임으로 모으고 상점에서 써요. 진짜 돈이 아니에요. Tanì 팩은 진짜 돈이 들고 Google Play로만 결제해요."], ["내 일기는 누가 읽을 수 있어요?", "나만 읽을 수 있어요. 일기는 이 휴대폰에 남고, 계정이 있으면 나만의 비공개 백업에도 저장돼요. 친구와의 채팅은 아무에게도 아무것도 보내지 않아요."]] },
   full: "휴대폰 저장 공간이 가득 찼어요. Tanetto가 진행 상황을 저장할 수 있게 공간을 조금 비워 주세요.", bk: { cmp: "백업: 레벨 {a} · Tanì {b} — 이 휴대폰: 레벨 {c} · Tanì {d}", less: "백업은 이 휴대폰보다 진행 상황이 적어요." },
   find: "findahelpline.com에서 내가 사는 나라의 무료 상담 전화를 찾을 수 있어요", emerg: "긴급 상황에는 사는 나라의 긴급 전화번호로 전화하세요.",
   privStats: "통계는 언제든지 프로필 › 개인정보와 나이에서 끌 수 있어요. 디지털 동의 연령이 안 됐거나 나이를 알려 주지 않았다면 항상 꺼져 있고, 나이 질문 전에는 아무것도 세지 않아요."
@@ -22799,6 +22917,8 @@ const V26T = {
   soft: "听起来你心里压着很多事。你现在真的还好吗？如果觉得太难受了，随时可以和信任的人聊聊，或者拨打下面的电话：",
   sheet: { t: "{n} 在这里陪着你", talk: "和 {n} 聊聊" },
   more: "其他国家和地区：可在 findahelpline.com 查找免费求助热线",
+  where: "取消方式：Google Play › 订阅。",
+  faq: { t: "常见问题", qa: [["怎么取消免费试用或 Tanetto Plus？", "在 Google Play › 订阅 › Tanetto Plus › 取消订阅 中取消。在 7 天免费期内取消就不用付钱。Tanetto 无法替你取消。"], ["换了手机，怎么找回我的伙伴？", "有免费账号（我的 › 账号与数据）的话，Tanetto 会在线备份：在新手机上登录并选择恢复即可。没有账号时，进度只保存在这部手机上；你也可以把副本保存成文件。"], ["收不到提醒怎么办？", "请在手机设置中确认 Tanetto 的通知已开启，并且省电功能没有限制 Tanetto（设置 › 应用 › Tanetto › 电池 › 不受限制）。"], ["Tanì 是什么？", "Tanetto 的金币：完成目标、领取礼物和玩游戏都能获得，可以在商店里使用。它们不是真钱。Tanì 礼包需要用真钱购买，只能通过 Google Play 支付。"], ["谁能看到我的日记？", "只有你。日记保存在这部手机上；如果你有账号，也会保存在你的私人备份里。和伙伴的聊天不会发送给任何人。"]] },
   full: "手机存储空间已满：请清理一些空间，这样 Tanetto 才能保存你的进度。", bk: { cmp: "备份：等级 {a} · {b} Tanì — 这部手机：等级 {c} · {d} Tanì", less: "备份的进度比这部手机少。" },
   find: "可在 findahelpline.com 查找你所在国家或地区的免费求助热线", emerg: "紧急情况：请拨打你所在地的急救电话。",
   privStats: "你可以随时在“我的 › 隐私与年龄”中关闭统计。对于未达到数字同意年龄或未提供年龄的用户，统计始终关闭；在询问年龄之前，不会统计任何内容。"
@@ -22810,6 +22930,8 @@ const V26T = {
   soft: "聽起來你心裡壓著很多事。你現在真的還好嗎？如果覺得太難受了，隨時可以和信任的人聊聊，或撥打下面的電話：",
   sheet: { t: "{n} 在這裡陪著你", talk: "和 {n} 聊聊" },
   more: "其他國家和地區：可在 findahelpline.com 查詢免費求助專線",
+  where: "取消方式：Google Play › 訂閱。",
+  faq: { t: "常見問題", qa: [["怎麼取消免費試用或 Tanetto Plus？", "在 Google Play › 訂閱 › Tanetto Plus › 取消訂閱 中取消。在 7 天免費期內取消就不用付費。Tanetto 無法替你取消。"], ["換了手機，怎麼找回我的夥伴？", "有免費帳號（我的 › 帳號與資料）的話，Tanetto 會在線上備份：在新手機登入並選擇還原即可。沒有帳號時，進度只會留在這支手機上；你也可以把副本存成檔案。"], ["收不到提醒怎麼辦？", "請在手機設定中確認 Tanetto 的通知已開啟，而且省電功能沒有限制 Tanetto（設定 › 應用程式 › Tanetto › 電池 › 不受限制）。"], ["Tanì 是什麼？", "Tanetto 的金幣：完成目標、領取禮物和玩遊戲都能獲得，可以在商店使用。它們不是真錢。Tanì 禮包需要用真錢購買，只能透過 Google Play 付款。"], ["誰能看到我的日記？", "只有你。日記會留在這支手機上；如果你有帳號，也會存在你的私人備份裡。和夥伴的聊天不會傳給任何人。"]] },
   full: "手機儲存空間已滿：請清出一些空間，Tanetto 才能儲存你的進度。", bk: { cmp: "備份：等級 {a} · {b} Tanì — 這支手機：等級 {c} · {d} Tanì", less: "備份的進度比這支手機少。" },
   find: "可在 findahelpline.com 查詢你所在國家或地區的免費求助專線", emerg: "緊急情況：請撥打你所在地的緊急電話。",
   privStats: "你可以隨時在「我的 › 隱私與年齡」中關閉統計。對於未達數位同意年齡或未提供年齡的使用者，統計一律關閉；在詢問年齡之前，不會統計任何內容。"
@@ -22821,6 +22943,8 @@ const V26T = {
   soft: "Похоже, тебе сейчас непросто. Как ты на самом деле? Если станет слишком тяжело, ты всегда можешь поговорить с человеком, которому доверяешь, или позвонить по одному из этих номеров:",
   sheet: { t: "{n} рядом с тобой", talk: "Поговорить с {n}" },
   more: "Другие страны: бесплатные линии помощи есть на findahelpline.com",
+  where: "Отменить: Google Play › Подписки.",
+  faq: { t: "Быстрые ответы", qa: [["Как отменить бесплатный пробный период или Tanetto Plus?", "В Google Play › Подписки › Tanetto Plus › Отменить подписку. Если отменить в течение 7 бесплатных дней, платить ничего не придётся. Tanetto не может отменить подписку за тебя."], ["Я сменил телефон: как вернуть своего друга?", "С бесплатным аккаунтом («Профиль» › «Аккаунт и данные») Tanetto хранит резервную копию онлайн: войди на новом телефоне и выбери восстановление. Без аккаунта прогресс остаётся на этом телефоне; можно также сохранить копию в файл."], ["Не приходят напоминания: что делать?", "Проверь, что уведомления Tanetto включены в настройках телефона и что экономия заряда не останавливает Tanetto (Настройки › Приложения › Tanetto › Батарея › Без ограничений)."], ["Что такое Tanì?", "Монетки Tanetto: их получают за цели, подарки и игры и тратят в магазине. Это не настоящие деньги. Наборы Tanì стоят настоящих денег и оплачиваются только через Google Play."], ["Кто может читать мой дневник?", "Только ты. Дневник хранится на этом телефоне, а если есть аккаунт, ещё и в твоей личной резервной копии. Чат с другом никому ничего не отправляет."]] },
   full: "Память телефона заполнена: освободи немного места, чтобы Tanetto мог сохранить твой прогресс.", bk: { cmp: "Копия: уровень {a} · {b} Tanì — этот телефон: уровень {c} · {d} Tanì", less: "В копии меньше прогресса, чем на этом телефоне." },
   find: "Бесплатные линии помощи в твоей стране есть на findahelpline.com", emerg: "Экстренные случаи: позвони по номеру экстренной службы своей страны.",
   privStats: "Статистику можно выключить в любой момент: «Профиль» › «Приватность и возраст». Для тех, кто младше возраста цифрового согласия или не указал возраст, она всегда выключена, а до вопроса о возрасте ничего не считается."
@@ -22832,6 +22956,8 @@ const V26T = {
   soft: "Brzmi to jak coś ciężkiego. Jak naprawdę się czujesz? Jeśli wszystko wydaje się zbyt trudne, zawsze możesz porozmawiać z kimś, komu ufasz, albo zadzwonić pod jeden z tych numerów:",
   sheet: { t: "{n} jest przy tobie", talk: "Porozmawiaj z {n}" },
   more: "Inne kraje: bezpłatne telefony wsparcia znajdziesz na findahelpline.com",
+  where: "Anulowanie: Google Play › Subskrypcje.",
+  faq: { t: "Szybkie odpowiedzi", qa: [["Jak anulować bezpłatny okres próbny lub Tanetto Plus?", "W Google Play › Subskrypcje › Tanetto Plus › Anuluj subskrypcję. Jeśli anulujesz w ciągu 7 darmowych dni, nic nie płacisz. Tanetto nie może anulować za ciebie."], ["Zmieniam telefon: jak odzyskać mojego towarzysza?", "Z darmowym kontem (Profil › Konto i dane) Tanetto przechowuje kopię online: zaloguj się na nowym telefonie i wybierz przywracanie. Bez konta postępy zostają na tym telefonie; możesz też zapisać kopię w pliku."], ["Przypomnienia nie przychodzą: co zrobić?", "Sprawdź, czy powiadomienia Tanetto są włączone w ustawieniach telefonu i czy oszczędzanie baterii nie blokuje Tanetto (Ustawienia › Aplikacje › Tanetto › Bateria › Bez ograniczeń)."], ["Czym są Tanì?", "To monety Tanetto: zdobywasz je za cele, prezenty i gry, a wydajesz w sklepie. To nie są prawdziwe pieniądze. Pakiety Tanì kosztują prawdziwe pieniądze i płaci się za nie tylko przez Google Play."], ["Kto może czytać mój dziennik?", "Tylko ty. Dziennik zostaje na tym telefonie, a jeśli masz konto, także w twojej prywatnej kopii. Czat z towarzyszem niczego nikomu nie wysyła."]] },
   full: "Pamięć telefonu jest pełna: zwolnij trochę miejsca, żeby Tanetto mogło zapisać twoje postępy.", bk: { cmp: "Kopia: poziom {a} · {b} Tanì — ten telefon: poziom {c} · {d} Tanì", less: "Kopia ma mniej postępów niż ten telefon." },
   find: "Bezpłatne telefony wsparcia w twoim kraju znajdziesz na findahelpline.com", emerg: "W nagłych wypadkach: zadzwoń pod numer alarmowy w twoim kraju.",
   privStats: "Statystyki możesz w każdej chwili wyłączyć w Profil › Prywatność i wiek. Są zawsze wyłączone dla osób poniżej wieku zgody cyfrowej lub bez podanego wieku, a przed pytaniem o wiek nic nie jest liczone."
@@ -22843,6 +22969,8 @@ const V26T = {
   soft: "Dat klinkt als veel om te dragen. Hoe gaat het echt met je? Als alles te zwaar voelt, kun je altijd praten met iemand die je vertrouwt, of een van deze nummers bellen:",
   sheet: { t: "{n} is er voor je", talk: "Praat met {n}" },
   more: "Andere landen: vind een gratis hulplijn op findahelpline.com",
+  where: "Opzeggen: Google Play › Abonnementen.",
+  faq: { t: "Snelle antwoorden", qa: [["Hoe zeg ik de gratis proefperiode of Tanetto Plus op?", "Via Google Play › Abonnementen › Tanetto Plus › Abonnement opzeggen. Zeg je op tijdens de 7 gratis dagen, dan betaal je niets. Tanetto kan niet voor je opzeggen."], ["Nieuwe telefoon: hoe krijg ik mijn maatje terug?", "Met een gratis account (Profiel › Account en gegevens) bewaart Tanetto een online back-up: log in op de nieuwe telefoon en kies voor herstellen. Zonder account blijft je voortgang op deze telefoon; je kunt ook een kopie als bestand bewaren."], ["De herinneringen komen niet aan: wat kan ik doen?", "Controleer of meldingen voor Tanetto aanstaan in de instellingen van je telefoon en of batterijbesparing Tanetto niet stopt (Instellingen › Apps › Tanetto › Batterij › Onbeperkt)."], ["Wat zijn Tanì?", "De munten van Tanetto: je verdient ze met doelen, cadeaus en spelletjes en geeft ze uit in de winkel. Het is geen echt geld. Tanì-pakketten kosten echt geld en betaal je alleen via Google Play."], ["Wie kan mijn dagboek lezen?", "Alleen jij. Het dagboek blijft op deze telefoon en, als je een account hebt, in je privé-back-up. De chat met je maatje stuurt niets naar iemand."]] },
   full: "Het geheugen van je telefoon is vol: maak wat ruimte vrij zodat Tanetto je voortgang kan bewaren.", bk: { cmp: "Back-up: niveau {a} · {b} Tanì — deze telefoon: niveau {c} · {d} Tanì", less: "De back-up heeft minder voortgang dan deze telefoon." },
   find: "Vind een gratis hulplijn in jouw land op findahelpline.com", emerg: "Noodgeval: bel het noodnummer van je land.",
   privStats: "Je kunt de statistieken altijd uitzetten in Profiel › Privacy en leeftijd. Ze staan altijd uit voor iedereen onder de leeftijd van digitale toestemming of zonder opgegeven leeftijd, en vóór de vraag over je leeftijd wordt niets geteld."
@@ -22854,6 +22982,8 @@ const V26T = {
   soft: "Bu taşıması ağır bir şey gibi görünüyor. Gerçekten nasılsın? Her şey çok zor gelirse, güvendiğin biriyle konuşabilir ya da bu numaralardan birini arayabilirsin:",
   sheet: { t: "{n} yanında", talk: "{n} ile konuş" },
   more: "Diğer ülkeler: ücretsiz yardım hatlarını findahelpline.com adresinde bulabilirsin",
+  where: "İptal için: Google Play › Abonelikler.",
+  faq: { t: "Kısa cevaplar", qa: [["Ücretsiz denemeyi veya Tanetto Plus'ı nasıl iptal ederim?", "Google Play › Abonelikler › Tanetto Plus › Aboneliği iptal et yolunu izle. 7 ücretsiz gün içinde iptal edersen hiçbir şey ödemezsin. Tanetto senin yerine iptal edemez."], ["Telefonumu değiştirdim: arkadaşımı nasıl geri alırım?", "Ücretsiz bir hesapla (Profil › Hesap ve veriler) Tanetto çevrim içi yedek tutar: yeni telefonda giriş yap ve geri yüklemeyi seç. Hesap yoksa ilerlemen bu telefonda kalır; bir kopyasını dosyaya da kaydedebilirsin."], ["Hatırlatmalar gelmiyor: ne yapabilirim?", "Telefon ayarlarında Tanetto bildirimlerinin açık olduğunu ve pil tasarrufunun Tanetto'yu durdurmadığını kontrol et (Ayarlar › Uygulamalar › Tanetto › Pil › Kısıtlamasız)."], ["Tanì nedir?", "Tanetto'nun paraları: hedefler, hediyeler ve oyunlarla kazanır, mağazada harcarsın. Gerçek para değildir. Tanì paketleri gerçek paraya mal olur ve yalnızca Google Play üzerinden ödenir."], ["Günlüğümü kim okuyabilir?", "Yalnızca sen. Günlük bu telefonda kalır; hesabın varsa özel yedeğinde de saklanır. Arkadaşınla sohbet kimseye hiçbir şey göndermez."]] },
   full: "Telefonunun depolama alanı dolu: Tanetto'nun ilerlemeni kaydedebilmesi için biraz yer aç.", bk: { cmp: "Yedek: seviye {a} · {b} Tanì — bu telefon: seviye {c} · {d} Tanì", less: "Yedekte bu telefondakinden daha az ilerleme var." },
   find: "Ülkendeki ücretsiz yardım hatlarını findahelpline.com adresinde bulabilirsin", emerg: "Acil durumlarda: bulunduğun ülkenin acil durum numarasını ara.",
   privStats: "İstatistikleri istediğin zaman Profil › Gizlilik ve yaş bölümünden kapatabilirsin. Dijital rıza yaşının altındakiler veya yaşını belirtmeyenler için her zaman kapalıdır ve yaş sorusundan önce hiçbir şey sayılmaz."
@@ -24992,7 +25122,7 @@ function roomBlock() {
     ${showLetter ? `<button class="letter" id="letter" aria-label="${esc(t.letterL)}">${letterSVG()}</button>` : ""}
     ${S.away ? "" : `<button class="pethit" id="petHit" aria-label="${esc(S.petName)}"></button>`}
     ${showGift ? `<button class="gift" id="gift" aria-label="${esc(t.giftL)}">${giftSVG()}</button>` : ""}
-    <div class="fx" id="fx"></div></div>${sayNow && !S.away ? `<p class="bubble" id="bubble" aria-live="polite"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>` : ""}${A}</div>`;
+    <div class="fx" id="fx"></div></div>${sayNow && !S.away ? `<p class="bubble" id="bubble"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>` : ""}${A}</div>`;
 }
 const prevBar = {};
 function fillTag(key, pct) { const from = prevBar[key] != null && anim ? prevBar[key] : pct; return `<div class="fill" data-bar="${key}" data-w="${pct}" style="width:${from}%"></div>`; }
@@ -25105,7 +25235,8 @@ function calendar() {
   for (let d = 1; d <= days; d++) {
     const k = dkey(new Date(y, m, d)); const r = S.days[k]; let cls = "";
     if (r) { if ((r.rest || r.free) && !r.done) cls = "rest"; else if (r.done) { const q = r.done / Math.max(1, r.total); cls = q >= 1 ? "l3" : q >= 0.5 ? "l2" : "l1"; } }
-    cells += `<span class="d ${cls} ${k === S.day ? "today" : ""}">${d}</span>`;
+    const st = cls === "l3" ? t.legAll : cls === "rest" ? t.legRest : cls ? t.legSome : k <= S.day ? t.legNone : ""; /* 1.0.10 (F-09) */
+    cells += `<span class="d ${cls} ${k === S.day ? "today" : ""}" role="img" aria-label="${esc(fmtDay(new Date(y, m, d)) + (st ? ": " + st : ""))}">${d}</span>`;
   }
   return `<div class="card stack-s"><div class="sec"><h3 style="flex:1">${t.calT}</h3><span class="small muted" style="text-transform:capitalize">${mname}</span></div><div class="cal">${cells}</div>
   <div class="legend"><span><i style="background:var(--paper-2)"></i>${t.legNone}</span><span><i class="lgsome"></i>${t.legSome}</span><span><i style="background:var(--accent)"></i>${t.legAll}</span><span><i style="box-shadow:inset 0 0 0 2px var(--line)"></i>${t.legRest}</span></div></div>`;
@@ -25876,7 +26007,7 @@ function showTutStep() {
     document.querySelectorAll(".tutwrap").forEach((x) => x.remove());
     const r = el.getBoundingClientRect(); const pad = 8;
     const w = document.createElement("div"); w.className = "tutwrap";
-    w.innerHTML = `<div class="tutblock"></div><div class="tutring" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div><div class="tutbox card" role="dialog" aria-live="polite"><p>${esc(t.tut[i].split("{n}").join(S.petName))}</p><div class="row"><button class="link" id="tutSkip">${t.tutSkip}</button><span class="spacer"></span><span class="small muted">${i + 1}/${TUT_TARGETS.length}</span><button class="btn small" id="tutNext">${last ? t.tutDone : t.tutNext}</button></div></div>`;
+    w.innerHTML = `<div class="tutblock"></div><div class="tutring" style="left:${r.left - pad}px;top:${r.top - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div><div class="tutbox card" role="dialog" aria-modal="true" aria-labelledby="tutTx"><p id="tutTx">${esc(t.tut[i].split("{n}").join(S.petName))}</p><div class="row"><button class="link" id="tutSkip">${t.tutSkip}</button><span class="spacer"></span><span class="small muted">${i + 1}/${TUT_TARGETS.length}</span><button class="btn small" id="tutNext">${last ? t.tutDone : t.tutNext}</button></div></div>`;
     document.body.appendChild(w);
     const box = w.querySelector(".tutbox"); const bh = box.offsetHeight; const vh = window.innerHeight;
     const below = r.bottom + pad + 14; const top = below + bh < vh - 10 ? below : Math.max(10, r.top - pad - 14 - bh);
@@ -27052,7 +27183,7 @@ roomBlock = function () {
     ${showGift ? `<button class="gift" id="gift" style="${pct(274, 214, 58, 58)};right:auto;bottom:auto" aria-label="${esc(t.giftL)}">${giftSVG()}</button>` : ""}
     ${spotsHTML(S.furn)}<div class="playlayer" id="playlayer"></div><div class="fx" id="fx"></div></div>
     <div class="fulltop"><div class="scns">${scenes}</div><button class="fullbtn close" id="fullClose" aria-label="${esc(t.full.close)}">${icon("shrink")}</button></div>
-    <p class="bubble" id="bubble" aria-live="polite" style="top:calc(${(((d.top + 104) / d.H) * 100).toFixed(1)}% - 12px)"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>
+    <p class="bubble" id="bubble" style="top:calc(${(((d.top + 104) / d.H) * 100).toFixed(1)}% - 12px)"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>
     <div class="fullbar"><div class="facts">${acts}</div></div></div>`;
 };
 Object.assign(ICON, {
@@ -27943,7 +28074,7 @@ function openPath() {
   const se = curSeason(); if (!se) return; const t = L().season; const p = passi(se), tier = sTier(p, se), c = sClaims(se); const plus = plusActive(); const N = seaTiers(se);
   const rows = []; for (let n = 1; n <= N; n++) {
     const fr = sReward("f", n, se), gr = sReward("g", n, se); const reached = n <= tier; const big = seaBig(se, n);
-    const cell = (tr, r) => { const done = c[tr].includes(n); const can = reached && !done && (tr === "f" || plus); const lockG = tr === "g" && !plus; return `<div class="pcell ${tr} ${done ? "done" : ""} ${can ? "can" : ""} ${lockG ? "lockg" : ""}">${rewardArt(r)}<span class="pl">${esc(rewardLabel(r))}</span>${can ? `<button class="btn small ${tr === "g" ? "gold" : ""}" data-claim="${tr}${n}">${t.claim}</button>` : done ? `<span class="pdone">${icon("check")}${t.claimed}</span>` : lockG ? `<button class="plk" data-golock="1" aria-label="${esc(t.goldLock)}">${icon("p_crown")}</button>` : ""}</div>`; };
+    const cell = (tr, r) => { const done = c[tr].includes(n); const can = reached && !done && (tr === "f" || plus); const lockG = tr === "g" && !plus; return `<div class="pcell ${tr} ${done ? "done" : ""} ${can ? "can" : ""} ${lockG ? "lockg" : ""}">${rewardArt(r)}<span class="pl">${esc(rewardLabel(r))}</span>${can ? `<button class="btn small ${tr === "g" ? "gold" : ""}" data-claim="${tr}${n}">${t.claim}</button>` : done ? `<span class="pdone">${icon("check")}${t.claimed}</span>` : lockG ? (n === 1 ? `<button class="plk" data-golock="1" aria-label="${esc(t.goldLock)}">${icon("p_crown")}</button>` : `<button class="plk" data-golock="1" tabindex="-1" aria-hidden="true">${icon("p_crown")}</button>`) : ""}</div>`; };
     rows.push(`<div class="prow ${reached ? "reached" : ""} ${big ? "big" : ""} ${n === tier + 1 ? "nextrow" : ""}" id="prow${n}">${cell("f", fr)}<div class="pnode"><span>${n}</span></div>${cell("g", gr)}</div>`);
   }
   const into = tier >= N ? 100 : p % 100;
@@ -43165,6 +43296,8 @@ nav20plusDue = function (why) { if (v26Young()) return false; return _nav20plusD
    La finestra "tutto fatto" puo' aprirsi piu' tardi (coda delle finestre, 98f): il pulsante si toglie quando compare. */
 new MutationObserver(() => { try { if (layer.querySelector(".alldone #invite") && v26Young()) layer.querySelectorAll(".alldone #invite").forEach((x) => x.remove()); } catch (e) { /* niente */ } })
   .observe(layer, { childList: true, subtree: true });
+/* b2) richiesta di recensione su Google Play: mai ai giovani ne' a chi non ha detto l'eta' (come la 1.0.10 di sicurezza) */
+if (typeof rev20Allowed === "function") { const _rev20AllowedV26 = rev20Allowed; rev20Allowed = function (...a) { if (v26Young()) return false; return _rev20AllowedV26.apply(this, a); }; }
 /* c) prima configurazione: l'eta' si chiede dopo, quindi la fila dei compagni Plus (con le corone) non si mostra a chi non
    risulta adulto; i compagni Plus restano nella scelta del compagno (Profilo), con la loro etichetta "Tanetto Plus" */
 const _viewOnboardV26 = viewOnboard;
@@ -43670,6 +43803,101 @@ function v26KoFix(root) {
 }
 new MutationObserver((ms) => { if (!S || S.lang !== "ko") return; ms.forEach((m) => { if (m.type === "characterData") { if (V26_KO_RE.test(m.target.nodeValue)) m.target.nodeValue = koJ(m.target.nodeValue); } else m.addedNodes.forEach((a) => { if (a.nodeType === 3) { if (V26_KO_RE.test(a.nodeValue)) a.nodeValue = koJ(a.nodeValue); } else v26KoFix(a); }); }); })
   .observe(document.body, { childList: true, subtree: true, characterData: true });
+
+/* ---------- 12) Accessibilita' (M-24..M-28, F-01..F-13) e misure (M-29..M-35) ---------- */
+/* a) F-02 / F-10: la nuvoletta del compagno non annuncia piu' ogni lettera ne' le frasi "a riposo". Una regione nascosta
+   (#v26live) legge UNA volta la frase intera, solo se arriva subito dopo un tocco della persona; e dice anche i Tanì
+   guadagnati o spesi con un tocco ("+5 Tanì, 645 in tutto"). */
+let v26TouchAt = 0;
+["pointerdown", "keydown"].forEach((n) => document.addEventListener(n, () => { v26TouchAt = Date.now(); }, true));
+let v26LiveT = 0;
+function v26Live(msg) {
+  const el = document.getElementById("v26live"); if (!el || !msg) return;
+  el.textContent = ""; clearTimeout(v26LiveT); v26LiveT = setTimeout(() => { el.textContent = S && S.lang === "ko" ? koJ(msg) : msg; }, 120);
+}
+const _sayV26 = say;
+say = function (text, ...a) {
+  const r = _sayV26.call(this, text, ...a);
+  if (text && Date.now() - v26TouchAt < 1500) v26Live(`${S.petName || ""}: ${text}`);
+  return r;
+};
+let v26SeedsSeen = null;
+const _econShowV26 = econShow;
+econShow = function (...a) {
+  const r = _econShowV26.apply(this, a);
+  try { const d = S.seeds - (v26SeedsSeen == null ? S.seeds : v26SeedsSeen); if (d && Date.now() - v26TouchAt < 3000) { const nf = (n) => Math.round(n).toLocaleString(loc(), NUMG); v26Live(`${d > 0 ? "+" : "−"}${nf(Math.abs(d))} Tanì · ${nf(S.seeds)} Tanì`); } } catch (e) { /* niente */ }
+  v26SeedsSeen = S.seeds; return r;
+};
+/* b) F-03: avviso (toast) sempre presente per i lettori di schermo; il testo arriva al fotogramma dopo (cosi' viene letto)
+   e resta almeno 4 secondi (piu' a lungo se e' lungo). */
+const _toastBaseV26 = toast;
+toast = function (msg, ...a) {
+  const el = document.getElementById("toast"); if (!el) return _toastBaseV26.call(this, msg, ...a);
+  const m = S && S.lang === "ko" ? koJ(msg) : msg;
+  el.hidden = false; el.textContent = ""; clearTimeout(toastTimer);
+  requestAnimationFrame(() => { el.textContent = m; el.classList.add("v26on"); });
+  toastTimer = setTimeout(() => { el.hidden = true; el.classList.remove("v26on"); }, Math.max(4000, 60 * String(m || "").length));
+};
+/* c) F-01: negozio e viaggi fuori dallo schermo (il telefono non li disegna finche' non si scorre): nome sempre leggibile */
+function v26Names(root) {
+  (root || document).querySelectorAll(".grid3 > .item, .grid3 > button, button.dest, .dest > button").forEach((b) => {
+    if (b.hasAttribute("aria-label") || !b.matches("button")) return;
+    const txt = (b.textContent || "").replace(/\s+/g, " ").trim(); if (txt) b.setAttribute("aria-label", txt);
+  });
+}
+/* d) F-05: suggerimenti della prima volta = finestra: il resto dell'app non si raggiunge con Tab o TalkBack */
+const _fmDialogV26 = fmDialog;
+fmDialog = function () { return _fmDialogV26() || document.querySelector(".tutwrap .tutbox"); };
+/* e) F-11: immagini 3D dei momenti importanti con una descrizione (prima alt="") */
+function v26MomentAlt(root) {
+  (root || document).querySelectorAll("img.i3d.mom:not([alt]), img.i3d.mom[alt='']").forEach((i) => { i.alt = S.petName || ""; });
+}
+/* f) M-54 / G-11: l'entrata morbida delle pagine non lascia ascoltatori appesi (prima +10 a ogni cambio di scheda) */
+viewEnter = function (items, dx) {
+  items.forEach((el, i) => {
+    if (el.__v26ve) { el.removeEventListener("animationend", el.__v26ve); el.removeEventListener("animationcancel", el.__v26ve); el.__v26ve = null; }
+    if (!anim) { el.classList.remove("venter"); return; }
+    el.style.setProperty("--vi", i); el.style.setProperty("--vdx", dx * 0.6 + "px"); el.style.setProperty("--vdy", (dx ? 4 : 12) + "px");
+    el.classList.remove("venter"); el.classList.add("venter");
+    const done = (ev) => { if (ev.target !== el) return; el.classList.remove("venter"); el.style.removeProperty("--vi"); el.style.removeProperty("--vdx"); el.style.removeProperty("--vdy"); el.removeEventListener("animationend", done); el.removeEventListener("animationcancel", done); el.__v26ve = null; };
+    el.__v26ve = done; el.addEventListener("animationend", done); el.addEventListener("animationcancel", done);
+  });
+};
+/* g) M-35 / B-11: Tanì in alto in forma corta (99,9K) quando il numero e' grande e lo schermo stretto; il valore intero
+   resta nella pagina dei Tanì e nei negozi */
+const v26SeedFmt = (n) => {
+  const v = Math.round(n); const big = v >= 100000 || (v >= 10000 && window.innerWidth < 400);
+  try { if (big) return v.toLocaleString(loc(), { notation: "compact", maximumFractionDigits: 1, roundingMode: "trunc" }); return v.toLocaleString(loc(), NUMG); } catch (e) { return String(v); }
+};
+const _countUpV26 = countUp;
+countUp = function (el, from, to) {
+  if (!el || el.id !== "seedN") return _countUpV26(el, from, to);
+  const f = el.dataset.v26 != null && el.textContent === el.dataset.v26t ? +el.dataset.v26 : from;
+  _countUpV26(el, f, to);
+  const fix = () => { if (!el.isConnected) return; el.dataset.v26 = String(to); el.textContent = v26SeedFmt(to); el.dataset.v26t = el.textContent; };
+  if (!anim || f == null || f === to) fix(); else setTimeout(fix, 1300);
+};
+econShow = (function (prev) {
+  return function (...a) {
+    const el = document.getElementById("seedN");
+    if (el && el.dataset.v26 != null && el.textContent === el.dataset.v26t) el.textContent = Math.round(+el.dataset.v26).toLocaleString(loc(), NUMG);
+    return prev.apply(this, a);
+  };
+})(econShow);
+/* h) M-32 / B-06 / F-13: Plus con caratteri grandi: se la parte fissa in basso (piani + pulsante) occupa piu' del 45% della
+   finestra, scorre con il resto (prima a 2x copriva tutto) */
+function v26PlusSticky() {
+  const box = layer.querySelector(".plusbox"); const st = box && box.querySelector(".plussticky"); if (!st) return;
+  st.classList.remove("v26static"); if (st.offsetHeight > box.clientHeight * 0.45) st.classList.add("v26static");
+}
+/* i) B-10: tastiera "Avanti" nei campi del nome */
+function v26Hints(root) { (root || document).querySelectorAll("#userName, #petName").forEach((i) => { if (!i.hasAttribute("enterkeyhint")) i.setAttribute("enterkeyhint", "next"); }); }
+/* tutto dopo ogni disegno della pagina e quando si apre una finestra */
+function v26After(root) { try { v26Names(root); v26MomentAlt(root); v26Hints(root); v26PlusSticky(); } catch (e) { /* niente */ } }
+const _renderV26 = render;
+render = function (...a) { const r = _renderV26.apply(this, a); v26After(document.getElementById("app")); return r; };
+new MutationObserver(() => v26After(layer)).observe(layer, { childList: true });
+window.addEventListener("resize", () => { try { v26PlusSticky(); } catch (e) { /* niente */ } });
 
 splash();
 render();

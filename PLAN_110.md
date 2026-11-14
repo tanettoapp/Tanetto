@@ -1,4 +1,4 @@
-# Tanetto 1.0.10 — piano delle correzioni (dall'audit AUDIT_110.md)
+# Tanetto 1.0.11 (versionCode 111) — piano delle correzioni (dall'audit AUDIT_110.md)
 
 Fonte: scratchpad/audit110/AUDIT_110.md (+ CRITIC_1, GAPS1-3, areas/*). Ordine = sezione 5 dell'audit, rivista dal critico
 (sicurezza dei bambini tutta insieme, soldi prima del ricalcolo dell'economia, caratteri prima di layout, nativo in un solo
@@ -30,7 +30,12 @@ Blocchi (ordine e file):
 8) Nativo in un blocco: M-17 VIBRATE, M-45 indietro = moveTaskToBack, CR-04 canale notifiche nuovo, H-07 permessi,
    G-14/H-08 regole di backup, G-17 fuso orario, M-10 firma acquisti (se verificabile senza telefono).
 9) Sito: M-49..M-52, K-*.
-10) Regressione completa + build AAB/APK 110 PROVVISORIO + CHANGES_110.md + note di rilascio + critici per area.
+10) Regressione completa + build AAB/APK 111 PROVVISORIO in outputs/upload111 + CHANGES_111.md + note di rilascio + critici per area.
 
-Riservato al proprietario (sezione DA DECIDERE di CHANGES_110.md): M-09 Introvabili, E-09 pacchetti, D-10 neve nell'emisfero
+Riservato al proprietario (sezione DA DECIDERE di CHANGES_111.md): M-09 Introvabili, E-09 pacchetti, D-10 neve nell'emisfero
 sud, M-13 identita' legale, M-41/E-07 prezzi per Paese, D-05 triplo del regalo Plus, M-02/M-15/I-12/M-53/K-17 Play Console.
+
+NOTA 14/11 ~03:30 (coordinatore): la 1.0.10 (versionCode 110) esce prima come aggiornamento SOLO DI SICUREZZA fatto
+dall'albero 1.0.9 (niente Plus/prova, inviti o richieste di recensione automatici a <13/eta' non detta, frasi di crisi).
+Questo lavoro diventa la 1.0.11 (versionCode 111): build.gradle aggiornato, CHANGES_111.md, cartella upload111.
+Le stesse protezioni restano qui (anzi piu' larghe: anche sotto i 18 anni), cosi' la 1.0.11 non torna indietro.

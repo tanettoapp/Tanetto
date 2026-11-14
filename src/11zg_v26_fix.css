@@ -1,0 +1,100 @@
+/* =================== 1.0.10: accessibilita', misure e parole (AUDIT_110.md) =================== */
+
+/* --- M-21 / C-18 / C-21 / C-24 / C-25: niente parole spezzate a meta' ---
+   Si va a capo con il trattino solo nelle parole di almeno 10 lettere, con almeno 4 lettere per parte (prima "Ot-ter",
+   "Spross-geist", "корот-кую"); etichette, pulsanti, badge e testi dei giochi non si spezzano mai; il coreano va a capo
+   solo tra le parole (eojeol), come si scrive. */
+html { hyphenate-limit-chars: 10 4 4; -webkit-hyphenate-limit-before: 4; -webkit-hyphenate-limit-after: 4; }
+.rar, .tag, .penough, .btn, .chip, .pill, .seg, .choice .ds, .choice .lk, .choice .nm, .hubcard small, .hubcard span, .hubcard b, .nvtx, .xmprice, .pbadge, .ppop, .psave {
+  hyphens: manual; -webkit-hyphens: manual;
+}
+.rar { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* --- M-22b / G2-08: informativa e condizioni non piu' larghe dello schermo (testo tagliato a destra sotto i 375 px) --- */
+.doc, .docbox, .docbox * { overflow-wrap: anywhere; min-width: 0; }
+.docbox { max-width: 100%; box-sizing: border-box; }
+
+/* --- M-23 / F-04: contrasto almeno 4,5:1 (misurato sui pixel) --- */
+.top .name { color: color-mix(in srgb, var(--accent) 74%, #000); }
+.greet .gd, .greet.g19 .gd { color: #574F49; }
+#trpK { color: #85560F; }
+#lT { color: #93472F; }
+.trips p.muted, .card.trips p.muted, .tr20intro p.muted, p.muted.trintro { color: #5C544E; }
+.svstar { color: #A86F12; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .top .name { color: var(--accent); }
+  :root:not([data-theme="light"]) .greet .gd, :root:not([data-theme="light"]) .greet.g19 .gd { color: var(--muted); }
+  :root:not([data-theme="light"]) #trpK { color: #F2C46D; }
+  :root:not([data-theme="light"]) #lT { color: #F0A890; }
+  :root:not([data-theme="light"]) .svstar { color: #F2C46D; }
+}
+:root[data-theme="dark"] .top .name { color: var(--accent); }
+:root[data-theme="dark"] .greet .gd, :root[data-theme="dark"] .greet.g19 .gd { color: var(--muted); }
+:root[data-theme="dark"] #trpK { color: #F2C46D; }
+:root[data-theme="dark"] #lT { color: #F0A890; }
+:root[data-theme="dark"] .svstar { color: #F2C46D; }
+
+/* --- F-12: campi di testo con un anello di fuoco ben visibile, non solo il bordo colorato --- */
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* --- F-14: niente scritte sotto i 12 px; prezzi e risparmio almeno 13 px --- */
+.tabs .tab span, .tabsx button, .rar, .pill small, .lvpill, .tr20pick small, .pack small, .penough { font-size: max(12px, 1em); }
+.plusbox .plans small, .plusbox .psave, .plusbox .ppop { font-size: max(13px, .8125rem); }
+
+/* --- F-09: calendario del diario, stato anche con un segno (non solo con il colore) --- */
+.cal .d { position: relative; }
+.cal .d.l3::after { content: "✓"; position: absolute; right: 1px; top: -3px; font-size: 10px; font-weight: 800; line-height: 1; }
+.cal .d.l1::after, .cal .d.l2::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; opacity: .8; }
+.cal .d.l2::after { margin-left: -5px; box-shadow: 6px 0 0 currentColor; }
+.cal .d.rest { box-shadow: inset 0 0 0 2px var(--line); outline: 1px dashed var(--muted); outline-offset: -4px; }
+
+/* --- M-31 / B-03: avviso largo quanto serve (prima al massimo meta' schermo, 4-5 righe) e mai sopra la barra "Compra" --- */
+.toast { left: 16px; right: 16px; transform: none; width: fit-content; max-width: calc(100% - 32px); margin-inline: auto; border-radius: 18px; text-align: center; }
+body:has(.trybar:not([hidden])) .toast, body:has(.departbar:not([hidden])) .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+.toast.v26on { animation: none; }
+
+/* --- M-29 / B-01 / B-02 / B-10: tastiera aperta, il campo resta visibile ---
+   (la barra in basso e quella dell'inizio si tolgono di mezzo finche' si scrive) */
+html { scroll-padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+.stack:has(#customGoal:focus) .sticky { position: static; background: none; box-shadow: none; }
+body:has(:is(input:not([type=checkbox]):not([type=radio]):not([type=range]), textarea, select):focus) :is(.tabs, .departbar, .trybar) { display: none; }
+#userName, #petName, #customGoal, #line, #capsIn { scroll-margin-bottom: 120px; }
+
+/* --- M-30 / B-04 / B-05: tutto quello che si tocca e' almeno 48 dp (anche dove il disegno e' piu' piccolo) --- */
+.btn.small, .link, .chip, .tabsx button, .seg, .scn { min-height: 48px; }
+.iconbtn { position: relative; }
+.iconbtn::after { content: ""; position: absolute; inset: -4px; }
+.top .lvpill::before, .top .pillbtn::before { content: ""; position: absolute; inset: -9px -3px; }
+.nvi { position: relative; }
+.nvi::after { content: ""; position: absolute; inset: -7px; }
+.tr20i { position: relative; }
+.tr20i::before { content: ""; position: absolute; inset: -7px; }
+.pathbox .plk { position: relative; }
+.pathbox .plk::after { content: ""; position: absolute; inset: -9px -7px; }
+.inlink { position: relative; }
+.inlink::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 48px); height: max(100%, 48px); transform: translate(-50%, -50%); }
+.plegal .inlink { padding: 12px 4px; }
+.namecard .ncx { width: 48px; height: 48px; top: 2px; right: 2px; }
+.gr20pill { position: relative; }
+.gr20pill::before { content: ""; position: absolute; inset: -11px 0; }
+.mood { min-width: 48px; }
+@media (max-width: 380px) {
+  .arrb { width: 40px; height: 40px; position: relative; }
+  .arrb::after { content: ""; position: absolute; inset: -4px; }
+}
+
+/* --- M-32 / B-06 / F-13: Plus a caratteri grandi, la parte fissa in basso non copre piu' tutto --- */
+.plussticky.v26static { position: static; box-shadow: none; }
+
+/* --- M-33 / B-07: stanza a schermo intero, la fila delle scene non passa sotto i pulsanti in alto a destra --- */
+.roomwrap.full .fulltop .scns { margin-right: 104px; }
+
+/* --- M-34 / B-08: schermi larghi, l'intestazione resta ferma cambiando scheda --- */
+html[data-dvl] #app > .top { max-width: 712px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+
+/* --- M-35 / B-11: nome del compagno leggibile anche con tanti Tanì --- */
+.top .namebtn { min-width: 72px; }
+
+/* --- F-08: la nuvoletta del compagno non sembra un pulsante (il tocco sul compagno resta) --- */
+#bubble { cursor: default; }

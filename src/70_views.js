@@ -79,7 +79,7 @@ function roomBlock() {
     ${showLetter ? `<button class="letter" id="letter" aria-label="${esc(t.letterL)}">${letterSVG()}</button>` : ""}
     ${S.away ? "" : `<button class="pethit" id="petHit" aria-label="${esc(S.petName)}"></button>`}
     ${showGift ? `<button class="gift" id="gift" aria-label="${esc(t.giftL)}">${giftSVG()}</button>` : ""}
-    <div class="fx" id="fx"></div></div>${sayNow && !S.away ? `<p class="bubble" id="bubble" aria-live="polite"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>` : ""}${A}</div>`;
+    <div class="fx" id="fx"></div></div>${sayNow && !S.away ? `<p class="bubble" id="bubble"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>` : ""}${A}</div>`;
 }
 const prevBar = {};
 function fillTag(key, pct) { const from = prevBar[key] != null && anim ? prevBar[key] : pct; return `<div class="fill" data-bar="${key}" data-w="${pct}" style="width:${from}%"></div>`; }
@@ -192,7 +192,8 @@ function calendar() {
   for (let d = 1; d <= days; d++) {
     const k = dkey(new Date(y, m, d)); const r = S.days[k]; let cls = "";
     if (r) { if ((r.rest || r.free) && !r.done) cls = "rest"; else if (r.done) { const q = r.done / Math.max(1, r.total); cls = q >= 1 ? "l3" : q >= 0.5 ? "l2" : "l1"; } }
-    cells += `<span class="d ${cls} ${k === S.day ? "today" : ""}">${d}</span>`;
+    const st = cls === "l3" ? t.legAll : cls === "rest" ? t.legRest : cls ? t.legSome : k <= S.day ? t.legNone : ""; /* 1.0.10 (F-09) */
+    cells += `<span class="d ${cls} ${k === S.day ? "today" : ""}" role="img" aria-label="${esc(fmtDay(new Date(y, m, d)) + (st ? ": " + st : ""))}">${d}</span>`;
   }
   return `<div class="card stack-s"><div class="sec"><h3 style="flex:1">${t.calT}</h3><span class="small muted" style="text-transform:capitalize">${mname}</span></div><div class="cal">${cells}</div>
   <div class="legend"><span><i style="background:var(--paper-2)"></i>${t.legNone}</span><span><i class="lgsome"></i>${t.legSome}</span><span><i style="background:var(--accent)"></i>${t.legAll}</span><span><i style="box-shadow:inset 0 0 0 2px var(--line)"></i>${t.legRest}</span></div></div>`;

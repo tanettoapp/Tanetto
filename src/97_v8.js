@@ -152,7 +152,7 @@ roomBlock = function () {
     ${showGift ? `<button class="gift" id="gift" style="${pct(274, 214, 58, 58)};right:auto;bottom:auto" aria-label="${esc(t.giftL)}">${giftSVG()}</button>` : ""}
     ${spotsHTML(S.furn)}<div class="playlayer" id="playlayer"></div><div class="fx" id="fx"></div></div>
     <div class="fulltop"><div class="scns">${scenes}</div><button class="fullbtn close" id="fullClose" aria-label="${esc(t.full.close)}">${icon("shrink")}</button></div>
-    <p class="bubble" id="bubble" aria-live="polite" style="top:calc(${(((d.top + 104) / d.H) * 100).toFixed(1)}% - 12px)"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>
+    <p class="bubble" id="bubble" style="top:calc(${(((d.top + 104) / d.H) * 100).toFixed(1)}% - 12px)"><b>${esc(S.petName)}</b><span id="bubbleTxt">${esc(sayNow)}</span></p>
     <div class="fullbar"><div class="facts">${acts}</div></div></div>`;
 };
 Object.assign(ICON, {
