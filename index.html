@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-9BW6UMHck/lkgL8s5UEHJ+cAshE5lTXFhl5/AIeMIcI=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-enW4QzfXWnoQNof9SbH/zoA7Gb7xwdl2CjBf9JwoDuQ=' 'unsafe-eval' https://apis.google.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.goatcounter.com; media-src 'self' data: blob:; connect-src 'self' data: blob: https://*.googleapis.com https://tanettoapp-pet.firebaseapp.com https://*.goatcounter.com; frame-src https://tanettoapp-pet.firebaseapp.com https://accounts.google.com https://apis.google.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F4EFE6">
 <title>Tanetto — a tiny pet for your self-care habits (free app)</title>
@@ -44245,6 +44245,18 @@ econShow = function (...a) {
     if (!anim && d > 0 && Date.now() - v26TouchAt < 3000 && el && (el.hidden || !el.textContent)) toast(`+${d.toLocaleString(loc(), NUMG)} Tanì`); } catch (e) { /* niente */ }
   return r;
 };
+
+/* ---------- 18) Rete che non risponde (G-18): account e backup aspettano al massimo 12 s, poi "Serve una connessione" ---------- */
+function v26Wrap12() {
+  const F = window.TanFB; if (!F || F.__v26) return; F.__v26 = 1;
+  ["pull", "push", "emailSignIn", "emailSignUp", "google", "remove", "resetPw", "perks"].forEach((k) => {
+    const f = F[k]; if (typeof f !== "function") return;
+    if (k === "google" && !(typeof isNativeApp === "function" && isNativeApp())) return; /* sul sito la finestra di Google aspetta la persona */
+    F[k] = (...a) => Promise.race([Promise.resolve().then(() => f.apply(F, a)), new Promise((_, rej) => setTimeout(() => rej(netErr()), 12000))]);
+  });
+}
+const _fbLoadV26 = fbLoad;
+fbLoad = function (...a) { const p = _fbLoadV26.apply(this, a); return p && p.then ? p.then((u) => { try { v26Wrap12(); } catch (e) { /* niente */ } return u; }) : p; };
 
 splash();
 render();

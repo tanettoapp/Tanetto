@@ -846,3 +846,15 @@ econShow = function (...a) {
     if (!anim && d > 0 && Date.now() - v26TouchAt < 3000 && el && (el.hidden || !el.textContent)) toast(`+${d.toLocaleString(loc(), NUMG)} Tanì`); } catch (e) { /* niente */ }
   return r;
 };
+
+/* ---------- 18) Rete che non risponde (G-18): account e backup aspettano al massimo 12 s, poi "Serve una connessione" ---------- */
+function v26Wrap12() {
+  const F = window.TanFB; if (!F || F.__v26) return; F.__v26 = 1;
+  ["pull", "push", "emailSignIn", "emailSignUp", "google", "remove", "resetPw", "perks"].forEach((k) => {
+    const f = F[k]; if (typeof f !== "function") return;
+    if (k === "google" && !(typeof isNativeApp === "function" && isNativeApp())) return; /* sul sito la finestra di Google aspetta la persona */
+    F[k] = (...a) => Promise.race([Promise.resolve().then(() => f.apply(F, a)), new Promise((_, rej) => setTimeout(() => rej(netErr()), 12000))]);
+  });
+}
+const _fbLoadV26 = fbLoad;
+fbLoad = function (...a) { const p = _fbLoadV26.apply(this, a); return p && p.then ? p.then((u) => { try { v26Wrap12(); } catch (e) { /* niente */ } return u; }) : p; };

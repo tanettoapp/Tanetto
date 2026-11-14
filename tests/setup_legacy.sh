@@ -29,4 +29,5 @@ for W in "$DST/site" "$DST/fix109/www"; do
 done
 sed -i '/http-equiv="Content-Security-Policy"/d' "$DST/fix109/www/index.html"
 sed -i "s#-d \${SITE:-/home/claude/tanetto-wip110}#-d \${SITE:-$DST/site}#" "$DST/fix109/regr5.sh"
+python3 "$REPO/tests/legacy_patches.py" "$DST" >/dev/null || echo "ATTENZIONE: legacy_patches non applicate tutte"
 echo "legacy pronte in $DST"

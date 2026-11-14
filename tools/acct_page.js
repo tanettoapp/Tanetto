@@ -25,7 +25,7 @@ const html = `<!doctype html>
 <title>Tanetto — delete your account</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <style>
-:root { --bg: #F4EFE6; --paper: #FFFBF4; --paper-2: #EFE7DA; --ink: #2F2A26; --muted: #6E655D; --line: #E2D7C6; --accent: #4E8A4A; --red: #B3261E; }
+:root { --bg: #F4EFE6; --paper: #FFFBF4; --paper-2: #EFE7DA; --ink: #2F2A26; --muted: #6E655D; --line: #E2D7C6; --accent: #2F7035; --red: #B3261E; }
 @media (prefers-color-scheme: dark) { :root { --bg: #1A1714; --paper: #25211C; --paper-2: #2F2A24; --ink: #F1EBE2; --muted: #B5AA9D; --line: #3A342D; --accent: #93CC8B; --red: #F2B8B5; } }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
 main { max-width: 440px; margin: 0 auto; padding: 18px 16px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; }
@@ -34,7 +34,7 @@ select { border: 2px solid var(--line); background: var(--paper); color: var(--i
 .card { background: var(--paper); border-radius: 20px; padding: 18px 16px; box-shadow: 0 6px 18px -10px rgba(80,60,30,.35); display: flex; flex-direction: column; gap: 12px; }
 h1 { font-size: 24px; line-height: 1.2; margin: 0; text-align: center; } p { margin: 0; } .muted { color: var(--muted); } .small { font-size: 14px; }
 button, .btn { font: inherit; font-weight: 700; border-radius: 999px; min-height: 48px; padding: 10px 18px; border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-sizing: border-box; width: 100%; }
-.pri { background: var(--accent); color: #fff; } .ghost { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
+.pri { background: var(--accent); color: #fff; } @media (prefers-color-scheme: dark) { .pri { color: #16210F; } } /* 1.0.11 (K-07) */ .ghost { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
 .g { background: #fff; color: #1F1F1F; box-shadow: inset 0 0 0 1.5px #747775; } .g svg { width: 20px; height: 20px; }
 .danger { background: var(--red); color: #fff; } @media (prefers-color-scheme: dark) { .danger { color: #3a0d0a; } .pri { color: #16210F; } }
 .link { background: none; color: var(--accent); min-height: 40px; width: auto; align-self: center; padding: 4px 8px; }

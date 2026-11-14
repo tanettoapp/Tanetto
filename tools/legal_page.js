@@ -17,6 +17,10 @@ for (const l of Object.keys(T)) {
   const rep = (s) => s.replace("{owner}", OWNER_NAME || t.ownerMissing).replace("{email}", OWNER_EMAIL).replace("{date}", date);
   S[l] = { lang: t.lang, locale: t.locale, privB: t.privB, termsB: t.termsB, priv: t.privDoc.map(rep), terms: t.terms.map(rep), back: t.acct.webBack, del: t.acct.webT };
 }
+/* 1.0.11 (K-08): il testo inglese e' gia' scritto nella pagina (si legge anche senza JavaScript e dai motori di ricerca);
+   lo script poi mostra la lingua di chi la apre */
+const linkN = (s) => esc(s).replace(/tanettoapp\.github\.io\/Tanetto\/elimina-account\.html/g, '<a href="elimina-account.html">tanettoapp.github.io/Tanetto/elimina-account.html</a>').replace(/([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/g, '<a href="mailto:$1">$1</a>');
+const EN = S.en;
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -25,8 +29,11 @@ const html = `<!doctype html>
 <title>Tanetto — Privacy policy and terms of use</title>
 <meta name="description" content="Privacy policy and terms of use of Tanetto, the gentle self-care habit app.">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="canonical" href="https://tanettoapp.github.io/Tanetto/privacy.html">
+<meta property="og:type" content="website"><meta property="og:title" content="Tanetto: privacy policy and terms of use">
+<meta property="og:url" content="https://tanettoapp.github.io/Tanetto/privacy.html"><meta property="og:image" content="https://tanettoapp.github.io/Tanetto/og.png">
 <style>
-:root { --bg: #F4EFE6; --paper: #FFFBF4; --ink: #2F2A26; --muted: #6E655D; --line: #E2D7C6; --accent: #4E8A4A; }
+:root { --bg: #F4EFE6; --paper: #FFFBF4; --ink: #2F2A26; --muted: #6E655D; --line: #E2D7C6; --accent: #2F7035; }
 @media (prefers-color-scheme: dark) { :root { --bg: #1A1714; --paper: #25211C; --ink: #F1EBE2; --muted: #B5AA9D; --line: #3A342D; --accent: #93CC8B; } }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
 main { max-width: 720px; margin: 0 auto; padding: 18px 16px 48px; box-sizing: border-box; }
@@ -40,9 +47,9 @@ h1 { font-size: 24px; margin: 0 0 10px; line-height: 1.25; } p { margin: 0 0 12p
 <body>
 <main>
   <div class="top"><a class="brand" href="./">Tanetto</a><span class="sp"></span><select id="lang" aria-label="Language"></select></div>
-  <section id="privacy"><h1 id="pT"></h1><div id="pB"></div></section>
-  <section id="terms"><h1 id="tT"></h1><div id="tB"></div></section>
-  <p class="links"><a id="back" href="./"></a> · <a id="del" href="elimina-account.html"></a></p>
+  <section id="privacy"><h1 id="pT">${esc(EN.privB)}</h1><div id="pB">${EN.priv.map((x) => "<p>" + linkN(x) + "</p>").join("")}</div></section>
+  <section id="terms"><h1 id="tT">${esc(EN.termsB)}</h1><div id="tB">${EN.terms.map((x) => "<p>" + linkN(x) + "</p>").join("")}</div></section>
+  <p class="links"><a id="back" href="./">${esc(EN.back)}</a> · <a id="del" href="elimina-account.html">${esc(EN.del)}</a></p>
 </main>
 <script>
 (function () {
