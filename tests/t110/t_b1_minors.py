@@ -55,6 +55,8 @@ async def main(b):
             T.check("bambino: senza la fila dei 7 giorni", dots == 0, dots)
         else:
             T.check("adulto: 'Torna domani' con il valore del regalo (come prima)", any(c.isdigit() for c in tz), tz)
+            two = await T.ev(pg, "(document.querySelector('.teaser .v26two') || {}).textContent || ''")
+            T.check("G2-06 una riga spiega le due serie (regali = aperture, trofei = obiettivi)", "open Tanetto" in two and "trophies" in two, two)
         g1 = await T.ev(pg, "(document.getElementById('adGift') || {}).textContent || ''")
         if age == "child":
             T.check("bambino: il video non dice 'double' ('an extra gift')", g1 and "double" not in g1.lower() and "extra gift" in g1, g1)
@@ -115,6 +117,9 @@ async def main(b):
     if vis:
         await pg.click("#v26Stats"); await pg.wait_for_timeout(300)
         T.check("  tocco: spente e ricordate", await T.ev(pg, "localStorage.getItem('tanetto-statistiche')") == "0" and await T.ev(pg, "document.getElementById('v26Stats').getAttribute('aria-checked')") == "false")
+    r = json.loads(await T.ev(pg, "JSON.stringify({ n: document.querySelectorAll('.v26psplit p').length, long: Math.max(0, ...[...document.querySelectorAll('.v26psplit p')].map((p) => Math.round(p.getBoundingClientRect().height / parseFloat(getComputedStyle(p).lineHeight)))), g: (document.getElementById('v26AgeG') || {}).textContent || '' })"))
+    T.check(f"G2-10 privacy: una frase per riga ({r['n']} righe, la piu' lunga {r['long']} righe a 412 px)", r["n"] >= 4 and r["long"] <= 5, r)
+    T.check("G2-10 eta': la scheda dice la fascia d'eta' data ('18 or older')", "18 or older" in r["g"], r["g"])
     T.check("  nessun errore", not pg.errs, pg.errs[:2])
     await ctx.close()
     # 8) informativa: la frase nuova c'e' in tutte le lingue (app) e nella pagina pubblica

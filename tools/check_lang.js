@@ -2,7 +2,7 @@ const fs = require("fs");
 const files = fs.readdirSync("src").filter((f) => /^(29_t|3.*)\.js$/.test(f)).sort();
 global.window = {};
 let code = files.map((f) => fs.readFileSync("src/" + f, "utf8")).join("\n") + "\nmodule.exports = T;";
-const p = "/tmp/claude-0/chk_" + process.pid + ".js"; fs.writeFileSync(p, code);
+const p = require("path").join(require("fs").existsSync("/dev/shm") ? "/dev/shm" : require("os").tmpdir(), "chk_" + process.pid) + ".js"; fs.writeFileSync(p, code);
 let T; try { T = require(p); } catch (e) { console.log("LOAD ERROR", e.message); process.exit(1); }
 const ref = T.en; const langs = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(T);
 const FREE = [/^helpLines$/, /^chat\.K\./];

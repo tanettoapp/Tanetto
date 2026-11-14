@@ -2,7 +2,7 @@ const fs = require("fs");
 const files = fs.readdirSync("src").filter((f) => /^(29_t|3.*)\.js$/.test(f)).sort();
 global.window = {};
 const code = files.map((f) => fs.readFileSync("src/" + f, "utf8")).join("\n") + "\nmodule.exports = T;";
-const p = "/tmp/claude-0/dump_" + process.pid + ".js"; fs.writeFileSync(p, code); const T = require(p); fs.unlinkSync(p);
+const p = require("path").join(require("fs").existsSync("/dev/shm") ? "/dev/shm" : require("os").tmpdir(), "dump_" + process.pid) + ".js"; fs.writeFileSync(p, code); const T = require(p); fs.unlinkSync(p);
 for (const l of Object.keys(T)) {
   const out = [];
   const walk = (o, path) => {

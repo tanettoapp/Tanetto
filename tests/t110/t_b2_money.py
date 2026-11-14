@@ -132,6 +132,16 @@ async def main(b):
     got = await T.ev(pg, "window.__got"); tst = await T.ev(pg, "(document.getElementById('toast') || {}).textContent || ''")
     T.check("video vecchio di 3 ore: il tocco prepara subito un video nuovo e lo mostra (niente 'No ad available')", got == 1 and "No ad" not in tst, (r, got, tst))
     await ctx.close()
+    # --- E-06: pagamenti non disponibili nel Paese (la rete funziona, Google Play rifiuta): dopo 2 tentativi un testo giusto
+    ctx, pg = await T.page(b, T.base_state("ru"), age="adult", native=True, lang="ru-RU")
+    await T.close_layer(pg)
+    await T.ev(pg, "window.Capacitor.Plugins.Billing.products = async () => { throw { code: 'unavailable' }; }; billProducts = null; openPlus('t'); 1"); await pg.wait_for_timeout(1500)
+    t1 = await T.ev(pg, "(document.getElementById('plusFoot') || {}).textContent || ''")
+    await T.ev(pg, "document.getElementById('billRetry') && document.getElementById('billRetry').click(); 1"); await pg.wait_for_timeout(1500)
+    t2 = await T.ev(pg, "(document.getElementById('plusFoot') || {}).textContent || ''")
+    T.check("E-06 ru, pagamenti rifiutati: prima 'controlla la connessione', dopo 2 tentativi si dice che Google Play forse non vende nel Paese", "Проверь подключение" in t1 and "в твоей стране" in t2, (t1[:90], t2[:120]))
+    T.check("  nessun errore", not pg.errs, pg.errs[:2])
+    await ctx.close()
     # --- M-06b: due telefoni con lo stesso account
     CLOUD = {"doc": None, "pushes": [], "pulls": 0}
     FB = r"""window.TanFB = { init: async () => ({ uid: 'u-test-1', email: 'tester@example.invalid', provider: 'password' }),

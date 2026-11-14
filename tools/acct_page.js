@@ -2,7 +2,7 @@
 const fs = require("fs");
 const files = fs.readdirSync("src").filter((f) => /^(29_t|3.*)\.js$/.test(f)).sort();
 global.window = {};
-const p = "/tmp/claude-0/acctpage_" + process.pid + ".js";
+const p = require("path").join(require("fs").existsSync("/dev/shm") ? "/dev/shm" : require("os").tmpdir(), "acctpage_" + process.pid) + ".js";
 fs.writeFileSync(p, files.map((f) => fs.readFileSync("src/" + f, "utf8")).join("\n") + "\nmodule.exports = T;");
 const T = require(p); fs.unlinkSync(p);
 const S = {};
@@ -16,12 +16,17 @@ const cfg = fs.readFileSync("src/97n_account.js", "utf8").match(/const FB_CFG = 
 /* fix 1.0.9 (verifica privacy m4): chi non riesce ad accedere scrive all'e-mail di Tanetto (la stessa dell'informativa) */
 const EMAIL = (fs.readFileSync("src/90_v5.js", "utf8").match(/OWNER_EMAIL = "([^"]*)"/) || [])[1] || "";
 if (!EMAIL || Object.keys(S).some((l) => !S[l].no.includes("{email}"))) throw new Error("manca l'e-mail o il testo per chi non riesce ad accedere");
+/* 1.0.11 (M-50): testo inglese gia' scritto nella pagina, leggibile anche senza JavaScript (poi lo script mette la lingua del telefono) */
+const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const noStatic = (() => { const [a, b] = S.en.no.split("{email}"); return esc(a) + '<a href="mailto:' + esc(EMAIL) + '">' + esc(EMAIL) + "</a>" + esc(b || ""); })();
 const html = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://tanettoapp.github.io/Tanetto/elimina-account.html">
+<meta name="description" content="${esc(S.en.t)}: ${esc(S.en.p)}">
 <title>Tanetto — delete your account</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <style>
@@ -50,16 +55,16 @@ input:focus { border-color: var(--accent); outline: none; } .f { display: flex; 
 <main>
   <div class="top"><span class="brand">Tanetto</span><span class="sp"></span><select id="lang" aria-label="Language"></select></div>
   <div class="card">
-    <h1 id="t"></h1><p class="muted small" id="p"></p>
+    <h1 id="t">${esc(S.en.t)}</h1><p class="muted small" id="p">${esc(S.en.p)}</p>
     <div id="signin">
       <div style="display:flex;flex-direction:column;gap:12px">
-        <button class="g" id="google"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span id="googleL"></span></button>
-        <div class="or"><span id="orL"></span></div>
+        <button class="g" id="google"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span id="googleL">${esc(S.en.google)}</span></button>
+        <div class="or"><span id="orL">${esc(S.en.or)}</span></div>
         <form id="form" novalidate style="display:flex;flex-direction:column;gap:12px">
-          <div class="f"><label for="em" id="emL"></label><input id="em" type="email" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
-          <div class="f"><label for="pw" id="pwL"></label><input id="pw" type="password" autocomplete="current-password"></div>
-          <button class="pri" type="submit" id="go"></button>
-          <button class="link" type="button" id="forgot"></button>
+          <div class="f"><label for="em" id="emL">${esc(S.en.emailL)}</label><input id="em" type="email" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
+          <div class="f"><label for="pw" id="pwL">${esc(S.en.pwL)}</label><input id="pw" type="password" autocomplete="current-password"></div>
+          <button class="pri" type="submit" id="go">${esc(S.en.signIn)}</button>
+          <button class="link" type="button" id="forgot">${esc(S.en.forgot)}</button>
         </form>
       </div>
     </div>
@@ -70,8 +75,8 @@ input:focus { border-color: var(--accent); outline: none; } .f { display: flex; 
     </div>
     <p class="err" id="err" role="alert"></p>
     <div id="done" hidden><p style="text-align:center;font-weight:700" id="doneL"></p></div>
-    <p class="muted small" id="no"></p>
-    <a class="link" id="back" href="./" style="text-align:center"></a>
+    <p class="muted small" id="no">${noStatic}</p>
+    <a class="link" id="back" href="./" style="text-align:center">${esc(S.en.back)}</a>
   </div>
 </main>
 <script src="fb.js"></script>
@@ -133,5 +138,5 @@ $("del").addEventListener("click", async () => {
 </body>
 </html>
 `;
-fs.writeFileSync(process.argv[2] || "/home/claude/tanetto/elimina-account.html", html);
+fs.writeFileSync(process.argv[2] || "elimina-account.html", html);
 console.log("pagina eliminazione account:", html.length, "caratteri");

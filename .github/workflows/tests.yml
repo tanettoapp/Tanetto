@@ -1,0 +1,46 @@
+name: Prove dell'app
+
+# 1.0.11 (H-04): a ogni modifica di sorgenti, strumenti o prove: build, controllo che i file generati siano quelli
+# salvati, controllo dei testi nelle 14 lingue e prove nuove (tests/t110). Non pubblica niente.
+on:
+  push:
+    paths: ["src/**", "tools/**", "tests/**", ".github/workflows/tests.yml"]
+  pull_request:
+    paths: ["src/**", "tools/**", "tests/**", ".github/workflows/tests.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Strumenti
+        run: |
+          pip install playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Build (e i file generati sono quelli salvati)
+        run: |
+          python3 tools/build.py
+          git diff --stat --exit-code -- index.html privacy.html elimina-account.html licenses.html sw.js
+      - name: Testi nelle 14 lingue
+        run: set -o pipefail; node tools/check_lang.js | tail -3
+      - name: Prove 1.0.11
+        run: |
+          fail=0
+          for t in tests/t110/t_*.py; do
+            echo "=== $t"
+            (cd tests/t110 && timeout 1500 python3 -u $(basename $t)) > out.txt 2>&1 || true
+            grep -E "^NO |TUTTO OK|CI SONO|Traceback" out.txt | head -20
+            grep -q "TUTTO OK" out.txt || fail=1
+          done
+          exit $fail

@@ -91,6 +91,13 @@ csp = ("default-src 'self'; "
        "worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'")
 page = page.replace(CSP_TAG, f'<meta http-equiv="Content-Security-Policy" content="{csp}">', 1)
 assert page.count('http-equiv="Content-Security-Policy"') == 1
+# 1.0.11: lo script dell'app deve essere JavaScript valido (un nome dichiarato due volte bloccava tutta l'app senza avviso)
+import tempfile, shutil
+if shutil.which("node"):
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8", dir="/dev/shm" if os.path.isdir("/dev/shm") else None) as tf:
+        tf.write(inl[0]); _tfp = tf.name
+    _ck = subprocess.run(["node", "--check", _tfp], capture_output=True, text=True); os.unlink(_tfp)
+    assert _ck.returncode == 0, "script dell'app non valido:\n" + _ck.stderr[-1500:]
 open(f"{OUT}/index.html", "w").write(page)
 man = {"name": "Tanetto", "short_name": "Tanetto", "description": "Un piccolo compagno che ti aiuta a prenderti cura di te, un passo alla volta.",
        "start_url": "./", "scope": "./", "display": "standalone", "orientation": "portrait", "background_color": "#F4EFE6", "theme_color": "#F4EFE6", "lang": "it",

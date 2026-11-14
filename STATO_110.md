@@ -9,15 +9,14 @@ Come si lavora: sorgenti in src/, `python3 tools/build.py` (scrive index.html ec
 permesso): file pesanti temporanei SOLO in /dev/shm. Livello nuovo: src/98zk_v26_fix.js + src/11zg_v26_fix.css,
 testi nuovi in src/3zzk_v26_texts.js (T[l].v26), correzioni puntuali di testo direttamente nei file delle lingue.
 
-Fatto (prove verdi): blocco 0 (git, build), 1 (bambini, crisi, numeri di aiuto per Paese, statistiche, promemoria),
-2 (soldi/Tanì/backup/regalo/memoria piena/editor), 4 (testi 14 lingue, FAQ, coreano, plurali...), 5 (accessibilita'
-e misure), 6 (bentornato, respiro, prossimo trofeo, versione, suoni, avvio, stagioni). Prove: t_b1_minors, t_b1_crisis,
-t_b2_money, t_b5_a11y, t_b6_product.
+Fatto (prove verdi): blocchi 0-9 (bambini, crisi, numeri di aiuto per Paese, statistiche, promemoria; soldi/Tanì/backup;
+testi 14 lingue, FAQ, coreano, plurali; accessibilita' e misure; bentornato, respiro, prossimo trofeo, versione, suoni,
+stagioni; prestazioni (Firebase solo con account, animazioni a riposo, audio che dorme, timer fermi in secondo piano);
+nativo (VIBRATE, indietro, canale notifiche, permessi, backup rules, fuso); licenze, termini, I-08, E-13, G-18;
+sito (mailto, contrasto, pagine leggibili senza JS); P2: B-14, B-15, B-17, E-06, G-12, G2-06, G2-10 (fascia d'eta').
+build.py ora controlla che lo script sia JavaScript valido (node --check).
+Suite: tests/t110/t_*.py; storiche con tests/run.sh TAG legacy (attese cambiate apposta: tests/legacy_patches.py).
 
-Prossimo, in ordine: 7) prestazioni web (Firebase solo con account, animazioni/timer solo se visibili);
-8) nativo (VIBRATE, indietro = moveTaskToBack, canale notifiche nuovo, permessi, backup rules, fuso orario);
-licenze (M-14), termini (I-09), I-08, G2-06/G2-09/G2-10, E-13; 9) sito (mailto privacy, contrasto pagine);
-3) economia rimisurata -> sezione DA DECIDERE; 10) regressione completa (legacy + t110 + axe + check_lang),
-build AAB/APK 111 PROVVISORIO, CHANGES_111.md, note di rilascio inglesi, critici per area.
-Rimandato al proprietario: M-22c voce dei 7 compagni (serve la sua scelta su quanto forte), CR-06 "Risparmi 25%"
-(lui ha deciso l'arrotondamento), D-10 neve nell'emisfero sud, M-09, E-09, M-13, M-41, D-05 (x3).
+Prossimo: regressione completa, economia rimisurata (/dev/shm/econ: e1_econ.py + e2_table.py) -> DA DECIDERE,
+build AAB/APK 111 PROVVISORIO in /mnt/user-data/outputs/upload111/, CHANGES_111.md, RELEASE_NOTES_111.txt.
+Rimandato al proprietario: vedi CHANGES_111.md "DA DECIDERE" (M-09, E-09, D-05, CR-06, D-10, M-13, M-41, M-22c, G2-10, Unikat).

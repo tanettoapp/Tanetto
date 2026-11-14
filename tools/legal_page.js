@@ -2,7 +2,7 @@
 const fs = require("fs");
 const files = fs.readdirSync("src").filter((f) => /^(29_t|3.*)\.js$/.test(f)).sort();
 global.window = {};
-const p = "/tmp/claude-0/legal_" + process.pid + ".js";
+const p = require("path").join(require("fs").existsSync("/dev/shm") ? "/dev/shm" : require("os").tmpdir(), "legal_" + process.pid) + ".js";
 fs.writeFileSync(p, files.map((f) => fs.readFileSync("src/" + f, "utf8")).join("\n") + "\nmodule.exports = T;");
 const T = require(p); fs.unlinkSync(p);
 const v5 = fs.readFileSync("src/90_v5.js", "utf8");
@@ -74,5 +74,5 @@ paint();
 </body>
 </html>
 `;
-fs.writeFileSync(process.argv[2] || "/home/claude/tanetto/privacy.html", html);
+fs.writeFileSync(process.argv[2] || "privacy.html", html);
 console.log("pagina privacy e condizioni:", html.length, "caratteri");

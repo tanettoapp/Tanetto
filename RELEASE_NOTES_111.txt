@@ -1,0 +1,26 @@
+Tanetto 1.0.11 (versionCode 111) - release notes for Google Play ("What's new")
+Limit: 500 characters per language. English 478, Italian 496 characters.
+
+<en-GB>
+Kinder and fairer:
+- Better help when you write something painful, with helplines for your country
+- Plus offers never pop up for young users
+- Missing a day no longer resets your daily gift; rest and free days count
+- Two phones on one account: you choose which progress to keep
+- Quick answers to common questions in your Profile
+- Clearer text in 14 languages, bigger touch targets, keyboard no longer covers the diary
+- Vibration works, reminders are quieter, faster restart
+</en-GB>
+
+Italiano (traduzione, da incollare come it-IT):
+
+<it-IT>
+Più gentile e giusta:
+- Più aiuto se scrivi qualcosa di doloroso, con i numeri del tuo Paese
+- Le offerte Plus non compaiono da sole ai più giovani
+- Un giorno saltato non azzera più il regalo; i giorni liberi e di riposo contano
+- Due telefoni con un account: scegli tu quali progressi tenere
+- Risposte veloci alle domande comuni nel Profilo
+- Testi più chiari in 14 lingue, tasti più grandi, la tastiera non copre il diario
+- Vibrazione che funziona, promemoria discreti, riapertura più veloce
+</it-IT>

@@ -44,5 +44,16 @@ async def main(b):
     T.check("G-05 dopo 25 s di silenzio il motore dei suoni si sospende", (await T.ev(pg, "window.__acS || 0")) >= 1, st2)
     T.check("  nessun errore", not pg.errs, pg.errs[:2])
     await ctx.close()
+    # G-06 / H-15: app in secondo piano -> i controlli ripetuti non lavorano (tornano quando l'app e' visibile)
+    ctx, pg = await T.page(b, T.base_state("en"), age="adult", native=True)
+    await T.close_layer(pg)
+    r = json.loads(await T.ev(pg, """new Promise((res) => { let hid = true; Object.defineProperty(document, 'hidden', { configurable: true, get: () => hid });
+      let n = 0, nl = 0; const spy = typeof launchGift === 'function'; let lg = 0; if (spy) { const o = launchGift; launchGift = function () { lg++; return o.apply(this, arguments); }; }
+      const a = setInterval(() => n++, 100); const b = setInterval(() => nl++, 60000);
+      setTimeout(() => { const h = { n, lg }; hid = false; n = 0; lg = 0; setTimeout(() => { clearInterval(a); clearInterval(b); res(JSON.stringify({ hidden: h, visible: { n, lg }, spy })); }, 9000); }, 9000); })"""))
+    T.check(f"G-06 in secondo piano: 0 giri dei controlli ripetuti ({r['hidden']}), visibile di nuovo: ripartono ({r['visible']})",
+            r["hidden"]["n"] == 0 and r["hidden"]["lg"] == 0 and r["visible"]["n"] >= 50 and (not r["spy"] or r["visible"]["lg"] >= 1), r)
+    T.check("  nessun errore", not pg.errs, pg.errs[:2])
+    await ctx.close()
 
 T.run(main)

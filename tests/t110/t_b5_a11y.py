@@ -152,5 +152,26 @@ async def main(b):
     r = json.loads(await T.ev(pg, "JSON.stringify((() => { let worst = 0; layer.querySelectorAll('p, li, h2, h3').forEach((e) => { const r = e.getBoundingClientRect(); worst = Math.max(worst, r.right); }); return { worst, w: innerWidth, open: layer.innerHTML.length }; })())"))
     T.check(f"M-22b informativa a 320 px: niente testo oltre il bordo destro ({r['worst']:.0f} <= {r['w']})", r["open"] > 100 and r["worst"] <= r["w"] + 0.5, r)
     await ctx.close()
+    # --- sentiero della stagione (un solo lucchetto raggiungibile): Tab e Maiusc+Tab restano dentro la finestra
+    ctx, pg = await T.page(b, T.base_state("en"), age="adult", mobile=False)
+    await T.close_layer(pg)
+    await T.ev(pg, "openPath(); 1"); await pg.wait_for_timeout(900)
+    out = 0
+    for i in range(60):
+        await pg.keyboard.press("Shift+Tab" if i >= 45 else "Tab")
+        if not await T.ev(pg, "layer.contains(document.activeElement)"): out += 1
+    T.check("sentiero: Tab e Maiusc+Tab restano nella finestra (60 pressioni)", out == 0 and await T.ev(pg, "!!layer.querySelector('.pathbox')"), out)
+    await ctx.close()
+    # --- B-14 / B-15 / B-17: finestre dentro le zone sicure, titolo raggiungibile, segnaposto alti come le righe vere
+    ctx, pg = await T.page(b, T.base_state("en"), age="adult", w=412, h=640)
+    await T.close_layer(pg)
+    await T.ev(pg, "openPath(); 1"); await pg.wait_for_timeout(700)
+    r = json.loads(await T.ev(pg, "JSON.stringify((() => { const o = layer.querySelector('.overlay'), p = layer.querySelector('.pathbox'); return { ai: getComputedStyle(o).alignItems, ph: p.getBoundingClientRect().height, ih: innerHeight }; })())"))
+    T.check(f"B-14 sentiero alto al massimo schermo - 32 px ({r['ph']:.0f} su {r['ih']})", r["ph"] <= r["ih"] - 32 + 0.5, r)
+    T.check("B-15 finestre centrate in modo 'sicuro' (con il testo grande la parte alta resta raggiungibile)", "safe" in r["ai"], r)
+    await T.ev(pg, "closeLayer(); tab = 'trips'; render(); 1"); await pg.wait_for_timeout(600)
+    ci = await T.ev(pg, "(() => { const d = document.querySelector('.dest'); return d ? getComputedStyle(d).containIntrinsicHeight || getComputedStyle(d).containIntrinsicSize : 'none'; })()")
+    T.check(f"B-17 segnaposto dei viaggi 96 px come le righe vere ({ci})", "96" in str(ci), ci)
+    await ctx.close()
 
 T.run(main)

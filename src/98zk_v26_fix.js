@@ -850,11 +850,64 @@ econShow = function (...a) {
 /* ---------- 18) Rete che non risponde (G-18): account e backup aspettano al massimo 12 s, poi "Serve una connessione" ---------- */
 function v26Wrap12() {
   const F = window.TanFB; if (!F || F.__v26) return; F.__v26 = 1;
-  ["pull", "push", "emailSignIn", "emailSignUp", "google", "remove", "resetPw", "perks"].forEach((k) => {
+  /* "google" no: la scelta dell'account (sul telefono e sul sito) aspetta la persona, anche piu' di 12 s */
+  ["pull", "push", "emailSignIn", "emailSignUp", "remove", "resetPw", "perks"].forEach((k) => {
     const f = F[k]; if (typeof f !== "function") return;
-    if (k === "google" && !(typeof isNativeApp === "function" && isNativeApp())) return; /* sul sito la finestra di Google aspetta la persona */
     F[k] = (...a) => Promise.race([Promise.resolve().then(() => f.apply(F, a)), new Promise((_, rej) => setTimeout(() => rej(netErr()), 12000))]);
   });
 }
 const _fbLoadV26 = fbLoad;
 fbLoad = function (...a) { const p = _fbLoadV26.apply(this, a); return p && p.then ? p.then((u) => { try { v26Wrap12(); } catch (e) { /* niente */ } return u; }) : p; };
+
+/* ---------- 19) Pagamenti non disponibili nel Paese (E-06): dopo 2 tentativi falliti con la rete accesa non si dice piu'
+   solo "controlla la connessione" (in Russia, per esempio, Google Play non accetta pagamenti dal 2022) ---------- */
+let v26BillFail = 0; const v26BillSeen = new WeakSet();
+const _loadProductsV26 = loadProducts;
+loadProducts = function (...a) {
+  const p = _loadProductsV26.apply(this, a); if (!p || !p.then || v26BillSeen.has(p)) return p; v26BillSeen.add(p); /* una richiesta condivisa conta una volta */
+  p.then(() => { v26BillFail = 0; }, (e) => { const c = (e && e.code) || ""; if (c !== "web" && !/network/.test(c)) v26BillFail++; });
+  return p;
+};
+Object.keys(T).forEach((l) => {
+  const b = T[l] && T[l].bill; if (!b || typeof b.unavail !== "string") return; const base = b.unavail;
+  Object.defineProperty(b, "unavail", { configurable: true, enumerable: true, get() { const v = T[l].v26 && T[l].v26.billNo; return v26BillFail >= 2 && navigator.onLine !== false && v ? v : base; } });
+});
+
+/* ---------- 20) Due serie diverse spiegate (G2-06): in "I tuoi progressi" una riga dice che i regali di fila contano le
+   aperture e i trofei i giorni con gli obiettivi (prima due numeri diversi con le stesse parole, senza spiegazione) ---------- */
+const _nav20progressV26 = nav20progress;
+nav20progress = function (...a) {
+  const h = _nav20progressV26.apply(this, a); const tw = L().v26 && L().v26.two;
+  if (!tw || v26Young() || h.indexOf('class="teaser card"') < 0 || h.indexOf("v26two") >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h; const c = tpl.content.querySelector(".teaser.card"); if (!c) return h;
+  const p = document.createElement("p"); p.className = "small muted v26two"; p.textContent = tw; c.appendChild(p); return tpl.innerHTML;
+};
+
+/* G-12: l'app e' partita, quindi il messaggio per i motori web vecchi non serve */
+try { const o = document.getElementById("v26old"); if (o) o.remove(); } catch (e) { /* niente */ }
+
+/* ---------- 21) Privacy ed eta' piu' leggibili (G2-10): il paragrafo unico (14-17 righe, 6 argomenti) diventa una frase per
+   riga; la scheda dell'eta' dice la fascia d'eta' data (prima "ci hai detto mese e anno" senza dire quale).
+   Cambiare l'eta' dall'app resta una decisione del proprietario (oggi: "Ricomincia da capo"). ---------- */
+const v26Split = (t) => String(t).split(/(?<!(?:^|\s)\p{L}\.)(?<=[.!?…])\s+(?=[\p{Lu}\p{N}"«„(\p{Script=Hangul}])|(?<=[。！？])(?=\S)/u).map((x) => x.trim()).filter(Boolean);
+const _psAgeCardV26b = psAgeCard;
+psAgeCard = function (...a) {
+  const h = _psAgeCardV26b.apply(this, a); const g = L().v26 && L().v26.ageG; if (!g || !h) return h;
+  let y = null; try { y = ageYears(S.age); } catch (e) { /* niente */ } if (y == null || !S.age || S.age.skip) return h;
+  const band = y < 13 ? g[1] : y < 18 ? g[2] : g[3];
+  return h.replace(/(<p class="small muted">[\s\S]*?<\/p>)/, `$1<p class="small v26ageg" id="v26AgeG"><b>${esc(g[0])}:</b> ${esc(band)}</p>`);
+};
+const _viewMoreV26p = viewMore;
+viewMore = function (...a) {
+  const h = _viewMoreV26p.apply(this, a); if (!S.pet || moreSub !== "priv" || h.indexOf("v26psplit") >= 0) return h;
+  const tpl = document.createElement("template"); tpl.innerHTML = h; const t = L(); let done = false;
+  tpl.content.querySelectorAll(".card").forEach((c) => {
+    const h3 = c.querySelector("h3"); if (done || !h3 || h3.textContent.trim() !== String(t.privT).trim()) return;
+    const ps = [...c.querySelectorAll("p")].filter((p) => !p.children.length && p.textContent.length > 200); if (!ps.length) return;
+    const p = ps[0]; const parts = v26Split(p.textContent); if (parts.length < 2) return;
+    const box = document.createElement("div"); box.className = "v26psplit stack-s";
+    parts.forEach((x) => { const q = document.createElement("p"); q.className = p.className; q.textContent = x; box.appendChild(q); });
+    p.replaceWith(box); done = true;
+  });
+  return done ? tpl.innerHTML : h;
+};

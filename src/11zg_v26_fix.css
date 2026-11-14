@@ -148,3 +148,22 @@ html.firstgoal .goal .tick::after { animation-iteration-count: 6; }
 .v26lic .doc pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.45; background: var(--paper-2); border-radius: 12px; padding: 10px; }
 .v26lic .doc .card { box-shadow: none; border: 1px solid var(--line); margin: 8px 0; }
 .v26lic .dochead { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+
+/* 1.0.11 (B-14): finestre alte che rispettano la tacca e la barra di sistema */
+.sheet.w20feed, .overlay .fdbox, .overlay .box.tr20sheet { max-height: calc(100dvh - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+.chatbox { height: min(760px, calc(100dvh - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))); }
+.pathbox { height: min(820px, calc(100dvh - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))); }
+/* 1.0.11 (B-15): con il testo grande la parte alta di una finestra resta raggiungibile (prima il titolo del livello nuovo usciva di 11 px) */
+.overlay { place-items: safe center; }
+/* 1.0.11 (B-17): segnaposto delle liste lunghe alti come le righe vere (lo scorrimento non salta piu') */
+.dest { contain-intrinsic-size: auto 96px; }
+@media (max-width: 360px) { .dest { contain-intrinsic-size: auto 130px; } }
+.grid3 > .item { contain-intrinsic-size: auto 158px; }
+
+/* 1.0.11 (G-12): telefono con un motore web troppo vecchio (lo script dell'app non parte): dopo 20 s compare una spiegazione
+   invece dei tre puntini per sempre. Se l'app parte, lo script toglie subito il messaggio (non si vede mai). */
+#v26old { position: fixed; left: 16px; right: 16px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 101; margin: 0 auto; max-width: 420px; padding: 14px 16px; border-radius: 16px; background: var(--paper, #FFFBF4); color: var(--ink, #2F2A26); font: 15px/1.45 system-ui, sans-serif; text-align: center; box-shadow: 0 8px 24px -10px rgba(0, 0, 0, .4); visibility: hidden; animation: v26old 0.01s linear 20s forwards; }
+@keyframes v26old { to { visibility: visible; } }
+
+/* 1.0.11 (G2-10): privacy una frase per riga, con poco spazio tra le righe */
+.v26psplit { display: flex; flex-direction: column; gap: 6px; } .v26psplit p { margin: 0; }

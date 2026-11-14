@@ -85,6 +85,13 @@ cosa sono i Tanì, chi legge il diario). Nella finestra Plus anche senza prova c
 
 6) "Chi sei?" ora dice anche che animale è il compagno; un solo nome per "Scegli un viaggio"; titolo della pagina "Tanetto".
 
+7) **Privacy più leggibile:** in Profilo › Privacy ed età il paragrafo unico (14-17 righe) ora è una frase per riga, e la
+scheda dell'età dice la **fascia d'età** data ("18 anni o più"). In "I tuoi progressi" una riga spiega la differenza tra
+**regali di fila** (aperture) e **trofei** (giorni con gli obiettivi): prima due numeri diversi con le stesse parole.
+
+8) **Pagamenti non disponibili nel Paese** (per esempio in Russia): dopo 2 tentativi l'app non dice più solo "controlla la
+connessione", ma che forse Google Play non vende nel tuo Paese in questo momento.
+
 
 ## 4) Accessibilità e misure
 
@@ -100,6 +107,11 @@ invece di 50 uguali, il calendario dice lo stato di ogni giorno anche a parole e
 
 5) Parole **non più spezzate a metà** in tedesco, russo, olandese e coreano; l'informativa non è più larga dello schermo
 sotto i 375 px; l'avviso non copre più il pulsante "Compra"; con tanti Tanì il nome del compagno resta leggibile.
+
+6) Le finestre alte (sentiero della stagione, chat, notizie, viaggi) restano dentro le zone sicure dello schermo; con il testo
+molto grande il titolo di una finestra non esce più dall'alto; le liste lunghe non "saltano" più scorrendo.
+
+7) Con la tastiera, nel sentiero della stagione il tasto Tab usciva dalla finestra dopo l'ultimo pulsante: ora resta dentro.
 
 
 ## 5) Novità piccole
@@ -129,6 +141,11 @@ secondo; al primo tocco tornano fluide. Il motore dei suoni si addormenta dopo 2
 
 3) Il benvenuto animato solo alla prima apertura del giorno, più corto, senza lampo chiaro in tema scuro.
 
+4) Con l'app **in secondo piano** i controlli che giravano ogni pochi secondi ora si fermano (ripartono quando torni).
+
+5) Su un telefono con il **motore web troppo vecchio** prima si vedevano i tre puntini per sempre; ora dopo 20 secondi una
+spiegazione: aggiornare "Android System WebView" e "Google Chrome" da Google Play.
+
 
 ## 7) Android
 
@@ -155,19 +172,122 @@ cancellazione dell'account, pagine "get" e "test".
 
 ## 10) Cosa manca ancora per il 10 (onesto)
 
-[[MISSING]]
+Sono onesto: ecco cosa **non** ho fatto o non ho potuto provare, e perché.
+
+1) **Voce dei 7 compagni (M-22c):** parlano ancora tutti allo stesso modo (cambia solo la frase tipica). Riscrivere chat,
+incoraggiamenti e promemoria per 7 caratteri in 14 lingue è un lavoro grande e cambia il carattere dell'app: serve prima
+il tuo sì (vedi DA DECIDERE).
+
+2) **Avvio più veloce (M-42):** l'app legge ancora tutto il codice (3,7 MB, 14 lingue) a ogni avvio. Dividerlo per lingua
+cambia il modo in cui l'app viene costruita: rischio alto senza provarlo su telefoni veri. Ho reso più corto il benvenuto
+animato e lo mostro solo alla prima apertura del giorno.
+
+3) **Caratteri per russo, giapponese, coreano e cinese (M-36):** il carattere di Tanetto non ha quelle lettere, quindi in
+una stessa riga si mischiano due caratteri. Serve scegliere e aggiungere caratteri nuovi (circa 2-6 MB in più).
+
+4) **Il fiore di Germo nei momenti 3D (M-38):** servono render fatti sul PC con la scheda video.
+
+5) **Protezione del codice dentro l'app Android (M-47, "CSP"):** sul sito c'è; nell'app no, perché Capacitor inserisce un suo
+script nella pagina e senza un telefono vero non posso essere sicuro di non rompere l'avvio.
+
+6) **Pagina iniziale del sito (M-51):** il sito apre ancora l'app intera (4 MB). Una pagina leggera di presentazione è un
+lavoro a parte sul sito, non sull'app.
+
+7) **Da provare solo su un telefono:** vibrazione, tasto indietro, canale nuovo dei promemoria, backup automatico di Google,
+splash scuro, la versione "ridotta" del codice (R8), pubblicità e pagamenti veri (lista sotto).
+
+8) **Altre cose piccole non fatte:** firma della copia di backup ancora controllata sul telefono (D-11/H-11, serve un server),
+"da dove arrivano" le installazioni (E-12, serve una libreria nuova), alcune animazioni minori (A-06..A-18), la neve della
+Stagione delle Stelle anche nell'emisfero sud (decisione tua), e le suite di prova storiche non sono ancora dentro git
+(sono in una cartella a parte, le uso ma non sono salvate con il codice).
+
+9) **Critici indipendenti:** in questa sessione non avevo lo strumento per lanciare altri agenti, quindi le revisioni per area
+le ho fatte io, rileggendo con le liste dell'audit. Non è come avere occhi nuovi: conviene un controllo esterno prima
+di pubblicare.
 
 
 ## DA DECIDERE (tue decisioni)
 
-[[DECIDE]]
+Qui non ho deciso niente al posto tuo. Per ognuna: cosa succede oggi e le scelte, con i numeri.
+
+1) **Quanto tempo per il primo Introvabile (M-09).** Tu hai detto "circa 15 mesi per chi gioca normalmente, almeno 12 per chi
+gioca tantissimo". Rimisurato oggi sulla 1.0.11 (460 giorni simulati con l'app vera, senza comprare niente):
+[[ECON]]
+Le scelte:
+a) **Tenere i prezzi** (68.000-80.000) e dire "circa [[TYPM]] mesi". Nessun codice da cambiare.
+b) **Prezzi più bassi e video 3-5 da 6 Tanì:** Introvabili 54.000 / 54.000 / 56.000 / 58.000 / 60.000 / 63.000, e dal terzo
+video del giorno in poi 6 Tanì invece del valore del regalo. Così chi gioca normalmente arriva a circa 15 mesi e chi guarda 5
+video al giorno resta sopra i 12. È un cambio di 2 righe; poi rifaccio la foto 06 dello store (oggi dice "27 mesi", K-12).
+
+2) **Pacchetti di Tanì (E-09):** oggi 1.000 / 5.500 / 12.000 / 25.000 Tanì per 0,99 / 4,99 / 9,99 / 19,99. Il primo da solo vale
+circa 8 giorni di gioco. Tenere, oppure ridurre a 400 / 2.500 / 5.500 / 12.000? (I prezzi in euro non cambiano in nessun caso.)
+
+3) **Regalo triplo di Plus (D-05):** con Plus il regalo del giorno vale 3 volte (fino a 54 Tanì invece di 18). Oggi la parte in
+più conta come "guadagnata", quindi accorcia gli Introvabili per chi ha Plus. Vuoi che la parte in più conti come "pagata"
+(Plus non accorcia mai gli Introvabili, come i 750 Tanì al mese) oppure lasciarla così?
+[[PLUSLINE]]
+
+4) **"Risparmi il 25%" (CR-06):** 44,99 contro 12 × 4,99 = 59,88 è un risparmio del 24,87 %. Avevi deciso l'arrotondamento,
+quindi l'app scrive ancora 25 %. Se preferisci non arrotondare mai per eccesso, diventa "24 %" (una riga).
+
+5) **Neve della Stagione delle Stelle in Australia e Brasile (D-10):** lì a dicembre è estate. Lasciare la neve per tutti
+oppure, nell'emisfero sud, stelle senza neve?
+
+6) **Chi è il titolare dei dati nell'informativa (M-13):** oggi c'è solo il nome "Tanetto". Per legge serve nome e indirizzo
+(tuo o di una ditta). Dimmi cosa scrivere e lo metto in 14 lingue.
+
+7) **Prezzi per Paese (M-41):** India, Brasile, Turchia, Indonesia, Messico pagano oggi l'equivalente di 4,99 / 44,99.
+Proposta (si fa in Play Console, non nell'app): India ₹149 / ₹999, Indonesia Rp29.000 / Rp199.000, Brasile R$9,90 / R$79,90,
+Turchia ₺79,99 / ₺599,99, Messico $59 / $449. Europa resta 4,99 / 44,99.
+
+8) **Voce diversa per i 7 compagni (M-22c):** oggi parlano tutti allo stesso modo. Posso scrivere 7 caratteri (es. Germo
+calmo, Lumi curioso...) per chat, incoraggiamenti e promemoria in 14 lingue. È un lavoro grande: lo faccio solo se vuoi.
+
+9) **Cambiare l'età dall'app (G2-10):** ora la scheda dice la fascia d'età data, ma non si può cambiare (solo con "Ricomincia
+da capo"). Le scelte: lasciare così; permettere solo di **abbassare** l'età (più protezioni, mai meno); o permettere tutto.
+
+10) **"Unikat" in tedesco:** l'etichetta degli Introvabili in tedesco ora dice "Unikat" (prima "UNAUFFINDBAR", troppo lunga e
+spezzata). Il titolo della sezione resta "Unauffindbare Schätze". Va bene?
 
 
 ## DA FARE IN PLAY CONSOLE (a mano)
 
-[[CONSOLE]]
+1) **Pubblico di destinazione:** includere anche **sotto i 13 anni** (l'app è per tutti) e rispondere alle domande
+"Famiglie" in modo coerente: niente offerte automatiche ai minori, pubblicità solo adatte ai bambini.
+
+2) **Sicurezza dei dati:** aggiungere che le **statistiche anonime** (GoatCounter) si possono spegnere e sono spente per i minori;
+elenco degli eventi contati: aperture, viaggio partito/tornato, livello raggiunto, video premio visto, acquisto nel negozio,
+notifica aperta, errore dell'app. Nessun dato personale.
+
+3) **AdMob:** attivare il messaggio per gli **Stati USA** (privacy degli Stati) oltre a quello europeo.
+
+4) **Abbonamento Plus:** i benefici scritti nella scheda vanno aggiornati **solo al momento dell'approvazione** (file
+apply_at_approval.json già pronto, M-53).
+
+5) **Prezzi per Paese** (India, Brasile, Turchia, Indonesia...): li decidi tu in Play Console (vedi DA DECIDERE).
+
+6) **Stato del profilo pagamenti** e, se lo vuoi, il **video promozionale** (K-17).
+
+7) Le note di rilascio sono in RELEASE_NOTES_111.txt (inglese e italiano, sotto i 500 caratteri).
 
 
 ## DA PROVARE SUL TELEFONO
 
-[[PHONE]]
+Su un telefono Android vero, con la versione di upload111 (installare l'APK universale):
+
+1) **Vibrazione:** completare un obiettivo, deve vibrare leggermente (se la vibrazione è attiva nel telefono).
+
+2) **Indietro:** dalla schermata Oggi premere indietro e scegliere "Esci"; riaprire: deve tornare subito, senza splash lungo.
+
+3) **Promemoria:** impostarne uno tra 2 minuti; deve arrivare **senza finestrella sopra le altre app**; in Impostazioni › App ›
+Tanetto › Notifiche deve esserci **un solo** canale.
+
+4) **Backup di Google:** con un telefono di prova, Impostazioni › Google › Backup › Esegui ora; disinstallare, reinstallare:
+compagno e Tanì devono tornare (se il backup automatico è attivo nel telefono).
+
+5) **Tema scuro:** avviare con il telefono in tema scuro: nessun lampo chiaro.
+
+6) **Versione ridotta (R8):** aprire tutte le schede, il negozio, un viaggio, Plus (senza comprare), un video premio,
+l'accesso con Google e il widget: niente si deve bloccare.
+
+7) **Pagamenti di prova** con un account tester: prova di 7 giorni, disdetta, pacchetto di Tanì.
