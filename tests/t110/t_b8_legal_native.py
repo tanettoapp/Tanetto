@@ -50,6 +50,6 @@ async def main(b):
     T.check("M-45/G-07 'Esci' = moveTaskToBack (avvio successivo immediato)", "moveTaskToBack(true)" in bp and "finish()" not in bp)
     T.check("G-13 splash scuro uguale al fondo dell'app (#1A1714)", "#1A1714" in open(os.path.join(AND, "res/values-night/colors_splash.xml")).read())
     gr = open(os.path.join(T.REPO, "app-android/android/app/build.gradle")).read()
-    T.check("versione 112 / 1.0.10 (110 e 111 già usati su Play per build di stanotte poi corrette)", "versionCode 112" in gr and 'versionName "1.0.10"' in gr)
+    T.check("versione 113 / 1.0.10 (110, 111 e 112 già usati su Play; 113: niente video con premio ai bambini)", "versionCode 113" in gr and 'versionName "1.0.10"' in gr)
 
 T.run(main)
