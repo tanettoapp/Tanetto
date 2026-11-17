@@ -98,6 +98,11 @@ P = [
     ('fix109/t38run5/t38_trips.py', '"So funktionieren Reisen" in sh and "Energie" in sh and "Ganze Reise" in sh', '"So funktionieren Reisen" in sh and "Rucksack" in sh and "ganze Reise" in sh', '1.0.10: una sola moneta visibile (Tanì), niente punti; Zaino al posto di Energia'),
     ('fix109/t38run5/t38_trips.py', '"+15 Punkte" in stx and "Kurzer Ausflug" not in stx', '"Punkte" not in stx and "Kurzer Ausflug" not in stx', '1.0.10: una sola moneta visibile (Tanì), niente punti; Zaino al posto di Energia'),
 ]
+# 1.0.10 (113, regole Google Play Families): a chi non ha detto l'eta' (e ai bambini) nessun video con premio; le prove storiche dei
+# video e del consenso UMP (scritte prima della schermata dell'eta') ora usano un adulto
+P += [
+    ("p1/t109.py", 'ADS = """window.__adsInit = 0;', 'ADS = """localStorage.setItem(`tanetto-eta`, JSON.stringify({y: 1990, m: 5})); window.__adsInit = 0;', "113: video e consenso solo da 13 anni in su (la prova usa un adulto)"),
+]
 bad = 0
 for f, old, new, why in P:
     p = os.path.join(DST, f)

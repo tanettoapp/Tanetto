@@ -29,8 +29,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 4) privacy: riapre le scelte sulla privacy (pulsante in Altro).
  * Annunci solo adatti alla supervisione dei genitori (PG), come impostato anche su AdMob.
  * 1.0.9 (pubblico misto, regole Google Play Families): l'app passa l'eta' ("age": child / teen / adult; chi non l'ha detta
- * arriva come child). child = trattamento per bambini (TFCD: niente personalizzazione, niente ID pubblicita') e solo annunci G;
+ * arriva come child). child = (fino alla 112) trattamento per bambini (TFCD, solo annunci G); dalla 113 nessun video (vedi sotto);
  * teen = sotto l'eta' del consenso digitale (TFUA: niente personalizzazione, il modulo del consenso non serve); adult = come prima.
+ * 1.0.10 (113, regole Google Play "Families": per bambini e utenti di eta' sconosciuta niente video con premio che non si
+ * chiudono dopo 5 secondi): con "child" (sotto i 13 anni o eta' non detta) il modulo non chiede il consenso, non avvia l'SDK,
+ * non prepara e non mostra nessun video. L'app (97zn) non lo chiama nemmeno: questo e' un controllo in piu'.
+ * Ragazzi e adulti come prima; se l'eta' diventa teen o adult, init riparte normalmente.
  */
 @CapacitorPlugin(name = "TanettoAds")
 public class AdsPlugin extends Plugin {
@@ -46,6 +50,8 @@ public class AdsPlugin extends Plugin {
     private final AtomicInteger gen = new AtomicInteger(0);
     /* Eta' dichiarata nella schermata neutra dell'app: senza risposta si tratta come un bambino */
     private volatile String age = "child";
+    /* 113: sotto i 13 anni o eta' non detta: nessun video con premio */
+    private boolean kid() { return "child".equals(age); }
     private static String ageOf(PluginCall call) { String a = call.getString("age", "child"); return "adult".equals(a) || "teen".equals(a) ? a : "child"; }
     /* Impostazioni di Google per l'eta': valgono per tutte le richieste da qui in poi.
        1.0.9 (verifica politiche m2): anche la nuova impostazione di AdMob (GMA 25.3+) "trattamento per eta'":
@@ -79,13 +85,15 @@ public class AdsPlugin extends Plugin {
 
     private JSObject state() {
         JSObject o = new JSObject();
-        o.put("canRequestAds", consent != null && consent.canRequestAds());
-        o.put("privacyRequired", consent != null && consent.getPrivacyOptionsRequirementStatus() == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED);
-        o.put("loaded", fresh());
+        final boolean k = kid();
+        o.put("canRequestAds", !k && consent != null && consent.canRequestAds());
+        o.put("privacyRequired", !k && consent != null && consent.getPrivacyOptionsRequirementStatus() == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED);
+        o.put("loaded", !k && fresh());
         return o;
     }
 
     private void startSdk() {
+        if (kid()) return; /* 113: mai l'SDK degli annunci per chi risulta bambino */
         if (!started.compareAndSet(false, true)) return;
         applyAge(age); /* prima dell'avvio dell'SDK, cosi' vale gia' per la prima richiesta */
         new Thread(() -> MobileAds.initialize(getContext(), s -> {})).start();
@@ -95,7 +103,10 @@ public class AdsPlugin extends Plugin {
     public void init(PluginCall call) {
         final String a = ageOf(call);
         getActivity().runOnUiThread(() -> {
-            setAge(a); applyAge(a);
+            setAge(a);
+            /* 113: bambino o eta' non detta: niente consenso, niente SDK, nessun video */
+            if (kid()) { call.resolve(state()); return; }
+            applyAge(a);
             consent = UserMessagingPlatform.getConsentInformation(getContext());
             /* sotto l'eta' del consenso (bambini e ragazzi) Google non chiede il consenso agli annunci personalizzati: non ce ne sono */
             ConsentRequestParameters params = new ConsentRequestParameters.Builder().setTagForUnderAgeOfConsent(!"adult".equals(a)).build();
@@ -120,6 +131,7 @@ public class AdsPlugin extends Plugin {
         String unit = call.getString("unitId");
         final String a = ageOf(call);
         setAge(a); /* l'eta' detta nell'app vale anche per questo video */
+        if (kid()) { rewarded = null; call.reject("child", "child"); return; } /* 113: nessun video per chi risulta bambino */
         /* Nelle versioni di prova (debug) si usano sempre i video di prova di Google: mai annunci veri durante i test */
         if ((getContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) unit = "ca-app-pub-3940256099942544/5224354917";
         if (unit == null || consent == null || !consent.canRequestAds()) { call.reject("not_ready", "not_ready"); return; }
@@ -138,7 +150,9 @@ public class AdsPlugin extends Plugin {
 
     @PluginMethod
     public void show(PluginCall call) {
+        if (call.getString("age") != null) setAge(ageOf(call)); /* 113: l'app passa l'eta' anche qui */
         final RewardedAd ad = rewarded; final long at = loadedAt; rewarded = null;
+        if (kid()) { call.reject("child", "child"); return; } /* 113: nessun video per chi risulta bambino */
         if (ad == null || System.currentTimeMillis() - at >= MAX_AGE_MS) { call.reject("not_loaded", "not_loaded"); return; }
         final AtomicBoolean earned = new AtomicBoolean(false);
         getActivity().runOnUiThread(() -> {
@@ -152,6 +166,7 @@ public class AdsPlugin extends Plugin {
 
     @PluginMethod
     public void privacy(PluginCall call) {
+        if (kid()) { call.resolve(state()); return; } /* 113: per chi risulta bambino non ci sono annunci ne' scelte */
         getActivity().runOnUiThread(() -> UserMessagingPlatform.showPrivacyOptionsForm(getActivity(), err -> {
             /* Il video già pronto era stato preparato con le scelte vecchie: lo si butta e se ne prepara uno nuovo */
             gen.incrementAndGet(); rewarded = null;

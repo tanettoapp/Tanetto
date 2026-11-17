@@ -1,0 +1,53 @@
+/* =================== 1.0.10 (113): correzioni richieste dal proprietario il 17/11/2026 =================== */
+/* Ornamento della stagione (11zg, M-39): nel saluto di Casa l'h1 e' una colonna (data sopra, saluto sotto) e l'ornamento
+   finiva da solo su una riga in basso. Ora e' un piccolo elemento (98zu) dentro l'ultima parola del saluto (o del nome),
+   che non va mai a capo: sta sempre accanto a quella parola, centrato in altezza sul testo, anche con nomi lunghi. */
+:root[data-xmas] #app h1.greet.g19::after, :root.sea-stars #app h1.greet.g19::after, :root.sea-kites #app h1.greet.g19::after { content: none; display: none; }
+#app h1.greet.g19 .gwl { white-space: nowrap; }
+#app h1.greet.g19 .gwo { display: none; }
+:root[data-xmas] #app h1.greet.g19 .gwo, :root.sea-stars #app h1.greet.g19 .gwo, :root.sea-kites #app h1.greet.g19 .gwo {
+  display: inline-block; width: 18px; height: 18px; margin-left: 7px; vertical-align: middle; position: relative; top: -1px; background: no-repeat center / contain;
+}
+:root[data-xmas] #app h1.greet.g19 .gwo { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect x='8.5' y='1' width='3' height='3' rx='1' fill='%23C9962E'/%3E%3Ccircle cx='10' cy='11.5' r='7' fill='%23B23A3F'/%3E%3Cpath d='M4.5 10.5 Q10 13.5 15.5 10.5' stroke='%23F6E4E1' stroke-width='1.3' fill='none'/%3E%3Ccircle cx='7.5' cy='8.5' r='1.4' fill='%23fff' opacity='.7'/%3E%3C/svg%3E"); }
+:root.sea-stars:not([data-xmas]) #app h1.greet.g19 .gwo { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5 L12.6 7 L18.5 7.6 L14 11.6 L15.3 17.5 L10 14.5 L4.7 17.5 L6 11.6 L1.5 7.6 L7.4 7 Z' fill='%237B6CD9'/%3E%3C/svg%3E"); }
+:root.sea-kites:not([data-xmas]) #app h1.greet.g19 .gwo { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1 L17 8 L10 15 L3 8 Z' fill='%233E9BC7'/%3E%3Cpath d='M10 1 L10 15 M3 8 L17 8' stroke='%23fff' stroke-width='1'/%3E%3Cpath d='M10 15 Q12 17 10 19' stroke='%233E9BC7' stroke-width='1.2' fill='none'/%3E%3C/svg%3E"); }
+/* Fila d'oro senza Plus: tutta la ricompensa si tocca e apre Tanetto Plus (98zu) */
+.pathlist .pcell.g.lockg:not(.done) { cursor: pointer; }
+/* Zaino: la tacca della gita breve e' al centro dello spazio tra due caselle (5 px; 3 px fino a 360 px, 11zj) e sporge di
+   4 px sopra e sotto le caselle come in Casa, anche nella scheda delle Avventure (prima era alta 18 px, rimasta dalla
+   barra sottile di una volta, e finiva a meta' casella) */
+#app .nvseg.v110pack i.half::after, #app .tr20seg.v110pack i.half::after { top: -4px; bottom: -4px; height: auto; right: -4.5px; width: 4px; }
+@media (max-width: 360px) { #app .nvseg.v110pack i.half::after, #app .tr20seg.v110pack i.half::after { right: -3px; width: 3px; } }
+/* Fila d'oro senza Plus (98zu): oro caldo e pieno al posto del beige sbiadito, nello stile di Tanetto (bordi morbidi, ombra
+   piena sotto come i pulsanti), pillola dorata "Con Plus" con la corona; le ricompense gia' raggiunte con il bordo piu' deciso. */
+.pathlist .pcell.g.lockg:not(.done) { position: relative; overflow: hidden; filter: none; opacity: 1;
+  background: linear-gradient(165deg, #FFF7E2 0%, #FFE9B4 55%, #FBD98C 100%); box-shadow: inset 0 0 0 1.5px var(--cl-plus-line), 0 2px 0 rgba(176, 110, 26, .16); }
+.pathlist .prow.reached .pcell.g.lockg:not(.done) { box-shadow: inset 0 0 0 2px var(--cl-plus-2), 0 0 0 3px rgba(242, 177, 64, .16), 0 3px 10px rgba(232, 150, 58, .2); }
+.pathlist .pcell.g.lockg:not(.done) .pl { color: var(--cl-plus-ink); }
+.pathlist .pcell.g.lockg:not(.done) .plk { width: auto; height: auto; min-height: 26px; padding: 0 10px 0 8px; gap: 4px; display: inline-flex; align-items: center; border-radius: 999px;
+  background: var(--cl-plus-grad); color: var(--cl-plus-ink); box-shadow: 0 1.5px 0 var(--cl-plus-shadow); font: 800 12px/1 var(--font-display, inherit); letter-spacing: .01em; white-space: nowrap; }
+.pathlist .pcell.g.lockg:not(.done) .plk svg { width: 14px; height: 14px; }
+/* luccichio lento (solo adulti, solo ricompense raggiunte, mai con "riduci movimento") */
+@media (prefers-reduced-motion: no-preference) {
+  .pathbox.v113sheen .prow.reached .pcell.g.lockg:not(.done)::before { content: ""; position: absolute; inset: -20% auto -20% -60%; width: 45%; pointer-events: none;
+    background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, .55) 50%, transparent 100%); transform: translateX(0) skewX(-18deg); animation: v113sheen 6s ease-in-out 1.2s infinite; will-change: transform; }
+}
+/* solo transform (niente ridisegno della pagina): da fuori a sinistra a fuori a destra, poi pausa */
+@keyframes v113sheen { 0% { transform: translateX(0) skewX(-18deg); } 22% { transform: translateX(400%) skewX(-18deg); } 100% { transform: translateX(400%) skewX(-18deg); } }
+:root[data-theme="dark"] .pathlist .pcell.g.lockg:not(.done) { background: linear-gradient(165deg, #4A3A1F 0%, #3E3019 60%, #362915 100%); box-shadow: inset 0 0 0 1.5px #A8792C, 0 2px 0 rgba(0, 0, 0, .25); }
+:root[data-theme="dark"] .pathlist .prow.reached .pcell.g.lockg:not(.done) { box-shadow: inset 0 0 0 2px #D9982F, 0 0 0 3px rgba(217, 152, 47, .18); }
+:root[data-theme="dark"] .pathlist .pcell.g.lockg:not(.done) .pl { color: #F5D9A6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pathlist .pcell.g.lockg:not(.done) { background: linear-gradient(165deg, #4A3A1F 0%, #3E3019 60%, #362915 100%); box-shadow: inset 0 0 0 1.5px #A8792C, 0 2px 0 rgba(0, 0, 0, .25); }
+  :root:not([data-theme="light"]) .pathlist .prow.reached .pcell.g.lockg:not(.done) { box-shadow: inset 0 0 0 2px #D9982F, 0 0 0 3px rgba(217, 152, 47, .18); }
+  :root:not([data-theme="light"]) .pathlist .pcell.g.lockg:not(.done) .pl { color: #F5D9A6; }
+}
+/* le ricompense d'oro non ancora raggiunte restano oro, ma piu' tenue di quelle gia' raggiunte */
+.pathlist .prow:not(.reached) .pcell.g.lockg:not(.done) { background: linear-gradient(165deg, #FFF9EC 0%, #FDEDC6 60%, #FBE2A6 100%); opacity: .82; }
+:root[data-theme="dark"] .pathlist .prow:not(.reached) .pcell.g.lockg:not(.done) { background: linear-gradient(165deg, #3F321C 0%, #352916 100%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pathlist .prow:not(.reached) .pcell.g.lockg:not(.done) { background: linear-gradient(165deg, #3F321C 0%, #352916 100%); } }
+/* Zaino in Casa: se il pulsante ("Выбрать поездку", "Escolher a viagem"...) lascia al testo meno di 120 px, il pulsante va
+   sulla riga sotto, a destra, e il testo usa tutta la larghezza (prima il testo andava a capo in 4-5 righe strette) */
+#app .nvenrow { flex-wrap: wrap; row-gap: 8px; }
+#app .nvenrow .nvtx { flex: 1 1 120px; min-width: 0; }
+#app .nvenrow .btn { margin-left: auto; }

@@ -19,7 +19,7 @@ const V23 = {
     pg: { prog: "Trofei, regali di fila, scudi", comp: "Nome, obiettivi, promemoria", set: "Lingua, suoni, aspetto", acct: "Account, backup, ricomincia", priv: "Privacy, età, pubblicità", buy: "Tanetto Plus, Tanì, ripristino", help: "Aiuto, idee, invita un amico", about: "Guida, termini, autori e licenze" },
     tPriv: "Privacy ed età", tBuy: "Acquisti e Plus", tAbout: "Informazioni",
     ageT: "La tua età", ageYes: "Ci hai detto mese e anno di nascita. Restano solo su questo telefono e decidono quale pubblicità può comparire.",
-    ageNo: "Hai preferito non dirla: la pubblicità è sempre adatta ai bambini e il backup online non è disponibile.", ageBtn: "Rispondi ora",
+    ageNo: "Hai preferito non dirla: non ci sono video con premio e il backup online non è disponibile.", ageBtn: "Rispondi ora",
     taniT: "Tanì", taniP: "Le monete del gioco, per il negozio. Si guadagnano con gli obiettivi; i pacchetti si pagano solo tramite Google Play.",
     look: (a) => `Si prende cura di: ${a}`,
     catch: { germo: "Un pochino alla volta, si cresce!", ondi: "Un respiro lento... meglio?", lumi: "Ti lascio una lucina accesa.", miko: "Facciamolo diventare un nido.", rufi: "Ooh! Scopriamolo!", pingo: "Ancora un passo? Andiamo!", dori: "Abbraccio? Abbraccio!" }
@@ -38,7 +38,7 @@ const V23 = {
     pg: { prog: "Trophies, gifts in a row, shields", comp: "Name, goals, reminder", set: "Language, sounds, appearance", acct: "Account, backup, start over", priv: "Privacy, age, ads", buy: "Tanetto Plus, Tanì, restore", help: "Help, ideas, invite a friend", about: "Guide, terms, authors and licences" },
     tPriv: "Privacy and age", tBuy: "Purchases and Plus", tAbout: "About Tanetto",
     ageT: "Your age", ageYes: "You told us your month and year of birth. They stay only on this phone and decide which ads can appear.",
-    ageNo: "You preferred not to say: ads are always child-appropriate and the online backup isn't available.", ageBtn: "Answer now",
+    ageNo: "You preferred not to say: there are no reward videos and the online backup isn't available.", ageBtn: "Answer now",
     taniT: "Tanì", taniP: "The game coins for the shop. You earn them with your goals; packs are paid only through Google Play.",
     look: (a) => `Looks after: ${a}`,
     catch: { germo: "Little by little, we grow!", ondi: "One slow breath... better?", lumi: "I'll keep a light on for you.", miko: "Let's make it cosy.", rufi: "Ooh! Let's find out!", pingo: "One more step? Let's go!", dori: "Hug? Hug!" }
@@ -57,7 +57,7 @@ const V23 = {
     pg: { prog: "Trophäen, Geschenke in Folge, Schilde", comp: "Name, Ziele, Erinnerung", set: "Sprache, Töne, Aussehen", acct: "Konto, Backup, neu beginnen", priv: "Datenschutz, Alter, Werbung", buy: "Tanetto Plus, Tanì, wiederherstellen", help: "Hilfe, Ideen, Freunde einladen", about: "Anleitung, Bedingungen, Mitwirkende und Lizenzen" },
     tPriv: "Datenschutz und Alter", tBuy: "Käufe und Plus", tAbout: "Über Tanetto",
     ageT: "Dein Alter", ageYes: "Du hast uns Monat und Jahr deiner Geburt gesagt. Sie bleiben nur auf diesem Handy und bestimmen, welche Werbung erscheinen darf.",
-    ageNo: "Du wolltest es lieber nicht sagen: Die Werbung ist immer kindgerecht und das Online-Backup ist nicht verfügbar.", ageBtn: "Jetzt antworten",
+    ageNo: "Du wolltest es lieber nicht sagen: Es gibt keine Belohnungsvideos und das Online-Backup ist nicht verfügbar.", ageBtn: "Jetzt antworten",
     taniT: "Tanì", taniP: "Die Spielmünzen für den Shop. Du verdienst sie mit deinen Zielen; Pakete werden nur über Google Play bezahlt.",
     look: (a) => `Kümmert sich um: ${a}`,
     catch: { germo: "Stück für Stück wachsen wir!", ondi: "Ein langsamer Atemzug... besser?", lumi: "Ich lass dir ein Licht an.", miko: "Machen wir es uns gemütlich.", rufi: "Ooh! Finden wir's raus!", pingo: "Noch ein Schritt? Los geht's!", dori: "Umarmung? Umarmung!" }
@@ -76,7 +76,7 @@ const V23 = {
     pg: { prog: "Trofeos, regalos seguidos, escudos", comp: "Nombre, objetivos, recordatorio", set: "Idioma, sonidos, aspecto", acct: "Cuenta, copia, empezar de nuevo", priv: "Privacidad, edad, anuncios", buy: "Tanetto Plus, Tanì, restaurar", help: "Ayuda, ideas, invitar a alguien", about: "Guía, condiciones, autores y licencias" },
     tPriv: "Privacidad y edad", tBuy: "Compras y Plus", tAbout: "Acerca de Tanetto",
     ageT: "Tu edad", ageYes: "Nos dijiste tu mes y año de nacimiento. Se quedan solo en este teléfono y deciden qué anuncios pueden aparecer.",
-    ageNo: "Preferiste no decirla: los anuncios son siempre aptos para niños y la copia en línea no está disponible.", ageBtn: "Responder ahora",
+    ageNo: "Preferiste no decirla: no hay vídeos con premio y la copia en línea no está disponible.", ageBtn: "Responder ahora",
     taniT: "Tanì", taniP: "Las monedas del juego, para la tienda. Las ganas con tus objetivos; los paquetes se pagan solo a través de Google Play.",
     look: (a) => `Cuida de: ${a}`,
     catch: { germo: "¡Poquito a poco, se crece!", ondi: "Una respiración lenta... ¿mejor?", lumi: "Te dejo una lucecita encendida.", miko: "Hagamos de esto un nido.", rufi: "¡Oh! ¡Vamos a descubrirlo!", pingo: "¿Un paso más? ¡Vamos!", dori: "¿Abrazo? ¡Abrazo!" }
@@ -95,7 +95,7 @@ const V23 = {
     pg: { prog: "Trophées, cadeaux d'affilée, boucliers", comp: "Nom, objectifs, rappel", set: "Langue, sons, apparence", acct: "Compte, sauvegarde, recommencer", priv: "Confidentialité, âge, publicité", buy: "Tanetto Plus, Tanì, restaurer", help: "Aide, idées, inviter quelqu'un", about: "Guide, conditions, auteurs et licences" },
     tPriv: "Confidentialité et âge", tBuy: "Achats et Plus", tAbout: "À propos de Tanetto",
     ageT: "Ton âge", ageYes: "Tu nous as donné ton mois et ton année de naissance. Ils restent uniquement sur ce téléphone et décident quelles publicités peuvent apparaître.",
-    ageNo: "Tu as préféré ne pas le dire : les publicités sont toujours adaptées aux enfants et la sauvegarde en ligne n'est pas disponible.", ageBtn: "Répondre maintenant",
+    ageNo: "Tu as préféré ne pas le dire : il n'y a pas de vidéos récompensées et la sauvegarde en ligne n'est pas disponible.", ageBtn: "Répondre maintenant",
     taniT: "Tanì", taniP: "Les pièces du jeu, pour la boutique. Tu les gagnes avec tes objectifs ; les packs se paient uniquement via Google Play.",
     look: (a) => `Prend soin de : ${a}`,
     catch: { germo: "Petit à petit, on grandit !", ondi: "Une lente respiration... ça va mieux ?", lumi: "Je te laisse une petite lumière allumée.", miko: "Faisons-en un petit nid.", rufi: "Oh ! Allons voir !", pingo: "Encore un pas ? On y va !", dori: "Câlin ? Câlin !" }
@@ -114,7 +114,7 @@ const V23 = {
     pg: { prog: "Troféus, presentes seguidos, escudos", comp: "Nome, metas, lembrete", set: "Idioma, sons, aparência", acct: "Conta, backup, começar de novo", priv: "Privacidade, idade, anúncios", buy: "Tanetto Plus, Tanì, restaurar", help: "Ajuda, ideias, convidar alguém", about: "Guia, termos, autores e licenças" },
     tPriv: "Privacidade e idade", tBuy: "Compras e Plus", tAbout: "Sobre o Tanetto",
     ageT: "Sua idade", ageYes: "Você nos disse o mês e o ano em que nasceu. Eles ficam só neste celular e decidem quais anúncios podem aparecer.",
-    ageNo: "Você preferiu não dizer: os anúncios são sempre adequados para crianças e o backup on-line não está disponível.", ageBtn: "Responder agora",
+    ageNo: "Você preferiu não dizer: não há vídeos com prêmio e o backup on-line não está disponível.", ageBtn: "Responder agora",
     taniT: "Tanì", taniP: "As moedas do jogo, para a loja. Você ganha com suas metas; os pacotes são pagos só pelo Google Play.",
     look: (a) => `Cuida de: ${a}`,
     catch: { germo: "Pouquinho a pouquinho, a gente cresce!", ondi: "Uma respiração lenta... melhor?", lumi: "Vou deixar uma luzinha acesa para você.", miko: "Vamos deixar tudo aconchegante.", rufi: "Ooh! Vamos descobrir!", pingo: "Mais um passo? Vamos!", dori: "Abraço? Abraço!" }
@@ -133,7 +133,7 @@ const V23 = {
     pg: { prog: "トロフィー、連続プレゼント、シールド", comp: "名前、目標、リマインダー", set: "言語、サウンド、見た目", acct: "アカウント、バックアップ、やり直し", priv: "プライバシー、年齢、広告", buy: "Tanetto Plus、Tanì、復元", help: "ヘルプ、アイデア、友だちを招待", about: "ガイド、利用規約、制作者とライセンス" },
     tPriv: "プライバシーと年齢", tBuy: "購入とPlus", tAbout: "Tanettoについて",
     ageT: "あなたの年齢", ageYes: "生まれた年と月を教えてもらいました。この端末の中だけに保存され、表示できる広告の種類を決めるために使います。",
-    ageNo: "答えないことを選びました。広告は常に子ども向けのものだけになり、オンラインバックアップは使えません。", ageBtn: "いま答える",
+    ageNo: "答えないことを選びました。ごほうび動画はなく、オンラインバックアップも使えません。", ageBtn: "いま答える",
     taniT: "Tanì", taniP: "ショップで使うゲーム内のコインです。目標を達成するともらえます。パックの支払いはGoogle Playだけで行われます。",
     look: (a) => `担当：${a}`,
     catch: { germo: "少しずつ、大きくなろう！", ondi: "ゆっくり深呼吸…どう？", lumi: "明かりをつけておくね。", miko: "ふかふかの巣にしよう。", rufi: "おお！調べてみよう！", pingo: "もう一歩？行こう！", dori: "ハグ？ハグ！" }
@@ -152,7 +152,7 @@ const V23 = {
     pg: { prog: "트로피, 연속 선물, 방패", comp: "이름, 목표, 알림", set: "언어, 소리, 화면", acct: "계정, 백업, 처음부터 다시", priv: "개인정보, 나이, 광고", buy: "Tanetto Plus, Tanì, 복원", help: "도움말, 아이디어, 친구 초대", about: "가이드, 이용약관, 만든 사람과 라이선스" },
     tPriv: "개인정보와 나이", tBuy: "구매와 Plus", tAbout: "Tanetto 정보",
     ageT: "나이", ageYes: "태어난 연도와 달을 알려 주셨어요. 이 휴대폰에만 저장되고, 어떤 광고가 나올 수 있는지 정하는 데만 쓰여요.",
-    ageNo: "말하지 않기로 했어요. 광고는 항상 어린이에게 맞는 것만 나오고 온라인 백업은 사용할 수 없어요.", ageBtn: "지금 답하기",
+    ageNo: "말하지 않기로 했어요. 보상 영상은 없고 온라인 백업도 사용할 수 없어요.", ageBtn: "지금 답하기",
     taniT: "Tanì", taniP: "상점에서 쓰는 게임 코인이에요. 목표를 해내면 받을 수 있고, 팩은 Google Play로만 결제돼요.",
     look: (a) => `돌보는 영역: ${a}`,
     catch: { germo: "조금씩, 우리는 자라요!", ondi: "천천히 숨 한 번... 좀 나아요?", lumi: "작은 불 하나 켜 둘게요.", miko: "포근한 둥지로 만들어요.", rufi: "오! 알아봐요!", pingo: "한 걸음 더? 가요!", dori: "안아 줄까요? 안아 줄게요!" }
@@ -171,7 +171,7 @@ const V23 = {
     pg: { prog: "奖杯、连续礼物、护盾", comp: "名字、目标、提醒", set: "语言、声音、外观", acct: "账号、备份、重新开始", priv: "隐私、年龄、广告", buy: "Tanetto Plus、Tanì、恢复购买", help: "帮助、建议、邀请朋友", about: "指南、条款、致谢和许可" },
     tPriv: "隐私与年龄", tBuy: "购买与 Plus", tAbout: "关于 Tanetto",
     ageT: "你的年龄", ageYes: "你告诉了我们出生的年份和月份。它们只保存在这部手机上，用来决定可以显示哪些广告。",
-    ageNo: "你选择了不告诉我们：广告始终适合儿童，也不能使用在线备份。", ageBtn: "现在回答",
+    ageNo: "你选择了不告诉我们：没有奖励视频，也不能使用在线备份。", ageBtn: "现在回答",
     taniT: "Tanì", taniP: "商店里用的游戏金币。完成目标就能获得；金币包只能通过 Google Play 付款。",
     look: (a) => `负责照顾：${a}`,
     catch: { germo: "一点一点，慢慢长大！", ondi: "慢慢吸一口气……好点了吗？", lumi: "我给你留一盏小灯。", miko: "我们把这里变成温暖的小窝吧。", rufi: "哦！我们去弄清楚吧！", pingo: "再走一步？出发！", dori: "抱抱？抱抱！" }
@@ -190,7 +190,7 @@ const V23 = {
     pg: { prog: "獎盃、連續禮物、護盾", comp: "名字、目標、提醒", set: "語言、聲音、外觀", acct: "帳號、備份、重新開始", priv: "隱私、年齡、廣告", buy: "Tanetto Plus、Tanì、恢復購買", help: "幫助、建議、邀請朋友", about: "指南、條款、製作名單與授權" },
     tPriv: "隱私與年齡", tBuy: "購買與 Plus", tAbout: "關於 Tanetto",
     ageT: "你的年齡", ageYes: "你告訴了我們出生的年份和月份。它們只保存在這支手機上，用來決定可以顯示哪些廣告。",
-    ageNo: "你選擇了不告訴我們：廣告一律適合兒童，也無法使用線上備份。", ageBtn: "現在回答",
+    ageNo: "你選擇了不告訴我們：沒有獎勵影片，也無法使用線上備份。", ageBtn: "現在回答",
     taniT: "Tanì", taniP: "商店裡用的遊戲金幣。完成目標就能獲得；金幣包只能透過 Google Play 付款。",
     look: (a) => `負責照顧：${a}`,
     catch: { germo: "一點一點，慢慢長大！", ondi: "慢慢吸一口氣……好點了嗎？", lumi: "我幫你留一盞小燈。", miko: "我們把這裡變成溫暖的小窩吧。", rufi: "哦！我們去弄清楚吧！", pingo: "再走一步？出發！", dori: "抱抱？抱抱！" }
@@ -209,7 +209,7 @@ const V23 = {
     pg: { prog: "Трофеи, подарки подряд, щиты", comp: "Имя, цели, напоминание", set: "Язык, звуки, оформление", acct: "Аккаунт, копия, начать заново", priv: "Конфиденциальность, возраст, реклама", buy: "Tanetto Plus, Tanì, восстановление", help: "Помощь, идеи, пригласить друга", about: "Руководство, условия, авторы и лицензии" },
     tPriv: "Приватность и возраст", tBuy: "Покупки и Plus", tAbout: "О Tanetto",
     ageT: "Твой возраст", ageYes: "Месяц и год рождения хранятся только на этом телефоне и определяют, какая реклама может показываться.",
-    ageNo: "Без ответа на этот вопрос реклама всегда подходит для детей, а онлайн-копия недоступна.", ageBtn: "Ответить сейчас",
+    ageNo: "Без ответа на этот вопрос видео с наградой нет, а онлайн-копия недоступна.", ageBtn: "Ответить сейчас",
     taniT: "Tanì", taniP: "Игровые монетки для магазина. Их дают за цели; наборы оплачиваются только через Google Play.",
     look: (a) => `Область заботы: ${a}`,
     catch: { germo: "Понемногу мы растём!", ondi: "Медленный вдох... лучше?", lumi: "Оставлю для тебя огонёк.", miko: "Давай устроим тут уютное гнёздышко.", rufi: "Ого! Давай узнаем!", pingo: "Ещё шаг? Вперёд!", dori: "Обнимашки? Обнимашки!" }
@@ -228,7 +228,7 @@ const V23 = {
     pg: { prog: "Trofea, prezenty z rzędu, tarcze", comp: "Imię, cele, przypomnienie", set: "Język, dźwięki, wygląd", acct: "Konto, kopia, zacznij od nowa", priv: "Prywatność, wiek, reklamy", buy: "Tanetto Plus, Tanì, przywracanie", help: "Pomoc, pomysły, zaproś znajomych", about: "Przewodnik, warunki, autorzy i licencje" },
     tPriv: "Prywatność i wiek", tBuy: "Zakupy i Plus", tAbout: "O Tanetto",
     ageT: "Twój wiek", ageYes: "Podano nam miesiąc i rok urodzenia. Zostają tylko na tym telefonie i decydują, jakie reklamy mogą się pojawić.",
-    ageNo: "Wybrano odpowiedź „wolę nie mówić”: reklamy są zawsze odpowiednie dla dzieci, a kopia online nie jest dostępna.", ageBtn: "Odpowiedz teraz",
+    ageNo: "Wybrano odpowiedź „wolę nie mówić”: nie ma filmów z nagrodą, a kopia online nie jest dostępna.", ageBtn: "Odpowiedz teraz",
     taniT: "Tanì", taniP: "Monety z gry do sklepu. Zdobywa się je za cele; za pakiety płaci się wyłącznie przez Google Play.",
     look: (a) => `Obszar opieki: ${a}`,
     catch: { germo: "Krok po kroku rośniemy!", ondi: "Jeden powolny oddech... lepiej?", lumi: "Zostawię ci zapalone światełko.", miko: "Zróbmy tu przytulne gniazdko.", rufi: "Ooo! Sprawdźmy to!", pingo: "Jeszcze krok? Ruszamy!", dori: "Przytulas? Przytulas!" }
@@ -247,7 +247,7 @@ const V23 = {
     pg: { prog: "Trofeeën, cadeaus op rij, schilden", comp: "Naam, doelen, herinnering", set: "Taal, geluid, weergave", acct: "Account, back-up, opnieuw beginnen", priv: "Privacy, leeftijd, advertenties", buy: "Tanetto Plus, Tanì, herstellen", help: "Hulp, ideeën, iemand uitnodigen", about: "Uitleg, voorwaarden, makers en licenties" },
     tPriv: "Privacy en leeftijd", tBuy: "Aankopen en Plus", tAbout: "Over Tanetto",
     ageT: "Je leeftijd", ageYes: "Je hebt ons je geboortemaand en -jaar verteld. Die blijven alleen op deze telefoon en bepalen welke advertenties mogen verschijnen.",
-    ageNo: "Je zei het liever niet: advertenties zijn altijd geschikt voor kinderen en de online back-up is niet beschikbaar.", ageBtn: "Nu antwoorden",
+    ageNo: "Je zei het liever niet: er zijn geen beloningsvideo's en de online back-up is niet beschikbaar.", ageBtn: "Nu antwoorden",
     taniT: "Tanì", taniP: "De spelmuntjes voor de winkel. Je verdient ze met je doelen; pakketten betaal je alleen via Google Play.",
     look: (a) => `Zorgt voor: ${a}`,
     catch: { germo: "Beetje bij beetje groeien we!", ondi: "Eén rustige ademhaling... beter?", lumi: "Ik laat een lichtje voor je aan.", miko: "Laten we er een knus nestje van maken.", rufi: "Ooh! Laten we het uitzoeken!", pingo: "Nog een stap? Kom op!", dori: "Knuffel? Knuffel!" }
@@ -266,7 +266,7 @@ const V23 = {
     pg: { prog: "Kupalar, art arda hediyeler, kalkanlar", comp: "İsim, hedefler, hatırlatıcı", set: "Dil, sesler, görünüm", acct: "Hesap, yedek, baştan başla", priv: "Gizlilik, yaş, reklamlar", buy: "Tanetto Plus, Tanì, geri yükleme", help: "Yardım, fikirler, arkadaş davet et", about: "Rehber, koşullar, emeği geçenler ve lisanslar" },
     tPriv: "Gizlilik ve yaş", tBuy: "Satın alımlar ve Plus", tAbout: "Tanetto hakkında",
     ageT: "Yaşın", ageYes: "Bize doğum ayını ve yılını söyledin. Yalnızca bu telefonda kalır ve hangi reklamların çıkabileceğini belirler.",
-    ageNo: "Söylememeyi tercih ettin: reklamlar her zaman çocuklara uygundur ve çevrimiçi yedek kullanılamaz.", ageBtn: "Şimdi yanıtla",
+    ageNo: "Söylememeyi tercih ettin: ödüllü video yoktur ve çevrimiçi yedek kullanılamaz.", ageBtn: "Şimdi yanıtla",
     taniT: "Tanì", taniP: "Mağaza için oyun paraları. Hedeflerinle kazanırsın; paketler yalnızca Google Play üzerinden ödenir.",
     look: (a) => `İlgilendiği alan: ${a}`,
     catch: { germo: "Azar azar büyüyoruz!", ondi: "Yavaş bir nefes... daha iyi mi?", lumi: "Senin için bir ışık açık bırakırım.", miko: "Burayı sıcacık bir yuva yapalım.", rufi: "Ooo! Hadi öğrenelim!", pingo: "Bir adım daha? Hadi!", dori: "Sarılalım mı? Sarılalım!" }

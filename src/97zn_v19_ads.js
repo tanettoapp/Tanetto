@@ -38,7 +38,15 @@ let adsSt = { canRequestAds: false, privacyRequired: false, loaded: false }, ads
 if (S.v109 === undefined) { S.v109 = 1; if (S.pet && !S.adsOk) S.adsOk = 1; save(); }
 /* 1.0.9 (fase 2): pubblico misto (98zf): l'eta' decide come Google tratta la richiesta (bambini: TFCD + G, niente ID pubblicita') */
 const adAgeOpts = () => ({ age: typeof ageAds === "function" ? ageAds() : "child" });
-const adsOn = () => !!(ADS_UNIT && isNativeApp() && adsPlugin() && !plusActive());
+/* 1.0.10 (113): regole Google Play "Families" (verificate il 17/11/2026, support.google.com/googleplay/android-developer
+   answer/9893335): ai bambini e a chi non ha detto l'eta' non si possono mostrare video con premio che non si chiudono dopo
+   5 secondi, e i video con premio di AdMob non si chiudono. Per chi risulta "child" (sotto i 13 anni, "Preferisco non
+   dirlo" o eta' non ancora chiesta) i video non esistono: nessun pulsante, nessuna proposta, nessuna richiesta a Google
+   (ne' consenso UMP, ne' avvio dell'SDK, ne' video preparati), niente "Scelte sulla pubblicità". Ragazzi e adulti come prima.
+   Se piu' tardi l'eta' detta e' da ragazzo o da adulto, i video tornano da soli (ageSet in 98zf rifa' adsInit).
+   Prima che il file dell'eta' (98zf) sia pronto si conta come bambino (prudente). AdsPlugin.java controlla la stessa cosa. */
+function adsKid() { try { return ageAds() === "child"; } catch (e) { return true; } }
+const adsOn = () => !!(ADS_UNIT && isNativeApp() && adsPlugin() && !plusActive() && !adsKid());
 function adsInit() {
   if (!adsOn()) return Promise.resolve(adsSt); if (adsInitP) return adsInitP;
   adsInitAt = Date.now(); adsBack = false;
@@ -81,7 +89,7 @@ const adReady = () => adsOn() && adsSt.canRequestAds && adFresh() && adsLeftToda
 const adLazy = () => adsOn() && !S.adsOk && !adsSt.canRequestAds && !adsInitP && adsLeftToday() > 0;
 const adOffer = () => adGoalDone() && (adReady() || adLazy());
 async function adShow(onReward, src) {
-  if (adsBusy) return;
+  if (adsBusy || adsKid()) return; /* 113: mai un video (e nemmeno "nessun video disponibile") a chi risulta bambino */
   if (!adGoalDone()) return;
   if (!adReady() && adLazy()) {
     adsBusy = true; const b = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("adbtn") ? document.activeElement : null;
@@ -91,7 +99,7 @@ async function adShow(onReward, src) {
   if (!adReady()) { toast(v19ad().none); adsLoad(); return; }
   adsBusy = true; trackOnce("video-premio-" + src);
   let r = null;
-  try { r = await adsPlugin().show(); adsSt.loaded = false; adsCount(); }
+  try { r = await adsPlugin().show(adAgeOpts()); adsSt.loaded = false; adsCount(); }
   catch (e) { toast(v19ad().none); adsSt.loaded = false; }
   finally { adsBusy = false; adsLoad(); }
   if (r && r.rewarded) { try { onReward(); } catch (e) { /* il premio è già stato dato: un errore di disegno non deve mostrare "nessun video" */ } }
@@ -120,7 +128,7 @@ viewMore = function () {
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest("button"); if (!b) return;
   if (b.id === "adGift") { ev.stopImmediatePropagation(); const n = adAmount(); adShow(() => { adGrant(n); const y = window.scrollY; render(); window.scrollTo(0, y); }, "regalo"); return; }
-  if (b.id === "adPrivacy") { ev.stopImmediatePropagation(); const p = adsPlugin(); if (p) p.privacy().then((s) => { adsSt = s || adsSt; if (!adsSt.loaded) adsLoadedAt = 0; render(); (adsLoadP || Promise.resolve()).finally(() => adsLoad()); }).catch(() => {}); return; }
+  if (b.id === "adPrivacy") { ev.stopImmediatePropagation(); if (adsKid()) return; const p = adsPlugin(); if (p) p.privacy().then((s) => { adsSt = s || adsSt; if (!adsSt.loaded) adsLoadedAt = 0; render(); (adsLoadP || Promise.resolve()).finally(() => adsLoad()); }).catch(() => {}); return; }
 }, true);
 /* Si parte solo con un compagno già scelto (mai durante la prima configurazione) e dopo il controllo degli acquisti (Plus = niente pubblicità) */
 let billSynced = false;

@@ -8,7 +8,8 @@
    2) Fasce: "child" sotto i 13 anni; "teen" dai 13 anni all'eta' del consenso digitale del Paese (art. 8 GDPR: Italia e Spagna 14,
       Francia 15, Germania e Paesi Bassi 16, ...; 16 dove non si sa); "adult" dall'eta' del consenso; "unknown" se non risponde.
       "unknown" vale come "child" per la pubblicita' (Families: "children or users of unknown age").
-   3) Pubblicita' (97zn -> AdsPlugin.java): child/unknown = trattamento per bambini (TFCD), contenuti G, nessun ID pubblicita',
+   3) Pubblicita' (97zn -> AdsPlugin.java): child/unknown = dalla 1.0.10 (113) NESSUN video con premio (regole Families: i video
+      con premio di AdMob non si chiudono dopo 5 secondi); prima: trattamento per bambini (TFCD), contenuti G, nessun ID pubblicita',
       nessuna personalizzazione; teen = sotto l'eta' del consenso (TFUA): mai personalizzata, contenuti PG; adult = come prima.
    4) Account e backup online (Firebase): solo da "adult" in su. Chi non ha ancora detto l'eta' e tocca "Accedi" vede prima la
       schermata dell'eta'. Chi era gia' collegato e risulta minore: il backup online si spegne su questo telefono, i dati restano.
@@ -93,6 +94,8 @@ function ageSet(a) {
   trackOnce(a && a.skip ? "eta-non-detta" : "eta-risposta");
   /* pubblicita': le impostazioni cambiano, il video gia' pronto non si usa */
   try { if (typeof adsSt !== "undefined") { adsSt.loaded = false; adsInitP = null; if (S.adsOk && typeof adsInit === "function") adsInit(); } } catch (e) { /* niente */ }
+  /* 113: da bambino (sotto i 13 anni) nessun video: si dimentica anche lo stato del consenso e i nuovi tentativi in attesa */
+  try { if (ageAds() === "child") { adsSt = { canRequestAds: false, privacyRequired: false, loaded: false }; clearTimeout(adsRetryT); adsRetryOn = false; } } catch (e) { /* niente */ }
   if (!ageCloudOk()) ageCloudStop();
   closeLayer(); render();
   const f = ageAfter; ageAfter = null; if (f) setTimeout(f, 60);
@@ -112,7 +115,7 @@ setInterval(() => {
     /* (critica fase 2) la risposta e' del telefono: torna anche dopo "Ricomincia da capo", un ripristino o un trasferimento */
     ageFromMirror();
     /* (critica fase 2) chiusa senza rispondere (tasto indietro, un'altra finestra): non la si ripropone in questa sessione,
-       la si richiede al prossimo avvio. Intanto la pubblicita' resta quella per bambini. */
+       la si richiede al prossimo avvio. Intanto nessun video con premio (come per i bambini, 113). */
     if (ageShown && S.age === undefined && !document.querySelector(".agebox")) { ageShown = false; ageDismissed = true; ageAfter = null; }
     /* (window.__TEST_NOAGE: solo i test automatici vecchi, che non riguardano l'eta', la saltano) */
     if (window.__TEST_NOAGE || ageDismissed || S.age !== undefined || !S.pet || layer.innerHTML || (typeof tutOn !== "undefined" && tutOn) || Date.now() - ageT0 < 2500) return;
@@ -191,9 +194,45 @@ openTaniShop = function (src) {
   if (ageBand() !== "adult") box.querySelectorAll(".firstpk, .pack .pbadge").forEach((x) => x.remove());
   const h = box.querySelector(".packs"); if (h) h.insertAdjacentElement("beforebegin", p); else box.appendChild(p);
 };
+/* 1.0.10 (113): a chi risulta bambino (sotto i 13 anni o eta' non detta) non ci sono video con premio (97zn, adsKid): la riga
+   di Plus non promette "senza pubblicità", che per lui non vuol dire niente. Stessa frase di 98zd (PR22_PLUS) senza la coda. */
+const AGE_PLUS_KID = {
+  it: (m) => `${m} Tanì in regalo ogni mese e il regalo del giorno vale il triplo`,
+  en: (m) => `${m} Tanì gifted every month, and your daily gift is worth triple`,
+  de: (m) => `Jeden Monat ${m} Tanì geschenkt, und dein Tagesgeschenk zählt dreifach`,
+  es: (m) => `${m} Tanì de regalo cada mes y el regalo del día vale el triple`,
+  fr: (m) => `${m} Tanì offerts chaque mois, et ton cadeau du jour vaut le triple`,
+  pt: (m) => `${m} Tanì de presente todo mês e o presente do dia vale o triplo`,
+  ja: (m) => `毎月${m} Tanìのプレゼント。毎日のプレゼントは3倍に`,
+  ko: (m) => `매달 ${m} Tanì 선물, 매일 선물은 세 배`,
+  zh: (m) => `每月赠送 ${m} Tanì，每日礼物变成三倍`,
+  zht: (m) => `每月送你 ${m} Tanì，每日禮物變成三倍`,
+  ru: (m) => `${m} Tanì в подарок каждый месяц, а ежедневный подарок втрое больше`,
+  pl: (m) => `${m} Tanì w prezencie co miesiąc, a codzienny prezent jest potrójny`,
+  nl: (m) => `Elke maand ${m} Tanì cadeau, en je dagelijkse cadeau is drie keer zoveel`,
+  tr: (m) => `Her ay hediye ${m} Tanì, günlük hediyen de üç katı`
+};
+/* 113: in Profilo › Privacy ed età, a chi ha detto un'età sotto i 13 anni: niente video (come già dice "Preferisco non dirlo") */
+const AGE_KID_NOAD = {
+  it: "Alla tua età non ci sono video con premio.", en: "At your age there are no reward videos.",
+  de: "In deinem Alter gibt es keine Belohnungsvideos.", es: "A tu edad no hay vídeos con premio.",
+  fr: "À ton âge, il n'y a pas de vidéos récompensées.", pt: "Na sua idade, não há vídeos com prêmio.",
+  ja: "あなたの年齢では、ごほうび動画はありません。", ko: "이 나이에는 보상 영상이 없어요.",
+  zh: "你这个年龄没有奖励视频。", zht: "你這個年齡沒有獎勵影片。",
+  ru: "Для твоего возраста видео с наградой нет.", pl: "W twoim wieku nie ma filmów z nagrodą.",
+  nl: "Voor jouw leeftijd zijn er geen beloningsvideo's.", tr: "Senin yaşında ödüllü video yok."
+};
+const ageKidNoAd = (txt) => { try { if (ageAds() !== "child") return txt; const x = AGE_KID_NOAD[S.lang] || AGE_KID_NOAD.en; return txt.includes(x) ? txt : txt + (/^(ja|zh|zht)$/.test(S.lang) ? "" : " ") + x; } catch (e) { return txt; } };
+function agePlusKid(box) {
+  try {
+    if (!box || ageAds() !== "child") return; const p = L().plus || {}; const adult = Array.isArray(p.perks) ? p.perks[6] : null;
+    if (typeof adult !== "string") return; const kid = (AGE_PLUS_KID[S.lang] || AGE_PLUS_KID.en)(EC.PLUS_MONTH);
+    box.querySelectorAll(".perks li span").forEach((x) => { if (!x.children.length && x.textContent === adult) x.textContent = kid; });
+  } catch (e) { /* niente */ }
+}
 if (typeof openPlus === "function") {
   const _openPlusAge = openPlus;
-  openPlus = function (...a) { const r = _openPlusAge.apply(this, a); try { if (ageBand() !== "adult") { const box = document.querySelector(".plusbox"); if (box && !box.querySelector(".ageadult")) { const ft = box.querySelector(".plussticky"); const h = `<p class="small ageadult">${esc(ageT().adult)}</p>`; if (ft) ft.insertAdjacentHTML("beforebegin", h); else box.insertAdjacentHTML("beforeend", h); } } } catch (e) { /* niente */ } return r; };
+  openPlus = function (...a) { const r = _openPlusAge.apply(this, a); agePlusKid(document.querySelector(".plusbox")); try { if (ageBand() !== "adult") { const box = document.querySelector(".plusbox"); if (box && !box.querySelector(".ageadult")) { const ft = box.querySelector(".plussticky"); const h = `<p class="small ageadult">${esc(ageT().adult)}</p>`; if (ft) ft.insertAdjacentHTML("beforebegin", h); else box.insertAdjacentHTML("beforeend", h); } } } catch (e) { /* niente */ } return r; };
 }
 
 /* (critica fase 2) "Ti mancano X Tanì": a bambini, ragazzi e a chi non ha detto l'eta' non si propone un pacchetto preciso

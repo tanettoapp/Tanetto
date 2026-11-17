@@ -45,7 +45,7 @@ async def main(b):
         ctx, pg = await T.page(b, st, native=True, age=age, wait=8000)
         await T.close_layer(pg)
         await T.ev(pg, "tab = 'more'; moreSub = 'prog'; render(); 1"); await pg.wait_for_timeout(500)
-        for _ in range(30):
+        for _ in range(30 if age != "child" else 12):  # 113: per il bambino il pulsante non arriva mai (si aspetta solo il controllo dei video)
             if await T.ev(pg, "!!document.getElementById('adGift')"): break
             await pg.wait_for_timeout(500); await T.ev(pg, "render(); 1")
         tz = await T.ev(pg, "(document.querySelector('.teaser .tz') || {}).textContent || ''")
@@ -59,7 +59,7 @@ async def main(b):
             T.check("G2-06 una riga spiega le due serie (regali = aperture, trofei = obiettivi)", "open Tanetto" in two and "trophies" in two, two)
         g1 = await T.ev(pg, "(document.getElementById('adGift') || {}).textContent || ''")
         if age == "child":
-            T.check("bambino: il video non dice 'double' ('an extra gift')", g1 and "double" not in g1.lower() and "extra gift" in g1, g1)
+            T.check("bambino (113, regole Families): nessun video con premio sul regalo del giorno", g1 == "" and await T.ev(pg, "document.querySelectorAll('.adbtn').length") == 0, g1)
         else:
             T.check("adulto, primo video: 'double your gift' (come prima)", "double your gift" in g1, g1)
             await pg.click("#adGift"); await pg.wait_for_timeout(1500)

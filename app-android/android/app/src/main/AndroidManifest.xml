@@ -56,6 +56,9 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
         <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-4252103380033748~4062639058"/>
+        <!-- 1.0.10 (113): la misurazione di Google legata agli annunci non parte da sola all'avvio, ma solo con MobileAds.initialize
+             (AdsPlugin.startSdk), che per chi risulta bambino (sotto i 13 anni o eta' non detta) non viene mai chiamato -->
+        <meta-data android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT" android:value="true"/>
     </application>
 
     <!-- 1.0.8: l'app si usa anche con mouse e tastiera (Chromebook senza schermo touch):
