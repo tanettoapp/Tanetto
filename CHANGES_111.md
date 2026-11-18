@@ -1,6 +1,6 @@
 # Tanetto 1.0.11 (versionCode 114): cosa cambia e perché
 
-Preparata il 17/11/2026 sul ramo `rel-111`. **Non è stata inviata a Google.**
+Preparata il 17/11/2026 e completata il 18/11/2026 sul ramo `rel-111`. **Non è stata inviata a Google.**
 È la versione che **sostituisce la 1.0.10 in revisione** (niente build 113: tutto è dentro la 1.0.11).
 
 **Prezzi mai toccati.** Una sola moneta (Tanì). Massimo 5 video al giorno, mai a chi dichiara meno di 13 anni.
@@ -128,15 +128,20 @@ non cambia).
 solo **13-15, 16-17, 18+** (nessuna fascia sotto i 13 anni).
 
 
-## 5) Prove (17/11/2026, tutte verdi)
+## 5) Prove (18/11/2026, tutte verdi)
 
-1) **Prove nuove e della 1.0.10 (tests/t110):** 25 suite, **2134 controlli OK, 0 NO**; parte nativa nel browser
-(widget, recensione, invito) **190 OK, 0 NO**.
+1) **Prove nuove e della 1.0.10 (tests/t110):** 27 suite, **2480 controlli OK, 0 NO** (compresa la parte nativa nel
+browser: widget, recensione, invito, 190 OK). Nuova `t_113_sfx`: il suono della scheda parte dentro il tocco
+(pointerdown), una volta sola, in calma/leggera, protetta, app Android e con la musica; indirizzo tanetto.app in 14 lingue
+e service worker sui due indirizzi del sito.
 
 2) **Prove storiche (1.0.8/1.0.9):** tfix_a-f, t7, t109, tcrit, t2-t6, accessibilità (36 schermate, 0 problemi),
-11 suite t38 e controllo delle 14 lingue: **tutte TUTTO OK** (oltre 1.770 controlli).
+11 suite t38 e controllo delle 14 lingue: **tutte TUTTO OK**. Ora i loro controlli sui file leggono davvero questo
+repository (prima una parte leggeva una copia vecchia in un'altra cartella); le attese cambiate apposta sono in
+`tests/legacy_patches.py`, ognuna con il motivo.
 
 3) **Widget disegnato con la grafica vera di Android (Robolectric):** 10 prove su 10.
 **Regole di Firestore con l'emulatore:** 25 casi su 25 (abusi compresi).
 
-4) **Build:** AAB e APK firmati con la stessa chiave di caricamento della 1.0.10, versionCode 114, versionName 1.0.11.
+4) **Build:** AAB e APK firmati con la stessa chiave di caricamento della 1.0.10, versionCode 114, versionName 1.0.11;
+app.js dentro l'AAB e l'APK identico a quello costruito.
