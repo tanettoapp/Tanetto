@@ -1,0 +1,176 @@
+<en-US>
+What's new in Tanetto:
+- A Home screen widget in two sizes, with your companion and how many goals you've done today
+- Choose a little icon to show next to your name
+- The room dresses up for seasonal events, each with its own music
+- A postcard of your week, ready at the end of every week
+- Invite a friend from your Profile
+- A new app icon and kinder words all around
+</en-US>
+<it-IT>
+Novità in Tanetto:
+- Widget per la schermata Home, in due misure, con il tuo compagno e quanti obiettivi hai fatto oggi
+- Scegli una piccola icona da mettere accanto al tuo nome
+- La stanza si veste a festa per gli eventi di stagione, ognuno con la sua musica
+- La cartolina della tua settimana, pronta alla fine di ogni settimana
+- Invita un amico dal Profilo
+- Nuova icona dell'app e parole ancora più gentili
+</it-IT>
+<de-DE>
+Neu in Tanetto:
+- Ein Widget für den Startbildschirm in zwei Größen, mit deinem Begleiter und wie viele Ziele du heute geschafft hast
+- Wähle ein kleines Symbol, das neben deinem Namen steht
+- Das Zimmer schmückt sich zu den Events der Saison, jedes mit eigener Musik
+- Eine Postkarte deiner Woche, fertig am Ende jeder Woche
+- Lade Freunde über dein Profil ein
+- Ein neues App-Symbol und noch freundlichere Worte
+</de-DE>
+<es-ES>
+Novedades en Tanetto:
+- Un widget para la pantalla de inicio, en dos tamaños, con tu compañero y cuántos objetivos has hecho hoy
+- Elige un pequeño icono para ponerlo junto a tu nombre
+- La habitación se viste de fiesta en los eventos de temporada, cada uno con su música
+- Una postal de tu semana, lista al final de cada semana
+- Nuevos destinos de Latinoamérica
+- Invita a un amigo desde tu Perfil
+- Nuevo icono de la app y palabras aún más amables
+</es-ES>
+<fr-FR>
+Nouveautés dans Tanetto :
+- Un widget pour l'écran d'accueil, en deux tailles, avec ton compagnon et le nombre d'objectifs faits aujourd'hui
+- Choisis une petite icône à afficher à côté de ton prénom
+- La chambre se fait belle pour les événements de saison, chacun avec sa musique
+- Une carte postale de ta semaine, prête à la fin de chaque semaine
+- Invite un ami depuis ton Profil
+- Une nouvelle icône d'app et des mots encore plus doux
+</fr-FR>
+<pt-BR>
+Novidades no Tanetto:
+- Um widget para a tela inicial, em dois tamanhos, com seu companheiro e quantas metas você fez hoje
+- Escolha um pequeno ícone para ficar ao lado do seu nome
+- O quarto se enfeita para os eventos da temporada, cada um com sua música
+- Um cartão-postal da sua semana, pronto no fim de cada semana
+- Convide um amigo pelo seu Perfil
+- Novo ícone do app e palavras ainda mais gentis
+</pt-BR>
+<ja-JP>
+Tanettoの新機能：
+- ホーム画面ウィジェット（2サイズ）。パートナーと今日の目標の達成数が見られます
+- 名前の横に表示する小さなアイコンを選べるように
+- 季節のイベントに合わせてお部屋が飾り付けられ、イベントごとに音楽も
+- 毎週の終わりに、1週間のポストカードが届きます
+- マイページから友だちを招待
+- 新しいアプリアイコンと、もっとやさしい言葉
+</ja-JP>
+<ko-KR>
+Tanetto의 새로운 기능:
+- 홈 화면 위젯(2가지 크기): 친구와 오늘 해낸 목표 수를 한눈에
+- 이름 옆에 놓을 작은 아이콘을 고를 수 있어요
+- 시즌 이벤트마다 방이 새롭게 꾸며지고, 이벤트마다 음악도 달라요
+- 매주 마지막 날, 한 주를 담은 엽서가 준비돼요
+- 프로필에서 친구 초대
+- 새 앱 아이콘과 더 다정해진 말투
+</ko-KR>
+<zh-CN>
+Tanetto 新内容：
+- 主屏幕小组件，两种尺寸，显示你的小伙伴和今天完成了几个目标
+- 可以选一个小图标，放在你的名字旁边
+- 季节活动时房间会换上节日装扮，每个活动都有自己的音乐
+- 每周结束时，为你准备一张这一周的明信片
+- 在“我的”中邀请好友
+- 全新的应用图标，用词也更加温柔
+</zh-CN>
+<zh-TW>
+Tanetto 新功能：
+- 主畫面小工具，兩種尺寸，顯示你的小夥伴和今天完成了幾個目標
+- 可以選一個小圖示，放在你的名字旁邊
+- 季節活動時房間會換上節日裝飾，每個活動都有專屬音樂
+- 每週結束時，為你準備一張這一週的明信片
+- 在「我的」邀請朋友
+- 全新的 App 圖示，用字也更加溫柔
+</zh-TW>
+<ru-RU>
+Что нового в Tanetto:
+- Виджет для главного экрана двух размеров: твой питомец и сколько целей выполнено сегодня
+- Маленький значок рядом с твоим именем — выбери любой
+- Комната украшается к сезонным событиям, у каждого своя музыка
+- Открытка о твоей неделе — в конце каждой недели
+- Приглашай друзей из профиля
+- Новый значок приложения и ещё более добрые слова
+</ru-RU>
+<pl-PL>
+Nowości w Tanetto:
+- Widżet na ekran główny w dwóch rozmiarach, z Twoim towarzyszem i liczbą celów zrobionych dzisiaj
+- Wybierz małą ikonkę, która pojawi się obok Twojego imienia
+- Pokój stroi się na wydarzenia sezonowe, każde z własną muzyką
+- Pocztówka z Twojego tygodnia, gotowa na koniec każdego tygodnia
+- Zaproś znajomego ze swojego Profilu
+- Polskie litery wyświetlają się teraz poprawnie
+- Nowa ikona aplikacji i jeszcze milsze słowa
+</pl-PL>
+<nl-NL>
+Nieuw in Tanetto:
+- Een widget voor je startscherm in twee formaten, met je maatje en hoeveel doelen je vandaag hebt gedaan
+- Kies een klein icoontje dat naast je naam staat
+- De kamer versiert zich voor seizoensevenementen, elk met eigen muziek
+- Een ansichtkaart van je week, klaar aan het eind van elke week
+- Nodig een vriend uit via je Profiel
+- Een nieuw app-icoon en nog vriendelijkere woorden
+</nl-NL>
+<tr-TR>
+Tanetto'da yenilikler:
+- Ana ekran için iki boyutta widget: arkadaşın ve bugün kaç hedef tamamladığın
+- Adının yanında duracak küçük bir simge seç
+- Oda sezon etkinliklerinde süsleniyor, her etkinliğin kendi müziği var
+- Haftanın sonunda, haftana ait bir kartpostal hazır
+- Profilinden bir arkadaşını davet et
+- Türkçe harfler artık doğru görünüyor
+- Yeni uygulama simgesi ve daha da nazik sözler
+</tr-TR>
+<es-US>
+Novedades en Tanetto:
+- Un widget para la pantalla de inicio, en dos tamaños, con tu compañero y cuántos objetivos has hecho hoy
+- Elige un pequeño icono para ponerlo junto a tu nombre
+- La habitación se viste de fiesta en los eventos de temporada, cada uno con su música
+- Una postal de tu semana, lista al final de cada semana
+- Nuevos destinos de Latinoamérica
+- Invita a un amigo desde tu Perfil
+- Nuevo icono de la app y palabras aún más amables
+</es-US>
+<fr-CA>
+Nouveautés dans Tanetto :
+- Un widget pour l'écran d'accueil, en deux tailles, avec ton compagnon et le nombre d'objectifs faits aujourd'hui
+- Choisis une petite icône à afficher à côté de ton prénom
+- La chambre se fait belle pour les événements de saison, chacun avec sa musique
+- Une carte postale de ta semaine, prête à la fin de chaque semaine
+- Invite un ami depuis ton Profil
+- Une nouvelle icône d'app et des mots encore plus doux
+</fr-CA>
+<pt-PT>
+Novidades no Tanetto:
+- Um widget para o ecrã principal, em dois tamanhos, com o teu companheiro e quantos objetivos já fizeste hoje
+- Escolhe um pequeno ícone para pôr ao lado do teu nome
+- O quarto enfeita-se para os eventos da época, cada um com a sua música
+- Um postal da tua semana, pronto no fim de cada semana
+- Convida um amigo a partir do teu Perfil
+- Novo ícone da app e palavras ainda mais simpáticas
+</pt-PT>
+<zh-HK>
+Tanetto 新功能：
+- 主畫面小工具，兩種尺寸，顯示你的小夥伴和今天完成了幾個目標
+- 可以選一個小圖示，放在你的名字旁邊
+- 季節活動時房間會換上節日裝飾，每個活動都有專屬音樂
+- 每週結束時，為你準備一張這一週的明信片
+- 在「我的」邀請朋友
+- 全新的 App 圖示，用字也更加溫柔
+</zh-HK>
+<es-419>
+Novedades en Tanetto:
+- Un widget para la pantalla de inicio, en dos tamaños, con tu compañero y cuántos objetivos has hecho hoy
+- Elige un pequeño icono para ponerlo junto a tu nombre
+- La habitación se viste de fiesta en los eventos de temporada, cada uno con su música
+- Una postal de tu semana, lista al final de cada semana
+- Nuevos destinos de Latinoamérica
+- Invita a un amigo desde tu Perfil
+- Nuevo icono de la app y palabras aún más amables
+</es-419>
