@@ -2,28 +2,43 @@ name: Discord daily post
 
 on:
   schedule:
-    - cron: "40 17 * * *"   # about 18:40 Italian winter time; GitHub may start a few minutes late
-  push:
-    branches: [main]
-    paths: ["social/discord/post.py", ".github/workflows/discord.yml"]
+    # Two tries a day, in UTC: 07:23 and 13:23 UTC = 08:23 and 14:23 in Italy in winter
+    # (09:23 and 15:23 in summer). GitHub often starts scheduled runs hours late (seen: 4-6 h)
+    # and can drop them; post.py takes the day in Italian time and posts a day only once,
+    # so the second try posts only if the first one did not.
+    - cron: "23 7 * * *"
+    - cron: "23 13 * * *"
   workflow_dispatch:
     inputs:
       date:
-        description: "Date to post (YYYY-MM-DD), empty = today"
+        description: "Date to post (YYYY-MM-DD), empty = today in Italy. Only today or up to 30 days back, never a future date. A date is never posted twice."
         required: false
 
 permissions:
   contents: read
+  actions: read
+
+concurrency:
+  group: discord-post
+  cancel-in-progress: false
 
 jobs:
   post:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09  # v5.1.0
         with:
           sparse-checkout: social/discord
-      - name: Post
+      - name: Date
+        id: date
+        env:
+          INPUT_DATE: ${{ github.event.inputs.date }}
+        run: python3 social/discord/post.py --date-only >> "$GITHUB_OUTPUT"
+      # The step name carries the date: post.py reads it in earlier runs to never post a day twice.
+      - name: Post ${{ steps.date.outputs.date }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          POST_DATE: ${{ github.event.inputs.date }}
+          POST_DATE: ${{ steps.date.outputs.date }}
+          GH_TOKEN: ${{ github.token }}
         run: python3 social/discord/post.py
