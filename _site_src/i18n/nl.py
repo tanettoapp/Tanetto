@@ -75,6 +75,7 @@ T = {
         ("Is Tanetto gratis?", "Ja. Je kunt Tanetto gratis downloaden en gebruiken: dagelijkse doelen, herinneringen, drie maatjes, reizen, ansichtkaarten, dagboek en minigames. Tanetto Plus is een optioneel abonnement met meer maatjes, reizen en extra's, en er zijn optionele pakketjes Tanì, de munten van de app. Betaalde verrassingsdozen zijn er niet."),
         ("Heeft Tanetto reclame?", "Alleen als je er zelf voor kiest. Een korte beloningsvideo speelt als je erop tikt, maximaal 5 keer per dag. Er springt niets vanzelf open, en met Plus is er helemaal geen reclame."),
         ("Heb ik een account nodig?", "Nee, alles werkt ook zonder. Als je wilt, log je in met Google of e-mail om gratis een back-up van je voortgang te maken en verder te gaan op een andere telefoon."),
+        ("Vanaf welke leeftijd is Tanetto?", "Tanetto is bedoeld voor mensen vanaf 13 jaar en is niet gericht op kinderen onder de 13. De eerste keer vraagt de app je geboortemaand en -jaar; die worden nooit naar ons verstuurd. Vul je een lagere leeftijd in, of zeg je het liever niet, dan werkt Tanetto in de beschermde modus: geen statistieken, geen online account, niets delen buiten de app en geen aanbiedingen om iets te kopen; onder de 13 zijn er helemaal geen advertenties."),
         ("Is Tanetto er voor iPhone?", "Nog niet in de App Store. Op een iPhone, iPad of computer kun je {web}: het is dezelfde Tanetto, gemaakt om in de browser te werken."),
         ("Wat gebeurt er als ik een dag mis?", "Niets ergs. Je maatje is nooit verdrietig of ziek, een rustdag per week telt mee, reeksschilden vangen drukke dagen op en een gemiste dag zet je dagelijkse cadeau niet terug op nul. Kom je terug na een pauze, dan krijg je een warm welkom."),
         ("Is Tanetto een alternatief voor Finch?", "Dat kan, want in de kern lijken ze op elkaar: een gewoontetracker met een virtueel huisdier dat groeit terwijl jij goed voor jezelf zorgt. Tanetto heeft wel eigen ideeën, zoals reizen naar echte plekken met ansichtkaarten en zeven 3D-maatjes. Meer in {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Download Tanetto en kies vandaag nog je eerste kleine doel.",
     "footer_label": "Handige links", "privacy": "Privacybeleid", "terms": "Gebruiksvoorwaarden", "press": "Perskit",
     "delete": "Je account verwijderen", "contact": "Contact",
+    "age_note": "Voor iedereen vanaf 13 jaar.",
     "made_by": "Met zorg gemaakt door Snugbloom Studio, Italië.",
     "play_tm": "Google Play en het Google Play-logo zijn handelsmerken van Google LLC.",
 }

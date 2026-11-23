@@ -75,6 +75,7 @@ T = {
         ("Is Tanetto free?", "Yes. You can download Tanetto and use it for free: daily goals, reminders, three companions, trips, postcards, the journal and the mini-games. Tanetto Plus is an optional subscription with more companions, trips and extras, and there are optional packs of Tanì, the coins of the app. There are no paid random boxes."),
         ("Does Tanetto have ads?", "Only if you choose to watch one. A short reward video plays when you tap it, up to 5 times a day. Nothing pops up on its own, and with Plus there are no ads at all."),
         ("Do I need an account?", "No. Everything works without one. If you like, you can sign in with Google or email to back up your progress for free and pick it up on another phone."),
+        ("What age is Tanetto for?", "Tanetto is for people aged 13 and up and isn't directed to children under 13. The first time, the app asks for month and year of birth, which are never sent to us. Anyone who enters a younger age, or prefers not to say, uses Tanetto in protected mode: no statistics, no online account, no sharing outside the app and no offers to buy; under 13 there are no ads at all."),
         ("Is Tanetto on iPhone?", "Not on the App Store yet. On an iPhone, an iPad or a computer you can {web}: it's the same Tanetto, made to run in the browser."),
         ("What happens if I miss a day?", "Nothing bad. Your companion is never sad or sick, a weekly rest day counts, streak shields cover the busy days and a missed day doesn't reset your daily gift. When you come back after a break, you get a warm welcome."),
         ("Is Tanetto an alternative to Finch?", "It can be. In spirit they are close: it's a habit tracker with a self-care pet that grows as you look after yourself. Tanetto has its own touches, like trips to real places with postcards and seven 3D companions. More in {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Download Tanetto and choose your first tiny goal today.",
     "footer_label": "Useful links", "privacy": "Privacy policy", "terms": "Terms of use", "press": "Press kit",
     "delete": "Delete your account", "contact": "Contact",
+    "age_note": "For ages 13 and up.",
     "made_by": "Made with care by Snugbloom Studio, Italy.",
     "play_tm": "Google Play and the Google Play logo are trademarks of Google LLC.",
 }

@@ -75,6 +75,7 @@ T = {
         ("Tanetto ücretsiz mi?", "Evet. Tanetto'yu ücretsiz indirip kullanabilirsin: günlük hedefler, hatırlatmalar, üç dost, yolculuklar, kartpostallar, günlük ve mini oyunlar. Tanetto Plus daha fazla dost, yolculuk ve ekstra sunan isteğe bağlı bir abonelik; ayrıca uygulamanın parası Tanì için isteğe bağlı paketler var. Ücretli sürpriz kutu yok."),
         ("Tanetto'da reklam var mı?", "Yalnızca sen izlemeyi seçersen. Kısa ödüllü video sen dokunduğunda açılır, günde en fazla 5 kez. Kendiliğinden hiçbir şey açılmaz, Plus ile de hiç reklam yok."),
         ("Hesap gerekiyor mu?", "Hayır, her şey hesapsız da çalışır. İstersen Google ya da e-posta ile giriş yapıp ilerlemeni ücretsiz yedekleyebilir ve başka bir telefonda devam edebilirsin."),
+        ("Tanetto kaç yaşından itibaren kullanılabilir?", "Tanetto 13 yaş ve üzerindekiler için tasarlandı ve 13 yaşından küçük çocuklara yönelik değildir. İlk seferde uygulama doğum ayını ve yılını sorar; bu bilgi bize asla gönderilmez. Daha küçük bir yaş giren ya da söylememeyi tercih eden kişi Tanetto'yu korumalı modda kullanır: istatistik yok, çevrimiçi hesap yok, uygulama dışına paylaşım yok ve satın alma teklifi yok; 13 yaşından küçükler için hiç reklam yoktur."),
         ("Tanetto iPhone'da var mı?", "Henüz App Store'da yok. iPhone, iPad ya da bilgisayardan {web}: tarayıcıda çalışmak için hazırlanmış aynı Tanetto."),
         ("Bir günü kaçırırsam ne olur?", "Kötü bir şey olmaz. Dostun asla üzgün ya da hasta olmaz, haftada bir dinlenme günü sayılır, seri kalkanları yoğun günleri korur ve kaçırılan bir gün günlük hediyeni sıfırlamaz. Bir aradan sonra döndüğünde seni sıcak bir karşılama bekler."),
         ("Tanetto, Finch alternatifi olabilir mi?", "Olabilir, çünkü ruhları birbirine yakın: sen kendine iyi baktıkça büyüyen sanal bir evcil hayvanı olan bir alışkanlık takip uygulaması. Ama Tanetto'nun kendi fikirleri var; kartpostallı gerçek yer gezileri ve yedi 3D dost gibi. Ayrıntılar {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Tanetto'yu indir ve ilk küçük hedefini bugün seç.",
     "footer_label": "Faydalı bağlantılar", "privacy": "Gizlilik politikası", "terms": "Kullanım koşulları", "press": "Basın kiti",
     "delete": "Hesabını sil", "contact": "İletişim",
+    "age_note": "13 yaş ve üzeri için.",
     "made_by": "Snugbloom Studio tarafından özenle yapıldı, İtalya.",
     "play_tm": "Google Play ve Google Play logosu, Google LLC'nin ticari markalarıdır.",
 }

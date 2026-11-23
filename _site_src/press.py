@@ -6,17 +6,19 @@ from PIL import Image
 
 e = lambda s: html.escape(s, quote=True)  # noqa: E731
 
+VERSION = "1.0.11"  # the version on Google Play: build.py checks that it is the same as its VERSION
+
 FACTS = [
     ("What it is", "A cozy self-care habit app with a little 3D companion, for Android. Habit tracker and virtual pet in one."),
     ("In one line", "Take care of yourself one tiny step at a time, and watch a little friend grow with you."),
     ("Developer", "Snugbloom Studio, a one-person studio in Italy."),
     ("Platform", "Android 7.0 and later, on Google Play. A version that runs in the browser is on the website."),
     ("On Google Play since", "10/11/2026 (version 1.0.8)."),
-    ("Current version", "1.0.10: a fresh look with a floating menu and a backpack that fills with every goal, a voice of its own for each companion, a Story picture to share on TikTok and Instagram, helplines for your country one tap away in the journal (and in the chat, with Plus), a new journal with a different question every day, and a missed day no longer resets the daily gift."),
-    ("Price", "Free to download. Optional Tanetto Plus subscription, monthly or yearly (prices in your currency on Google Play), and optional packs of Tanì, the in-app coins. No paid random boxes."),
+    ("Current version", VERSION + ": a home-screen widget in two sizes with your companion in 3D, the room that changes and plays its own music for seasonal events, a weekly postcard to share (only the 7 days and the season: no goals, mood or journal), an icon of your choice next to your name, a new app icon, four new Latin American destinations in Spanish and a gentler voice in all 14 languages."),
+    ("Price", "Free to download. Optional Tanetto Plus subscription, monthly or yearly (in Italy €4.99 a month or €44.99 a year; Google Play shows the price in each country's currency), and optional packs of Tanì, the in-app coins. No paid random boxes."),
     ("Ads", "Only reward videos that the user chooses to watch, up to 5 a day; nothing plays on its own. No ads with Plus. Anyone who enters an age under 13 gets no ads at all. For minors, and for anyone who prefers not to give their age, the videos are never personalised."),
     ("Languages (14)", "English, Italian, German, Spanish, French, Portuguese (Brazil), Japanese, Korean, Simplified Chinese, Traditional Chinese, Russian, Polish, Dutch, Turkish."),
-    ("Who it's for", "People aged 13 and up; Tanetto is not directed to children under 13. Anyone who enters a younger age, or prefers not to give their age, gets a protected mode: no statistics, no account or online backup, no sharing outside the app and no offers (and, under 13, no ads)."),
+    ("Who it's for", "People aged 13 and up; Tanetto is not directed to children under 13. The app asks once for month and year of birth: the age is declared by the user and checked only on the phone. Anyone who enters a younger age, or prefers not to give their age, gets a protected mode: no statistics, no Tanetto account or online backup, no sharing outside the app and no offers or nudges to buy, not even the free trial (and, under 13, no ads)."),
     ("Account", "Not needed. An optional account (Google or email) backs up progress for free. Accounts are only for people old enough to agree to it under the privacy law of their country (13 to 16, depending on the country)."),
     ("Companions", "Germo the sprout, Ondi the otter and Lumi the firefly are included for everyone. Miko the kitten, Rufi the fox, Pingo the penguin and Dori the little dragon come with Plus."),
     ("How it works", "Pick 3 to 8 tiny goals a day (a glass of water, a short walk, a few pages, an early night) and tick each one with a tap. Every goal packs something into the companion's backpack; a full backpack means a trip to a real place, half a backpack a short trip nearby, and every trip ends with a postcard for the album."),
@@ -25,18 +27,18 @@ FACTS = [
     ("Seasons and events", "Each season has its own path, a weekly challenge and a festival week: the Season of Lanterns until 31/12/2026, the Season of Stars from 01/01/2027 and the Kite Season from 01/03/2027. Christmas runs from 08/12 to 06/01."),
     ("Accessibility", "Larger text and a Fewer animations setting."),
     ("Safety", "Tanetto is a wellbeing and habit app, not a medical service, and does not replace professional help. The journal (and the chat, with Plus) shows helplines for the user's country, one tap away."),
-    ("Privacy", "Goals, journal and companion stay on the phone unless the user chooses to back them up."),
+    ("Privacy", "Goals, journal and companion are saved on the phone; a copy goes to a backup only if the user creates the optional account or has Android backup turned on."),
 ]
 
 ASSETS = [
     ("Brand", [("tanetto-icon-1024.png", "App icon: Germo the sprout (PNG, square)"),
                ("tanetto-feature-graphic.jpg", "Feature graphic with the Tanetto wordmark: all seven companions"),
                ("tanetto-feature-graphic-no-text.jpg", "Feature graphic without text")]),
-    ("Screenshots (English, version 1.0.10)", [(f"screen-en-{n:02d}.jpg", c) for n, c in enumerate([
+    (f"Screenshots (English, version {VERSION})", [(f"screen-en-{n:02d}.jpg", c) for n, c in enumerate([
         "Tiny goals, a happy little friend", "Watch your friend grow and celebrate each level",
-        "Trips to real places, a postcard for you", "Decorate a cosy room, one little thing at a time",
-        "Gentle reminders for water, breaks and sleep", "Elusive treasures, worth saving up for",
-        "With Plus: 24 world trips and 4 more companions", "Meet Germo and friends"], 1)]),
+        "Decorate a cosy room, one little thing at a time", "Trips to real places, a postcard for you",
+        "Gentle reminders for water, breaks and sleep", "Meet Germo and friends",
+        "With Plus: 24 world trips and 4 more companions", "Elusive treasures, worth saving up for"], 1)]),
     ("Companions", [("germo.png", "Germo the sprout, included for everyone (transparent PNG)"),
                     ("ondi.png", "Ondi the otter, included for everyone (transparent PNG)"),
                     ("lumi.png", "Lumi the firefly, included for everyone (transparent PNG)"),
@@ -71,7 +73,7 @@ REDIRECT = """<!doctype html>
 </html>
 """
 
-STORE = "/mnt/user-data/outputs/store_1010/en/phone"
+STORE = "/mnt/user-data/outputs/store_1011/en/phone"  # the 1.0.11 Store screenshots (same order as on Google Play)
 
 CSS = (".press .hero{grid-template-columns:1fr}.press h1{font-size:clamp(2.2rem,6vw,3.4rem)}"
        ".banner{border-radius:28px;box-shadow:var(--sh);margin-top:8px}"
@@ -155,7 +157,7 @@ def build(root, head_common, load, icon, badge, base):
              '<p>Snugbloom Studio, a one-person studio in Italy.</p></div></section></main>')
     b.append('<footer class="foot"><div class="wrap"><nav aria-label="Useful links"><ul class="links">'
              '<li><a href="en">Website</a></li><li><a href="privacy.html?lang=en#privacy">Privacy policy</a></li>'
-             '<li><a href="privacy.html?lang=en#terms">Terms of use</a></li><li><a href="mailto:tanettoapp@gmail.com">Contact</a></li></ul></nav>'
+             '<li><a href="terms?lang=en">Terms of use</a></li><li><a href="mailto:tanettoapp@gmail.com">Contact</a></li></ul></nav>'
              f'<p class="tm">{e(t["play_tm"])}</p></div></footer></body></html>')
     with open(os.path.join(root, "press-kit.html"), "w", encoding="utf-8") as f:
         f.write("\n".join(out + b) + "\n")

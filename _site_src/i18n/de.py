@@ -75,6 +75,7 @@ T = {
         ("Ist Tanetto kostenlos?", "Ja. Du kannst Tanetto kostenlos herunterladen und nutzen: Tagesziele, Erinnerungen, drei Begleiter, Reisen, Postkarten, Tagebuch und Minispiele. Tanetto Plus ist ein optionales Abo mit mehr Begleitern, Reisen und Extras, und es gibt optionale Pakete mit Tanì, den Münzen der App. Kostenpflichtige Überraschungsboxen gibt es nicht."),
         ("Hat Tanetto Werbung?", "Nur wenn du dich dafür entscheidest. Ein kurzes Belohnungsvideo läuft, wenn du darauf tippst, höchstens 5-mal am Tag. Von selbst springt nichts auf, und mit Plus gibt es gar keine Werbung."),
         ("Brauche ich ein Konto?", "Nein, alles funktioniert auch ohne. Wenn du möchtest, meldest du dich mit Google oder E-Mail an, sicherst deinen Fortschritt kostenlos und machst auf einem anderen Handy weiter."),
+        ("Ab welchem Alter ist Tanetto?", "Tanetto ist für Menschen ab 13 Jahren gedacht und richtet sich nicht an Kinder unter 13. Beim ersten Mal fragt die App nach Geburtsmonat und -jahr; die Angabe wird nie an uns gesendet. Wer ein jüngeres Alter angibt oder es lieber nicht sagt, nutzt Tanetto im geschützten Modus: keine Statistiken, kein Online-Konto, kein Teilen außerhalb der App und keine Kaufangebote; unter 13 gibt es überhaupt keine Werbung."),
         ("Gibt es Tanetto für das iPhone?", "Noch nicht im App Store. Auf iPhone, iPad oder Computer kannst du {web}: Es ist dasselbe Tanetto, nur für den Browser gemacht."),
         ("Was passiert, wenn ich einen Tag verpasse?", "Nichts Schlimmes. Dein Begleiter ist nie traurig oder krank, ein Ruhetag pro Woche zählt, Serienschilde helfen an vollen Tagen, und ein verpasster Tag setzt dein Tagesgeschenk nicht zurück. Nach einer Pause wirst du herzlich begrüßt."),
         ("Ist Tanetto eine Finch-Alternative?", "Gut möglich, denn im Grundgedanken sind sie sich nah: ein Gewohnheiten-Tracker mit einem Self-Care-Haustier, das wächst, während du auf dich achtest. Tanetto hat aber eigene Ideen, zum Beispiel Reisen an echte Orte mit Postkarten und sieben 3D-Begleiter. Mehr dazu {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Lade Tanetto herunter und wähle noch heute dein erstes kleines Ziel.",
     "footer_label": "Nützliche Links", "privacy": "Datenschutzerklärung", "terms": "Nutzungsbedingungen", "press": "Pressemappe",
     "delete": "Konto löschen", "contact": "Kontakt",
+    "age_note": "Für Menschen ab 13 Jahren.",
     "made_by": "Mit Liebe gemacht von Snugbloom Studio, Italien.",
     "play_tm": "Google Play und das Google Play-Logo sind Marken von Google LLC.",
 }

@@ -1,4 +1,4 @@
-"""Tanetto site: builds the 14 language pages, the press kit, sitemap.xml and robots.txt.
+"""Tanetto site: builds the 14 language pages, the 14 terms of use pages (terms.py), the press kit, sitemap.xml and robots.txt.
 
 Run from the repository root:  python3 _site_src/build.py
 The home page (index.html, https://tanetto.app/) is the English page with canonical "/" and a tiny script (site/lang.js)
@@ -54,6 +54,11 @@ SOCIAL = ["https://www.tiktok.com/@tanettoapp", "https://www.instagram.com/tanet
 
 
 _CACHE = {}
+
+
+def terms_slug(code):
+    """The terms of use page of a language: /terms (English, also for Google Play and the app) and /terms-<slug>."""
+    return "terms" if code == "en" else "terms-" + LANGS[code][0]
 
 
 def load(code):
@@ -233,6 +238,7 @@ def page(code, root=False):
         {"@type": "MobileApplication", "@id": canon + "#app", "name": "Tanetto", "alternateName": t["store_title"],
          "description": t["meta_desc"], "operatingSystem": "Android 7.0+", "applicationCategory": "HealthApplication",
          "applicationSubCategory": t["app_subcat"], "inLanguage": [v[1] for v in LANGS.values()],
+         "audience": {"@type": "PeopleAudience", "suggestedMinAge": 13},
          "url": canon, "downloadUrl": f"https://play.google.com/store/apps/details?id={PKG}",
          "installUrl": f"https://play.google.com/store/apps/details?id={PKG}", "image": BASE + "icon-512.png",
          "screenshot": shots, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "category": "free"},
@@ -262,7 +268,7 @@ def page(code, root=False):
     b.append(f'<div class="hero-text"><h1 id="h1"><span class="eyebrow">{D(t["eyebrow"])}</span> '
              f'<span>{D(t["h1a"])}</span> <span class="g">{D(t["h1b"])}</span></h1>'
              f'<p class="lead">{e(t["lead"])}</p><div class="cta">{badge(code, t, "hero")}'
-             f'<p class="note">{e(t["cta_note"])}</p></div>'
+             f'<p class="note">{e(t["cta_note"])} {e(t["age_note"])}</p></div>'
              f'<p class="web">{icon("phone")}<a href="{APP}" data-ev="web-hero">{e(t["web_link"])}</a></p></div>')
     b.append(f'<div class="hero-art"><div class="blob" aria-hidden="true"></div>'
              f'<img class="phone" src="site/img/{code}/hero-320.webp" srcset="site/img/{code}/hero-320.webp 320w, site/img/{code}/hero-480.webp 480w, site/img/{code}/hero-640.webp 640w" '
@@ -330,7 +336,7 @@ def page(code, root=False):
     # footer
     b.append(f'<footer class="foot"><div class="wrap"><nav aria-label="{e(t["footer_label"])}"><ul class="links">'
              f'<li><a href="privacy.html?lang={pcode}#privacy">{e(t["privacy"])}</a></li>'
-             f'<li><a href="privacy.html?lang={pcode}#terms">{e(t["terms"])}</a></li>'
+             f'<li><a href="{terms_slug(code)}">{e(t["terms"])}</a></li>'
              f'<li><a href="press-kit">{e(t["press"])}</a></li>'
              f'<li><a href="elimina-account.html">{e(t["delete"])}</a></li>'
              f'<li><a href="mailto:tanettoapp@gmail.com">{e(t["contact"])}</a></li></ul></nav>'
@@ -344,14 +350,19 @@ def page(code, root=False):
 
 def main():
     font_src = sys.argv[1] if len(sys.argv) > 1 else None
+    import terms
     for code, (slug, *_r) in LANGS.items():
         html_, disp = page(code)
-        subset_display_fonts(code, disp, font_src)
+        thtml, tdisp = terms.page(code, sys.modules[__name__])
+        subset_display_fonts(code, disp + tdisp, font_src)
         with open(os.path.join(ROOT, slug + ".html"), "w", encoding="utf-8") as f:
             f.write(html_)
+        with open(os.path.join(ROOT, terms_slug(code) + ".html"), "w", encoding="utf-8") as f:
+            f.write(thtml)
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(page("en", root=True)[0])
     import press
+    assert press.VERSION == VERSION, "press kit and site show different versions"
     press.build(ROOT, head_common, load, icon, badge, BASE)
     urls = [BASE + s for s, *_ in LANGS.values()]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -360,6 +371,10 @@ def main():
     alts += f'<xhtml:link rel="alternate" hreflang="x-default" href="{BASE}"/>'
     for u in [BASE] + urls:
         sm.append(f"<url><loc>{u}</loc>{alts}</url>")
+    talts = "".join(f'<xhtml:link rel="alternate" hreflang="{LANGS[c][1]}" href="{BASE}{terms_slug(c)}"/>' for c in LANGS)
+    talts += f'<xhtml:link rel="alternate" hreflang="x-default" href="{BASE}terms"/>'
+    for c in LANGS:
+        sm.append(f"<url><loc>{BASE}{terms_slug(c)}</loc>{talts}</url>")
     for u in (BASE + APP, BASE + "press-kit", BASE + "privacy.html"):
         sm.append(f"<url><loc>{u}</loc></url>")
     sm.append("</urlset>")

@@ -75,6 +75,7 @@ T = {
         ("Tanetto est-elle gratuite ?", "Oui. Tu peux télécharger Tanetto et l'utiliser gratuitement : objectifs du jour, rappels, trois compagnons, voyages, cartes postales, journal et mini-jeux. Tanetto Plus est un abonnement facultatif avec plus de compagnons, de voyages et de bonus, et il existe des packs facultatifs de Tanì, la monnaie de l'app. Pas de boîtes surprises payantes."),
         ("Y a-t-il de la pub ?", "Seulement si tu choisis d'en regarder une. Une courte vidéo récompensée se lance quand tu la touches, 5 fois par jour maximum. Rien ne s'affiche tout seul, et avec Plus il n'y a aucune publicité."),
         ("Faut-il un compte ?", "Non, tout fonctionne sans. Si tu veux, tu peux te connecter avec Google ou ton e-mail pour sauvegarder gratuitement ta progression et la retrouver sur un autre téléphone."),
+        ("À partir de quel âge peut-on utiliser Tanetto ?", "Tanetto est pour les personnes de 13 ans et plus et ne s'adresse pas aux enfants de moins de 13 ans. La première fois, l'app demande le mois et l'année de naissance, qui ne nous sont jamais envoyés. Si tu indiques un âge plus bas, ou si tu préfères ne pas le dire, Tanetto fonctionne en mode protégé : pas de statistiques, pas de compte en ligne, pas de partage en dehors de l'app et pas d'offres d'achat ; avant 13 ans, il n'y a aucune publicité."),
         ("Tanetto existe-t-elle sur iPhone ?", "Pas encore sur l'App Store. Sur iPhone, iPad ou ordinateur, tu peux {web} : c'est la même Tanetto, pensée pour fonctionner dans le navigateur."),
         ("Que se passe-t-il si je saute un jour ?", "Rien de grave. Ton compagnon n'est jamais triste ni malade, un jour de repos par semaine compte, les boucliers de série couvrent les journées chargées et un jour manqué ne remet pas ton cadeau du jour à zéro. Quand tu reviens après une pause, on t'accueille chaleureusement."),
         ("Tanetto est-elle une alternative à Finch ?", "Elle peut l'être, car dans l'esprit elles se ressemblent : une app de suivi d'habitudes avec un animal virtuel qui grandit pendant que tu prends soin de toi. Tanetto a ses propres idées, comme les voyages dans de vrais lieux avec des cartes postales et sept compagnons en 3D. Plus de détails dans {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Télécharge Tanetto et choisis dès aujourd'hui ton premier petit objectif.",
     "footer_label": "Liens utiles", "privacy": "Politique de confidentialité", "terms": "Conditions d'utilisation", "press": "Kit presse",
     "delete": "Supprimer ton compte", "contact": "Contact",
+    "age_note": "Pour les 13 ans et plus.",
     "made_by": "Faite avec soin par Snugbloom Studio, Italie.",
     "play_tm": "Google Play et le logo Google Play sont des marques de Google LLC.",
 }

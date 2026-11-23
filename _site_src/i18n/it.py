@@ -75,6 +75,7 @@ T = {
         ("Tanetto è gratis?", "Sì. Puoi scaricare Tanetto e usarla gratis: obiettivi, promemoria, tre compagni, viaggi, cartoline, diario e minigiochi. Tanetto Plus è un abbonamento facoltativo con più compagni, viaggi e extra, e ci sono pacchetti facoltativi di Tanì, le monete dell'app. Niente scatole a sorpresa a pagamento."),
         ("C'è pubblicità?", "Solo se scegli tu di guardarne una. Un breve video con premio parte quando lo tocchi, al massimo 5 volte al giorno. Non salta fuori niente da solo, e con Plus non c'è nessuna pubblicità."),
         ("Serve un account?", "No, funziona tutto anche senza. Se vuoi, puoi entrare con Google o con l'e-mail per salvare gratis i progressi e ritrovarli su un altro telefono."),
+        ("Da che età si può usare Tanetto?", "Tanetto è pensata per chi ha dai 13 anni in su e non è rivolta ai bambini sotto i 13 anni. La prima volta l'app chiede mese e anno di nascita, che non vengono mai inviati a noi. Chi indica un'età più bassa, o preferisce non dirla, usa Tanetto in modalità protetta: niente statistiche, niente account online, niente condivisione fuori dall'app e niente offerte; sotto i 13 anni non c'è nessuna pubblicità."),
         ("Tanetto c'è per iPhone?", "Non ancora sull'App Store. Da iPhone, iPad o computer puoi {web}: è la stessa Tanetto, fatta per funzionare nel browser."),
         ("Cosa succede se salto un giorno?", "Niente di brutto. Il tuo compagno non è mai triste né malato, un giorno di riposo a settimana conta, gli scudi della serie coprono le giornate piene e un giorno saltato non azzera il regalo del giorno. Quando torni dopo una pausa trovi un bentornato affettuoso."),
         ("Tanetto è un'alternativa a Finch?", "Può esserlo, perché nello spirito si somigliano: è un tracker delle abitudini con un cucciolo virtuale che cresce mentre ti prendi cura di te. Tanetto ha però le sue idee, come i viaggi in posti veri con le cartoline e sette compagni in 3D. Trovi di più nel {finch}."),
@@ -87,6 +88,7 @@ T = {
     "final_text": "Scarica Tanetto e scegli oggi il tuo primo piccolo obiettivo.",
     "footer_label": "Link utili", "privacy": "Informativa sulla privacy", "terms": "Condizioni d'uso", "press": "Kit per la stampa",
     "delete": "Elimina il tuo account", "contact": "Contatti",
+    "age_note": "Per chi ha dai 13 anni in su.",
     "made_by": "Fatta con cura da Snugbloom Studio, Italia.",
     "play_tm": "Google Play e il logo Google Play sono marchi di Google LLC.",
 }
